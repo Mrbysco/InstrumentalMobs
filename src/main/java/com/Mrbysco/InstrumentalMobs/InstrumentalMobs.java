@@ -23,8 +23,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 @Mod(modid = Reference.MOD_ID, 
 	name = Reference.MOD_NAME, 
 	version = Reference.VERSION, 
-	acceptedMinecraftVersions = Reference.ACCEPTED_VERSIONS,
-	dependencies = Reference.DEPENDENCIES)
+	acceptedMinecraftVersions = Reference.ACCEPTED_VERSIONS)
 
 public class InstrumentalMobs {
 	@Instance(Reference.MOD_ID)
