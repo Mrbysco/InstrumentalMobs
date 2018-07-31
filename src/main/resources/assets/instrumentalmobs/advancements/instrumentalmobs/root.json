@@ -1,0 +1,63 @@
+{
+    "display": {
+        "icon": {
+            "item": "minecraft:noteblock"
+        },
+        "title": {
+            "translate": "Instrumental Mobs"
+        },
+        "description": {
+            "translate": "Getting instrumental with mobs"
+        },
+        "background": "textures/blocks/wool_colored_yellow.png",
+        "show_toast": true,
+        "announce_to_chat": true
+    },
+ "criteria":{  
+    "frenchhorn":{  
+		"trigger": "minecraft:player_killed_entity",
+		"conditions": {
+			"entity": {"type": "instrumentalmobs:french_horn_creeper" }
+		}
+    },
+    "tuba":{  
+		"trigger": "minecraft:player_killed_entity",
+		"conditions": {
+			"entity": {"type": "instrumentalmobs:tuba_enderman" }
+		}
+    },
+    "drum":{  
+		"trigger": "minecraft:player_killed_entity",
+		"conditions": {
+			"entity": {"type": "instrumentalmobs:drum_zombie" }
+		}
+    },
+    "cymbal":{  
+		"trigger": "minecraft:player_killed_entity",
+		"conditions": {
+			"entity": {"type": "instrumentalmobs:cymbal_husk" }
+		}
+    },
+    "xylophone":{  
+		"trigger": "minecraft:player_killed_entity",
+		"conditions": {
+			"entity": {"type": "instrumentalmobs:xylophone_skeleton" }
+		}
+    },
+    "maracas":{  
+		"trigger": "minecraft:player_killed_entity",
+		"conditions": {
+			"entity": {"type": "instrumentalmobs:maraca_spider" }
+		}
+    },
+    "microphone":{  
+		"trigger": "minecraft:player_killed_entity",
+		"conditions": {
+			"entity": {"type": "instrumentalmobs:microphone_ghast" }
+		}
+    }
+   },
+  "requirements": [
+        ["frenchhorn", "tuba", "drum", "cymbal", "xylophone", "maracas", "microphone"]
+    ]
+}

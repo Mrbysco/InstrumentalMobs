@@ -1,0 +1,14 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"ingredients": [
+		{
+			"item": "instrumentalmobs:cymbal"
+		},
+		{
+			"item": "instrumentalmobs:cymbal"
+		}
+	],
+	"result": {
+		"item": "instrumentalmobs:cymbals"
+	}
+}

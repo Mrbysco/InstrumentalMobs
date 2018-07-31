@@ -1,0 +1,30 @@
+{
+    "display": {
+        "icon": {
+            "item": "instrumentalmobs:xylophone"
+        },
+        "title": {
+            "translate": "Xylophone"
+        },
+        "description": {
+            "translate": "Did you enjoy the skeletons?"
+        },
+        "frame": "task",
+        "hidden": false,
+        "show_toast": true,
+        "announce_to_chat": false
+        },
+    "parent": "instrumentalmobs:instrumentalmobs/root",
+    "criteria": {
+        "info": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "instrumentalmobs:xylophone"
+                    }
+                ]
+            }
+        }
+    }
+}

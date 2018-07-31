@@ -1,0 +1,30 @@
+{
+    "display": {
+        "icon": {
+            "item": "instrumentalmobs:french_horn"
+        },
+        "title": {
+            "translate": "French Horn"
+        },
+        "description": {
+            "translate": "I see you met my French Horn creeper(s)? Had fun??"
+        },
+        "frame": "task",
+        "hidden": false,
+        "show_toast": true,
+        "announce_to_chat": false
+        },
+    "parent": "instrumentalmobs:instrumentalmobs/root",
+    "criteria": {
+        "info": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "instrumentalmobs:french_horn"
+                    }
+                ]
+            }
+        }
+    }
+}

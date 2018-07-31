@@ -1,0 +1,30 @@
+{
+    "display": {
+        "icon": {
+            "item": "instrumentalmobs:maracas"
+        },
+        "title": {
+            "translate": "Maracas"
+        },
+        "description": {
+            "translate": "*tssch* La Cucaracha *tssch*"
+        },
+        "frame": "task",
+        "hidden": false,
+        "show_toast": true,
+        "announce_to_chat": false
+        },
+    "parent": "instrumentalmobs:instrumentalmobs/root",
+    "criteria": {
+        "info": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "instrumentalmobs:maracas"
+                    }
+                ]
+            }
+        }
+    }
+}

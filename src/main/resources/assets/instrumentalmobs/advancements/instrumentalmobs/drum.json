@@ -1,0 +1,30 @@
+{
+    "display": {
+        "icon": {
+            "item": "instrumentalmobs:drum"
+        },
+        "title": {
+            "translate": "Drum"
+        },
+        "description": {
+            "translate": "You've heard of the Little Drummer Boy, well now you've met my Drummer Zombie(s) *Badumnn Tsss*"
+        },
+        "frame": "task",
+        "hidden": false,
+        "show_toast": true,
+        "announce_to_chat": false
+        },
+    "parent": "instrumentalmobs:instrumentalmobs/root",
+    "criteria": {
+        "info": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "instrumentalmobs:drum"
+                    }
+                ]
+            }
+        }
+    }
+}

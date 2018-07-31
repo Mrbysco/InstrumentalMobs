@@ -1,0 +1,72 @@
+package com.Mrbysco.InstrumentalMobs.render;
+
+import java.util.Random;
+
+import com.Mrbysco.InstrumentalMobs.entities.EntityTubaEnderman;
+import com.Mrbysco.InstrumentalMobs.render.layers.LayerTubaEndermanEyes;
+import com.Mrbysco.InstrumentalMobs.render.layers.LayerTubaEndermanHoldItem;
+import com.Mrbysco.InstrumentalMobs.render.model.modelTubaEnderman;
+
+import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.client.registry.IRenderFactory;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+@SideOnly(Side.CLIENT)
+public class RenderTubaEnderman extends RenderLiving<EntityTubaEnderman>{    
+	private static final ResourceLocation ENDERMAN_TEXTURES = new ResourceLocation("textures/entity/enderman/enderman.png");
+	private final Random rnd = new Random();
+	
+	public static final Factory FACTORY = new Factory();
+	
+	public RenderTubaEnderman(RenderManager renderManagerIn) {
+        super(renderManagerIn, new modelTubaEnderman(0.0F), 0.5F);
+        this.addLayer(new LayerTubaEndermanEyes(this));
+        this.addLayer(new LayerTubaEndermanHoldItem(this));
+	}
+	
+	public modelTubaEnderman getMainModel()
+    {
+        return (modelTubaEnderman)super.getMainModel();
+    }
+
+    /**
+     * Renders the desired {@code T} type Entity.
+     */
+    public void doRender(EntityTubaEnderman entity, double x, double y, double z, float entityYaw, float partialTicks)
+    {
+        ItemStack heldStack = entity.getHeldItem(EnumHand.MAIN_HAND);
+        modelTubaEnderman modelenderman = this.getMainModel();
+        modelenderman.isCarrying = !heldStack.isEmpty();
+        modelenderman.isAttacking = entity.isScreaming();
+
+        if (entity.isScreaming())
+        {
+            double d0 = 0.02D;
+            x += this.rnd.nextGaussian() * 0.02D;
+            z += this.rnd.nextGaussian() * 0.02D;
+        }
+
+        super.doRender(entity, x, y, z, entityYaw, partialTicks);
+    }
+
+    /**
+     * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
+     */
+    protected ResourceLocation getEntityTexture(EntityTubaEnderman entity)
+    {
+        return ENDERMAN_TEXTURES;
+    }
+    
+	public static class Factory implements IRenderFactory<EntityTubaEnderman> {
+		@Override
+		public Render<? super EntityTubaEnderman> createRenderFor(RenderManager manager) {
+			return new RenderTubaEnderman(manager);
+		}
+	}
+}

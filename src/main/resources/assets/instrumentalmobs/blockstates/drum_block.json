@@ -1,0 +1,23 @@
+{
+    "variants": {
+        "damage=0": { "model": "instrumentalmobs:drum" },
+        "damage=1": { "model": "instrumentalmobs:drum" },
+        "damage=2": { "model": "instrumentalmobs:drum" },
+        "damage=3": { "model": "instrumentalmobs:drum" },
+        "damage=4": { "model": "instrumentalmobs:drum" },
+        "damage=5": { "model": "instrumentalmobs:drum" },
+        "damage=6": { "model": "instrumentalmobs:drum" },
+        "damage=7": { "model": "instrumentalmobs:drum" },
+        "damage=8": { "model": "instrumentalmobs:drum" },
+        "damage=9": { "model": "instrumentalmobs:drum" },
+        "damage=10": { "model": "instrumentalmobs:drum" },
+        "damage=11": { "model": "instrumentalmobs:drum" },
+        "damage=12": { "model": "instrumentalmobs:drum" },
+        "damage=13": { "model": "instrumentalmobs:drum" },
+        "damage=14": { "model": "instrumentalmobs:drum" },
+        "damage=15": { "model": "instrumentalmobs:drum" },
+		"inventory": [{
+			"model": "instrumentalmobs:drum"
+		}]
+    }
+}

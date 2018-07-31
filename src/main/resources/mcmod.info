@@ -1,0 +1,16 @@
+[
+	{
+	  "modid": "instrumentalmobs",
+	  "name": "Instrumental Mobs",
+	  "description": "Adds instrumental mobs to Minecraft.",
+	  "version": "${version}",
+	  "mcversion": "${mcversion}",
+	  "url": "",
+	  "updateUrl": "",
+	  "authorList": ["Mrbysco"],
+	  "credits": "Darkosto's chat for inspiring me",
+	  "logoFile": "",
+	  "screenshots": [],
+	  "dependencies": []
+	}
+]

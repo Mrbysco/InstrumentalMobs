@@ -1,0 +1,30 @@
+{
+    "display": {
+        "icon": {
+            "item": "instrumentalmobs:microphone"
+        },
+        "title": {
+            "translate": "Microphone"
+        },
+        "description": {
+            "translate": "Just scream..."
+        },
+        "frame": "task",
+        "hidden": false,
+        "show_toast": true,
+        "announce_to_chat": false
+        },
+    "parent": "instrumentalmobs:instrumentalmobs/root",
+    "criteria": {
+        "info": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "instrumentalmobs:microphone"
+                    }
+                ]
+            }
+        }
+    }
+}
