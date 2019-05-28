@@ -1,14 +1,14 @@
-package com.Mrbysco.InstrumentalMobs;
+package com.mrbysco.instrumentalmobs;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.Mrbysco.InstrumentalMobs.config.InstrumentalConfigGen;
-import com.Mrbysco.InstrumentalMobs.init.InstrumentalLootTables;
-import com.Mrbysco.InstrumentalMobs.init.InstrumentalMobRegistry;
-import com.Mrbysco.InstrumentalMobs.init.InstrumentalSounds;
-import com.Mrbysco.InstrumentalMobs.init.InstrumentalTab;
-import com.Mrbysco.InstrumentalMobs.proxy.CommonProxy;
+import com.mrbysco.instrumentalmobs.config.InstrumentalConfigGen;
+import com.mrbysco.instrumentalmobs.init.InstrumentalLootTables;
+import com.mrbysco.instrumentalmobs.init.InstrumentalMobRegistry;
+import com.mrbysco.instrumentalmobs.init.InstrumentalSounds;
+import com.mrbysco.instrumentalmobs.init.InstrumentalTab;
+import com.mrbysco.instrumentalmobs.proxy.CommonProxy;
 
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.MinecraftForge;

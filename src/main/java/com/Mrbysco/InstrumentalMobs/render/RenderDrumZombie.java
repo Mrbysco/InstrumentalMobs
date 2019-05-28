@@ -1,7 +1,7 @@
-package com.Mrbysco.InstrumentalMobs.render;
+package com.mrbysco.instrumentalmobs.render;
 
-import com.Mrbysco.InstrumentalMobs.entities.EntityDrumZombie;
-import com.Mrbysco.InstrumentalMobs.render.layers.LayerDrumForZombie;
+import com.mrbysco.instrumentalmobs.entities.EntityDrumZombie;
+import com.mrbysco.instrumentalmobs.render.layers.LayerDrumForZombie;
 
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;

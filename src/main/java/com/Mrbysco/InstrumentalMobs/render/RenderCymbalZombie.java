@@ -1,8 +1,8 @@
-package com.Mrbysco.InstrumentalMobs.render;
+package com.mrbysco.instrumentalmobs.render;
 
-import com.Mrbysco.InstrumentalMobs.entities.EntityCymbalHusk;
-import com.Mrbysco.InstrumentalMobs.render.layers.LayerRenderCymbals;
-import com.Mrbysco.InstrumentalMobs.render.model.ModelCymbalHusk;
+import com.mrbysco.instrumentalmobs.entities.EntityCymbalHusk;
+import com.mrbysco.instrumentalmobs.render.layers.LayerRenderCymbals;
+import com.mrbysco.instrumentalmobs.render.model.ModelCymbalHusk;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;

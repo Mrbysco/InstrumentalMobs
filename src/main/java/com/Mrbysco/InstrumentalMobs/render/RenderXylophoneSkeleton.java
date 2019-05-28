@@ -1,8 +1,8 @@
-package com.Mrbysco.InstrumentalMobs.render;
+package com.mrbysco.instrumentalmobs.render;
 
-import com.Mrbysco.InstrumentalMobs.entities.EntityXylophoneSkeletal;
-import com.Mrbysco.InstrumentalMobs.render.layers.LayerHeldBones;
-import com.Mrbysco.InstrumentalMobs.render.model.ModelXylophoneSkeleton;
+import com.mrbysco.instrumentalmobs.entities.EntityXylophoneSkeletal;
+import com.mrbysco.instrumentalmobs.render.layers.LayerHeldBones;
+import com.mrbysco.instrumentalmobs.render.model.ModelXylophoneSkeleton;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;

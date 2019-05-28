@@ -1,6 +1,6 @@
-package com.Mrbysco.InstrumentalMobs.config;
+package com.mrbysco.instrumentalmobs.config;
 
-import com.Mrbysco.InstrumentalMobs.Reference;
+import com.mrbysco.instrumentalmobs.Reference;
 
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;

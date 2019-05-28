@@ -1,6 +1,6 @@
-package com.Mrbysco.InstrumentalMobs.render.model;
+package com.mrbysco.instrumentalmobs.render.model;
 
-import com.Mrbysco.InstrumentalMobs.entities.EntityXylophoneSkeletal;
+import com.mrbysco.instrumentalmobs.entities.EntityXylophoneSkeletal;
 
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;

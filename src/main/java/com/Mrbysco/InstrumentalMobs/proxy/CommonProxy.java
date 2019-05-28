@@ -1,4 +1,4 @@
-package com.Mrbysco.InstrumentalMobs.proxy;
+package com.mrbysco.instrumentalmobs.proxy;
 
 public class CommonProxy {
 	public void PreInit() {

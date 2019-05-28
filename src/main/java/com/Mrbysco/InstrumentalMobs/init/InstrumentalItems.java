@@ -1,11 +1,11 @@
-package com.Mrbysco.InstrumentalMobs.init;
+package com.mrbysco.instrumentalmobs.init;
 
 import java.util.ArrayList;
 
-import com.Mrbysco.InstrumentalMobs.items.DrumInstrument;
-import com.Mrbysco.InstrumentalMobs.items.InstrumentItem;
-import com.Mrbysco.InstrumentalMobs.items.InstrumentMicrophone;
-import com.Mrbysco.InstrumentalMobs.items.InstrumentSilentItem;
+import com.mrbysco.instrumentalmobs.items.DrumInstrument;
+import com.mrbysco.instrumentalmobs.items.InstrumentItem;
+import com.mrbysco.instrumentalmobs.items.InstrumentMicrophone;
+import com.mrbysco.instrumentalmobs.items.InstrumentSilentItem;
 
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;

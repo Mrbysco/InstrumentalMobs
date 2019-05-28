@@ -1,4 +1,4 @@
-package com.Mrbysco.InstrumentalMobs.render.model;
+package com.mrbysco.instrumentalmobs.render.model;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;

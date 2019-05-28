@@ -1,15 +1,14 @@
-package com.Mrbysco.InstrumentalMobs.init;
+package com.mrbysco.instrumentalmobs.init;
 
-import java.util.ArrayList;
-
-import com.Mrbysco.InstrumentalMobs.blocks.DrumBlock;
-
+import com.mrbysco.instrumentalmobs.blocks.DrumBlock;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
+
+import java.util.ArrayList;
 
 @EventBusSubscriber
 public class InstrumentalBlocks {

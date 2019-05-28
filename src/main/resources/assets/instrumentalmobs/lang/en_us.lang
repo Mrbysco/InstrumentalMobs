@@ -27,6 +27,7 @@ entity.instrumentalmobs:CymbalHusk.name=Cymbal Husk
 entity.instrumentalmobs:MaracaSpider.name=Maraca Spider
 entity.instrumentalmobs:MicrophoneGhast.name=Microphone Ghast
 entity.instrumentalmobs:SoundWaves.name=Soundwave
+entity.instrumentalmobs:MicrophoneWave.name=Soundwave
 
 #Subtitles
 instrumentalmobs.subtitle.xylophone=Skeleton plays their ribs like a xylophone

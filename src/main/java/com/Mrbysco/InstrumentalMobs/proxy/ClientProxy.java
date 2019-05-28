@@ -1,26 +1,28 @@
-package com.Mrbysco.InstrumentalMobs.proxy;
+package com.mrbysco.instrumentalmobs.proxy;
 
-import com.Mrbysco.InstrumentalMobs.entities.EntityCymbalHusk;
-import com.Mrbysco.InstrumentalMobs.entities.EntityDrumZombie;
-import com.Mrbysco.InstrumentalMobs.entities.EntityFrenchHornCreeper;
-import com.Mrbysco.InstrumentalMobs.entities.EntityMaracaSpider;
-import com.Mrbysco.InstrumentalMobs.entities.EntityMicrophoneGhast;
-import com.Mrbysco.InstrumentalMobs.entities.EntityTubaEnderman;
-import com.Mrbysco.InstrumentalMobs.entities.EntityXylophoneSkeletal;
-import com.Mrbysco.InstrumentalMobs.entities.projectiles.EntitySoundWaves;
-import com.Mrbysco.InstrumentalMobs.init.InstrumentalBlocks;
-import com.Mrbysco.InstrumentalMobs.init.InstrumentalItems;
-import com.Mrbysco.InstrumentalMobs.render.RenderCymbalZombie;
-import com.Mrbysco.InstrumentalMobs.render.RenderDrumZombie;
-import com.Mrbysco.InstrumentalMobs.render.RenderFrenchHornCreeper;
-import com.Mrbysco.InstrumentalMobs.render.RenderMaracaSpider;
-import com.Mrbysco.InstrumentalMobs.render.RenderMicrophoneGhast;
-import com.Mrbysco.InstrumentalMobs.render.RenderSoundWaves;
-import com.Mrbysco.InstrumentalMobs.render.RenderTubaEnderman;
-import com.Mrbysco.InstrumentalMobs.render.RenderXylophoneSkeleton;
-
+import com.mrbysco.instrumentalmobs.entities.EntityCymbalHusk;
+import com.mrbysco.instrumentalmobs.entities.EntityDrumZombie;
+import com.mrbysco.instrumentalmobs.entities.EntityFrenchHornCreeper;
+import com.mrbysco.instrumentalmobs.entities.EntityMaracaSpider;
+import com.mrbysco.instrumentalmobs.entities.EntityMicrophoneGhast;
+import com.mrbysco.instrumentalmobs.entities.EntityTubaEnderman;
+import com.mrbysco.instrumentalmobs.entities.EntityXylophoneSkeletal;
+import com.mrbysco.instrumentalmobs.entities.projectiles.EntityMicrophoneWave;
+import com.mrbysco.instrumentalmobs.entities.projectiles.EntitySoundWaves;
+import com.mrbysco.instrumentalmobs.init.InstrumentalBlocks;
+import com.mrbysco.instrumentalmobs.init.InstrumentalItems;
+import com.mrbysco.instrumentalmobs.render.RenderCymbalZombie;
+import com.mrbysco.instrumentalmobs.render.RenderDrumZombie;
+import com.mrbysco.instrumentalmobs.render.RenderFrenchHornCreeper;
+import com.mrbysco.instrumentalmobs.render.RenderMaracaSpider;
+import com.mrbysco.instrumentalmobs.render.RenderMicrophoneGhast;
+import com.mrbysco.instrumentalmobs.render.RenderSoundWaves;
+import com.mrbysco.instrumentalmobs.render.RenderTubaEnderman;
+import com.mrbysco.instrumentalmobs.render.RenderXylophoneSkeleton;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
@@ -55,6 +57,7 @@ public class ClientProxy extends CommonProxy{
 		RenderingRegistry.registerEntityRenderingHandler(EntityMaracaSpider.class, RenderMaracaSpider.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityMicrophoneGhast.class, RenderMicrophoneGhast.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntitySoundWaves.class, RenderSoundWaves.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityMicrophoneWave.class, renderManager -> new RenderSnowball(renderManager, InstrumentalItems.microphone, Minecraft.getMinecraft().getRenderItem()));
 	}
 	
 	@SubscribeEvent

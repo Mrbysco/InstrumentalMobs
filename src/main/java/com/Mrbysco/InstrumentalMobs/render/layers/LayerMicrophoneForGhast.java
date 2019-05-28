@@ -1,7 +1,7 @@
-package com.Mrbysco.InstrumentalMobs.render.layers;
+package com.mrbysco.instrumentalmobs.render.layers;
 
-import com.Mrbysco.InstrumentalMobs.entities.EntityMicrophoneGhast;
-import com.Mrbysco.InstrumentalMobs.render.RenderMicrophoneGhast;
+import com.mrbysco.instrumentalmobs.entities.EntityMicrophoneGhast;
+import com.mrbysco.instrumentalmobs.render.RenderMicrophoneGhast;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;

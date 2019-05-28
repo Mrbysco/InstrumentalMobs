@@ -1,9 +1,9 @@
-package com.Mrbysco.InstrumentalMobs.entities;
+package com.mrbysco.instrumentalmobs.entities;
 
-import com.Mrbysco.InstrumentalMobs.entities.ai.EntityAiHuskAttackInstrument;
-import com.Mrbysco.InstrumentalMobs.init.InstrumentalItems;
-import com.Mrbysco.InstrumentalMobs.init.InstrumentalLootTables;
-import com.Mrbysco.InstrumentalMobs.init.InstrumentalSounds;
+import com.mrbysco.instrumentalmobs.entities.ai.EntityAiHuskAttackInstrument;
+import com.mrbysco.instrumentalmobs.init.InstrumentalItems;
+import com.mrbysco.instrumentalmobs.init.InstrumentalLootTables;
+import com.mrbysco.instrumentalmobs.init.InstrumentalSounds;
 
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;

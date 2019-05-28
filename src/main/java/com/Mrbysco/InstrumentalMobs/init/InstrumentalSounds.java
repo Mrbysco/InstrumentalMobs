@@ -1,6 +1,6 @@
-package com.Mrbysco.InstrumentalMobs.init;
+package com.mrbysco.instrumentalmobs.init;
 
-import com.Mrbysco.InstrumentalMobs.Reference;
+import com.mrbysco.instrumentalmobs.Reference;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;

@@ -1,6 +1,6 @@
-package com.Mrbysco.InstrumentalMobs.entities.ai;
+package com.mrbysco.instrumentalmobs.entities.ai;
 
-import com.Mrbysco.InstrumentalMobs.entities.EntityXylophoneSkeletal;
+import com.mrbysco.instrumentalmobs.entities.EntityXylophoneSkeletal;
 
 import net.minecraft.util.SoundEvent;
 

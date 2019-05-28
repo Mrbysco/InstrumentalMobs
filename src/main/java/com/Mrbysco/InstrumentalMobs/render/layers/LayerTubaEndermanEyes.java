@@ -1,7 +1,7 @@
-package com.Mrbysco.InstrumentalMobs.render.layers;
+package com.mrbysco.instrumentalmobs.render.layers;
 
-import com.Mrbysco.InstrumentalMobs.entities.EntityTubaEnderman;
-import com.Mrbysco.InstrumentalMobs.render.RenderTubaEnderman;
+import com.mrbysco.instrumentalmobs.entities.EntityTubaEnderman;
+import com.mrbysco.instrumentalmobs.render.RenderTubaEnderman;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;

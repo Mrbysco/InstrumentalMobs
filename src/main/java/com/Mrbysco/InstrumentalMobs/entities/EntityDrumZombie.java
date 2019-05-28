@@ -1,9 +1,9 @@
-package com.Mrbysco.InstrumentalMobs.entities;
+package com.mrbysco.instrumentalmobs.entities;
 
-import com.Mrbysco.InstrumentalMobs.entities.ai.EntityAiZombieAttackInstrument;
-import com.Mrbysco.InstrumentalMobs.init.InstrumentalBlocks;
-import com.Mrbysco.InstrumentalMobs.init.InstrumentalLootTables;
-import com.Mrbysco.InstrumentalMobs.init.InstrumentalSounds;
+import com.mrbysco.instrumentalmobs.entities.ai.EntityAiZombieAttackInstrument;
+import com.mrbysco.instrumentalmobs.init.InstrumentalBlocks;
+import com.mrbysco.instrumentalmobs.init.InstrumentalLootTables;
+import com.mrbysco.instrumentalmobs.init.InstrumentalSounds;
 
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;

@@ -1,10 +1,10 @@
-package com.Mrbysco.InstrumentalMobs.entities;
+package com.mrbysco.instrumentalmobs.entities;
 
 import java.util.Random;
 
-import com.Mrbysco.InstrumentalMobs.entities.projectiles.EntitySoundWaves;
-import com.Mrbysco.InstrumentalMobs.init.InstrumentalItems;
-import com.Mrbysco.InstrumentalMobs.init.InstrumentalLootTables;
+import com.mrbysco.instrumentalmobs.entities.projectiles.EntitySoundWaves;
+import com.mrbysco.instrumentalmobs.init.InstrumentalItems;
+import com.mrbysco.instrumentalmobs.init.InstrumentalLootTables;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIBase;

@@ -1,9 +1,8 @@
-package com.Mrbysco.InstrumentalMobs.items;
+package com.mrbysco.instrumentalmobs.items;
 
-import com.Mrbysco.InstrumentalMobs.InstrumentalMobs;
-import com.Mrbysco.InstrumentalMobs.Reference;
-import com.Mrbysco.InstrumentalMobs.entities.projectiles.EntitySoundWaves;
-
+import com.mrbysco.instrumentalmobs.InstrumentalMobs;
+import com.mrbysco.instrumentalmobs.Reference;
+import com.mrbysco.instrumentalmobs.entities.projectiles.EntityMicrophoneWave;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
@@ -21,7 +20,7 @@ public class InstrumentMicrophone extends Item{
 
 	public InstrumentMicrophone(String registryName, SoundEvent soundIn, int cooldown, int maxDamage, int duration) {
 		setCreativeTab(InstrumentalMobs.instrumentalTab);
-		this.setUnlocalizedName(Reference.MOD_PREFIX + registryName.replaceAll("_", ""));
+		this.setTranslationKey(Reference.MOD_PREFIX + registryName.replaceAll("_", ""));
 		this.setRegistryName(registryName);
 		maxStackSize = 1;
 		this.setMaxDamage(maxDamage);
@@ -42,9 +41,8 @@ public class InstrumentMicrophone extends Item{
         
         if (!worldIn.isRemote)
         {
-
-            EntitySoundWaves soundWave = new EntitySoundWaves(worldIn, playerIn, sound);
-            soundWave.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
+			EntityMicrophoneWave soundWave = new EntityMicrophoneWave(worldIn, playerIn, sound);
+            soundWave.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 2.0F, 0.0F);
             worldIn.spawnEntity(soundWave);
         }
         

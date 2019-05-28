@@ -1,6 +1,6 @@
-package com.Mrbysco.InstrumentalMobs.entities.ai;
+package com.mrbysco.instrumentalmobs.entities.ai;
 
-import com.Mrbysco.InstrumentalMobs.entities.EntityCymbalHusk;
+import com.mrbysco.instrumentalmobs.entities.EntityCymbalHusk;
 
 import net.minecraft.util.SoundEvent;
 

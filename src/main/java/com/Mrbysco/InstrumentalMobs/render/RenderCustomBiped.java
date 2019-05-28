@@ -1,4 +1,4 @@
-package com.Mrbysco.InstrumentalMobs.render;
+package com.mrbysco.instrumentalmobs.render;
 
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.GlStateManager;

@@ -1,16 +1,11 @@
-package com.Mrbysco.InstrumentalMobs.entities;
+package com.mrbysco.instrumentalmobs.entities;
 
-import java.util.UUID;
-
-import javax.annotation.Nullable;
-
-import com.Mrbysco.InstrumentalMobs.entities.ai.EntityAIAttackInstrument;
-import com.Mrbysco.InstrumentalMobs.init.InstrumentalItems;
-import com.Mrbysco.InstrumentalMobs.init.InstrumentalLootTables;
-import com.Mrbysco.InstrumentalMobs.init.InstrumentalSounds;
+import com.mrbysco.instrumentalmobs.entities.ai.EntityAIAttackInstrument;
+import com.mrbysco.instrumentalmobs.init.InstrumentalItems;
+import com.mrbysco.instrumentalmobs.init.InstrumentalLootTables;
+import com.mrbysco.instrumentalmobs.init.InstrumentalSounds;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
@@ -38,6 +33,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
+import java.util.UUID;
 
 public class EntityTubaEnderman extends EntityEnderman implements IInstrumentalMobs{
 	private static final UUID ATTACKING_SPEED_BOOST_ID = UUID.fromString("020E0DFB-87AE-4653-9556-831010E291A0");
@@ -307,7 +305,7 @@ public class EntityTubaEnderman extends EntityEnderman implements IInstrumentalM
         {
             Vec3d vec3d = player.getLook(1.0F).normalize();
             Vec3d vec3d1 = new Vec3d(this.posX - player.posX, this.getEntityBoundingBox().minY + (double)this.getEyeHeight() - (player.posY + (double)player.getEyeHeight()), this.posZ - player.posZ);
-            double d0 = vec3d1.lengthVector();
+            double d0 = vec3d1.length();
             vec3d1 = vec3d1.normalize();
             double d1 = vec3d.dotProduct(vec3d1);
             return d1 > 1.0D - 0.025D / d0 ? player.canEntityBeSeen(this) : false;

@@ -1,7 +1,7 @@
-package com.Mrbysco.InstrumentalMobs.render.layers;
+package com.mrbysco.instrumentalmobs.render.layers;
 
-import com.Mrbysco.InstrumentalMobs.entities.EntityDrumZombie;
-import com.Mrbysco.InstrumentalMobs.render.RenderDrumZombie;
+import com.mrbysco.instrumentalmobs.entities.EntityDrumZombie;
+import com.mrbysco.instrumentalmobs.render.RenderDrumZombie;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;

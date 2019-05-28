@@ -1,6 +1,6 @@
-package com.Mrbysco.InstrumentalMobs.entities.ai;
+package com.mrbysco.instrumentalmobs.entities.ai;
 
-import com.Mrbysco.InstrumentalMobs.utils.InstrumentHelper;
+import com.mrbysco.instrumentalmobs.utils.InstrumentHelper;
 
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;

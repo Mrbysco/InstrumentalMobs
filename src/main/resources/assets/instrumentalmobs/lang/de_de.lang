@@ -27,6 +27,7 @@ entity.instrumentalmobs:CymbalHusk.name=Becken-Wüstenzombie
 entity.instrumentalmobs:MaracaSpider.name=Maraca-Spinne
 entity.instrumentalmobs:MicrophoneGhast.name=Mikrofon-Ghast
 entity.instrumentalmobs:SoundWaves.name=Schallwelle
+entity.instrumentalmobs:MicrophoneWave.name=Schallwelle
 
 #Subtitles
 instrumentalmobs.subtitle.xylophone=Skelett spielt Xylophon auf seinen Rippen

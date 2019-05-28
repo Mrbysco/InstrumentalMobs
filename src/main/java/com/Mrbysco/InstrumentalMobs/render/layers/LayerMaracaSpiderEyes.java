@@ -1,7 +1,7 @@
-package com.Mrbysco.InstrumentalMobs.render.layers;
+package com.mrbysco.instrumentalmobs.render.layers;
 
-import com.Mrbysco.InstrumentalMobs.entities.EntityMaracaSpider;
-import com.Mrbysco.InstrumentalMobs.render.RenderMaracaSpider;
+import com.mrbysco.instrumentalmobs.entities.EntityMaracaSpider;
+import com.mrbysco.instrumentalmobs.render.RenderMaracaSpider;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;

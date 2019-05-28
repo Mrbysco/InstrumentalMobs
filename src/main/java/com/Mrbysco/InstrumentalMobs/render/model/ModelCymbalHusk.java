@@ -1,6 +1,6 @@
-package com.Mrbysco.InstrumentalMobs.render.model;
+package com.mrbysco.instrumentalmobs.render.model;
 
-import com.Mrbysco.InstrumentalMobs.entities.EntityCymbalHusk;
+import com.mrbysco.instrumentalmobs.entities.EntityCymbalHusk;
 
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;

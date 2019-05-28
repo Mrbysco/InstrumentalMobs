@@ -1,9 +1,9 @@
-package com.Mrbysco.InstrumentalMobs.items;
+package com.mrbysco.instrumentalmobs.items;
 
-import com.Mrbysco.InstrumentalMobs.InstrumentalMobs;
-import com.Mrbysco.InstrumentalMobs.Reference;
-import com.Mrbysco.InstrumentalMobs.config.InstrumentalConfigGen;
-import com.Mrbysco.InstrumentalMobs.utils.InstrumentHelper;
+import com.mrbysco.instrumentalmobs.InstrumentalMobs;
+import com.mrbysco.instrumentalmobs.Reference;
+import com.mrbysco.instrumentalmobs.config.InstrumentalConfigGen;
+import com.mrbysco.instrumentalmobs.utils.InstrumentHelper;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
@@ -22,7 +22,7 @@ public class InstrumentItem extends Item{
 
 	public InstrumentItem(String registryName, SoundEvent soundIn, int cooldown, int maxDamage, int duration) {
 		setCreativeTab(InstrumentalMobs.instrumentalTab);
-		this.setUnlocalizedName(Reference.MOD_PREFIX + registryName.replaceAll("_", ""));
+		this.setTranslationKey(Reference.MOD_PREFIX + registryName.replaceAll("_", ""));
 		this.setRegistryName(registryName);
 		maxStackSize = 1;
 		this.setMaxDamage(maxDamage);

@@ -1,8 +1,8 @@
-package com.Mrbysco.InstrumentalMobs.entities.projectiles;
+package com.mrbysco.instrumentalmobs.entities.projectiles;
 
-import com.Mrbysco.InstrumentalMobs.InstrumentalMobs;
-import com.Mrbysco.InstrumentalMobs.config.InstrumentalConfigGen;
-import com.Mrbysco.InstrumentalMobs.utils.InstrumentHelper;
+import com.mrbysco.instrumentalmobs.InstrumentalMobs;
+import com.mrbysco.instrumentalmobs.config.InstrumentalConfigGen;
+import com.mrbysco.instrumentalmobs.utils.InstrumentHelper;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;

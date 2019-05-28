@@ -1,7 +1,6 @@
-package com.Mrbysco.InstrumentalMobs.init;
+package com.mrbysco.instrumentalmobs.init;
 
-import com.Mrbysco.InstrumentalMobs.Reference;
-
+import com.mrbysco.instrumentalmobs.Reference;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -16,10 +15,10 @@ public class InstrumentalTab extends CreativeTabs{
 	}
 
 	@Override
-	public ItemStack getTabIconItem() {
+	public ItemStack createIcon() {
 		return new ItemStack(Blocks.NOTEBLOCK);
 	}
-	
+
 	@Override
 	public void displayAllRelevantItems(NonNullList<ItemStack> list) {
 		super.displayAllRelevantItems(list);

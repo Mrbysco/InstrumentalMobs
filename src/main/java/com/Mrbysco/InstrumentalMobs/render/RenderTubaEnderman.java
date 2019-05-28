@@ -1,11 +1,11 @@
-package com.Mrbysco.InstrumentalMobs.render;
+package com.mrbysco.instrumentalmobs.render;
 
 import java.util.Random;
 
-import com.Mrbysco.InstrumentalMobs.entities.EntityTubaEnderman;
-import com.Mrbysco.InstrumentalMobs.render.layers.LayerTubaEndermanEyes;
-import com.Mrbysco.InstrumentalMobs.render.layers.LayerTubaEndermanHoldItem;
-import com.Mrbysco.InstrumentalMobs.render.model.modelTubaEnderman;
+import com.mrbysco.instrumentalmobs.entities.EntityTubaEnderman;
+import com.mrbysco.instrumentalmobs.render.layers.LayerTubaEndermanEyes;
+import com.mrbysco.instrumentalmobs.render.layers.LayerTubaEndermanHoldItem;
+import com.mrbysco.instrumentalmobs.render.model.modelTubaEnderman;
 
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;

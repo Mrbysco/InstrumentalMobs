@@ -1,7 +1,7 @@
-package com.Mrbysco.InstrumentalMobs.utils;
+package com.mrbysco.instrumentalmobs.utils;
 
-import com.Mrbysco.InstrumentalMobs.InstrumentalMobs;
-import com.Mrbysco.InstrumentalMobs.config.InstrumentalConfigGen;
+import com.mrbysco.instrumentalmobs.InstrumentalMobs;
+import com.mrbysco.instrumentalmobs.config.InstrumentalConfigGen;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
@@ -27,7 +27,9 @@ public class InstrumentHelper {
 				 
 				 if(entityIn.isCreatureType(EnumCreatureType.MONSTER, false))
 				 {
-					 collidingEntity.attackEntityAsMob(entityIn);
+				 	if(entityIn != null && collidingEntity != null) {
+						collidingEntity.attackEntityAsMob(entityIn);
+					}
 				 }
 				 else if(entityIn instanceof EntityPlayer)
 				 {

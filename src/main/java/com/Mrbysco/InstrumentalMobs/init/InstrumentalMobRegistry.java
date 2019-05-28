@@ -1,18 +1,16 @@
-package com.Mrbysco.InstrumentalMobs.init;
+package com.mrbysco.instrumentalmobs.init;
 
-import java.util.ArrayList;
-
-import com.Mrbysco.InstrumentalMobs.InstrumentalMobs;
-import com.Mrbysco.InstrumentalMobs.Reference;
-import com.Mrbysco.InstrumentalMobs.entities.EntityCymbalHusk;
-import com.Mrbysco.InstrumentalMobs.entities.EntityDrumZombie;
-import com.Mrbysco.InstrumentalMobs.entities.EntityFrenchHornCreeper;
-import com.Mrbysco.InstrumentalMobs.entities.EntityMaracaSpider;
-import com.Mrbysco.InstrumentalMobs.entities.EntityMicrophoneGhast;
-import com.Mrbysco.InstrumentalMobs.entities.EntityTubaEnderman;
-import com.Mrbysco.InstrumentalMobs.entities.EntityXylophoneSkeletal;
-import com.Mrbysco.InstrumentalMobs.entities.projectiles.EntitySoundWaves;
-
+import com.mrbysco.instrumentalmobs.InstrumentalMobs;
+import com.mrbysco.instrumentalmobs.Reference;
+import com.mrbysco.instrumentalmobs.entities.EntityCymbalHusk;
+import com.mrbysco.instrumentalmobs.entities.EntityDrumZombie;
+import com.mrbysco.instrumentalmobs.entities.EntityFrenchHornCreeper;
+import com.mrbysco.instrumentalmobs.entities.EntityMaracaSpider;
+import com.mrbysco.instrumentalmobs.entities.EntityMicrophoneGhast;
+import com.mrbysco.instrumentalmobs.entities.EntityTubaEnderman;
+import com.mrbysco.instrumentalmobs.entities.EntityXylophoneSkeletal;
+import com.mrbysco.instrumentalmobs.entities.projectiles.EntityMicrophoneWave;
+import com.mrbysco.instrumentalmobs.entities.projectiles.EntitySoundWaves;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EnumCreatureType;
@@ -25,6 +23,8 @@ import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
+
+import java.util.ArrayList;
 
 public class InstrumentalMobRegistry {
 	
@@ -40,6 +40,7 @@ public class InstrumentalMobRegistry {
 		registerEntity("maraca_spider", EntityMaracaSpider.class, "MaracaSpider", 80, 3, true, 803406, 11013646);
 		registerEntity("microphone_ghast", EntityMicrophoneGhast.class, "MicrophoneGhast", 80, 3, true, 16382457, 12369084);
 		registerEntity("sound_waves", EntitySoundWaves.class, "SoundWaves", 80, 3, true);
+		registerEntity("microphone_sound", EntityMicrophoneWave.class, "MicrophoneWave", 80, 3, true);
 	}
 	
 	public static void registerEntity(String registryName, Class<? extends Entity> entityClass, String entityName, int trackingRange, int updateFrequency, boolean sendsVelocityUpdates, int eggPrimary, int eggSecondary) {

@@ -1,9 +1,9 @@
-package com.Mrbysco.InstrumentalMobs.render;
+package com.mrbysco.instrumentalmobs.render;
 
-import com.Mrbysco.InstrumentalMobs.entities.EntityMaracaSpider;
-import com.Mrbysco.InstrumentalMobs.render.layers.LayerMaracaSpiderEyes;
-import com.Mrbysco.InstrumentalMobs.render.layers.LayerRenderMaracas;
-import com.Mrbysco.InstrumentalMobs.render.model.ModelMaracaSpider;
+import com.mrbysco.instrumentalmobs.entities.EntityMaracaSpider;
+import com.mrbysco.instrumentalmobs.render.layers.LayerMaracaSpiderEyes;
+import com.mrbysco.instrumentalmobs.render.layers.LayerRenderMaracas;
+import com.mrbysco.instrumentalmobs.render.model.ModelMaracaSpider;
 
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;

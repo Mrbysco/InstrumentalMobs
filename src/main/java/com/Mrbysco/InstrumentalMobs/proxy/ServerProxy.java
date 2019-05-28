@@ -1,4 +1,4 @@
-package com.Mrbysco.InstrumentalMobs.proxy;
+package com.mrbysco.instrumentalmobs.proxy;
 
 public class ServerProxy extends CommonProxy{
 	@Override

@@ -1,7 +1,7 @@
-package com.Mrbysco.InstrumentalMobs.render;
+package com.mrbysco.instrumentalmobs.render;
 
-import com.Mrbysco.InstrumentalMobs.entities.projectiles.EntitySoundWaves;
-import com.Mrbysco.InstrumentalMobs.init.InstrumentalItems;
+import com.mrbysco.instrumentalmobs.entities.projectiles.EntitySoundWaves;
+import com.mrbysco.instrumentalmobs.init.InstrumentalItems;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;

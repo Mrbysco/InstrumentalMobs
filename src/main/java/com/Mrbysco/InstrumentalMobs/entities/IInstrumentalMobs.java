@@ -1,4 +1,4 @@
-package com.Mrbysco.InstrumentalMobs.entities;
+package com.mrbysco.instrumentalmobs.entities;
 
 public interface IInstrumentalMobs {
 

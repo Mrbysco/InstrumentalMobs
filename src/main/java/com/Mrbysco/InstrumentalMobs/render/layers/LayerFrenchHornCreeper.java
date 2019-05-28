@@ -1,7 +1,7 @@
-package com.Mrbysco.InstrumentalMobs.render.layers;
+package com.mrbysco.instrumentalmobs.render.layers;
 
-import com.Mrbysco.InstrumentalMobs.entities.EntityFrenchHornCreeper;
-import com.Mrbysco.InstrumentalMobs.render.RenderFrenchHornCreeper;
+import com.mrbysco.instrumentalmobs.entities.EntityFrenchHornCreeper;
+import com.mrbysco.instrumentalmobs.render.RenderFrenchHornCreeper;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;

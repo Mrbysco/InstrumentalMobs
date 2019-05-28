@@ -1,10 +1,10 @@
-package com.Mrbysco.InstrumentalMobs.items;
+package com.mrbysco.instrumentalmobs.items;
 
-import com.Mrbysco.InstrumentalMobs.InstrumentalMobs;
-import com.Mrbysco.InstrumentalMobs.Reference;
-import com.Mrbysco.InstrumentalMobs.config.InstrumentalConfigGen;
-import com.Mrbysco.InstrumentalMobs.init.InstrumentalBlocks;
-import com.Mrbysco.InstrumentalMobs.utils.InstrumentHelper;
+import com.mrbysco.instrumentalmobs.InstrumentalMobs;
+import com.mrbysco.instrumentalmobs.Reference;
+import com.mrbysco.instrumentalmobs.config.InstrumentalConfigGen;
+import com.mrbysco.instrumentalmobs.init.InstrumentalBlocks;
+import com.mrbysco.instrumentalmobs.utils.InstrumentHelper;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,7 +25,7 @@ public class DrumInstrument extends Item{
 
 	public DrumInstrument(String registryName, SoundEvent soundIn, int cooldown, int maxDamage, int duration) {
 		setCreativeTab(InstrumentalMobs.instrumentalTab);
-		this.setUnlocalizedName(Reference.MOD_PREFIX + registryName.replaceAll("_", ""));
+		this.setTranslationKey(Reference.MOD_PREFIX + registryName.replaceAll("_", ""));
 		this.setRegistryName(registryName);
 		maxStackSize = 1;
 		this.setMaxDamage(maxDamage);
