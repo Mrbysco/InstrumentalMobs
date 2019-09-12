@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 
 public class InstrumentHelper {
 	 public static void instrumentDamage(World worldIn, EntityLivingBase entityIn) {
-		 if(!worldIn.isRemote)
+		 if(!worldIn.isRemote && entityIn != null)
 		 {
 			 for(EntityLivingBase collidingEntity : worldIn.getEntitiesWithinAABB(EntityLivingBase.class, entityIn.getEntityBoundingBox().grow(InstrumentalConfigGen.general.instrumentRange)))
 			 {
