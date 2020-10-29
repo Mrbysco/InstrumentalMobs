@@ -1,12 +1,9 @@
 package com.mrbysco.instrumentalmobs.render;
 
-import java.util.Random;
-
 import com.mrbysco.instrumentalmobs.entities.EntityTubaEnderman;
 import com.mrbysco.instrumentalmobs.render.layers.LayerTubaEndermanEyes;
 import com.mrbysco.instrumentalmobs.render.layers.LayerTubaEndermanHoldItem;
-import com.mrbysco.instrumentalmobs.render.model.modelTubaEnderman;
-
+import com.mrbysco.instrumentalmobs.render.model.ModelTubaEnderman;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -17,39 +14,39 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.Random;
+
 @SideOnly(Side.CLIENT)
-public class RenderTubaEnderman extends RenderLiving<EntityTubaEnderman>{    
+public class RenderTubaEnderman extends RenderLiving<EntityTubaEnderman> {
 	private static final ResourceLocation ENDERMAN_TEXTURES = new ResourceLocation("textures/entity/enderman/enderman.png");
 	private final Random rnd = new Random();
 	
 	public static final Factory FACTORY = new Factory();
 	
 	public RenderTubaEnderman(RenderManager renderManagerIn) {
-        super(renderManagerIn, new modelTubaEnderman(0.0F), 0.5F);
+        super(renderManagerIn, new ModelTubaEnderman(0.0F), 0.5F);
         this.addLayer(new LayerTubaEndermanEyes(this));
         this.addLayer(new LayerTubaEndermanHoldItem(this));
 	}
 	
-	public modelTubaEnderman getMainModel()
+	public ModelTubaEnderman getMainModel()
     {
-        return (modelTubaEnderman)super.getMainModel();
+        return (ModelTubaEnderman)super.getMainModel();
     }
 
     /**
      * Renders the desired {@code T} type Entity.
      */
-    public void doRender(EntityTubaEnderman entity, double x, double y, double z, float entityYaw, float partialTicks)
-    {
+    public void doRender(EntityTubaEnderman entity, double x, double y, double z, float entityYaw, float partialTicks) {
         ItemStack heldStack = entity.getHeldItem(EnumHand.MAIN_HAND);
-        modelTubaEnderman modelenderman = this.getMainModel();
+        ModelTubaEnderman modelenderman = this.getMainModel();
         modelenderman.isCarrying = !heldStack.isEmpty();
         modelenderman.isAttacking = entity.isScreaming();
 
-        if (entity.isScreaming())
-        {
+        if (entity.isScreaming()) {
             double d0 = 0.02D;
-            x += this.rnd.nextGaussian() * 0.02D;
-            z += this.rnd.nextGaussian() * 0.02D;
+            x += this.rnd.nextGaussian() * d0;
+            z += this.rnd.nextGaussian() * d0;
         }
 
         super.doRender(entity, x, y, z, entityYaw, partialTicks);

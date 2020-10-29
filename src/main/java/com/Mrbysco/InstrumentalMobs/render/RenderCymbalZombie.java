@@ -3,7 +3,6 @@ package com.mrbysco.instrumentalmobs.render;
 import com.mrbysco.instrumentalmobs.entities.EntityCymbalHusk;
 import com.mrbysco.instrumentalmobs.render.layers.LayerRenderCymbals;
 import com.mrbysco.instrumentalmobs.render.model.ModelCymbalHusk;
-
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -14,7 +13,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class RenderCymbalZombie extends RenderCustomBiped<EntityCymbalHusk>{
+public class RenderCymbalZombie extends RenderCustomBiped<EntityCymbalHusk> {
     private static final ResourceLocation HUSK_ZOMBIE_TEXTURES = new ResourceLocation("textures/entity/zombie/husk.png");
 
 	public static final Factory FACTORY = new Factory();
@@ -23,10 +22,8 @@ public class RenderCymbalZombie extends RenderCustomBiped<EntityCymbalHusk>{
         super(renderManagerIn, new ModelCymbalHusk(), 0.5F);
         this.addLayer(new LayerRenderCymbals(this));
 
-        LayerBipedArmor layerbipedarmor = new LayerBipedArmor(this)
-        {
-            protected void initArmor()
-            {
+        LayerBipedArmor layerbipedarmor = new LayerBipedArmor(this) {
+            protected void initArmor() {
                 this.modelLeggings = new ModelCymbalHusk(0.5F, true);
                 this.modelArmor = new ModelCymbalHusk(1.0F, true);
             }
@@ -36,13 +33,11 @@ public class RenderCymbalZombie extends RenderCustomBiped<EntityCymbalHusk>{
 	
 	protected ResourceLocation getEntityTexture(EntityCymbalHusk entity) {
         return HUSK_ZOMBIE_TEXTURES;
-
 	}
 	
-	protected void preRenderCallback(EntityCymbalHusk entitylivingbaseIn, float partialTickTime)
-    {
+	protected void preRenderCallback(EntityCymbalHusk entitylivingbaseIn, float partialTickTime) {
         float f = 1.0625F;
-        GlStateManager.scale(1.0625F, 1.0625F, 1.0625F);
+        GlStateManager.scale(f,f,f);
         super.preRenderCallback(entitylivingbaseIn, partialTickTime);
     }
 	

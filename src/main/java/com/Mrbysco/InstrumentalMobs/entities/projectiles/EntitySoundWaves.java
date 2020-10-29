@@ -3,7 +3,6 @@ package com.mrbysco.instrumentalmobs.entities.projectiles;
 import com.mrbysco.instrumentalmobs.InstrumentalMobs;
 import com.mrbysco.instrumentalmobs.config.InstrumentalConfigGen;
 import com.mrbysco.instrumentalmobs.utils.InstrumentHelper;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IProjectile;
@@ -77,7 +76,7 @@ public class EntitySoundWaves extends EntityFireball implements IProjectile
         float f = -MathHelper.sin(rotationYawIn * 0.017453292F) * MathHelper.cos(rotationPitchIn * 0.017453292F);
         float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * 0.017453292F);
         float f2 = MathHelper.cos(rotationYawIn * 0.017453292F) * MathHelper.cos(rotationPitchIn * 0.017453292F);
-        this.shoot((double)f, (double)f1, (double)f2, velocity, inaccuracy);
+        this.shoot(f, f1, f2, velocity, inaccuracy);
         this.motionX += entityThrower.motionX;
         this.motionZ += entityThrower.motionZ;
 
@@ -108,7 +107,7 @@ public class EntitySoundWaves extends EntityFireball implements IProjectile
         this.motionZ = z;
         float f1 = MathHelper.sqrt(x * x + z * z);
         this.rotationYaw = (float)(MathHelper.atan2(x, z) * (180D / Math.PI));
-        this.rotationPitch = (float)(MathHelper.atan2(y, (double)f1) * (180D / Math.PI));
+        this.rotationPitch = (float)(MathHelper.atan2(y, f1) * (180D / Math.PI));
         this.prevRotationYaw = this.rotationYaw;
         this.prevRotationPitch = this.rotationPitch;
     }

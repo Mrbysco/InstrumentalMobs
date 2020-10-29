@@ -1,7 +1,6 @@
 package com.mrbysco.instrumentalmobs.render.layers;
 
 import com.mrbysco.instrumentalmobs.entities.EntityCymbalHusk;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.GlStateManager;
@@ -15,30 +14,25 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class LayerRenderCymbals implements LayerRenderer<EntityLivingBase>
-{
+public class LayerRenderCymbals implements LayerRenderer<EntityLivingBase> {
     protected final RenderLivingBase<?> livingEntityRenderer;
 
-    public LayerRenderCymbals(RenderLivingBase<?> livingEntityRendererIn)
-    {
+    public LayerRenderCymbals(RenderLivingBase<?> livingEntityRendererIn) {
         this.livingEntityRenderer = livingEntityRendererIn;
     }
 
-    public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
-    {
+    public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         boolean flag = entitylivingbaseIn.getPrimaryHand() == EnumHandSide.RIGHT;
         ItemStack itemstack = flag ? entitylivingbaseIn.getHeldItemOffhand() : entitylivingbaseIn.getHeldItemMainhand();
         ItemStack itemstack1 = flag ? entitylivingbaseIn.getHeldItemMainhand() : entitylivingbaseIn.getHeldItemOffhand();
 
-        if (!itemstack.isEmpty() || !itemstack1.isEmpty())
-        {
+        if (!itemstack.isEmpty() || !itemstack1.isEmpty()) {
             GlStateManager.pushMatrix();
 
-            if (this.livingEntityRenderer.getMainModel().isChild)
-            {
+            if (this.livingEntityRenderer.getMainModel().isChild) {
                 float f = 0.5F;
                 GlStateManager.translate(0.0F, 0.75F, 0.0F);
-                GlStateManager.scale(0.5F, 0.5F, 0.5F);
+                GlStateManager.scale(f,f,f);
             }
 
             this.renderHeldItem(entitylivingbaseIn, itemstack1, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, EnumHandSide.RIGHT);
@@ -47,14 +41,11 @@ public class LayerRenderCymbals implements LayerRenderer<EntityLivingBase>
         }
     }
 
-    private void renderHeldItem(EntityLivingBase livingBase, ItemStack stack, ItemCameraTransforms.TransformType type, EnumHandSide handSide)
-    {
-        if (!stack.isEmpty())
-        {
+    private void renderHeldItem(EntityLivingBase livingBase, ItemStack stack, ItemCameraTransforms.TransformType type, EnumHandSide handSide) {
+        if (!stack.isEmpty()) {
             GlStateManager.pushMatrix();
 
-            if (livingBase.isSneaking())
-            {
+            if (livingBase.isSneaking()) {
                 GlStateManager.translate(0.0F, 0.2F, 0.0F);
             }
             // Forge: moved this call down, fixes incorrect offset while sneaking.
@@ -63,15 +54,13 @@ public class LayerRenderCymbals implements LayerRenderer<EntityLivingBase>
             GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
             GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
             boolean flag = handSide == EnumHandSide.LEFT;
-            GlStateManager.rotate(90F, 0.0F, (float)(flag ? -0.23F : 0.23F), (float)(flag ? -0.23F : 0.23F));
+            GlStateManager.rotate(90F, 0.0F, flag ? -0.23F : 0.23F, flag ? -0.23F : 0.23F);
             GlStateManager.translate((float)(flag ? 0.5 : -0.5), -0.5F, -0.5F);
-            if(livingBase instanceof EntityCymbalHusk)
-            {
+            if(livingBase instanceof EntityCymbalHusk) {
             	EntityCymbalHusk husk = (EntityCymbalHusk)livingBase;
             	boolean flag2 = husk.isClapping();
-                if(flag2)
-                {
-                	GlStateManager.rotate(-5.0F, 1.0F, (float)(flag ? -1F : 1F), (float)(flag ? -0.0F : 0.0F));
+                if(flag2) {
+                	GlStateManager.rotate(-5.0F, 1.0F, flag ? -1F : 1F, flag ? -0.0F : 0.0F);
                     GlStateManager.translate((float)(flag ? -0.1 : 0.1), 0.1F, 0.1F);
                 }
             }
@@ -80,8 +69,7 @@ public class LayerRenderCymbals implements LayerRenderer<EntityLivingBase>
         }
     }
 
-    protected void translateToHand(EnumHandSide handSide)
-    {
+    protected void translateToHand(EnumHandSide handSide) {
         ((ModelBiped)this.livingEntityRenderer.getMainModel()).postRenderArm(0.0625F, handSide);
     }
 

@@ -1,43 +1,15 @@
 package com.mrbysco.instrumentalmobs.render.model;
 
-import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.model.ModelEnderman;
 import net.minecraft.entity.Entity;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class modelTubaEnderman extends ModelBiped
-{
-    /** Is the enderman carrying a block? */
-    public boolean isCarrying;
-    /** Is the enderman attacking an entity? */
-    public boolean isAttacking;
+public class ModelTubaEnderman extends ModelEnderman {
 
-    public modelTubaEnderman(float scale)
-    {
-        super(0.0F, -14.0F, 64, 32);
-        float f = -14.0F;
-        this.bipedHeadwear = new ModelRenderer(this, 0, 16);
-        this.bipedHeadwear.addBox(-4.0F, -8.0F, -4.0F, 8, 8, 8, scale - 0.5F);
-        this.bipedHeadwear.setRotationPoint(0.0F, -14.0F, 0.0F);
-        this.bipedBody = new ModelRenderer(this, 32, 16);
-        this.bipedBody.addBox(-4.0F, 0.0F, -2.0F, 8, 12, 4, scale);
-        this.bipedBody.setRotationPoint(0.0F, -14.0F, 0.0F);
-        this.bipedRightArm = new ModelRenderer(this, 56, 0);
-        this.bipedRightArm.addBox(-1.0F, -2.0F, -1.0F, 2, 30, 2, scale);
-        this.bipedRightArm.setRotationPoint(-3.0F, -12.0F, 0.0F);
-        this.bipedLeftArm = new ModelRenderer(this, 56, 0);
-        this.bipedLeftArm.mirror = true;
-        this.bipedLeftArm.addBox(-1.0F, -2.0F, -1.0F, 2, 30, 2, scale);
-        this.bipedLeftArm.setRotationPoint(5.0F, -12.0F, 0.0F);
-        this.bipedRightLeg = new ModelRenderer(this, 56, 0);
-        this.bipedRightLeg.addBox(-1.0F, 0.0F, -1.0F, 2, 30, 2, scale);
-        this.bipedRightLeg.setRotationPoint(-2.0F, -2.0F, 0.0F);
-        this.bipedLeftLeg = new ModelRenderer(this, 56, 0);
-        this.bipedLeftLeg.mirror = true;
-        this.bipedLeftLeg.addBox(-1.0F, 0.0F, -1.0F, 2, 30, 2, scale);
-        this.bipedLeftLeg.setRotationPoint(2.0F, -2.0F, 0.0F);
+    public ModelTubaEnderman(float scale) {
+        super(scale);
     }
 
     /**

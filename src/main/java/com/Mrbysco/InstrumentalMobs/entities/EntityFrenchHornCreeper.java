@@ -1,11 +1,8 @@
 package com.mrbysco.instrumentalmobs.entities;
 
-import java.util.Collection;
-
 import com.mrbysco.instrumentalmobs.init.InstrumentalItems;
 import com.mrbysco.instrumentalmobs.init.InstrumentalLootTables;
 import com.mrbysco.instrumentalmobs.init.InstrumentalSounds;
-
 import net.minecraft.entity.EntityAreaEffectCloud;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.monster.EntityCreeper;
@@ -20,7 +17,9 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
-public class EntityFrenchHornCreeper extends EntityCreeper implements IInstrumentalMobs{
+import java.util.Collection;
+
+public class EntityFrenchHornCreeper extends EntityCreeper implements IInstrumentalMobs {
 	private static final DataParameter<Integer> STATE = EntityDataManager.<Integer>createKey(EntityCreeper.class, DataSerializers.VARINT);
 	private static final DataParameter<Boolean> POWERED = EntityDataManager.<Boolean>createKey(EntityCreeper.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Boolean> IGNITED = EntityDataManager.<Boolean>createKey(EntityCreeper.class, DataSerializers.BOOLEAN);
@@ -39,33 +38,28 @@ public class EntityFrenchHornCreeper extends EntityCreeper implements IInstrumen
 	}
 	
 	@Override
-	public void fall(float distance, float damageMultiplier)
-    {
+	public void fall(float distance, float damageMultiplier) {
         super.fall(distance, damageMultiplier);
         this.timeSinceIgnited = (int)((float)this.timeSinceIgnited + distance * 1.5F);
 
-        if (this.timeSinceIgnited > this.fuseTime - 5)
-        {
+        if (this.timeSinceIgnited > this.fuseTime - 5) {
             this.timeSinceIgnited = this.fuseTime - 5;
         }
     }
 	
 	@Override
-	protected void entityInit()
-    {
+	protected void entityInit() {
         super.entityInit();
-        this.dataManager.register(STATE, Integer.valueOf(-1));
-        this.dataManager.register(POWERED, Boolean.valueOf(false));
-        this.dataManager.register(IGNITED, Boolean.valueOf(false));
+        this.dataManager.register(STATE, -1);
+        this.dataManager.register(POWERED, false);
+        this.dataManager.register(IGNITED, false);
     }
 	
 	@Override
-	public void writeEntityToNBT(NBTTagCompound compound)
-    {
+	public void writeEntityToNBT(NBTTagCompound compound) {
         super.writeEntityToNBT(compound);
 
-        if (((Boolean)this.dataManager.get(POWERED)).booleanValue())
-        {
+        if (((Boolean)this.dataManager.get(POWERED)).booleanValue()) {
             compound.setBoolean("powered", true);
         }
 
@@ -75,55 +69,45 @@ public class EntityFrenchHornCreeper extends EntityCreeper implements IInstrumen
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound compound)
-    {
+    public void readEntityFromNBT(NBTTagCompound compound) {
         super.readEntityFromNBT(compound);
         this.dataManager.set(POWERED, Boolean.valueOf(compound.getBoolean("powered")));
 
-        if (compound.hasKey("Fuse", 99))
-        {
+        if (compound.hasKey("Fuse", 99)) {
             this.fuseTime = compound.getShort("Fuse");
         }
 
-        if (compound.hasKey("ExplosionRadius", 99))
-        {
+        if (compound.hasKey("ExplosionRadius", 99)) {
             this.explosionRadius = compound.getByte("ExplosionRadius");
         }
 
-        if (compound.getBoolean("ignited"))
-        {
+        if (compound.getBoolean("ignited")) {
             this.ignite();
         }
     }
 	
 	@Override
-	public void onUpdate()
-    {
-        if (this.isEntityAlive())
-        {
+	public void onUpdate() {
+        if (this.isEntityAlive()) {
             this.lastActiveTime = this.timeSinceIgnited;
 
-            if (this.hasIgnited())
-            {
+            if (this.hasIgnited()) {
                 this.setCreeperState(1);
             }
 
             int i = this.getCreeperState();
 
-            if (i > 0 && this.timeSinceIgnited == 0)
-            {
+            if (i > 0 && this.timeSinceIgnited == 0) {
                 this.playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1.0F, 0.5F);
             }
 
             this.timeSinceIgnited += i;
 
-            if (this.timeSinceIgnited < 0)
-            {
+            if (this.timeSinceIgnited < 0) {
                 this.timeSinceIgnited = 0;
             }
 
-            if (this.timeSinceIgnited >= this.fuseTime)
-            {
+            if (this.timeSinceIgnited >= this.fuseTime) {
                 this.timeSinceIgnited = this.fuseTime;
                 this.explode();
             }
@@ -133,8 +117,7 @@ public class EntityFrenchHornCreeper extends EntityCreeper implements IInstrumen
     }
 	
 	@Override
-	public boolean getPowered()
-    {
+	public boolean getPowered() {
         return ((Boolean)this.dataManager.get(POWERED)).booleanValue();
     }
 	
@@ -151,16 +134,13 @@ public class EntityFrenchHornCreeper extends EntityCreeper implements IInstrumen
     }
 	
 	@Override
-	public void onStruckByLightning(EntityLightningBolt lightningBolt)
-    {
+	public void onStruckByLightning(EntityLightningBolt lightningBolt) {
         super.onStruckByLightning(lightningBolt);
         this.dataManager.set(POWERED, Boolean.valueOf(true));
     }
 	
-	private void explode()
-    {
-        if (!this.world.isRemote)
-        {
+	private void explode() {
+        if (!this.world.isRemote) {
             boolean flag = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this);
             float f = this.getPowered() ? 2.0F : 1.0F;
             this.dead = true;
@@ -171,12 +151,10 @@ public class EntityFrenchHornCreeper extends EntityCreeper implements IInstrumen
         }
     }
 	
-	private void spawnLingeringCloud()
-    {
+	private void spawnLingeringCloud() {
         Collection<PotionEffect> collection = this.getActivePotionEffects();
 
-        if (!collection.isEmpty())
-        {
+        if (!collection.isEmpty()) {
             EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(this.world, this.posX, this.posY, this.posZ);
             entityareaeffectcloud.setRadius(2.5F);
             entityareaeffectcloud.setRadiusOnUse(-0.5F);
@@ -184,8 +162,7 @@ public class EntityFrenchHornCreeper extends EntityCreeper implements IInstrumen
             entityareaeffectcloud.setDuration(entityareaeffectcloud.getDuration() / 2);
             entityareaeffectcloud.setRadiusPerTick(-entityareaeffectcloud.getRadius() / (float)entityareaeffectcloud.getDuration());
 
-            for (PotionEffect potioneffect : collection)
-            {
+            for (PotionEffect potioneffect : collection) {
                 entityareaeffectcloud.addEffect(new PotionEffect(potioneffect));
             }
 
@@ -206,8 +183,7 @@ public class EntityFrenchHornCreeper extends EntityCreeper implements IInstrumen
     }
 
     @Override
-    public boolean ableToCauseSkullDrop()
-    {
+    public boolean ableToCauseSkullDrop() {
         return this.droppedSkulls < 1 && this.world.getGameRules().getBoolean("doMobLoot");
     }
 

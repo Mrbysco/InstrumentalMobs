@@ -2,7 +2,6 @@ package com.mrbysco.instrumentalmobs.render.layers;
 
 import com.mrbysco.instrumentalmobs.entities.EntityMaracaSpider;
 import com.mrbysco.instrumentalmobs.render.model.ModelMaracaSpider;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
@@ -11,30 +10,25 @@ import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHandSide;
 
-public class LayerRenderMaracas implements LayerRenderer<EntityMaracaSpider>
-{
+public class LayerRenderMaracas implements LayerRenderer<EntityMaracaSpider> {
     protected final RenderLivingBase<?> livingEntityRenderer;
 
-    public LayerRenderMaracas(RenderLivingBase<?> livingEntityRendererIn)
-    {
+    public LayerRenderMaracas(RenderLivingBase<?> livingEntityRendererIn) {
         this.livingEntityRenderer = livingEntityRendererIn;
     }
 
-    public void doRenderLayer(EntityMaracaSpider entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
-    {
+    public void doRenderLayer(EntityMaracaSpider entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         boolean flag = entitylivingbaseIn.getPrimaryHand() == EnumHandSide.RIGHT;
         ItemStack itemstack = flag ? entitylivingbaseIn.getHeldItemOffhand() : entitylivingbaseIn.getHeldItemMainhand();
         ItemStack itemstack1 = flag ? entitylivingbaseIn.getHeldItemMainhand() : entitylivingbaseIn.getHeldItemOffhand();
 
-        if (!itemstack.isEmpty() || !itemstack1.isEmpty())
-        {
+        if (!itemstack.isEmpty() || !itemstack1.isEmpty()) {
             GlStateManager.pushMatrix();
 
-            if (this.livingEntityRenderer.getMainModel().isChild)
-            {
+            if (this.livingEntityRenderer.getMainModel().isChild) {
                 float f = 0.5F;
                 GlStateManager.translate(0.0F, 0.75F, 0.0F);
-                GlStateManager.scale(0.5F, 0.5F, 0.5F);
+                GlStateManager.scale(f,f,f);
             }
             
             this.renderHeldItem(entitylivingbaseIn, itemstack1, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, EnumHandSide.RIGHT);

@@ -2,7 +2,6 @@ package com.mrbysco.instrumentalmobs.render.layers;
 
 import com.mrbysco.instrumentalmobs.entities.EntityMicrophoneGhast;
 import com.mrbysco.instrumentalmobs.render.RenderMicrophoneGhast;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
@@ -13,7 +12,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class LayerMicrophoneForGhast implements LayerRenderer<EntityMicrophoneGhast>{
+public class LayerMicrophoneForGhast implements LayerRenderer<EntityMicrophoneGhast> {
     private final RenderMicrophoneGhast ghastRenderer;
 
     public LayerMicrophoneForGhast(RenderMicrophoneGhast ghastRendererIn)
@@ -26,8 +25,7 @@ public class LayerMicrophoneForGhast implements LayerRenderer<EntityMicrophoneGh
     		float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
     	ItemStack stack = entitylivingbaseIn.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
 		
-		if (!stack.isEmpty() && !entitylivingbaseIn.isSinging())
-        {
+		if (!stack.isEmpty() && !entitylivingbaseIn.isSinging()) {
             GlStateManager.pushMatrix();
 
             GlStateManager.scale(0.25F, 0.25F, 0.25F);

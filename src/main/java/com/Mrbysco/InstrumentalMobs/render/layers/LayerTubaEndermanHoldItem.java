@@ -2,7 +2,6 @@ package com.mrbysco.instrumentalmobs.render.layers;
 
 import com.mrbysco.instrumentalmobs.entities.EntityTubaEnderman;
 import com.mrbysco.instrumentalmobs.render.RenderTubaEnderman;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -14,21 +13,16 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class LayerTubaEndermanHoldItem implements LayerRenderer<EntityTubaEnderman>
-{
+public class LayerTubaEndermanHoldItem implements LayerRenderer<EntityTubaEnderman> {
     private final RenderTubaEnderman endermanRenderer;
 
-    public LayerTubaEndermanHoldItem(RenderTubaEnderman endermanRendererIn)
-    {
+    public LayerTubaEndermanHoldItem(RenderTubaEnderman endermanRendererIn) {
         this.endermanRenderer = endermanRendererIn;
     }
 
-    public void doRenderLayer(EntityTubaEnderman entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
-    {
+    public void doRenderLayer(EntityTubaEnderman entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		ItemStack itemstack = entitylivingbaseIn.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND);
-
-        if (itemstack != null)
-        {
+        if (!itemstack.isEmpty()) {
             GlStateManager.enableRescaleNormal();
             GlStateManager.pushMatrix();
             GlStateManager.translate(0.0F, -0.73F, -0.775F);

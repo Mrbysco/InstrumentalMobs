@@ -1,16 +1,13 @@
 package com.mrbysco.instrumentalmobs.entities.ai;
 
-import com.mrbysco.instrumentalmobs.entities.EntityXylophoneSkeletal;
-
+import com.mrbysco.instrumentalmobs.entities.EntityXylophoneSkeleton;
 import net.minecraft.util.SoundEvent;
 
-public class EntityAiSkeletonAttackInstrument extends EntityAIAttackInstrument
-{
-    private final EntityXylophoneSkeletal skeleton;
+public class EntityAiSkeletonAttackInstrument extends EntityAIAttackInstrument {
+    private final EntityXylophoneSkeleton skeleton;
     private int raiseArmTicks;
 
-    public EntityAiSkeletonAttackInstrument(EntityXylophoneSkeletal skeletonIn, double speedIn, boolean longMemoryIn, SoundEvent sound)
-    {
+    public EntityAiSkeletonAttackInstrument(EntityXylophoneSkeleton skeletonIn, double speedIn, boolean longMemoryIn, SoundEvent sound) {
         super(skeletonIn, speedIn, longMemoryIn, sound);
         this.skeleton = skeletonIn;
     }
@@ -18,8 +15,7 @@ public class EntityAiSkeletonAttackInstrument extends EntityAIAttackInstrument
     /**
      * Execute a one shot task or start executing a continuous task
      */
-    public void startExecuting()
-    {
+    public void startExecuting() {
         super.startExecuting();
         this.raiseArmTicks = 0;
     }
@@ -27,8 +23,7 @@ public class EntityAiSkeletonAttackInstrument extends EntityAIAttackInstrument
     /**
      * Reset the task's internal state. Called when this task is interrupted by another one
      */
-    public void resetTask()
-    {
+    public void resetTask() {
         super.resetTask();
         this.skeleton.setPlayingRibs(false);
     }
@@ -36,18 +31,10 @@ public class EntityAiSkeletonAttackInstrument extends EntityAIAttackInstrument
     /**
      * Keep ticking a continuous task that has already been started
      */
-    public void updateTask()
-    {
+    public void updateTask() {
         super.updateTask();
         ++this.raiseArmTicks;
 
-        if (this.raiseArmTicks >= 5 && this.attackTick < 10)
-        {
-            this.skeleton.setPlayingRibs(true);
-        }
-        else
-        {
-            this.skeleton.setPlayingRibs(false);
-        }
+        this.skeleton.setPlayingRibs(this.raiseArmTicks >= 5 && this.attackTick < 10);
     }
 }

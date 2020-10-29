@@ -1,15 +1,11 @@
 package com.mrbysco.instrumentalmobs;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.mrbysco.instrumentalmobs.config.InstrumentalConfigGen;
 import com.mrbysco.instrumentalmobs.init.InstrumentalLootTables;
 import com.mrbysco.instrumentalmobs.init.InstrumentalMobRegistry;
 import com.mrbysco.instrumentalmobs.init.InstrumentalSounds;
 import com.mrbysco.instrumentalmobs.init.InstrumentalTab;
 import com.mrbysco.instrumentalmobs.proxy.CommonProxy;
-
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -19,6 +15,8 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Mod(modid = Reference.MOD_ID, 
 	name = Reference.MOD_NAME, 
@@ -38,8 +36,7 @@ public class InstrumentalMobs {
 	public static final DamageSource soundDamage = new DamageSource(Reference.MOD_PREFIX + "soundDamage");
 
 	@EventHandler
-	public void PreInit(FMLPreInitializationEvent event)
-	{		
+	public void PreInit(FMLPreInitializationEvent event) {
 		logger.info("Registering config");
 		MinecraftForge.EVENT_BUS.register(new InstrumentalConfigGen());
 
@@ -52,16 +49,14 @@ public class InstrumentalMobs {
 	}
 	
 	@EventHandler
-    public void init(FMLInitializationEvent event)
-	{
+    public void init(FMLInitializationEvent event) {
 		InstrumentalMobRegistry.registerBiomes();
 		
 		proxy.Init();
     }
 	
 	@EventHandler
-    public void postInit(FMLPostInitializationEvent event)
-    {
+    public void postInit(FMLPostInitializationEvent event) {
 		proxy.PostInit();
     }
 }

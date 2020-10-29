@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 
-public class InstrumentalTab extends CreativeTabs{
+public class InstrumentalTab extends CreativeTabs {
 
 	public InstrumentalTab() {
 		super(Reference.MOD_ID);
@@ -32,8 +32,7 @@ public class InstrumentalTab extends CreativeTabs{
 		list.add(getEgg(Reference.MOD_PREFIX + "microphone_ghast"));
 	}
 	
-	public static ItemStack getEgg(String entityName)
-    {
+	public static ItemStack getEgg(String entityName) {
         ItemStack stack = new ItemStack(Items.SPAWN_EGG);
         NBTTagCompound entityTag = new NBTTagCompound();
         entityTag.setString("id", entityName);

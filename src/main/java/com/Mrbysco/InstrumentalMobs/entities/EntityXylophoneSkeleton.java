@@ -3,7 +3,7 @@ package com.mrbysco.instrumentalmobs.entities;
 import com.mrbysco.instrumentalmobs.entities.ai.EntityAiSkeletonAttackInstrument;
 import com.mrbysco.instrumentalmobs.init.InstrumentalLootTables;
 import com.mrbysco.instrumentalmobs.init.InstrumentalSounds;
-
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAIFleeSun;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -29,18 +29,23 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityXylophoneSkeletal extends EntitySkeleton implements IInstrumentalMobs{
+public class EntityXylophoneSkeleton extends EntitySkeleton implements IInstrumentalMobs{
 
-    private static final DataParameter<Boolean> PLAYING_RIBS = EntityDataManager.<Boolean>createKey(EntityXylophoneSkeletal.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> PLAYING_RIBS = EntityDataManager.<Boolean>createKey(EntityXylophoneSkeleton.class, DataSerializers.BOOLEAN);
     
-	public EntityXylophoneSkeletal(World worldIn) {
+	public EntityXylophoneSkeleton(World worldIn) {
 		super(worldIn);
         this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BONE));
         this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(Items.BONE));
 	}
-    
-    protected void initEntityAI()
-    {
+
+    @Override
+    protected void applyEntityAttributes() {
+        super.applyEntityAttributes();
+        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.0D);
+    }
+
+    protected void initEntityAI() {
         this.tasks.addTask(1, new EntityAISwimming(this));
         this.tasks.addTask(2, new EntityAIRestrictSun(this));
         this.tasks.addTask(3, new EntityAIFleeSun(this, 1.0D));
@@ -55,23 +60,21 @@ public class EntityXylophoneSkeletal extends EntitySkeleton implements IInstrume
     }
     
     @Override
-    public void setCombatTask()
-    {
+    public void setCombatTask() {
     }
     
     @Override
     protected ResourceLocation getLootTable() {
     	return InstrumentalLootTables.XYLOHPONE_SKELETAL_LOOT;
     }
-    
+
     @Override
 	protected void entityInit() {
 		super.entityInit();
         this.getDataManager().register(PLAYING_RIBS, Boolean.valueOf(false));
 	}
 
-    public void setPlayingRibs(boolean armsRaised)
-    {
+    public void setPlayingRibs(boolean armsRaised) {
         this.getDataManager().set(PLAYING_RIBS, Boolean.valueOf(armsRaised));
     }
 

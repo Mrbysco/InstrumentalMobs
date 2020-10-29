@@ -13,34 +13,32 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
-public class InstrumentMicrophone extends Item{
-	private SoundEvent sound;
-	private int cooldown;
-	private int useDuration;
+public class InstrumentMicrophone extends Item {
+	private final SoundEvent sound;
+	private final int cooldown;
+	private final int useDuration;
 
 	public InstrumentMicrophone(String registryName, SoundEvent soundIn, int cooldown, int maxDamage, int duration) {
-		setCreativeTab(InstrumentalMobs.instrumentalTab);
+		this.setCreativeTab(InstrumentalMobs.instrumentalTab);
 		this.setTranslationKey(Reference.MOD_PREFIX + registryName.replaceAll("_", ""));
 		this.setRegistryName(registryName);
-		maxStackSize = 1;
+		this.maxStackSize = 1;
 		this.setMaxDamage(maxDamage);
 		
 		this.cooldown = cooldown;
-		sound = soundIn;
-		useDuration = duration;
+		this.sound = soundIn;
+		this.useDuration = duration;
 	}
 	
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
         
-        if(this.cooldown != 0)
-		{
+        if(this.cooldown != 0) {
 			playerIn.getCooldownTracker().setCooldown(this, this.cooldown);
 		}
         
-        if (!worldIn.isRemote)
-        {
+        if (!worldIn.isRemote) {
 			EntityMicrophoneWave soundWave = new EntityMicrophoneWave(worldIn, playerIn, sound);
             soundWave.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 2.0F, 0.0F);
             worldIn.spawnEntity(soundWave);

@@ -4,7 +4,6 @@ import com.mrbysco.instrumentalmobs.entities.ai.EntityAiHuskAttackInstrument;
 import com.mrbysco.instrumentalmobs.init.InstrumentalItems;
 import com.mrbysco.instrumentalmobs.init.InstrumentalLootTables;
 import com.mrbysco.instrumentalmobs.init.InstrumentalSounds;
-
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
 import net.minecraft.entity.ai.EntityAISwimming;
@@ -23,8 +22,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityCymbalHusk extends EntityHusk implements IInstrumentalMobs{
-
+public class EntityCymbalHusk extends EntityHusk implements IInstrumentalMobs {
     private static final DataParameter<Boolean> CLAPPING = EntityDataManager.<Boolean>createKey(EntityCymbalHusk.class, DataSerializers.BOOLEAN);
     
 	public EntityCymbalHusk(World worldIn) {
@@ -34,8 +32,7 @@ public class EntityCymbalHusk extends EntityHusk implements IInstrumentalMobs{
 	}
 	
 	@Override
-	protected void initEntityAI()
-    {
+	protected void initEntityAI() {
         this.tasks.addTask(0, new EntityAISwimming(this));
         this.tasks.addTask(2, new EntityAiHuskAttackInstrument(this, 1.0D, false, InstrumentalSounds.cymbals_sound));
         this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
@@ -63,8 +60,7 @@ public class EntityCymbalHusk extends EntityHusk implements IInstrumentalMobs{
     }
     
     @Override
-	protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty)
-    {
+	protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
     }
     
     @Override

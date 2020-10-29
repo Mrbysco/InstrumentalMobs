@@ -2,7 +2,6 @@ package com.mrbysco.instrumentalmobs.render.layers;
 
 import com.mrbysco.instrumentalmobs.entities.EntityFrenchHornCreeper;
 import com.mrbysco.instrumentalmobs.render.RenderFrenchHornCreeper;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -14,11 +13,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class LayerFrenchHornCreeper implements LayerRenderer<EntityFrenchHornCreeper>{
+public class LayerFrenchHornCreeper implements LayerRenderer<EntityFrenchHornCreeper> {
     private final RenderFrenchHornCreeper creeperRenderer;
 
-    public LayerFrenchHornCreeper(RenderFrenchHornCreeper creeperRendererIn)
-    {
+    public LayerFrenchHornCreeper(RenderFrenchHornCreeper creeperRendererIn) {
         this.creeperRenderer = creeperRendererIn;
     }
     
@@ -27,8 +25,7 @@ public class LayerFrenchHornCreeper implements LayerRenderer<EntityFrenchHornCre
 			float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		ItemStack itemstack = entitylivingbaseIn.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND);
 		
-		if (!itemstack.isEmpty())
-        {
+		if (!itemstack.isEmpty()) {
 			GlStateManager.enableRescaleNormal();
             GlStateManager.pushMatrix();
 			GlStateManager.translate(-0.05F, 0.175F, -0.7F);

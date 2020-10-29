@@ -1,7 +1,6 @@
 package com.mrbysco.instrumentalmobs.render.model;
 
-import com.mrbysco.instrumentalmobs.entities.EntityXylophoneSkeletal;
-
+import com.mrbysco.instrumentalmobs.entities.EntityXylophoneSkeleton;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
@@ -53,7 +52,7 @@ public class ModelXylophoneSkeleton extends ModelBiped
     {
         super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
         ItemStack itemstack = ((EntityLivingBase)entityIn).getHeldItemMainhand();
-        EntityXylophoneSkeletal abstractXylophoneSkeleton = (EntityXylophoneSkeletal)entityIn;
+        EntityXylophoneSkeleton abstractXylophoneSkeleton = (EntityXylophoneSkeleton)entityIn;
 
         if (abstractXylophoneSkeleton.isPlayingRibs() && itemstack.getItem() == Items.BONE)
         {

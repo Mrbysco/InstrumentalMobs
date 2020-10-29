@@ -2,7 +2,6 @@ package com.mrbysco.instrumentalmobs.render.layers;
 
 import com.mrbysco.instrumentalmobs.entities.EntityMaracaSpider;
 import com.mrbysco.instrumentalmobs.render.RenderMaracaSpider;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -12,31 +11,21 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class LayerMaracaSpiderEyes<T extends EntityMaracaSpider> implements LayerRenderer<T>
-{
+public class LayerMaracaSpiderEyes<T extends EntityMaracaSpider> implements LayerRenderer<T> {
     private static final ResourceLocation SPIDER_EYES = new ResourceLocation("textures/entity/spider_eyes.png");
     private final RenderMaracaSpider<T> spiderRenderer;
 
-    public LayerMaracaSpiderEyes(RenderMaracaSpider<T> spiderRendererIn)
-    {
+    public LayerMaracaSpiderEyes(RenderMaracaSpider<T> spiderRendererIn) {
         this.spiderRenderer = spiderRendererIn;
     }
 
-    public void doRenderLayer(T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
-    {
+    public void doRenderLayer(T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         this.spiderRenderer.bindTexture(SPIDER_EYES);
         GlStateManager.enableBlend();
         GlStateManager.disableAlpha();
         GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);
 
-        if (entitylivingbaseIn.isInvisible())
-        {
-            GlStateManager.depthMask(false);
-        }
-        else
-        {
-            GlStateManager.depthMask(true);
-        }
+        GlStateManager.depthMask(!entitylivingbaseIn.isInvisible());
 
         int i = 61680;
         int j = i % 65536;

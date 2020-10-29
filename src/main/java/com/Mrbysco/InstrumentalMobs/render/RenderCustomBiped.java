@@ -10,12 +10,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class RenderCustomBiped<T extends EntityLiving> extends RenderLiving<T>
-{
+public class RenderCustomBiped<T extends EntityLiving> extends RenderLiving<T> {
     private static final ResourceLocation DEFAULT_RES_LOC = new ResourceLocation("textures/entity/steve.png");
 
-    public RenderCustomBiped(RenderManager renderManagerIn, ModelBiped modelBipedIn, float shadowSize)
-    {
+    public RenderCustomBiped(RenderManager renderManagerIn, ModelBiped modelBipedIn, float shadowSize) {
         super(renderManagerIn, modelBipedIn, shadowSize);
     }
 

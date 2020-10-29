@@ -1,7 +1,6 @@
 package com.mrbysco.instrumentalmobs.render.model;
 
 import com.mrbysco.instrumentalmobs.entities.EntityCymbalHusk;
-
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;

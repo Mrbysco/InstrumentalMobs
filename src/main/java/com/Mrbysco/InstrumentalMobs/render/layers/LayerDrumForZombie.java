@@ -2,7 +2,6 @@ package com.mrbysco.instrumentalmobs.render.layers;
 
 import com.mrbysco.instrumentalmobs.entities.EntityDrumZombie;
 import com.mrbysco.instrumentalmobs.render.RenderDrumZombie;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -14,7 +13,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class LayerDrumForZombie implements LayerRenderer<EntityDrumZombie>{
+public class LayerDrumForZombie implements LayerRenderer<EntityDrumZombie> {
     private final RenderDrumZombie zombieRenderer;
 
     public LayerDrumForZombie(RenderDrumZombie zombieRendererIn)
@@ -27,14 +26,12 @@ public class LayerDrumForZombie implements LayerRenderer<EntityDrumZombie>{
 			float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		ItemStack itemstack = entitylivingbaseIn.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 		
-		if (!itemstack.isEmpty())
-        {
+		if (!itemstack.isEmpty()) {
 			GlStateManager.enableRescaleNormal();
             GlStateManager.pushMatrix();
 			GlStateManager.translate(0.0F, 0.775F, -0.55F);
 			GlStateManager.scale(0.75F, 0.75F, 0.75F);
-			if(entitylivingbaseIn.isChild())
-			{
+			if(entitylivingbaseIn.isChild()) {
 				GlStateManager.translate(0.0F, 0.4F, 0.4F);
 				GlStateManager.scale(0.35F, 0.35F, 0.35F);
 			}

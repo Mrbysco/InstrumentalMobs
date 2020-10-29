@@ -18,8 +18,8 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class DrumBlock extends Block{
-    protected static final AxisAlignedBB AABB = new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.75D, 0.9375D);
+public class DrumBlock extends Block {
+    private static final AxisAlignedBB AABB = new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.75D, 0.9375D);
 
 	public DrumBlock(String registryName) {
 		super(Material.CLOTH);
@@ -47,15 +47,13 @@ public class DrumBlock extends Block{
 	}
 	
 	@Override
-    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face)
-    {
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return BlockFaceShape.UNDEFINED;
     }
 
 	@Override
 	public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn) {
-		if (!worldIn.isRemote)
-		{
+		if (!worldIn.isRemote) {
 			worldIn.addBlockEvent(pos, Blocks.NOTEBLOCK, 1, 0);
 		}
 	}

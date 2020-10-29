@@ -6,7 +6,7 @@ import com.mrbysco.instrumentalmobs.entities.EntityFrenchHornCreeper;
 import com.mrbysco.instrumentalmobs.entities.EntityMaracaSpider;
 import com.mrbysco.instrumentalmobs.entities.EntityMicrophoneGhast;
 import com.mrbysco.instrumentalmobs.entities.EntityTubaEnderman;
-import com.mrbysco.instrumentalmobs.entities.EntityXylophoneSkeletal;
+import com.mrbysco.instrumentalmobs.entities.EntityXylophoneSkeleton;
 import com.mrbysco.instrumentalmobs.entities.projectiles.EntityMicrophoneWave;
 import com.mrbysco.instrumentalmobs.entities.projectiles.EntitySoundWaves;
 import com.mrbysco.instrumentalmobs.init.InstrumentalBlocks;
@@ -49,7 +49,7 @@ public class ClientProxy extends CommonProxy{
 	}
 	
 	public static void registerMobRendering() {
-		RenderingRegistry.registerEntityRenderingHandler(EntityXylophoneSkeletal.class, RenderXylophoneSkeleton.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityXylophoneSkeleton.class, RenderXylophoneSkeleton.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityTubaEnderman.class, RenderTubaEnderman.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityFrenchHornCreeper.class, RenderFrenchHornCreeper.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityDrumZombie.class, RenderDrumZombie.FACTORY);
@@ -57,7 +57,7 @@ public class ClientProxy extends CommonProxy{
 		RenderingRegistry.registerEntityRenderingHandler(EntityMaracaSpider.class, RenderMaracaSpider.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityMicrophoneGhast.class, RenderMicrophoneGhast.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntitySoundWaves.class, RenderSoundWaves.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityMicrophoneWave.class, renderManager -> new RenderSnowball(renderManager, InstrumentalItems.microphone, Minecraft.getMinecraft().getRenderItem()));
+		RenderingRegistry.registerEntityRenderingHandler(EntityMicrophoneWave.class, renderManager -> new RenderSnowball<>(renderManager, InstrumentalItems.microphone, Minecraft.getMinecraft().getRenderItem()));
 	}
 	
 	@SubscribeEvent

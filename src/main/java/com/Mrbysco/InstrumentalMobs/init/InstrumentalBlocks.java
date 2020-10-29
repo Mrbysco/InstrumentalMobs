@@ -12,13 +12,11 @@ import java.util.ArrayList;
 
 @EventBusSubscriber
 public class InstrumentalBlocks {
-
 	public static Block drum;
 	public static ArrayList<Block> BLOCKS = new ArrayList<>();
 	 
 	@SubscribeEvent
-	public static void registerBlocks(RegistryEvent.Register<Block> event)
-	{
+	public static void registerBlocks(RegistryEvent.Register<Block> event) {
 		IForgeRegistry<Block> registry = event.getRegistry();
 	
 		drum = registerBlock(new DrumBlock("drum_block"));
@@ -31,8 +29,7 @@ public class InstrumentalBlocks {
 	    return registerBlock(block, new ItemBlock(block));
 	}
 
-	public static <T extends Block> T registerBlock(T block, ItemBlock item)
-	{
+	public static <T extends Block> T registerBlock(T block, ItemBlock item) {
 		item.setRegistryName(block.getRegistryName());
 		InstrumentalItems.ITEMS.add(item);
 	    BLOCKS.add(block);

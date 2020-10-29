@@ -1,15 +1,11 @@
 package com.mrbysco.instrumentalmobs.entities;
 
-import java.util.Random;
-
 import com.mrbysco.instrumentalmobs.entities.ai.EntityAIAttackInstrument;
 import com.mrbysco.instrumentalmobs.init.InstrumentalItems;
 import com.mrbysco.instrumentalmobs.init.InstrumentalLootTables;
 import com.mrbysco.instrumentalmobs.init.InstrumentalSounds;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
@@ -20,14 +16,12 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.potion.Potion;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -35,7 +29,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityMaracaSpider extends EntitySpider implements IInstrumentalMobs{
+public class EntityMaracaSpider extends EntitySpider implements IInstrumentalMobs {
     private static final DataParameter<Boolean> ATTACKING = EntityDataManager.<Boolean>createKey(EntityCymbalHusk.class, DataSerializers.BOOLEAN);
 
 	public EntityMaracaSpider(World worldIn) {
@@ -66,22 +60,19 @@ public class EntityMaracaSpider extends EntitySpider implements IInstrumentalMob
     @Override
 	protected void entityInit() {
 		super.entityInit();
-        this.getDataManager().register(ATTACKING, Boolean.valueOf(false));
+        this.getDataManager().register(ATTACKING, false);
 	}
 
-    public void setAttacking(boolean isAttacking)
-    {
-        this.getDataManager().set(ATTACKING, Boolean.valueOf(isAttacking));
+    public void setAttacking(boolean isAttacking) {
+        this.getDataManager().set(ATTACKING, isAttacking);
     }
 
     @SideOnly(Side.CLIENT)
-    public boolean isAttacking()
-    {
+    public boolean isAttacking() {
         return ((Boolean)this.getDataManager().get(ATTACKING)).booleanValue();
     }
     
-    static class AISpiderAttack extends EntityAIAttackInstrument
-    {
+    static class AISpiderAttack extends EntityAIAttackInstrument {
         public AISpiderAttack(EntityMaracaSpider spider)
         {
             super(spider, 1.0D, true, InstrumentalSounds.maraca_sound);
@@ -90,45 +81,37 @@ public class EntityMaracaSpider extends EntitySpider implements IInstrumentalMob
         /**
          * Returns whether an in-progress EntityAIBase should continue executing
          */
-        public boolean shouldContinueExecuting()
-        {
+        public boolean shouldContinueExecuting() {
             float f = this.attacker.getBrightness();
 
-            if (f >= 0.5F && this.attacker.getRNG().nextInt(100) == 0)
-            {
+            if (f >= 0.5F && this.attacker.getRNG().nextInt(100) == 0) {
                 this.attacker.setAttackTarget((EntityLivingBase)null);
                 return false;
-            }
-            else
-            {
+            } else {
                 return super.shouldContinueExecuting();
             }
         }
         
-        public void resetTask()
-        {
+        public void resetTask() {
             super.resetTask();
             EntityMaracaSpider spider = (EntityMaracaSpider)this.attacker;
             spider.setAttacking(false);
             spider.isSwingInProgress = false;
         }
 
-        public void startExecuting()
-        {
+        public void startExecuting() {
             super.startExecuting();
             EntityMaracaSpider spider = (EntityMaracaSpider)this.attacker;
             spider.setAttacking(true);
             spider.swingArm(EnumHand.MAIN_HAND);
         }
 
-        protected double getAttackReachSqr(EntityLivingBase attackTarget)
-        {
+        protected double getAttackReachSqr(EntityLivingBase attackTarget) {
             return (double)(4.0F + attackTarget.width);
         }
     }
 
-    static class AISpiderTarget<T extends EntityLivingBase> extends EntityAINearestAttackableTarget<T>
-    {
+    static class AISpiderTarget<T extends EntityLivingBase> extends EntityAINearestAttackableTarget<T> {
         public AISpiderTarget(EntityMaracaSpider spider, Class<T> classTarget)
         {
             super(spider, classTarget, true);
@@ -137,37 +120,9 @@ public class EntityMaracaSpider extends EntitySpider implements IInstrumentalMob
         /**
          * Returns whether the EntityAIBase should begin execution.
          */
-        public boolean shouldExecute()
-        {
+        public boolean shouldExecute() {
             float f = this.taskOwner.getBrightness();
-            return f >= 0.5F ? false : super.shouldExecute();
-        }
-    }
-
-	public static class GroupData implements IEntityLivingData
-    {
-        public Potion effect;
-
-        public void setRandomEffect(Random rand)
-        {
-            int i = rand.nextInt(5);
-
-            if (i <= 1)
-            {
-                this.effect = MobEffects.SPEED;
-            }
-            else if (i <= 2)
-            {
-                this.effect = MobEffects.STRENGTH;
-            }
-            else if (i <= 3)
-            {
-                this.effect = MobEffects.REGENERATION;
-            }
-            else if (i <= 4)
-            {
-                this.effect = MobEffects.INVISIBILITY;
-            }
+            return !(f >= 0.5F) && super.shouldExecute();
         }
     }
 	

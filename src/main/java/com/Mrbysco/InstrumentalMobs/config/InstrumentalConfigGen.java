@@ -1,7 +1,6 @@
 package com.mrbysco.instrumentalmobs.config;
 
 import com.mrbysco.instrumentalmobs.Reference;
-
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;

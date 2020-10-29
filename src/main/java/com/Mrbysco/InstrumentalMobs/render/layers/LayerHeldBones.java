@@ -1,7 +1,6 @@
 package com.mrbysco.instrumentalmobs.render.layers;
 
-import com.mrbysco.instrumentalmobs.entities.EntityXylophoneSkeletal;
-
+import com.mrbysco.instrumentalmobs.entities.EntityXylophoneSkeleton;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.GlStateManager;
@@ -15,30 +14,25 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class LayerHeldBones implements LayerRenderer<EntityLivingBase>
-{
+public class LayerHeldBones implements LayerRenderer<EntityLivingBase> {
     protected final RenderLivingBase<?> livingEntityRenderer;
 
-    public LayerHeldBones(RenderLivingBase<?> livingEntityRendererIn)
-    {
+    public LayerHeldBones(RenderLivingBase<?> livingEntityRendererIn) {
         this.livingEntityRenderer = livingEntityRendererIn;
     }
 
-    public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
-    {
+    public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         boolean flag = entitylivingbaseIn.getPrimaryHand() == EnumHandSide.RIGHT;
         ItemStack itemstack = flag ? entitylivingbaseIn.getHeldItemOffhand() : entitylivingbaseIn.getHeldItemMainhand();
         ItemStack itemstack1 = flag ? entitylivingbaseIn.getHeldItemMainhand() : entitylivingbaseIn.getHeldItemOffhand();
 
-        if (!itemstack.isEmpty() || !itemstack1.isEmpty())
-        {
+        if (!itemstack.isEmpty() || !itemstack1.isEmpty()) {
             GlStateManager.pushMatrix();
 
-            if (this.livingEntityRenderer.getMainModel().isChild)
-            {
+            if (this.livingEntityRenderer.getMainModel().isChild) {
                 float f = 0.5F;
                 GlStateManager.translate(0.0F, 0.75F, 0.0F);
-                GlStateManager.scale(0.5F, 0.5F, 0.5F);
+                GlStateManager.scale(f,f,f);
             }
 
             this.renderHeldItem(entitylivingbaseIn, itemstack1, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, EnumHandSide.RIGHT);
@@ -49,12 +43,10 @@ public class LayerHeldBones implements LayerRenderer<EntityLivingBase>
 
     private void renderHeldItem(EntityLivingBase livingBase, ItemStack p_188358_2_, ItemCameraTransforms.TransformType p_188358_3_, EnumHandSide handSide)
     {
-        if (!p_188358_2_.isEmpty())
-        {   
+        if (!p_188358_2_.isEmpty()) {
             GlStateManager.pushMatrix();
 
-            if (livingBase.isSneaking())
-            {
+            if (livingBase.isSneaking()) {
                 GlStateManager.translate(0.0F, 0.2F, 0.0F);
             }
             // Forge: moved this call down, fixes incorrect offset while sneaking.
@@ -62,15 +54,13 @@ public class LayerHeldBones implements LayerRenderer<EntityLivingBase>
             GlStateManager.rotate(-90.0F, 1.0F, 0.0F, 0.0F);
             GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
             boolean flag = handSide == EnumHandSide.LEFT;
-            if(livingBase instanceof EntityXylophoneSkeletal)
-            {
-            	EntityXylophoneSkeletal skeletal = (EntityXylophoneSkeletal)livingBase;
+            if(livingBase instanceof EntityXylophoneSkeleton) {
+            	EntityXylophoneSkeleton skeletal = (EntityXylophoneSkeleton)livingBase;
             	boolean flag2 = skeletal.isPlayingRibs();
-                if(flag2)
-                {
+                if(flag2) {
                 	GlStateManager.scale(0.75F, 0.75F, 0.75F);
                     GlStateManager.translate(0.0F, -0.225F, -0.5F);
-                    GlStateManager.rotate(45.0F, 1.0F, (float)(flag ? -0.2F : 0.2F), (float)(flag ? -0.2F : 0.2F));
+                    GlStateManager.rotate(45.0F, 1.0F, flag ? -0.2F : 0.2F, flag ? -0.2F : 0.2F);
                 }
             }
         	
@@ -80,8 +70,7 @@ public class LayerHeldBones implements LayerRenderer<EntityLivingBase>
         }
     }
 
-    protected void translateToHand(EnumHandSide p_191361_1_)
-    {
+    protected void translateToHand(EnumHandSide p_191361_1_) {
         ((ModelBiped)this.livingEntityRenderer.getMainModel()).postRenderArm(0.0625F, p_191361_1_);
     }
 

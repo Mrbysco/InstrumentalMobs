@@ -2,7 +2,6 @@ package com.mrbysco.instrumentalmobs.render;
 
 import com.mrbysco.instrumentalmobs.entities.projectiles.EntitySoundWaves;
 import com.mrbysco.instrumentalmobs.init.InstrumentalItems;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -18,7 +17,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class RenderSoundWaves extends RenderFireball{
+public class RenderSoundWaves extends RenderFireball {
 	public static final Factory FACTORY = new Factory();
 	private final static float scale = 2.0F;
 	
@@ -32,7 +31,7 @@ public class RenderSoundWaves extends RenderFireball{
         this.bindEntityTexture(entity);
         GlStateManager.translate((float)x, (float)y, (float)z);
         GlStateManager.enableRescaleNormal();
-        GlStateManager.scale(this.scale, this.scale, this.scale);
+        GlStateManager.scale(scale, scale, scale);
         TextureAtlasSprite textureatlassprite = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getParticleIcon(InstrumentalItems.microphone);
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
@@ -40,14 +39,10 @@ public class RenderSoundWaves extends RenderFireball{
         float f1 = textureatlassprite.getMaxU();
         float f2 = textureatlassprite.getMinV();
         float f3 = textureatlassprite.getMaxV();
-        float f4 = 1.0F;
-        float f5 = 0.5F;
-        float f6 = 0.25F;
         GlStateManager.rotate(180.0F - this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
         GlStateManager.rotate((float)(this.renderManager.options.thirdPersonView == 2 ? -1 : 1) * -this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
 
-        if (this.renderOutlines)
-        {
+        if (this.renderOutlines) {
             GlStateManager.enableColorMaterial();
             GlStateManager.enableOutlineMode(this.getTeamColor(entity));
         }
@@ -59,8 +54,7 @@ public class RenderSoundWaves extends RenderFireball{
         bufferbuilder.pos(-0.5D, 0.75D, 0.0D).tex((double)f, (double)f2).normal(0.0F, 1.0F, 0.0F).endVertex();
         tessellator.draw();
 
-        if (this.renderOutlines)
-        {
+        if (this.renderOutlines) {
             GlStateManager.disableOutlineMode();
             GlStateManager.disableColorMaterial();
         }

@@ -2,7 +2,6 @@ package com.mrbysco.instrumentalmobs.render.layers;
 
 import com.mrbysco.instrumentalmobs.entities.EntityTubaEnderman;
 import com.mrbysco.instrumentalmobs.render.RenderTubaEnderman;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -12,18 +11,15 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class LayerTubaEndermanEyes implements LayerRenderer<EntityTubaEnderman>
-{
+public class LayerTubaEndermanEyes implements LayerRenderer<EntityTubaEnderman> {
     private static final ResourceLocation RES_ENDERMAN_EYES = new ResourceLocation("textures/entity/enderman/enderman_eyes.png");
     private final RenderTubaEnderman endermanRenderer;
 
-    public LayerTubaEndermanEyes(RenderTubaEnderman endermanRendererIn)
-    {
+    public LayerTubaEndermanEyes(RenderTubaEnderman endermanRendererIn) {
         this.endermanRenderer = endermanRendererIn;
     }
 
-    public void doRenderLayer(EntityTubaEnderman entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
-    {
+    public void doRenderLayer(EntityTubaEnderman entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         this.endermanRenderer.bindTexture(RES_ENDERMAN_EYES);
         GlStateManager.enableBlend();
         GlStateManager.disableAlpha();

@@ -4,7 +4,6 @@ import com.mrbysco.instrumentalmobs.entities.EntityMaracaSpider;
 import com.mrbysco.instrumentalmobs.render.layers.LayerMaracaSpiderEyes;
 import com.mrbysco.instrumentalmobs.render.layers.LayerRenderMaracas;
 import com.mrbysco.instrumentalmobs.render.model.ModelMaracaSpider;
-
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -14,13 +13,13 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class RenderMaracaSpider<T extends EntityMaracaSpider> extends RenderLiving<T>{
+public class RenderMaracaSpider<T extends EntityMaracaSpider> extends RenderLiving<T> {
 	public static final Factory FACTORY = new Factory();
 	private static final ResourceLocation SPIDER_TEXTURES = new ResourceLocation("textures/entity/spider/spider.png");
 	
 	public RenderMaracaSpider(RenderManager renderManagerIn) {
         super(renderManagerIn, new ModelMaracaSpider(), 1.0F);
-        this.addLayer(new LayerMaracaSpiderEyes(this));
+        this.addLayer(new LayerMaracaSpiderEyes<>(this));
         this.addLayer(new LayerRenderMaracas(this));
 	}
 
@@ -40,7 +39,7 @@ public class RenderMaracaSpider<T extends EntityMaracaSpider> extends RenderLivi
 	public static class Factory implements IRenderFactory<EntityMaracaSpider> {
 		@Override
 		public Render<? super EntityMaracaSpider> createRenderFor(RenderManager manager) {
-			return new RenderMaracaSpider(manager);
+			return new RenderMaracaSpider<>(manager);
 		}
 	}
 }
