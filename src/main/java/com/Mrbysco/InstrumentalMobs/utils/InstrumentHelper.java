@@ -40,7 +40,6 @@ public class InstrumentHelper {
 						 }
 					 }
 				 } else if(entityIn.isCreatureType(EnumCreatureType.MONSTER, false)) {
-					 System.out.println(collidingEntity);
 					 collidingEntity.attackEntityFrom(InstrumentalMobs.soundDamage, 1F);
 					 collidingEntity.attackEntityAsMob(entityIn);
 				 }
