@@ -18,6 +18,7 @@ import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.monster.EntityGhast;
 import net.minecraft.entity.monster.EntityHusk;
+import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.util.ResourceLocation;
@@ -56,7 +57,7 @@ public class InstrumentalMobRegistry {
 	public static void registerBiomes() {
 		for (Biome biome : Biome.REGISTRY) {
 			for (Biome.SpawnListEntry entry : new ArrayList<>(biome.getSpawnableList(EnumCreatureType.MONSTER))) {
-				registerSpawn(entry, biome, EntityXylophoneSkeletal.class, EntityXylophoneSkeletal.class);
+				registerSpawn(entry, biome, EntitySkeleton.class, EntityXylophoneSkeletal.class);
 				registerSpawn(entry, biome, EntityCreeper.class, EntityFrenchHornCreeper.class);
 				registerSpawn(entry, biome, EntityEnderman.class, EntityTubaEnderman.class);
 				registerSpawn(entry, biome, EntityZombie.class, EntityDrumZombie.class);
