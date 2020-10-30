@@ -6,7 +6,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
@@ -17,33 +16,8 @@ public class FrenchHornCreeperEntity extends CreeperEntity implements IInstrumen
         this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(InstrumentalRegistry.french_horn.get()));
 	}
 
-    public void tick() {
-        if (this.isAlive()) {
-            this.lastActiveTime = this.timeSinceIgnited;
-            if (this.hasIgnited()) {
-                this.setCreeperState(1);
-            }
-
-            int i = this.getCreeperState();
-            if (i > 0 && this.timeSinceIgnited == 0) {
-                this.playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1.0F, 0.5F);
-            }
-
-            this.timeSinceIgnited += i;
-            if (this.timeSinceIgnited < 0) {
-                this.timeSinceIgnited = 0;
-            }
-
-            if (this.timeSinceIgnited >= this.fuseTime) {
-                this.timeSinceIgnited = this.fuseTime;
-                this.explode();
-            }
-        }
-
-        super.tick();
-    }
-
-	private void explode() {
+    @Override
+	public void explode() {
         if (!this.world.isRemote) {
             Explosion.Mode explosion$mode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this) ? Explosion.Mode.DESTROY : Explosion.Mode.NONE;
             float f = this.isCharged() ? 2.0F : 1.0F;

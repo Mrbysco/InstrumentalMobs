@@ -49,7 +49,6 @@ public class InstrumentalEntities {
 		}
 	}
 
-	
 	public static void initializeMobs() {
 		EntitySpawnPlacementRegistry.register(InstrumentalRegistry.CYMBAL_HUSK.get(), PlacementType.ON_GROUND, Type.MOTION_BLOCKING_NO_LEAVES, CymbalHuskEntity::canSpawnHere);
 		EntitySpawnPlacementRegistry.register(InstrumentalRegistry.DRUM_ZOMBIE.get(), PlacementType.ON_GROUND, Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::canMonsterSpawnInLight);
@@ -66,14 +65,6 @@ public class InstrumentalEntities {
 		GlobalEntityTypeAttributes.put(InstrumentalRegistry.MICROPHONE_GHAST.get(), GhastEntity.func_234290_eH_().create());
 		GlobalEntityTypeAttributes.put(InstrumentalRegistry.TUBA_ENDERMAN.get(), EndermanEntity.func_234287_m_().create());
 		GlobalEntityTypeAttributes.put(InstrumentalRegistry.XYLOPHONE_SKELETON.get(), AbstractSkeletonEntity.registerAttributes().create());
-
-//		registerEntity("french_horn_creeper", EntityFrenchHornCreeper.class, "FrenchHornCreeper", 80, 3, true, 894731, 0); TODO: Re-implement spawn eggs;
-//		registerEntity("tuba_enderman", EntityTubaEnderman.class, "TubaEnderman", 80, 3, true, 1447446, 0);
-//		registerEntity("drum_zombie", EntityDrumZombie.class, "DrumZombie", 80, 3, true, 44975, 7969893);
-//		registerEntity("cymbal_husk", EntityCymbalHusk.class, "CymbalHusk", 80, 3, true, 7958625, 15125652);
-//		registerEntity("xylophone_skeleton", EntityXylophoneSkeleton.class, "XylophoneSkeleton", 80, 3, true, 12698049, 4802889);
-//		registerEntity("maraca_spider", EntityMaracaSpider.class, "MaracaSpider", 80, 3, true, 803406, 11013646);
-//		registerEntity("microphone_ghast", EntityMicrophoneGhast.class, "MicrophoneGhast", 80, 3, true, 16382457, 12369084);
 	}
 
 	public static void registerSpawn(List<Spawners> spawns, Spawners entry, EntityType<? extends LivingEntity> oldEntity, EntityType<? extends LivingEntity> newEntity) {

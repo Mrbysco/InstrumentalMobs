@@ -13,6 +13,7 @@ public class InstrumentalConfig {
 	public static class Common {
 		public final BooleanValue mobsReact;
 		public final DoubleValue instrumentRange;
+		public final DoubleValue soundDamageChance;
 
 		Common(ForgeConfigSpec.Builder builder) {
 			builder.comment("Server settings")
@@ -25,6 +26,10 @@ public class InstrumentalConfig {
 			instrumentRange = builder
 					.comment("The area in which the instruments react with mobs. [default: 10.0D]")
 					.defineInRange("instrumentRange", 10.0D, 0.01D, 128.0D);
+
+			soundDamageChance = builder
+					.comment("The chance of instrument sounds damaging mobs after pushing. [default: 0.35D]")
+					.defineInRange("soundDamageChance", 0.35D, 0.0001D, 1.0D);
 
 			builder.pop();
 		}

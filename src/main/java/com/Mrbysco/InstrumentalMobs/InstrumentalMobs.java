@@ -4,8 +4,6 @@ import com.mrbysco.instrumentalmobs.client.ClientHandler;
 import com.mrbysco.instrumentalmobs.config.InstrumentalConfig;
 import com.mrbysco.instrumentalmobs.init.InstrumentalEntities;
 import com.mrbysco.instrumentalmobs.init.InstrumentalRegistry;
-import com.mrbysco.instrumentalmobs.init.InstrumentalTab;
-import net.minecraft.util.DamageSource;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
@@ -20,9 +18,6 @@ import org.apache.logging.log4j.Logger;
 @Mod(Reference.MOD_ID)
 public class InstrumentalMobs {
 	public static final Logger LOGGER = LogManager.getLogger(Reference.MOD_ID);
-
-	public static InstrumentalTab instrumentalTab = new InstrumentalTab();
-	public static final DamageSource soundDamage = new DamageSource(Reference.MOD_PREFIX + "soundDamage");
 
 	public InstrumentalMobs() {
 		IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -39,6 +34,7 @@ public class InstrumentalMobs {
 
 		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
 			eventBus.addListener(ClientHandler::doClientStuff);
+			eventBus.addListener(ClientHandler::registerItemColors);
 		});
 	}
 

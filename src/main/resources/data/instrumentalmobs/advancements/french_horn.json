@@ -14,7 +14,7 @@
         "show_toast": true,
         "announce_to_chat": false
         },
-    "parent": "instrumentalmobs:instrumentalmobs/root",
+    "parent": "instrumentalmobs:root",
     "criteria": {
         "info": {
             "trigger": "minecraft:inventory_changed",

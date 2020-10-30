@@ -2,10 +2,12 @@ package com.mrbysco.instrumentalmobs.client.render.model;
 
 import com.mrbysco.instrumentalmobs.entities.TubaEndermanEntity;
 import net.minecraft.client.renderer.entity.model.EndermanModel;
+import net.minecraft.client.renderer.entity.model.IHasHead;
+import net.minecraft.client.renderer.model.ModelRenderer;
 
-public class ModelTubaEnderman<T extends TubaEndermanEntity> extends EndermanModel<T> {
+public class TubaEndermanModel<T extends TubaEndermanEntity> extends EndermanModel<T> implements IHasHead {
 
-    public ModelTubaEnderman(float scale) {
+    public TubaEndermanModel(float scale) {
         super(scale);
     }
 
@@ -84,5 +86,10 @@ public class ModelTubaEnderman<T extends TubaEndermanEntity> extends EndermanMod
         float f3 = -14.0F;
         this.bipedRightArm.setRotationPoint(-5.0F, -12.0F, 0.0F);
         this.bipedLeftArm.setRotationPoint(5.0F, -12.0F, 0.0F);
+    }
+
+    @Override
+    public ModelRenderer getModelHead() {
+        return this.bipedHead;
     }
 }

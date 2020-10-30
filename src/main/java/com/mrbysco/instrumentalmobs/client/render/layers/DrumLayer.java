@@ -9,7 +9,6 @@ import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.entity.model.IHasArm;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.vector.Vector3f;
@@ -32,7 +31,7 @@ public class DrumLayer<T extends DrumZombieEntity, M extends EntityModel<T> & IH
 				matrixStackIn.translate(0.0D, 0.75D, 0.0D);
 				matrixStackIn.scale(f, f, f);
 			}
-			matrixStackIn.rotate(Vector3f.XP.rotation(-10F));
+			matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-10F));
 
 			Minecraft.getInstance().getFirstPersonRenderer().renderItemSide(entitylivingbaseIn, itemstack, ItemCameraTransforms.TransformType.NONE, false, matrixStackIn, bufferIn, packedLightIn);
 

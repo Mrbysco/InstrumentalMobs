@@ -34,13 +34,8 @@ public class XylophoneSkeletonEntity extends SkeletonEntity implements IInstrume
         this.setItemStackToSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.BONE));
 	}
 
-//    @Override
-//    protected void applyEntityAttributes() {
-//        super.applyEntityAttributes();
-//        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.0D);
-//    }
-
-    protected void initEntityAI() {
+	@Override
+    public void registerGoals() {
         this.goalSelector.addGoal(2, new RestrictSunGoal(this));
         this.goalSelector.addGoal(3, new FleeSunGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, WolfEntity.class, 6.0F, 1.0D, 1.2D));

@@ -24,7 +24,7 @@ public class MicrophoneLayer<T extends MicrophoneGhastEntity, M extends EntityMo
             matrixStackIn.push();
 
             matrixStackIn.scale(0.25F, 0.25F, 0.25F);
-            matrixStackIn.rotate(Vector3f.XP.rotation(-180F));
+            matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-180F));
             matrixStackIn.translate(-0.5F, -6F, 2F);
             Minecraft.getInstance().getFirstPersonRenderer().renderItemSide(entitylivingbaseIn, stack, ItemCameraTransforms.TransformType.NONE, false, matrixStackIn, bufferIn, packedLightIn);
             matrixStackIn.pop();

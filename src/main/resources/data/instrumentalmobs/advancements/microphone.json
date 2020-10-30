@@ -1,27 +1,27 @@
 {
     "display": {
         "icon": {
-            "item": "instrumentalmobs:maracas"
+            "item": "instrumentalmobs:microphone"
         },
         "title": {
-            "translate": "Maracas"
+            "translate": "Microphone"
         },
         "description": {
-            "translate": "*tssch* La Cucaracha *tssch*"
+            "translate": "Just scream..."
         },
         "frame": "task",
         "hidden": false,
         "show_toast": true,
         "announce_to_chat": false
         },
-    "parent": "instrumentalmobs:instrumentalmobs/root",
+    "parent": "instrumentalmobs:root",
     "criteria": {
         "info": {
             "trigger": "minecraft:inventory_changed",
             "conditions": {
                 "items": [
                     {
-                        "item": "instrumentalmobs:maracas"
+                        "item": "instrumentalmobs:microphone"
                     }
                 ]
             }

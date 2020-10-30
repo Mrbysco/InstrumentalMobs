@@ -1,7 +1,6 @@
 package com.mrbysco.instrumentalmobs.client.render.layers;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mrbysco.instrumentalmobs.entities.MaracaSpiderEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.IEntityRenderer;

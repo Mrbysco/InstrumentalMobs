@@ -1,6 +1,6 @@
 package com.mrbysco.instrumentalmobs.entities.projectiles;
 
-import com.mrbysco.instrumentalmobs.InstrumentalMobs;
+import com.mrbysco.instrumentalmobs.Reference;
 import com.mrbysco.instrumentalmobs.config.InstrumentalConfig;
 import com.mrbysco.instrumentalmobs.init.InstrumentalRegistry;
 import com.mrbysco.instrumentalmobs.utils.InstrumentHelper;
@@ -78,13 +78,13 @@ public class EntitySoundWaves extends DamagingProjectileEntity implements IRende
             PlayerEntity collidingPlayer = (PlayerEntity)entity;
             if(playerIn.canAttackPlayer(collidingPlayer)) {
                 if(this.world.rand.nextInt(10) <= 2) {
-                    collidingPlayer.attackEntityFrom(InstrumentalMobs.soundDamage, 1F);
+                    collidingPlayer.attackEntityFrom(Reference.causeSoundDamage(this), 1F);
                 }
             }
         } else {
             if(func_234616_v_() instanceof LivingEntity) {
                 LivingEntity livingEntity = (LivingEntity) this.func_234616_v_();
-                entity.attackEntityFrom(InstrumentalMobs.soundDamage, 6.0F);
+                entity.attackEntityFrom(Reference.causeSoundDamage(this), 6.0F);
                 this.applyEnchantments(livingEntity, entity);
             }
         }
@@ -94,7 +94,7 @@ public class EntitySoundWaves extends DamagingProjectileEntity implements IRende
         this.world.playSound(null, this.getPosition(), sound, this.getSoundCategory(), 1.0F, this.world.rand.nextFloat() * 0.1F + 0.9F);
         this.world.addParticle(ParticleTypes.NOTE, this.getPosX(), this.getPosY(), this.getPosZ(), 0.0D, 0.0D, 0.0D);
         if(InstrumentalConfig.COMMON.mobsReact.get() && func_234616_v_() instanceof LivingEntity) {
-            InstrumentHelper.instrumentDamage(this.world, (LivingEntity)this.func_234616_v_());
+            InstrumentHelper.instrumentDamage(this.world, (LivingEntity)this.func_234616_v_(), this.getBoundingBox().grow(InstrumentalConfig.COMMON.instrumentRange.get()));
         }
     }
 

@@ -8,8 +8,11 @@ import com.mrbysco.instrumentalmobs.client.render.RenderMicrophoneGhast;
 import com.mrbysco.instrumentalmobs.client.render.RenderTubaEnderman;
 import com.mrbysco.instrumentalmobs.client.render.RenderXylophoneSkeleton;
 import com.mrbysco.instrumentalmobs.init.InstrumentalRegistry;
+import com.mrbysco.instrumentalmobs.items.CustomSpawnEggItem;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
+import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
@@ -24,5 +27,15 @@ public class ClientHandler {
 		RenderingRegistry.registerEntityRenderingHandler(InstrumentalRegistry.MICROPHONE_GHAST.get(), RenderMicrophoneGhast::new);
 		RenderingRegistry.registerEntityRenderingHandler(InstrumentalRegistry.SOUND_WAVE.get(), renderManager -> new SpriteRenderer(renderManager, Minecraft.getInstance().getItemRenderer(), 0.75F, true));
 		RenderingRegistry.registerEntityRenderingHandler(InstrumentalRegistry.MICROPHONE_WAVE.get(), renderManager -> new SpriteRenderer(renderManager, Minecraft.getInstance().getItemRenderer()));
+	}
+
+	public static void registerItemColors(final ColorHandlerEvent.Item event) {
+		ItemColors colors = event.getItemColors();
+
+		for(CustomSpawnEggItem item : CustomSpawnEggItem.getEggs()) {
+			colors.register((p_198141_1_, p_198141_2_) -> {
+				return item.getColor(p_198141_2_);
+			}, item);
+		}
 	}
 }

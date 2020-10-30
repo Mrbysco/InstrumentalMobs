@@ -10,7 +10,7 @@ import net.minecraft.util.HandSide;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3f;
 
-public class ModelMaracaSpider<T extends MaracaSpiderEntity> extends SegmentedModel<T> implements IHasArm {
+public class MaracaSpiderModel<T extends MaracaSpiderEntity> extends SegmentedModel<T> implements IHasArm {
     private final ModelRenderer spiderHead;
     private final ModelRenderer spiderNeck;
     private final ModelRenderer spiderBody;
@@ -23,7 +23,7 @@ public class ModelMaracaSpider<T extends MaracaSpiderEntity> extends SegmentedMo
     private final ModelRenderer spiderLeg7;
     private final ModelRenderer spiderLeg8;
 
-    public ModelMaracaSpider() {
+    public MaracaSpiderModel() {
         float f = 0.0F;
         int i = 15;
         this.spiderHead = new ModelRenderer(this, 32, 4);

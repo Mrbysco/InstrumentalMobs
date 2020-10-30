@@ -3,7 +3,7 @@ package com.mrbysco.instrumentalmobs.client.render;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mrbysco.instrumentalmobs.client.render.layers.TubaEndermanEyesLayer;
 import com.mrbysco.instrumentalmobs.client.render.layers.TubaEndermanHeldItemLayer;
-import com.mrbysco.instrumentalmobs.client.render.model.ModelTubaEnderman;
+import com.mrbysco.instrumentalmobs.client.render.model.TubaEndermanModel;
 import com.mrbysco.instrumentalmobs.entities.TubaEndermanEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -16,12 +16,12 @@ import net.minecraft.util.math.vector.Vector3d;
 
 import java.util.Random;
 
-public class RenderTubaEnderman extends MobRenderer<TubaEndermanEntity, ModelTubaEnderman<TubaEndermanEntity>> {
+public class RenderTubaEnderman extends MobRenderer<TubaEndermanEntity, TubaEndermanModel<TubaEndermanEntity>> {
 	private static final ResourceLocation ENDERMAN_TEXTURES = new ResourceLocation("textures/entity/enderman/enderman.png");
 	private final Random rnd = new Random();
 	
 	public RenderTubaEnderman(EntityRendererManager renderManagerIn) {
-        super(renderManagerIn, new ModelTubaEnderman(0.0F), 0.5F);
+        super(renderManagerIn, new TubaEndermanModel(0.0F), 0.5F);
         this.addLayer(new TubaEndermanEyesLayer(this));
         this.addLayer(new TubaEndermanHeldItemLayer(this));
 	}

@@ -26,7 +26,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class MaracaSpiderEntity extends SpiderEntity implements IInstrumentalMobs {
-    private static final DataParameter<Boolean> ATTACKING = EntityDataManager.<Boolean>createKey(CymbalHuskEntity.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> ATTACKING = EntityDataManager.<Boolean>createKey(MaracaSpiderEntity.class, DataSerializers.BOOLEAN);
 
     public MaracaSpiderEntity(EntityType<? extends MaracaSpiderEntity> type, World worldIn) {
         super(type, worldIn);

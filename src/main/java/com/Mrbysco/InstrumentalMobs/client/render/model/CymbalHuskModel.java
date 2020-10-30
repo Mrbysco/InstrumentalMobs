@@ -7,12 +7,12 @@ import net.minecraft.util.HandSide;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3f;
 
-public class ModelCymbalHusk<T extends CymbalHuskEntity>  extends ZombieModel<T> {
-    public ModelCymbalHusk() {
+public class CymbalHuskModel<T extends CymbalHuskEntity>  extends ZombieModel<T> {
+    public CymbalHuskModel() {
         this(0.0F, false);
     }
 
-    public ModelCymbalHusk(float modelSize, boolean p_i1168_2_) {
+    public CymbalHuskModel(float modelSize, boolean p_i1168_2_) {
         super(modelSize, 0.0F, 64, p_i1168_2_ ? 32 : 64);
     }
 

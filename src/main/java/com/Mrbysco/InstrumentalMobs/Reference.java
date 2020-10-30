@@ -1,6 +1,14 @@
 package com.mrbysco.instrumentalmobs;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntityDamageSource;
+
 public class Reference {
 	public static final String MOD_ID = "instrumentalmobs";
-	public static final String MOD_PREFIX = "instrumentalmobs:";
+	public static final String MOD_PREFIX = MOD_ID + ":";
+
+	public static DamageSource causeSoundDamage(Entity entity) {
+		return new EntityDamageSource(Reference.MOD_PREFIX + "soundDamage", entity);
+	}
 }

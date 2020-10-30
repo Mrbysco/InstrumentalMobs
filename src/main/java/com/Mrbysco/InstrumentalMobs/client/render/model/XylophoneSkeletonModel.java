@@ -9,12 +9,12 @@ import net.minecraft.item.Items;
 import net.minecraft.util.HandSide;
 import net.minecraft.util.math.MathHelper;
 
-public class ModelXylophoneSkeleton<T extends XylophoneSkeletonEntity> extends BipedModel<T> {
-    public ModelXylophoneSkeleton() {
+public class XylophoneSkeletonModel<T extends XylophoneSkeletonEntity> extends BipedModel<T> {
+    public XylophoneSkeletonModel() {
         this(0.0F, false);
     }
 
-    public ModelXylophoneSkeleton(float modelSize, boolean p_i46303_2_) {
+    public XylophoneSkeletonModel(float modelSize, boolean p_i46303_2_) {
         super(modelSize, 0.0F, 64, 32);
         if (!p_i46303_2_) {
             this.bipedRightArm = new ModelRenderer(this, 40, 16);

@@ -1,7 +1,7 @@
 {
     "display": {
         "icon": {
-            "item": "minecraft:noteblock"
+            "item": "minecraft:note_block"
         },
         "title": {
             "translate": "Instrumental Mobs"
@@ -9,7 +9,7 @@
         "description": {
             "translate": "Getting instrumental with mobs"
         },
-        "background": "textures/blocks/wool_colored_yellow.png",
+        "background": "textures/block/yellow_wool.png",
         "show_toast": true,
         "announce_to_chat": true
     },

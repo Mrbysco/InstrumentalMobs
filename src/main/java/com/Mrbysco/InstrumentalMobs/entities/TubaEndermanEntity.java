@@ -63,7 +63,6 @@ public class TubaEndermanEntity extends EndermanEntity implements IInstrumentalM
 	protected void registerGoals() {
         this.goalSelector.addGoal(0, new SwimGoal(this));
         this.goalSelector.addGoal(1, new TubaEndermanEntity.StareGoal(this));
-        this.goalSelector.addGoal(2, playOnCollideGoal);
         this.goalSelector.addGoal(7, new WaterAvoidingRandomWalkingGoal(this, 1.0D, 0.0F));
         this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.addGoal(8, new LookRandomlyGoal(this));

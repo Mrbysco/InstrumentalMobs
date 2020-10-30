@@ -1,27 +1,27 @@
 {
     "display": {
         "icon": {
-            "item": "instrumentalmobs:drum"
+            "item": "instrumentalmobs:xylophone"
         },
         "title": {
-            "translate": "Drum"
+            "translate": "Xylophone"
         },
         "description": {
-            "translate": "You've heard of the Little Drummer Boy, well now you've met my Drummer Zombie(s) *Badumnn Tsss*"
+            "translate": "Did you enjoy the skeletons?"
         },
         "frame": "task",
         "hidden": false,
         "show_toast": true,
         "announce_to_chat": false
         },
-    "parent": "instrumentalmobs:instrumentalmobs/root",
+    "parent": "instrumentalmobs:root",
     "criteria": {
         "info": {
             "trigger": "minecraft:inventory_changed",
             "conditions": {
                 "items": [
                     {
-                        "item": "instrumentalmobs:drum"
+                        "item": "instrumentalmobs:xylophone"
                     }
                 ]
             }

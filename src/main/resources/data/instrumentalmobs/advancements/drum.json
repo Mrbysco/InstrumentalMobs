@@ -1,27 +1,27 @@
 {
     "display": {
         "icon": {
-            "item": "instrumentalmobs:cymbals"
+            "item": "instrumentalmobs:drum"
         },
         "title": {
-            "translate": "Cymbals"
+            "translate": "Drum"
         },
         "description": {
-            "translate": "*CRASH* What did you say? *CRASH* I can't hear you due to the *CRASH* noise..."
+            "translate": "You've heard of the Little Drummer Boy, well now you've met my Drummer Zombie(s) *Badumnn Tsss*"
         },
         "frame": "task",
         "hidden": false,
         "show_toast": true,
         "announce_to_chat": false
         },
-    "parent": "instrumentalmobs:instrumentalmobs/root",
+    "parent": "instrumentalmobs:root",
     "criteria": {
         "info": {
             "trigger": "minecraft:inventory_changed",
             "conditions": {
                 "items": [
                     {
-                        "item": "instrumentalmobs:cymbals"
+                        "item": "instrumentalmobs:drum"
                     }
                 ]
             }
