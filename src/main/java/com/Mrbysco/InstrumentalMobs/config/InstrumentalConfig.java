@@ -29,7 +29,7 @@ public class InstrumentalConfig {
 
 			soundDamageChance = builder
 					.comment("The chance of instrument sounds damaging mobs after pushing. [default: 0.35D]")
-					.defineInRange("soundDamageChance", 0.35D, 0.0001D, 1.0D);
+					.defineInRange("soundDamageChance", 0.35D, 0.001D, 1.0D);
 
 			builder.pop();
 		}
