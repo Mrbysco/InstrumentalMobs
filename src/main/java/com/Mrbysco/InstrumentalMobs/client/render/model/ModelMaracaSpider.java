@@ -133,6 +133,6 @@ public class ModelMaracaSpider<T extends MaracaSpiderEntity> extends SegmentedMo
         boolean flag = sideIn == HandSide.LEFT;
 
         matrixStackIn.rotate(new Vector3f(0.0F, flag ? -0.23F : 0.23F, flag ? -0.23F : 0.23F).rotation(90F));
-        matrixStackIn.translate((float)(flag ? 0.5 : -0.5), -0.5F, -0.5F);
+        matrixStackIn.translate((float)(flag ? 0.05F : -0.7F), flag ? -0.00F : -1F, flag ? -0.25F : 0.35F);
     }
 }
