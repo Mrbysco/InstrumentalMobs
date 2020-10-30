@@ -1,8 +1,5 @@
 {
     "variants": {
-        "normal": [ { "model": "instrumentalmobs:drum" }],
-		"inventory": [{
-			"model": "instrumentalmobs:drum"
-		}]
+        "": [ { "model": "instrumentalmobs:block/drum" }]
     }
 }

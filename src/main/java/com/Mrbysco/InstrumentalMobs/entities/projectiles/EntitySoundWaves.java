@@ -1,89 +1,120 @@
 package com.mrbysco.instrumentalmobs.entities.projectiles;
 
 import com.mrbysco.instrumentalmobs.InstrumentalMobs;
-import com.mrbysco.instrumentalmobs.config.InstrumentalConfigGen;
+import com.mrbysco.instrumentalmobs.config.InstrumentalConfig;
+import com.mrbysco.instrumentalmobs.init.InstrumentalRegistry;
 import com.mrbysco.instrumentalmobs.utils.InstrumentHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.IProjectile;
-import net.minecraft.entity.projectile.EntityFireball;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.IRendersAsItem;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.DamagingProjectileEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.network.IPacket;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
-public class EntitySoundWaves extends EntityFireball implements IProjectile
-{
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.network.FMLPlayMessages;
+import net.minecraftforge.fml.network.NetworkHooks;
+@OnlyIn(
+        value = Dist.CLIENT,
+        _interface = IRendersAsItem.class
+)
+public class EntitySoundWaves extends DamagingProjectileEntity implements IRendersAsItem {
     private SoundEvent sound = SoundEvents.ENTITY_GHAST_SCREAM;
 
-    public EntitySoundWaves(World worldIn)
-    {
-        super(worldIn);
+    public EntitySoundWaves(EntityType<? extends EntitySoundWaves> type, World worldIn) {
+        super(type, worldIn);
     }
 
-    @SideOnly(Side.CLIENT)
-    public EntitySoundWaves(World worldIn, double x, double y, double z, double accelX, double accelY, double accelZ)
-    {
-        super(worldIn, x, y, z, accelX, accelY, accelZ);
+    public EntitySoundWaves(World worldIn, double x, double y, double z, double accelX, double accelY, double accelZ) {
+        super(InstrumentalRegistry.SOUND_WAVE.get(), x, y, z, accelX, accelY, accelZ, worldIn);
     }
 
-    public EntitySoundWaves(World worldIn, EntityLivingBase shooter, double accelX, double accelY, double accelZ)
-    {
-        super(worldIn, shooter, accelX, accelY, accelZ);
+    public EntitySoundWaves(World worldIn, LivingEntity shooter, double accelX, double accelY, double accelZ) {
+        super(InstrumentalRegistry.SOUND_WAVE.get(), shooter, accelX, accelY, accelZ, worldIn);
     }
     
-    public EntitySoundWaves(World worldIn, EntityLivingBase shooter, SoundEvent theSound) {
-    	super(worldIn, shooter, 1, 1, 1);
+    public EntitySoundWaves(World worldIn, LivingEntity shooter, SoundEvent theSound) {
+    	super(InstrumentalRegistry.SOUND_WAVE.get(), shooter, 1, 1, 1, worldIn);
 		this.sound = theSound;
 	}
+
+    public EntitySoundWaves(FMLPlayMessages.SpawnEntity spawnEntity, World worldIn) {
+        this(InstrumentalRegistry.SOUND_WAVE.get(), worldIn);
+    }
+
+    @Override
+    public IPacket<?> createSpawnPacket() {
+        return NetworkHooks.getEntitySpawningPacket(this);
+    }
 
     /**
      * Called when this EntitySoundWaves hits a block or entity.
      */
     
-    protected void onImpact(RayTraceResult result)
-    {
-        if (!this.world.isRemote)
-        {
-            if (result.entityHit != null)
-            {
-            	result.entityHit.attackEntityFrom(InstrumentalMobs.soundDamage, 6.0F);
-                this.applyEnchantments(this.shootingEntity, result.entityHit);
-            }
-            
+    protected void onImpact(RayTraceResult result) {
+        super.onImpact(result);
+        if (!this.world.isRemote) {
             this.soundExplosion();
 
             this.setDead();
         }
     }
-    
-    public void soundExplosion()
-    {
-    	this.world.playSound(null, this.getPosition(), sound, this.getSoundCategory(), 1.0F, this.world.rand.nextFloat() * 0.1F + 0.9F);
-    	this.world.spawnParticle(EnumParticleTypes.NOTE, this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D);
-    	if(InstrumentalConfigGen.general.mobsReact)
-    	{
-    		InstrumentHelper.instrumentDamage(this.world, this.shootingEntity);
-    	}
+
+    @Override
+    protected void onEntityHit(EntityRayTraceResult result) {
+        Entity entity = result.getEntity();
+        if(entity instanceof PlayerEntity && func_234616_v_() instanceof PlayerEntity) {
+            PlayerEntity playerIn = (PlayerEntity)func_234616_v_();
+            PlayerEntity collidingPlayer = (PlayerEntity)entity;
+            if(playerIn.canAttackPlayer(collidingPlayer)) {
+                if(this.world.rand.nextInt(10) <= 2) {
+                    collidingPlayer.attackEntityFrom(InstrumentalMobs.soundDamage, 1F);
+                }
+            }
+        } else {
+            if(func_234616_v_() instanceof LivingEntity) {
+                LivingEntity livingEntity = (LivingEntity) this.func_234616_v_();
+                entity.attackEntityFrom(InstrumentalMobs.soundDamage, 6.0F);
+                this.applyEnchantments(livingEntity, entity);
+            }
+        }
     }
 
-	public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy)
-    {
+    public void soundExplosion() {
+        this.world.playSound(null, this.getPosition(), sound, this.getSoundCategory(), 1.0F, this.world.rand.nextFloat() * 0.1F + 0.9F);
+        this.world.addParticle(ParticleTypes.NOTE, this.getPosX(), this.getPosY(), this.getPosZ(), 0.0D, 0.0D, 0.0D);
+        if(InstrumentalConfig.COMMON.mobsReact.get() && func_234616_v_() instanceof LivingEntity) {
+            InstrumentHelper.instrumentDamage(this.world, (LivingEntity)this.func_234616_v_());
+        }
+    }
+
+	public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
         float f = -MathHelper.sin(rotationYawIn * 0.017453292F) * MathHelper.cos(rotationPitchIn * 0.017453292F);
         float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * 0.017453292F);
         float f2 = MathHelper.cos(rotationYawIn * 0.017453292F) * MathHelper.cos(rotationPitchIn * 0.017453292F);
         this.shoot(f, f1, f2, velocity, inaccuracy);
-        this.motionX += entityThrower.motionX;
-        this.motionZ += entityThrower.motionZ;
 
-        if (!entityThrower.onGround)
-        {
-            this.motionY += entityThrower.motionY;
+        Vector3d motion = getMotion();
+        Vector3d throwerMotion = func_234616_v_().getMotion();
+        double motionX = motion.x + throwerMotion.x;
+        double motionY = motion.y;
+        double motionZ = motion.z + throwerMotion.z;
+
+        if (!entityThrower.isOnGround()) {
+            motionY += throwerMotion.y;
         }
+
+        this.setMotion(motionX, motionY, motionZ);
     }
 
     /**
@@ -102,13 +133,20 @@ public class EntitySoundWaves extends EntityFireball implements IProjectile
         x = x * (double)velocity;
         y = y * (double)velocity;
         z = z * (double)velocity;
-        this.motionX = x;
-        this.motionY = y;
-        this.motionZ = z;
+        this.setMotion(x, y, z);
         float f1 = MathHelper.sqrt(x * x + z * z);
         this.rotationYaw = (float)(MathHelper.atan2(x, z) * (180D / Math.PI));
         this.rotationPitch = (float)(MathHelper.atan2(y, f1) * (180D / Math.PI));
         this.prevRotationYaw = this.rotationYaw;
         this.prevRotationPitch = this.rotationPitch;
+    }
+
+    @Override
+    protected void registerData() {
+    }
+
+    @Override
+    public ItemStack getItem() {
+        return new ItemStack(InstrumentalRegistry.microphone.get());
     }
 }

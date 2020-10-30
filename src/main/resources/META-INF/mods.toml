@@ -1,0 +1,15 @@
+modLoader="javafml"
+loaderVersion="[34,)"
+issueTrackerURL="https://github.com/Mrbysco/InstrumentalMobs/issues"
+license="MIT"
+
+[[mods]]
+modId="instrumentalmobs"
+version="${file.jarVersion}"
+displayName="Instrumental Mobs"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/instrumental-mobs"
+authors="Mrbysco"
+description='''
+Adds instrumental mobs to Minecraft.
+'''
+credits="Darkosto's chat for inspiring me"

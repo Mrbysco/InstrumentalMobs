@@ -1,30 +1,25 @@
 package com.mrbysco.instrumentalmobs.items;
 
-import com.mrbysco.instrumentalmobs.InstrumentalMobs;
-import com.mrbysco.instrumentalmobs.Reference;
-import com.mrbysco.instrumentalmobs.config.InstrumentalConfigGen;
+import com.mrbysco.instrumentalmobs.config.InstrumentalConfig;
 import com.mrbysco.instrumentalmobs.utils.InstrumentHelper;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumAction;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.UseAction;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
+import java.util.function.Supplier;
+
 public class InstrumentItem extends Item {
-	
-	private final SoundEvent sound;
+	private final Supplier<? extends SoundEvent> sound;
 	private final int cooldown;
 	private final int useDuration;
 
-	public InstrumentItem(String registryName, SoundEvent soundIn, int cooldown, int maxDamage, int duration) {
-		this.setCreativeTab(InstrumentalMobs.instrumentalTab);
-		this.setTranslationKey(Reference.MOD_PREFIX + registryName.replaceAll("_", ""));
-		this.setRegistryName(registryName);
-		this.maxStackSize = 1;
-		this.setMaxDamage(maxDamage);
+	public InstrumentItem(Item.Properties properties, Supplier<? extends SoundEvent> soundIn, int cooldown, int duration) {
+		super(properties);
 		
 		this.cooldown = cooldown;
 		this.sound = soundIn;
@@ -32,30 +27,28 @@ public class InstrumentItem extends Item {
 	}
 	
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
         
         if(this.cooldown != 0) {
 			playerIn.getCooldownTracker().setCooldown(this, this.cooldown);
 		}
         
-		playerIn.playSound(this.sound, 1F, 1F);
-		if(InstrumentalConfigGen.general.mobsReact) {
+		playerIn.playSound(sound.get(), 1F, 1F);
+		if(InstrumentalConfig.COMMON.mobsReact.get()) {
 			InstrumentHelper.instrumentDamage(worldIn, playerIn);
 		}
-		itemstack.damageItem(1, playerIn);
+		itemstack.damageItem(1, playerIn, (p_220040_1_) -> p_220040_1_.sendBreakAnimation(handIn));
 		return super.onItemRightClick(worldIn, playerIn, handIn);
 	}
-	
+
 	@Override
-	public int getMaxItemUseDuration(ItemStack stack) 
-	{
+	public int getUseDuration(ItemStack stack) {
 		return useDuration;
 	}
-	
+
 	@Override
-	public EnumAction getItemUseAction(ItemStack stack) 
-	{
-		return EnumAction.DRINK;
+	public UseAction getUseAction(ItemStack stack) {
+		return UseAction.DRINK;
 	}
 }
