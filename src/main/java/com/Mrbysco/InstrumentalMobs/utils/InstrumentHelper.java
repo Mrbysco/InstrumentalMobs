@@ -37,20 +37,18 @@ public class InstrumentHelper {
 								PlayerEntity collidingPlayer = (PlayerEntity)collidingEntity;
 								if(playerIn.canAttackPlayer(collidingPlayer)) {
 									if(worldIn.rand.nextInt(10) <= 3) {
-										collidingEntity.attackEntityFrom(Reference.causeSoundDamage(entityIn), 1F);
+										collidingEntity.attackEntityFrom(Reference.causeSoundDamage(entityIn), 1.0F);
 									}
 								}
 							} else {
 								if(!(collidingEntity.getType().getClassification() == EntityClassification.MONSTER)) {
 									if(worldIn.rand.nextInt(10) <= 3) {
-										collidingEntity.attackEntityFrom(Reference.causeSoundDamage(entityIn), 1F);
+										collidingEntity.attackEntityFrom(Reference.causeSoundDamage(entityIn), 1.0F);
 									}
 								}
 							}
 						} else if((collidingEntity.getType().getClassification() == EntityClassification.MONSTER && !(collidingEntity instanceof IInstrumentalMobs)) || collidingEntity instanceof PlayerEntity) {
-							collidingEntity.attackEntityAsMob(entityIn);
-							collidingEntity.attackEntityFrom(Reference.causeSoundDamage(entityIn), 1F);
-							collidingEntity.setRevengeTarget(entityIn);
+							collidingEntity.attackEntityFrom(Reference.causeSoundDamage(entityIn), 1.0F);
 						}
 					}
 				}
