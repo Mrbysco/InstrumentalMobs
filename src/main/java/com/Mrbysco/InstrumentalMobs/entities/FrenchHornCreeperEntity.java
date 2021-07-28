@@ -13,17 +13,17 @@ public class FrenchHornCreeperEntity extends CreeperEntity implements IInstrumen
 
     public FrenchHornCreeperEntity(EntityType<? extends FrenchHornCreeperEntity> type, World worldIn) {
 		super(type, worldIn);
-        this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(InstrumentalRegistry.french_horn.get()));
+        this.setItemSlot(EquipmentSlotType.MAINHAND, new ItemStack(InstrumentalRegistry.french_horn.get()));
 	}
 
     @Override
-	public void explode() {
-        if (!this.world.isRemote) {
-            Explosion.Mode explosion$mode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this) ? Explosion.Mode.DESTROY : Explosion.Mode.NONE;
-            float f = this.isCharged() ? 2.0F : 1.0F;
+	public void explodeCreeper() {
+        if (!this.level.isClientSide) {
+            Explosion.Mode explosion$mode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) ? Explosion.Mode.DESTROY : Explosion.Mode.NONE;
+            float f = this.isPowered() ? 2.0F : 1.0F;
             this.dead = true;
-            this.world.createExplosion(this, this.getPosX(), this.getPosY(), this.getPosZ(), (float)this.explosionRadius * f, explosion$mode);
-            InstrumentHelper.instrumentDamage(this.world, this);
+            this.level.explode(this, this.getX(), this.getY(), this.getZ(), (float)this.explosionRadius * f, explosion$mode);
+            InstrumentHelper.instrumentDamage(this.level, this);
             this.playSound(InstrumentalRegistry.french_horn_sound.get(), 1F, 1F);
 
             this.remove();

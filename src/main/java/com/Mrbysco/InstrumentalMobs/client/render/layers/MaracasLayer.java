@@ -20,29 +20,29 @@ public class MaracasLayer<T extends SpiderEntity, M extends EntityModel<T> & IHa
 
     @Override
     public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn, T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        boolean flag = entitylivingbaseIn.getPrimaryHand() == HandSide.RIGHT;
-        ItemStack itemstack = flag ? entitylivingbaseIn.getHeldItemOffhand() : entitylivingbaseIn.getHeldItemMainhand();
-        ItemStack itemstack1 = flag ? entitylivingbaseIn.getHeldItemMainhand() : entitylivingbaseIn.getHeldItemOffhand();
+        boolean flag = entitylivingbaseIn.getMainArm() == HandSide.RIGHT;
+        ItemStack itemstack = flag ? entitylivingbaseIn.getOffhandItem() : entitylivingbaseIn.getMainHandItem();
+        ItemStack itemstack1 = flag ? entitylivingbaseIn.getMainHandItem() : entitylivingbaseIn.getOffhandItem();
 
         if (!itemstack.isEmpty() || !itemstack1.isEmpty()) {
-            matrixStackIn.push();
+            matrixStackIn.pushPose();
 
             this.renderHeldItem(entitylivingbaseIn, itemstack, ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND, HandSide.LEFT, matrixStackIn, bufferIn, packedLightIn);
             this.renderHeldItem(entitylivingbaseIn, itemstack1, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, HandSide.RIGHT, matrixStackIn, bufferIn, packedLightIn);
-            matrixStackIn.pop();
+            matrixStackIn.popPose();
         }
     }
 
     private void renderHeldItem(SpiderEntity spiderEntity, ItemStack stack, ItemCameraTransforms.TransformType transformType, HandSide handSide, MatrixStack matrixStack, IRenderTypeBuffer typeBuffer, int packedLightIn) {
         if (!stack.isEmpty()) {
-            matrixStack.push();
-            this.getEntityModel().translateHand(handSide, matrixStack);
-            matrixStack.rotate(Vector3f.XP.rotationDegrees(-90.0F));
-            matrixStack.rotate(Vector3f.YP.rotationDegrees(180.0F));
+            matrixStack.pushPose();
+            this.getParentModel().translateToHand(handSide, matrixStack);
+            matrixStack.mulPose(Vector3f.XP.rotationDegrees(-90.0F));
+            matrixStack.mulPose(Vector3f.YP.rotationDegrees(180.0F));
             boolean flag = handSide == HandSide.LEFT;
             matrixStack.translate((double)((float)(flag ? -1 : 1) / 16.0F), 0.125D, -0.625D);
-            Minecraft.getInstance().getFirstPersonRenderer().renderItemSide(spiderEntity, stack, transformType, flag, matrixStack, typeBuffer, packedLightIn);
-            matrixStack.pop();
+            Minecraft.getInstance().getItemInHandRenderer().renderItem(spiderEntity, stack, transformType, flag, matrixStack, typeBuffer, packedLightIn);
+            matrixStack.popPose();
         }
     }
 }

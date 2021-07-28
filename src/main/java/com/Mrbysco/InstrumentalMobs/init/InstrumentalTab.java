@@ -10,7 +10,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class InstrumentalTab {
 	public static final ItemGroup INSTRUMENTAL_TAB = new ItemGroup(Reference.MOD_ID) {
 		@OnlyIn(Dist.CLIENT)
-		public ItemStack createIcon() {
+		public ItemStack makeIcon() {
 			return new ItemStack(Blocks.NOTE_BLOCK);
 		}
 	};

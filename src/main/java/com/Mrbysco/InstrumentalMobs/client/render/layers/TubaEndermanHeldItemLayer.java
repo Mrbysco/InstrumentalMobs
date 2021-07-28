@@ -20,20 +20,20 @@ public class TubaEndermanHeldItemLayer<T extends EndermanEntity, M extends Entit
 
     @Override
     public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn, T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        ItemStack stack = entitylivingbaseIn.getItemStackFromSlot(EquipmentSlotType.MAINHAND);
+        ItemStack stack = entitylivingbaseIn.getItemBySlot(EquipmentSlotType.MAINHAND);
         if (!stack.isEmpty()) {
-            matrixStackIn.push();
-            this.getEntityModel().getModelHead().translateRotate(matrixStackIn);
+            matrixStackIn.pushPose();
+            this.getParentModel().getHead().translateAndRotate(matrixStackIn);
 
             matrixStackIn.translate(0.0F, -0.73F, -0.775F);
-            matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-90F));
-            matrixStackIn.rotate(Vector3f.XP.rotationDegrees(90F));
-            matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-10F));
+            matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(-90F));
+            matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(90F));
+            matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(-10F));
 
             matrixStackIn.translate(-0.8F, 0.0F, 0.0F);
 
-            Minecraft.getInstance().getFirstPersonRenderer().renderItemSide(entitylivingbaseIn, stack, ItemCameraTransforms.TransformType.NONE, false, matrixStackIn, bufferIn, packedLightIn);
-            matrixStackIn.pop();
+            Minecraft.getInstance().getItemInHandRenderer().renderItem(entitylivingbaseIn, stack, ItemCameraTransforms.TransformType.NONE, false, matrixStackIn, bufferIn, packedLightIn);
+            matrixStackIn.popPose();
         }
     }
 }

@@ -17,22 +17,22 @@ public class CymbalHuskModel<T extends CymbalHuskEntity>  extends ZombieModel<T>
     }
 
     @Override
-    public void setRotationAngles(CymbalHuskEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        super.setRotationAngles((T) entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+    public void setupAnim(CymbalHuskEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        super.setupAnim((T) entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 
         boolean flag2 = entityIn.isClapping();
 
         //clap?
         float f3 = (flag2 ? ((MathHelper.cos(ageInTicks * 0.75F)) * 0.75F) : 0.0F) * 0.8F;
-        this.bipedRightArm.rotateAngleY = f3;
-        this.bipedLeftArm.rotateAngleY += -f3;
+        this.rightArm.yRot = f3;
+        this.leftArm.yRot += -f3;
     }
 
     @Override
-    public void translateHand(HandSide sideIn, MatrixStack matrixStackIn) {
+    public void translateToHand(HandSide sideIn, MatrixStack matrixStackIn) {
         boolean flag = sideIn == HandSide.LEFT;
         matrixStackIn.translate(flag ? 0.15D : -0.15D, 0.25D, 0.075D);
-        matrixStackIn.rotate(Vector3f.YP.rotationDegrees(flag ? 25F : -25F));
-        super.translateHand(sideIn, matrixStackIn);
+        matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(flag ? 25F : -25F));
+        super.translateToHand(sideIn, matrixStackIn);
     }
 }

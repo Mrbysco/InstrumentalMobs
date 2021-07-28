@@ -21,14 +21,14 @@ public class HeldBoneLayer<T extends LivingEntity, M extends EntityModel<T> & IH
 
     @Override
     public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn, T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        boolean flag = entitylivingbaseIn.getPrimaryHand() == HandSide.RIGHT;
-        ItemStack itemstack = flag ? entitylivingbaseIn.getHeldItemOffhand() : entitylivingbaseIn.getHeldItemMainhand();
-        ItemStack itemstack1 = flag ? entitylivingbaseIn.getHeldItemMainhand() : entitylivingbaseIn.getHeldItemOffhand();
+        boolean flag = entitylivingbaseIn.getMainArm() == HandSide.RIGHT;
+        ItemStack itemstack = flag ? entitylivingbaseIn.getOffhandItem() : entitylivingbaseIn.getMainHandItem();
+        ItemStack itemstack1 = flag ? entitylivingbaseIn.getMainHandItem() : entitylivingbaseIn.getOffhandItem();
 
         if (!itemstack.isEmpty() || !itemstack1.isEmpty()) {
-            matrixStackIn.push();
+            matrixStackIn.pushPose();
 
-            if (entitylivingbaseIn.isChild()) {
+            if (entitylivingbaseIn.isBaby()) {
                 float f = 0.5F;
                 matrixStackIn.translate(0.0F, 0.75F, 0.0F);
                 matrixStackIn.scale(f,f,f);
@@ -36,22 +36,22 @@ public class HeldBoneLayer<T extends LivingEntity, M extends EntityModel<T> & IH
 
             this.renderHeldItem(entitylivingbaseIn, itemstack1, ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND, HandSide.LEFT, matrixStackIn, bufferIn, packedLightIn);
             this.renderHeldItem(entitylivingbaseIn, itemstack, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, HandSide.RIGHT, matrixStackIn, bufferIn, packedLightIn);
-            matrixStackIn.pop();
+            matrixStackIn.popPose();
         }
     }
 
     private void renderHeldItem(LivingEntity livingBase, ItemStack stack, ItemCameraTransforms.TransformType transformType, HandSide handSide, MatrixStack matrixStack, IRenderTypeBuffer typeBuffer, int packedLightIn) {
         if (!stack.isEmpty()) {
-            matrixStack.push();
+            matrixStack.pushPose();
 
-            if (livingBase.isSneaking()) {
+            if (livingBase.isShiftKeyDown()) {
                 matrixStack.translate(0.0F, 0.2F, 0.0F);
             }
 
-            this.getEntityModel().translateHand(handSide, matrixStack);
+            this.getParentModel().translateToHand(handSide, matrixStack);
 
-            matrixStack.rotate(Vector3f.XP.rotationDegrees(-90.0F));
-            matrixStack.rotate(Vector3f.YP.rotationDegrees(180.0F));
+            matrixStack.mulPose(Vector3f.XP.rotationDegrees(-90.0F));
+            matrixStack.mulPose(Vector3f.YP.rotationDegrees(180.0F));
             boolean flag = handSide == HandSide.LEFT;
             if(livingBase instanceof XylophoneSkeletonEntity) {
                 XylophoneSkeletonEntity skeletal = (XylophoneSkeletonEntity)livingBase;
@@ -59,12 +59,12 @@ public class HeldBoneLayer<T extends LivingEntity, M extends EntityModel<T> & IH
                 if(flag2) {
                     matrixStack.scale(0.75F, 0.75F, 0.75F);
                     matrixStack.translate(0.0F, -0.225F, -0.5F);
-                    matrixStack.rotate(new Vector3f(1.0F, flag ? -0.2F : 0.2F, flag ? -0.2F : 0.2F).rotationDegrees(45.0F));
+                    matrixStack.mulPose(new Vector3f(1.0F, flag ? -0.2F : 0.2F, flag ? -0.2F : 0.2F).rotationDegrees(45.0F));
                 }
             }
             matrixStack.translate((double)((float)(flag ? -1 : 1) / 16.0F), 0.125D, -0.625D);
-            Minecraft.getInstance().getFirstPersonRenderer().renderItemSide(livingBase, stack, transformType, flag, matrixStack, typeBuffer, packedLightIn);
-            matrixStack.pop();
+            Minecraft.getInstance().getItemInHandRenderer().renderItem(livingBase, stack, transformType, flag, matrixStack, typeBuffer, packedLightIn);
+            matrixStack.popPose();
         }
     }
 }

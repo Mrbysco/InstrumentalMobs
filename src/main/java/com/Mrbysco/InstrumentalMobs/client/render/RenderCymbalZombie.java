@@ -17,13 +17,13 @@ public class RenderCymbalZombie extends RenderCustomBiped<CymbalHuskEntity, Cymb
         this.addLayer(new BipedArmorLayer<>(this, new CymbalHuskModel<>(0.5F, true), new CymbalHuskModel<>(1.0F, true)));
 	}
 
-    protected void preRenderCallback(CymbalHuskEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
+    protected void scale(CymbalHuskEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
         float f = 1.0625F;
         matrixStackIn.scale(1.0625F, 1.0625F, 1.0625F);
-        super.preRenderCallback(entitylivingbaseIn, matrixStackIn, partialTickTime);
+        super.scale(entitylivingbaseIn, matrixStackIn, partialTickTime);
     }
 	
-	public ResourceLocation getEntityTexture(CymbalHuskEntity entity) {
+	public ResourceLocation getTextureLocation(CymbalHuskEntity entity) {
         return HUSK_ZOMBIE_TEXTURES;
 	}
 }

@@ -26,21 +26,21 @@ public class InstrumentMicrophone extends Item {
 	}
 	
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-		ItemStack itemstack = playerIn.getHeldItem(handIn);
+	public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
+		ItemStack itemstack = playerIn.getItemInHand(handIn);
         
         if(this.cooldown != 0) {
-			playerIn.getCooldownTracker().setCooldown(this, this.cooldown);
+			playerIn.getCooldowns().addCooldown(this, this.cooldown);
 		}
         
-        if (!worldIn.isRemote) {
+        if (!worldIn.isClientSide) {
 			EntityMicrophoneWave soundWave = new EntityMicrophoneWave(worldIn, playerIn, sound.get());
-            soundWave.shoot(playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 2.0F, 0.0F);
-            soundWave.setShooter(playerIn);
-            worldIn.addEntity(soundWave);
+            soundWave.shoot(playerIn.xRot, playerIn.yRot, 0.0F, 2.0F, 0.0F);
+            soundWave.setOwner(playerIn);
+            worldIn.addFreshEntity(soundWave);
         }
 
-		itemstack.damageItem(1, playerIn, (p_220040_1_) -> p_220040_1_.sendBreakAnimation(handIn));
+		itemstack.hurtAndBreak(1, playerIn, (p_220040_1_) -> p_220040_1_.broadcastBreakEvent(handIn));
         return new ActionResult<ItemStack>(ActionResultType.SUCCESS, itemstack);
 	}
 
@@ -50,7 +50,7 @@ public class InstrumentMicrophone extends Item {
 	}
 
 	@Override
-	public UseAction getUseAction(ItemStack stack) {
+	public UseAction getUseAnimation(ItemStack stack) {
 		return UseAction.DRINK;
 	}
 }

@@ -26,12 +26,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class MaracaSpiderEntity extends SpiderEntity implements IInstrumentalMobs {
-    private static final DataParameter<Boolean> ATTACKING = EntityDataManager.<Boolean>createKey(MaracaSpiderEntity.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> ATTACKING = EntityDataManager.<Boolean>defineId(MaracaSpiderEntity.class, DataSerializers.BOOLEAN);
 
     public MaracaSpiderEntity(EntityType<? extends MaracaSpiderEntity> type, World worldIn) {
         super(type, worldIn);
-		this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(InstrumentalRegistry.maraca.get()));
-		this.setItemStackToSlot(EquipmentSlotType.OFFHAND, new ItemStack(InstrumentalRegistry.maraca.get()));
+		this.setItemSlot(EquipmentSlotType.MAINHAND, new ItemStack(InstrumentalRegistry.maraca.get()));
+		this.setItemSlot(EquipmentSlotType.OFFHAND, new ItemStack(InstrumentalRegistry.maraca.get()));
 	}
 	
 	@Override
@@ -48,17 +48,17 @@ public class MaracaSpiderEntity extends SpiderEntity implements IInstrumentalMob
     }
 
     @Override
-	protected void registerData() {
-		super.registerData();
-        this.getDataManager().register(ATTACKING, false);
+	protected void defineSynchedData() {
+		super.defineSynchedData();
+        this.getEntityData().define(ATTACKING, false);
 	}
 
     public void setAttacking(boolean isAttacking) {
-        this.getDataManager().set(ATTACKING, isAttacking);
+        this.getEntityData().set(ATTACKING, isAttacking);
     }
 
     public boolean isAttacking() {
-        return ((Boolean)this.getDataManager().get(ATTACKING)).booleanValue();
+        return ((Boolean)this.getEntityData().get(ATTACKING)).booleanValue();
     }
     
     static class SpiderInstrumentAttack extends InstrumentAttackGoal {
@@ -70,33 +70,33 @@ public class MaracaSpiderEntity extends SpiderEntity implements IInstrumentalMob
         /**
          * Returns whether an in-progress EntityAIBase should continue executing
          */
-        public boolean shouldContinueExecuting() {
-            float f = this.attacker.getBrightness();
+        public boolean canContinueToUse() {
+            float f = this.mob.getBrightness();
 
-            if (f >= 0.5F && this.attacker.getRNG().nextInt(100) == 0) {
-                this.attacker.setAttackTarget((LivingEntity)null);
+            if (f >= 0.5F && this.mob.getRandom().nextInt(100) == 0) {
+                this.mob.setTarget((LivingEntity)null);
                 return false;
             } else {
-                return super.shouldContinueExecuting();
+                return super.canContinueToUse();
             }
         }
         
-        public void resetTask() {
-            super.resetTask();
-            MaracaSpiderEntity spider = (MaracaSpiderEntity)this.attacker;
+        public void stop() {
+            super.stop();
+            MaracaSpiderEntity spider = (MaracaSpiderEntity)this.mob;
             spider.setAttacking(false);
-            spider.isSwingInProgress = false;
+            spider.swinging = false;
         }
 
-        public void startExecuting() {
-            super.startExecuting();
-            MaracaSpiderEntity spider = (MaracaSpiderEntity)this.attacker;
+        public void start() {
+            super.start();
+            MaracaSpiderEntity spider = (MaracaSpiderEntity)this.mob;
             spider.setAttacking(true);
-            spider.swingArm(Hand.MAIN_HAND);
+            spider.swing(Hand.MAIN_HAND);
         }
 
         protected double getAttackReachSqr(LivingEntity attackTarget) {
-            return (double)(4.0F + attackTarget.getWidth());
+            return (double)(4.0F + attackTarget.getBbWidth());
         }
     }
 
@@ -108,15 +108,15 @@ public class MaracaSpiderEntity extends SpiderEntity implements IInstrumentalMob
         /**
          * Returns whether the EntityAIBase should begin execution.
          */
-        public boolean shouldExecute() {
-            float f = this.goalOwner.getBrightness();
-            return !(f >= 0.5F) && super.shouldExecute();
+        public boolean canUse() {
+            float f = this.mob.getBrightness();
+            return !(f >= 0.5F) && super.canUse();
         }
     }
 
     @Override
 	protected void playStepSound(BlockPos pos, BlockState blockIn) {
-        this.playSound(SoundEvents.ENTITY_SPIDER_STEP, 0.15F, 1.0F);
+        this.playSound(SoundEvents.SPIDER_STEP, 0.15F, 1.0F);
         this.playSound(InstrumentalRegistry.maraca_sound.get(), 0.15F, 1.0F);
 	}
 }

@@ -32,7 +32,9 @@ public class InstrumentalMobs {
 		InstrumentalRegistry.ENTITIES.register(eventBus);
 		InstrumentalRegistry.SOUND_EVENTS.register(eventBus);
 
-		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
+		eventBus.addListener(InstrumentalEntities::registerEntityAttributes);
+
+		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
 			eventBus.addListener(ClientHandler::doClientStuff);
 			eventBus.addListener(ClientHandler::registerItemColors);
 		});

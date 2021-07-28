@@ -17,17 +17,17 @@ public class HuskInstrumentAttackGoal extends InstrumentAttackGoal {
     /**
      * Execute a one shot task or start executing a continuous task
      */
-    public void startExecuting() {
-        super.startExecuting();
+    public void start() {
+        super.start();
         this.raiseArmTicks = 0;
     }
 
     /**
      * Reset the task's internal state. Called when this task is interrupted by another one
      */
-    public void resetTask() {
-        super.resetTask();
-        this.zombie.setAggroed(false);
+    public void stop() {
+        super.stop();
+        this.zombie.setAggressive(false);
     }
 
     /**
@@ -37,6 +37,6 @@ public class HuskInstrumentAttackGoal extends InstrumentAttackGoal {
         super.tick();
         ++this.raiseArmTicks;
 
-        this.zombie.setClapping(this.raiseArmTicks >= 5 && this.field_234037_i_ < 10);
+        this.zombie.setClapping(this.raiseArmTicks >= 5 && this.ticksUntilNextAttack < 10);
     }
 }

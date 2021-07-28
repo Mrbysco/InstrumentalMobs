@@ -23,7 +23,7 @@ public class RenderCustomBiped<T extends MobEntity, M extends BipedModel<T>> ext
     /**
      * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
      */
-    public ResourceLocation getEntityTexture(T entity)
+    public ResourceLocation getTextureLocation(T entity)
     {
         return DEFAULT_RES_LOC;
     }

@@ -27,15 +27,15 @@ public class RenderTubaEnderman extends MobRenderer<TubaEndermanEntity, TubaEnde
 	}
 
     public void render(TubaEndermanEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
-        BlockState blockstate = entityIn.getHeldBlockState();
-        EndermanModel<EndermanEntity> endermanmodel = (EndermanModel)this.getEntityModel();
-        endermanmodel.isCarrying = blockstate != null;
-        endermanmodel.isAttacking = entityIn.isScreaming();
+        BlockState blockstate = entityIn.getCarriedBlock();
+        EndermanModel<EndermanEntity> endermanmodel = (EndermanModel)this.getModel();
+        endermanmodel.carrying = blockstate != null;
+        endermanmodel.creepy = entityIn.isCreepy();
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
 
     public Vector3d getRenderOffset(TubaEndermanEntity entityIn, float partialTicks) {
-        if (entityIn.isScreaming()) {
+        if (entityIn.isCreepy()) {
             double d0 = 0.02D;
             return new Vector3d(this.rnd.nextGaussian() * 0.02D, 0.0D, this.rnd.nextGaussian() * 0.02D);
         } else {
@@ -46,7 +46,7 @@ public class RenderTubaEnderman extends MobRenderer<TubaEndermanEntity, TubaEnde
     /**
      * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
      */
-    public ResourceLocation getEntityTexture(TubaEndermanEntity entity)
+    public ResourceLocation getTextureLocation(TubaEndermanEntity entity)
     {
         return ENDERMAN_TEXTURES;
     }

@@ -33,8 +33,8 @@ public class ClientHandler {
 		ItemColors colors = event.getItemColors();
 
 		for(CustomSpawnEggItem item : CustomSpawnEggItem.getEggs()) {
-			colors.register((p_198141_1_, p_198141_2_) -> {
-				return item.getColor(p_198141_2_);
+			colors.register((stack, tintIndex) -> {
+				return item.getColor(tintIndex);
 			}, item);
 		}
 	}

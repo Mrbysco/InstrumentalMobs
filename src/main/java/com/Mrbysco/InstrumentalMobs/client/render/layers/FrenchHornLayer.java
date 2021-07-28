@@ -20,19 +20,19 @@ public class FrenchHornLayer<T extends FrenchHornCreeperEntity, M extends Entity
 
     @Override
     public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn, T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        ItemStack itemstack = entitylivingbaseIn.getItemStackFromSlot(EquipmentSlotType.MAINHAND);
+        ItemStack itemstack = entitylivingbaseIn.getItemBySlot(EquipmentSlotType.MAINHAND);
         if (!itemstack.isEmpty()) {
-            matrixStackIn.push();
-            this.getEntityModel().getModelHead().translateRotate(matrixStackIn);
+            matrixStackIn.pushPose();
+            this.getParentModel().getHead().translateAndRotate(matrixStackIn);
 
             matrixStackIn.scale(0.75F, 0.75F, 0.75F);
-            matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90F));
+            matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(90F));
             matrixStackIn.translate(0.85F, 0.15F, 0.0F);
-            matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-20F));
+            matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(-20F));
 
-            Minecraft.getInstance().getFirstPersonRenderer().renderItemSide(entitylivingbaseIn, itemstack, ItemCameraTransforms.TransformType.NONE, false, matrixStackIn, bufferIn, packedLightIn);
+            Minecraft.getInstance().getItemInHandRenderer().renderItem(entitylivingbaseIn, itemstack, ItemCameraTransforms.TransformType.NONE, false, matrixStackIn, bufferIn, packedLightIn);
 
-            matrixStackIn.pop();
+            matrixStackIn.popPose();
         }
     }
 }

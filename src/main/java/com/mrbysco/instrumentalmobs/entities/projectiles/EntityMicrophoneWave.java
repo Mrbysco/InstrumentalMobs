@@ -28,7 +28,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
         _interface = IRendersAsItem.class
 )
 public class EntityMicrophoneWave extends ThrowableEntity implements IRendersAsItem {
-    private SoundEvent sound = SoundEvents.ENTITY_GHAST_SCREAM;
+    private SoundEvent sound = SoundEvents.GHAST_SCREAM;
     private LivingEntity shootingEntity;
 
     public EntityMicrophoneWave(EntityType<? extends EntityMicrophoneWave> type, World worldIn) {
@@ -50,7 +50,7 @@ public class EntityMicrophoneWave extends ThrowableEntity implements IRendersAsI
     }
 
     @Override
-    public IPacket<?> createSpawnPacket() {
+    public IPacket<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
@@ -58,43 +58,43 @@ public class EntityMicrophoneWave extends ThrowableEntity implements IRendersAsI
      * Called when this EntitySoundWaves hits a block or entity.
      */
     
-    protected void onImpact(RayTraceResult result) {
-        super.onImpact(result);
-        if (!this.world.isRemote) {
+    protected void onHit(RayTraceResult result) {
+        super.onHit(result);
+        if (!this.level.isClientSide) {
             this.soundExplosion();
 
-            this.world.setEntityState(this, (byte)3);
+            this.level.broadcastEntityEvent(this, (byte)3);
             this.remove();
         }
     }
 
     @Override
-    protected void onEntityHit(EntityRayTraceResult result) {
+    protected void onHitEntity(EntityRayTraceResult result) {
         Entity entity = result.getEntity();
         if(entity instanceof PlayerEntity && shootingEntity instanceof PlayerEntity) {
             PlayerEntity playerIn = (PlayerEntity)shootingEntity;
             PlayerEntity collidingPlayer = (PlayerEntity)entity;
-            if(playerIn.canAttackPlayer(collidingPlayer)) {
-                if(this.world.rand.nextInt(10) <= 2) {
-                    collidingPlayer.attackEntityFrom(Reference.causeSoundDamage(this), 1F);
+            if(playerIn.canHarmPlayer(collidingPlayer)) {
+                if(this.level.random.nextInt(10) <= 2) {
+                    collidingPlayer.hurt(Reference.causeSoundDamage(this), 1F);
                 }
             }
         } else {
-            entity.attackEntityFrom(Reference.causeSoundDamage(this), 6.0F);
-            this.applyEnchantments(this.shootingEntity, entity);
+            entity.hurt(Reference.causeSoundDamage(this), 6.0F);
+            this.doEnchantDamageEffects(this.shootingEntity, entity);
         }
     }
 
     public void soundExplosion() {
-    	this.world.playSound(null, this.getPosition(), sound, this.getSoundCategory(), 1.0F, this.world.rand.nextFloat() * 0.1F + 0.9F);
-    	this.world.addParticle(ParticleTypes.NOTE, this.getPosX(), this.getPosY(), this.getPosZ(), 0.0D, 0.0D, 0.0D);
+    	this.level.playSound(null, this.blockPosition(), sound, this.getSoundSource(), 1.0F, this.level.random.nextFloat() * 0.1F + 0.9F);
+    	this.level.addParticle(ParticleTypes.NOTE, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
     	if(InstrumentalConfig.COMMON.mobsReact.get()) {
-            InstrumentHelper.instrumentDamage(this.world, (LivingEntity)this.func_234616_v_(), this.getBoundingBox().grow(InstrumentalConfig.COMMON.instrumentRange.get()));
+            InstrumentHelper.instrumentDamage(this.level, (LivingEntity)this.getOwner(), this.getBoundingBox().inflate(InstrumentalConfig.COMMON.instrumentRange.get()));
     	}
     }
 
     @Override
-    protected void registerData() {
+    protected void defineSynchedData() {
     }
 
     @Override

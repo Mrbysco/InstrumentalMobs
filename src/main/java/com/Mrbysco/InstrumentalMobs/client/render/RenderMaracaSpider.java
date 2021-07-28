@@ -18,11 +18,11 @@ public class RenderMaracaSpider extends MobRenderer<MaracaSpiderEntity, MaracaSp
 	}
 
     @Override
-    public ResourceLocation getEntityTexture(MaracaSpiderEntity entity) {
+    public ResourceLocation getTextureLocation(MaracaSpiderEntity entity) {
         return SPIDER_TEXTURES;
     }
 
-    protected float getDeathMaxRotation(MaracaSpiderEntity entityLivingBaseIn) {
+    protected float getFlipDegrees(MaracaSpiderEntity entityLivingBaseIn) {
         return 180.0F;
     }
 }

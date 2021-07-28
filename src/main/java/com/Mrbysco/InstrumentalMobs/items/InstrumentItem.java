@@ -27,19 +27,19 @@ public class InstrumentItem extends Item {
 	}
 	
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-		ItemStack itemstack = playerIn.getHeldItem(handIn);
+	public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
+		ItemStack itemstack = playerIn.getItemInHand(handIn);
         
         if(this.cooldown != 0) {
-			playerIn.getCooldownTracker().setCooldown(this, this.cooldown);
+			playerIn.getCooldowns().addCooldown(this, this.cooldown);
 		}
         
 		playerIn.playSound(sound.get(), 1F, 1F);
 		if(InstrumentalConfig.COMMON.mobsReact.get()) {
 			InstrumentHelper.instrumentDamage(worldIn, playerIn);
 		}
-		itemstack.damageItem(1, playerIn, (p_220040_1_) -> p_220040_1_.sendBreakAnimation(handIn));
-		return super.onItemRightClick(worldIn, playerIn, handIn);
+		itemstack.hurtAndBreak(1, playerIn, (p_220040_1_) -> p_220040_1_.broadcastBreakEvent(handIn));
+		return super.use(worldIn, playerIn, handIn);
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class InstrumentItem extends Item {
 	}
 
 	@Override
-	public UseAction getUseAction(ItemStack stack) {
+	public UseAction getUseAnimation(ItemStack stack) {
 		return UseAction.DRINK;
 	}
 }

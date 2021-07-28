@@ -8,7 +8,6 @@ import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EntitySpawnPlacementRegistry.PlacementType;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.entity.monster.AbstractSkeletonEntity;
 import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.monster.EndermanEntity;
@@ -20,6 +19,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.biome.MobSpawnInfo.Spawners;
 import net.minecraft.world.gen.Heightmap.Type;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -35,9 +35,9 @@ public class InstrumentalEntities {
 	public static void addSpawn(BiomeLoadingEvent event) {
 		Biome biome = ForgeRegistries.BIOMES.getValue(event.getName());
 		if(biome != null) {
-			MobSpawnInfo info = biome.getMobSpawnInfo();
+			MobSpawnInfo info = biome.getMobSettings();
 			List<MobSpawnInfo.Spawners> spawns = event.getSpawns().getSpawner(EntityClassification.MONSTER);
-			for(Spawners entry : info.getSpawners(EntityClassification.MONSTER)) {
+			for(Spawners entry : info.getMobs(EntityClassification.MONSTER)) {
 				registerSpawn(spawns, entry, EntityType.HUSK, InstrumentalRegistry.CYMBAL_HUSK.get());
 				registerSpawn(spawns, entry, EntityType.ZOMBIE, InstrumentalRegistry.DRUM_ZOMBIE.get());
 				registerSpawn(spawns, entry, EntityType.CREEPER, InstrumentalRegistry.FRENCH_HORN_CREEPER.get());
@@ -51,25 +51,27 @@ public class InstrumentalEntities {
 
 	public static void initializeMobs() {
 		EntitySpawnPlacementRegistry.register(InstrumentalRegistry.CYMBAL_HUSK.get(), PlacementType.ON_GROUND, Type.MOTION_BLOCKING_NO_LEAVES, CymbalHuskEntity::canSpawnHere);
-		EntitySpawnPlacementRegistry.register(InstrumentalRegistry.DRUM_ZOMBIE.get(), PlacementType.ON_GROUND, Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::canMonsterSpawnInLight);
-		EntitySpawnPlacementRegistry.register(InstrumentalRegistry.FRENCH_HORN_CREEPER.get(), PlacementType.ON_GROUND, Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::canMonsterSpawnInLight);
-		EntitySpawnPlacementRegistry.register(InstrumentalRegistry.MARACA_SPIDER.get(), PlacementType.ON_GROUND, Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::canMonsterSpawnInLight);
+		EntitySpawnPlacementRegistry.register(InstrumentalRegistry.DRUM_ZOMBIE.get(), PlacementType.ON_GROUND, Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::checkMonsterSpawnRules);
+		EntitySpawnPlacementRegistry.register(InstrumentalRegistry.FRENCH_HORN_CREEPER.get(), PlacementType.ON_GROUND, Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::checkMonsterSpawnRules);
+		EntitySpawnPlacementRegistry.register(InstrumentalRegistry.MARACA_SPIDER.get(), PlacementType.ON_GROUND, Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::checkMonsterSpawnRules);
 		EntitySpawnPlacementRegistry.register(InstrumentalRegistry.MICROPHONE_GHAST.get(), PlacementType.ON_GROUND, Type.MOTION_BLOCKING_NO_LEAVES, MicrophoneGhastEntity::canSpawnHere);
-		EntitySpawnPlacementRegistry.register(InstrumentalRegistry.TUBA_ENDERMAN.get(), PlacementType.ON_GROUND, Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::canMonsterSpawnInLight);
-		EntitySpawnPlacementRegistry.register(InstrumentalRegistry.XYLOPHONE_SKELETON.get(), PlacementType.ON_GROUND, Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::canMonsterSpawnInLight);
+		EntitySpawnPlacementRegistry.register(InstrumentalRegistry.TUBA_ENDERMAN.get(), PlacementType.ON_GROUND, Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::checkMonsterSpawnRules);
+		EntitySpawnPlacementRegistry.register(InstrumentalRegistry.XYLOPHONE_SKELETON.get(), PlacementType.ON_GROUND, Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::checkMonsterSpawnRules);
+	}
 
-		GlobalEntityTypeAttributes.put(InstrumentalRegistry.CYMBAL_HUSK.get(), ZombieEntity.func_234342_eQ_().create());
-		GlobalEntityTypeAttributes.put(InstrumentalRegistry.DRUM_ZOMBIE.get(), ZombieEntity.func_234342_eQ_().create());
-		GlobalEntityTypeAttributes.put(InstrumentalRegistry.FRENCH_HORN_CREEPER.get(), CreeperEntity.registerAttributes().create());
-		GlobalEntityTypeAttributes.put(InstrumentalRegistry.MARACA_SPIDER.get(), SpiderEntity.func_234305_eI_().create());
-		GlobalEntityTypeAttributes.put(InstrumentalRegistry.MICROPHONE_GHAST.get(), GhastEntity.func_234290_eH_().create());
-		GlobalEntityTypeAttributes.put(InstrumentalRegistry.TUBA_ENDERMAN.get(), EndermanEntity.func_234287_m_().create());
-		GlobalEntityTypeAttributes.put(InstrumentalRegistry.XYLOPHONE_SKELETON.get(), AbstractSkeletonEntity.registerAttributes().create());
+	public static void registerEntityAttributes(EntityAttributeCreationEvent event) {
+		event.put(InstrumentalRegistry.CYMBAL_HUSK.get(), ZombieEntity.createAttributes().build());
+		event.put(InstrumentalRegistry.DRUM_ZOMBIE.get(), ZombieEntity.createAttributes().build());
+		event.put(InstrumentalRegistry.FRENCH_HORN_CREEPER.get(), CreeperEntity.createAttributes().build());
+		event.put(InstrumentalRegistry.MARACA_SPIDER.get(), SpiderEntity.createAttributes().build());
+		event.put(InstrumentalRegistry.MICROPHONE_GHAST.get(), GhastEntity.createAttributes().build());
+		event.put(InstrumentalRegistry.TUBA_ENDERMAN.get(), EndermanEntity.createAttributes().build());
+		event.put(InstrumentalRegistry.XYLOPHONE_SKELETON.get(), AbstractSkeletonEntity.createAttributes().build());
 	}
 
 	public static void registerSpawn(List<Spawners> spawns, Spawners entry, EntityType<? extends LivingEntity> oldEntity, EntityType<? extends LivingEntity> newEntity) {
 		if(entry.type == oldEntity) {
-			spawns.add(new MobSpawnInfo.Spawners(newEntity, Math.min(1, entry.itemWeight / 5), entry.minCount, entry.maxCount));
+			spawns.add(new MobSpawnInfo.Spawners(newEntity, Math.min(1, entry.weight / 5), entry.minCount, entry.maxCount));
 		}
 	}
 }

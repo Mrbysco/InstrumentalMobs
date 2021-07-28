@@ -26,12 +26,12 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
 public class XylophoneSkeletonEntity extends SkeletonEntity implements IInstrumentalMobs{
-    private static final DataParameter<Boolean> PLAYING_RIBS = EntityDataManager.<Boolean>createKey(XylophoneSkeletonEntity.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> PLAYING_RIBS = EntityDataManager.<Boolean>defineId(XylophoneSkeletonEntity.class, DataSerializers.BOOLEAN);
 
     public XylophoneSkeletonEntity(EntityType<? extends XylophoneSkeletonEntity> type, World worldIn) {
         super(type, worldIn);
-        this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.BONE));
-        this.setItemStackToSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.BONE));
+        this.setItemSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.BONE));
+        this.setItemSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.BONE));
 	}
 
 	@Override
@@ -46,29 +46,29 @@ public class XylophoneSkeletonEntity extends SkeletonEntity implements IInstrume
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolemEntity.class, true));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, TurtleEntity.class, 10, true, false, TurtleEntity.TARGET_DRY_BABY));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, TurtleEntity.class, 10, true, false, TurtleEntity.BABY_ON_LAND_SELECTOR));
     }
     
     @Override
-    public void setCombatTask() {
+    public void reassessWeaponGoal() {
     }
 
     @Override
-	protected void registerData() {
-		super.registerData();
-        this.getDataManager().register(PLAYING_RIBS, Boolean.valueOf(false));
+	protected void defineSynchedData() {
+		super.defineSynchedData();
+        this.getEntityData().define(PLAYING_RIBS, Boolean.valueOf(false));
 	}
 
     public void setPlayingRibs(boolean armsRaised) {
-        this.getDataManager().set(PLAYING_RIBS, Boolean.valueOf(armsRaised));
+        this.getEntityData().set(PLAYING_RIBS, Boolean.valueOf(armsRaised));
     }
 
     public boolean isPlayingRibs()
     {
-        return ((Boolean)this.getDataManager().get(PLAYING_RIBS)).booleanValue();
+        return ((Boolean)this.getEntityData().get(PLAYING_RIBS)).booleanValue();
     }
     
     @Override
-    protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
+    protected void populateDefaultEquipmentSlots(DifficultyInstance difficulty) {
     }
 }

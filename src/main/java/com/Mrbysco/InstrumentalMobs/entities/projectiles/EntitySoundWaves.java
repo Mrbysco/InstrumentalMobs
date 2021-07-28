@@ -29,7 +29,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
         _interface = IRendersAsItem.class
 )
 public class EntitySoundWaves extends DamagingProjectileEntity implements IRendersAsItem {
-    private SoundEvent sound = SoundEvents.ENTITY_GHAST_SCREAM;
+    private SoundEvent sound = SoundEvents.GHAST_SCREAM;
 
     public EntitySoundWaves(EntityType<? extends EntitySoundWaves> type, World worldIn) {
         super(type, worldIn);
@@ -53,7 +53,7 @@ public class EntitySoundWaves extends DamagingProjectileEntity implements IRende
     }
 
     @Override
-    public IPacket<?> createSpawnPacket() {
+    public IPacket<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
@@ -61,40 +61,40 @@ public class EntitySoundWaves extends DamagingProjectileEntity implements IRende
      * Called when this EntitySoundWaves hits a block or entity.
      */
     
-    protected void onImpact(RayTraceResult result) {
-        super.onImpact(result);
-        if (!this.world.isRemote) {
+    protected void onHit(RayTraceResult result) {
+        super.onHit(result);
+        if (!this.level.isClientSide) {
             this.soundExplosion();
 
-            this.setDead();
+            this.removeAfterChangingDimensions();
         }
     }
 
     @Override
-    protected void onEntityHit(EntityRayTraceResult result) {
+    protected void onHitEntity(EntityRayTraceResult result) {
         Entity entity = result.getEntity();
-        if(entity instanceof PlayerEntity && func_234616_v_() instanceof PlayerEntity) {
-            PlayerEntity playerIn = (PlayerEntity)func_234616_v_();
+        if(entity instanceof PlayerEntity && getOwner() instanceof PlayerEntity) {
+            PlayerEntity playerIn = (PlayerEntity)getOwner();
             PlayerEntity collidingPlayer = (PlayerEntity)entity;
-            if(playerIn.canAttackPlayer(collidingPlayer)) {
-                if(this.world.rand.nextInt(10) <= 2) {
-                    collidingPlayer.attackEntityFrom(Reference.causeSoundDamage(this), 1F);
+            if(playerIn.canHarmPlayer(collidingPlayer)) {
+                if(this.level.random.nextInt(10) <= 2) {
+                    collidingPlayer.hurt(Reference.causeSoundDamage(this), 1F);
                 }
             }
         } else {
-            if(func_234616_v_() instanceof LivingEntity) {
-                LivingEntity livingEntity = (LivingEntity) this.func_234616_v_();
-                entity.attackEntityFrom(Reference.causeSoundDamage(this), 6.0F);
-                this.applyEnchantments(livingEntity, entity);
+            if(getOwner() instanceof LivingEntity) {
+                LivingEntity livingEntity = (LivingEntity) this.getOwner();
+                entity.hurt(Reference.causeSoundDamage(this), 6.0F);
+                this.doEnchantDamageEffects(livingEntity, entity);
             }
         }
     }
 
     public void soundExplosion() {
-        this.world.playSound(null, this.getPosition(), sound, this.getSoundCategory(), 1.0F, this.world.rand.nextFloat() * 0.1F + 0.9F);
-        this.world.addParticle(ParticleTypes.NOTE, this.getPosX(), this.getPosY(), this.getPosZ(), 0.0D, 0.0D, 0.0D);
-        if(InstrumentalConfig.COMMON.mobsReact.get() && func_234616_v_() instanceof LivingEntity) {
-            InstrumentHelper.instrumentDamage(this.world, (LivingEntity)this.func_234616_v_(), this.getBoundingBox().grow(InstrumentalConfig.COMMON.instrumentRange.get()));
+        this.level.playSound(null, this.blockPosition(), sound, this.getSoundSource(), 1.0F, this.level.random.nextFloat() * 0.1F + 0.9F);
+        this.level.addParticle(ParticleTypes.NOTE, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
+        if(InstrumentalConfig.COMMON.mobsReact.get() && getOwner() instanceof LivingEntity) {
+            InstrumentHelper.instrumentDamage(this.level, (LivingEntity)this.getOwner(), this.getBoundingBox().inflate(InstrumentalConfig.COMMON.instrumentRange.get()));
         }
     }
 
@@ -104,8 +104,8 @@ public class EntitySoundWaves extends DamagingProjectileEntity implements IRende
         float f2 = MathHelper.cos(rotationYawIn * 0.017453292F) * MathHelper.cos(rotationPitchIn * 0.017453292F);
         this.shoot(f, f1, f2, velocity, inaccuracy);
 
-        Vector3d motion = getMotion();
-        Vector3d throwerMotion = func_234616_v_().getMotion();
+        Vector3d motion = getDeltaMovement();
+        Vector3d throwerMotion = getOwner().getDeltaMovement();
         double motionX = motion.x + throwerMotion.x;
         double motionY = motion.y;
         double motionZ = motion.z + throwerMotion.z;
@@ -114,7 +114,7 @@ public class EntitySoundWaves extends DamagingProjectileEntity implements IRende
             motionY += throwerMotion.y;
         }
 
-        this.setMotion(motionX, motionY, motionZ);
+        this.setDeltaMovement(motionX, motionY, motionZ);
     }
 
     /**
@@ -127,22 +127,22 @@ public class EntitySoundWaves extends DamagingProjectileEntity implements IRende
         x = x / (double)f;
         y = y / (double)f;
         z = z / (double)f;
-        x = x + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
-        y = y + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
-        z = z + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
+        x = x + this.random.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
+        y = y + this.random.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
+        z = z + this.random.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
         x = x * (double)velocity;
         y = y * (double)velocity;
         z = z * (double)velocity;
-        this.setMotion(x, y, z);
+        this.setDeltaMovement(x, y, z);
         float f1 = MathHelper.sqrt(x * x + z * z);
-        this.rotationYaw = (float)(MathHelper.atan2(x, z) * (180D / Math.PI));
-        this.rotationPitch = (float)(MathHelper.atan2(y, f1) * (180D / Math.PI));
-        this.prevRotationYaw = this.rotationYaw;
-        this.prevRotationPitch = this.rotationPitch;
+        this.yRot = (float)(MathHelper.atan2(x, z) * (180D / Math.PI));
+        this.xRot = (float)(MathHelper.atan2(y, f1) * (180D / Math.PI));
+        this.yRotO = this.yRot;
+        this.xRotO = this.xRot;
     }
 
     @Override
-    protected void registerData() {
+    protected void defineSynchedData() {
     }
 
     @Override

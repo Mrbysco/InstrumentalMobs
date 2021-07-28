@@ -12,43 +12,43 @@ import net.minecraft.world.World;
 
 public class InstrumentHelper {
 	public static void instrumentDamage(World worldIn, LivingEntity entityIn) {
-		instrumentDamage(worldIn, entityIn, entityIn.getBoundingBox().grow(InstrumentalConfig.COMMON.instrumentRange.get()));
+		instrumentDamage(worldIn, entityIn, entityIn.getBoundingBox().inflate(InstrumentalConfig.COMMON.instrumentRange.get()));
 	}
 
 	public static void instrumentDamage(World worldIn, LivingEntity entityIn, AxisAlignedBB box) {
-		if(!worldIn.isRemote && entityIn != null) {
-			for(Entity entity : worldIn.getEntitiesWithinAABBExcludingEntity(entityIn, box)) {
+		if(!worldIn.isClientSide && entityIn != null) {
+			for(Entity entity : worldIn.getEntities(entityIn, box)) {
 				if(entity.equals(entityIn))
 					break;
 
 				if(entity instanceof LivingEntity) {
 					LivingEntity collidingEntity = (LivingEntity)entity;
-					double xDist = collidingEntity.getPosX() - entityIn.getPosX() + worldIn.rand.nextDouble() - worldIn.rand.nextDouble();
-					double zDist = collidingEntity.getPosZ() - entityIn.getPosZ() + worldIn.rand.nextDouble() - worldIn.rand.nextDouble();
+					double xDist = collidingEntity.getX() - entityIn.getX() + worldIn.random.nextDouble() - worldIn.random.nextDouble();
+					double zDist = collidingEntity.getZ() - entityIn.getZ() + worldIn.random.nextDouble() - worldIn.random.nextDouble();
 					double distance = Math.sqrt(xDist * xDist + zDist * zDist);
 
-					collidingEntity.velocityChanged = true;
-					collidingEntity.addVelocity(0.5 * xDist / distance, 5.0D / (10.0D + distance), 0.5 * zDist / distance);
+					collidingEntity.hurtMarked = true;
+					collidingEntity.push(0.5 * xDist / distance, 5.0D / (10.0D + distance), 0.5 * zDist / distance);
 
-					if(worldIn.rand.nextDouble() <= InstrumentalConfig.COMMON.soundDamageChance.get()) {
+					if(worldIn.random.nextDouble() <= InstrumentalConfig.COMMON.soundDamageChance.get()) {
 						if(entityIn instanceof PlayerEntity) {
 							if(collidingEntity instanceof PlayerEntity) {
 								PlayerEntity playerIn = (PlayerEntity)entityIn;
 								PlayerEntity collidingPlayer = (PlayerEntity)collidingEntity;
-								if(playerIn.canAttackPlayer(collidingPlayer)) {
-									if(worldIn.rand.nextInt(10) <= 3) {
-										collidingEntity.attackEntityFrom(Reference.causeSoundDamage(entityIn), 1.0F);
+								if(playerIn.canHarmPlayer(collidingPlayer)) {
+									if(worldIn.random.nextInt(10) <= 3) {
+										collidingEntity.hurt(Reference.causeSoundDamage(entityIn), 1.0F);
 									}
 								}
 							} else {
-								if(!(collidingEntity.getType().getClassification() == EntityClassification.MONSTER)) {
-									if(worldIn.rand.nextInt(10) <= 3) {
-										collidingEntity.attackEntityFrom(Reference.causeSoundDamage(entityIn), 1.0F);
+								if(!(collidingEntity.getType().getCategory() == EntityClassification.MONSTER)) {
+									if(worldIn.random.nextInt(10) <= 3) {
+										collidingEntity.hurt(Reference.causeSoundDamage(entityIn), 1.0F);
 									}
 								}
 							}
-						} else if((collidingEntity.getType().getClassification() == EntityClassification.MONSTER && !(collidingEntity instanceof IInstrumentalMobs)) || collidingEntity instanceof PlayerEntity) {
-							collidingEntity.attackEntityFrom(Reference.causeSoundDamage(entityIn), 1.0F);
+						} else if((collidingEntity.getType().getCategory() == EntityClassification.MONSTER && !(collidingEntity instanceof IInstrumentalMobs)) || collidingEntity instanceof PlayerEntity) {
+							collidingEntity.hurt(Reference.causeSoundDamage(entityIn), 1.0F);
 						}
 					}
 				}

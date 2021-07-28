@@ -17,16 +17,16 @@ public class SkeletonInstrumentAttackGoal extends InstrumentAttackGoal {
     /**
      * Execute a one shot task or start executing a continuous task
      */
-    public void startExecuting() {
-        super.startExecuting();
+    public void start() {
+        super.start();
         this.raiseArmTicks = 0;
     }
 
     /**
      * Reset the task's internal state. Called when this task is interrupted by another one
      */
-    public void resetTask() {
-        super.resetTask();
+    public void stop() {
+        super.stop();
         this.skeleton.setPlayingRibs(false);
     }
 
@@ -37,6 +37,6 @@ public class SkeletonInstrumentAttackGoal extends InstrumentAttackGoal {
         super.tick();
         ++this.raiseArmTicks;
 
-        this.skeleton.setPlayingRibs(this.raiseArmTicks >= 5 && this.field_234037_i_ < 10);
+        this.skeleton.setPlayingRibs(this.raiseArmTicks >= 5 && this.ticksUntilNextAttack < 10);
     }
 }

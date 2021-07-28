@@ -20,22 +20,22 @@ public class DrumLayer<T extends DrumZombieEntity, M extends EntityModel<T> & IH
 
 	@Override
 	public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn, T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		ItemStack itemstack = entitylivingbaseIn.getItemStackFromSlot(EquipmentSlotType.CHEST);
+		ItemStack itemstack = entitylivingbaseIn.getItemBySlot(EquipmentSlotType.CHEST);
 		if (!itemstack.isEmpty()) {
-			matrixStackIn.push();
+			matrixStackIn.pushPose();
 
 			matrixStackIn.translate(0.0F, 0.6F, -0.55F);
 			matrixStackIn.scale(0.75F, 0.75F, 0.75F);
-			if (this.getEntityModel().isChild) {
+			if (this.getParentModel().young) {
 				float f = 0.5F;
 				matrixStackIn.translate(0.0D, 0.75D, 0.0D);
 				matrixStackIn.scale(f, f, f);
 			}
-			matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-10F));
+			matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(-10F));
 
-			Minecraft.getInstance().getFirstPersonRenderer().renderItemSide(entitylivingbaseIn, itemstack, ItemCameraTransforms.TransformType.NONE, false, matrixStackIn, bufferIn, packedLightIn);
+			Minecraft.getInstance().getItemInHandRenderer().renderItem(entitylivingbaseIn, itemstack, ItemCameraTransforms.TransformType.NONE, false, matrixStackIn, bufferIn, packedLightIn);
 
-			matrixStackIn.pop();
+			matrixStackIn.popPose();
 		}
 	}
 }

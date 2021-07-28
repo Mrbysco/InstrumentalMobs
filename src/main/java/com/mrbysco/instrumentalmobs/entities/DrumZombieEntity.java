@@ -39,32 +39,32 @@ public class DrumZombieEntity extends ZombieEntity implements IInstrumentalMobs 
         this.goalSelector.addGoal(4, new DrumZombieEntity.AttackTurtleEggGoal(this, 1.0D, 3));
         this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
-        this.applyEntityAI();
+        this.addBehaviourGoals();
     }
 
     @Override
-    protected void applyEntityAI() {
+    protected void addBehaviourGoals() {
         this.goalSelector.addGoal(2, new ZombieInstrumentAttackGoal(this, 1.0D, false, () -> InstrumentalRegistry.single_drum_sound.get()));
-        this.goalSelector.addGoal(6, new MoveThroughVillageGoal(this, 1.0D, true, 4, this::isBreakDoorsTaskSet));
+        this.goalSelector.addGoal(6, new MoveThroughVillageGoal(this, 1.0D, true, 4, this::canBreakDoors));
         this.goalSelector.addGoal(7, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
-        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setCallsForHelp(ZombifiedPiglinEntity.class));
+        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(ZombifiedPiglinEntity.class));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractVillagerEntity.class, false));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolemEntity.class, true));
-        this.targetSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, TurtleEntity.class, 10, true, false, TurtleEntity.TARGET_DRY_BABY));
+        this.targetSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, TurtleEntity.class, 10, true, false, TurtleEntity.BABY_ON_LAND_SELECTOR));
     }
 
 	@Override
-	public void onDeath(DamageSource cause) {
-		this.setItemStackToSlot(EquipmentSlotType.CHEST, new ItemStack(InstrumentalRegistry.DRUM_ITEM.get()));
-		super.onDeath(cause);
+	public void die(DamageSource cause) {
+		this.setItemSlot(EquipmentSlotType.CHEST, new ItemStack(InstrumentalRegistry.DRUM_ITEM.get()));
+		super.die(cause);
 	}
 	
 	@Override
-	protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
-        this.setItemStackToSlot(EquipmentSlotType.CHEST, new ItemStack(InstrumentalRegistry.DRUM_BLOCK_ITEM.get()));
-        this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.STICK));
-        this.setItemStackToSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.STICK));
+	protected void populateDefaultEquipmentSlots(DifficultyInstance difficulty) {
+        this.setItemSlot(EquipmentSlotType.CHEST, new ItemStack(InstrumentalRegistry.DRUM_BLOCK_ITEM.get()));
+        this.setItemSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.STICK));
+        this.setItemSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.STICK));
     }
 
 
@@ -73,15 +73,15 @@ public class DrumZombieEntity extends ZombieEntity implements IInstrumentalMobs 
             super(Blocks.TURTLE_EGG, creatureIn, speed, yMax);
         }
 
-        public void playBreakingSound(IWorld worldIn, BlockPos pos) {
-            worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ENTITY_ZOMBIE_DESTROY_EGG, SoundCategory.HOSTILE, 0.5F, 0.9F + DrumZombieEntity.this.rand.nextFloat() * 0.2F);
+        public void playDestroyProgressSound(IWorld worldIn, BlockPos pos) {
+            worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ZOMBIE_DESTROY_EGG, SoundCategory.HOSTILE, 0.5F, 0.9F + DrumZombieEntity.this.random.nextFloat() * 0.2F);
         }
 
-        public void playBrokenSound(World worldIn, BlockPos pos) {
-            worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ENTITY_TURTLE_EGG_BREAK, SoundCategory.BLOCKS, 0.7F, 0.9F + worldIn.rand.nextFloat() * 0.2F);
+        public void playBreakSound(World worldIn, BlockPos pos) {
+            worldIn.playSound((PlayerEntity)null, pos, SoundEvents.TURTLE_EGG_BREAK, SoundCategory.BLOCKS, 0.7F, 0.9F + worldIn.random.nextFloat() * 0.2F);
         }
 
-        public double getTargetDistanceSq() {
+        public double acceptedDistance() {
             return 1.14D;
         }
     }

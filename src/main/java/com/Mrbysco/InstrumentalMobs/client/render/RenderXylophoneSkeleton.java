@@ -14,7 +14,7 @@ public class RenderXylophoneSkeleton extends RenderCustomBiped<XylophoneSkeleton
         this.addLayer(new HeldBoneLayer(this));
 	}
 	
-	public ResourceLocation getEntityTexture(XylophoneSkeletonEntity entity)
+	public ResourceLocation getTextureLocation(XylophoneSkeletonEntity entity)
     {
         return SKELETON_TEXTURES;
     }

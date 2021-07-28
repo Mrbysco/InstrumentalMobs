@@ -21,11 +21,11 @@ public class InstrumentAttackGoal extends MeleeAttackGoal {
 	protected void checkAndPerformAttack(LivingEntity livingBase, double p_190102_2_) {
 		double d0 = this.getAttackReachSqr(livingBase);
 
-        if (p_190102_2_ <= d0 && this.field_234037_i_ <= 0) {
-            this.field_234037_i_ = 20;
-            this.attacker.swingArm(Hand.MAIN_HAND);
-            this.attacker.playSound(instrumentSound.get(), 1F, 1F);
-            InstrumentHelper.instrumentDamage(this.attacker.world, this.attacker);
+        if (p_190102_2_ <= d0 && this.ticksUntilNextAttack <= 0) {
+            this.ticksUntilNextAttack = 20;
+            this.mob.swing(Hand.MAIN_HAND);
+            this.mob.playSound(instrumentSound.get(), 1F, 1F);
+            InstrumentHelper.instrumentDamage(this.mob.level, this.mob);
         }
 	}
 }
