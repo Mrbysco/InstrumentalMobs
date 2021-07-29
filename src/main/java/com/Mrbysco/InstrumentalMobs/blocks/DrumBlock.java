@@ -1,16 +1,16 @@
 package com.mrbysco.instrumentalmobs.blocks;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.IBooleanFunction;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.BooleanOp;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.stream.Stream;
 
@@ -29,19 +29,19 @@ public class DrumBlock extends Block {
 			Block.box(2, 0, 14, 14, 1, 15),
 			Block.box(2, 0, 1, 14, 1, 2),
 			Block.box(1, 0, 2, 2, 1, 14)
-			).reduce((v1, v2) -> VoxelShapes.join(v1, v2, IBooleanFunction.OR)).get();
+			).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get();
 
 	public DrumBlock(Block.Properties properties) {
 		super(properties.noOcclusion());
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+	public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 
 	@Override
-	public void attack(BlockState state, World worldIn, BlockPos pos, PlayerEntity player) {
+	public void attack(BlockState state, Level worldIn, BlockPos pos, Player player) {
 		if (!worldIn.isClientSide) {
 			worldIn.blockEvent(pos, Blocks.NOTE_BLOCK, 1, 0);
 		}

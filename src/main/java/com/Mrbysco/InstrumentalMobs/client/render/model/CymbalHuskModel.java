@@ -1,19 +1,16 @@
 package com.mrbysco.instrumentalmobs.client.render.model;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Vector3f;
 import com.mrbysco.instrumentalmobs.entities.CymbalHuskEntity;
-import net.minecraft.client.renderer.entity.model.ZombieModel;
-import net.minecraft.util.HandSide;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.client.model.ZombieModel;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.HumanoidArm;
 
-public class CymbalHuskModel<T extends CymbalHuskEntity>  extends ZombieModel<T> {
-    public CymbalHuskModel() {
-        this(0.0F, false);
-    }
-
-    public CymbalHuskModel(float modelSize, boolean p_i1168_2_) {
-        super(modelSize, 0.0F, 64, p_i1168_2_ ? 32 : 64);
+public class CymbalHuskModel<T extends CymbalHuskEntity> extends ZombieModel<T> {
+    public CymbalHuskModel(ModelPart part) {
+        super(part);
     }
 
     @Override
@@ -23,14 +20,14 @@ public class CymbalHuskModel<T extends CymbalHuskEntity>  extends ZombieModel<T>
         boolean flag2 = entityIn.isClapping();
 
         //clap?
-        float f3 = (flag2 ? ((MathHelper.cos(ageInTicks * 0.75F)) * 0.75F) : 0.0F) * 0.8F;
+        float f3 = (flag2 ? ((Mth.cos(ageInTicks * 0.75F)) * 0.75F) : 0.0F) * 0.8F;
         this.rightArm.yRot = f3;
         this.leftArm.yRot += -f3;
     }
 
     @Override
-    public void translateToHand(HandSide sideIn, MatrixStack matrixStackIn) {
-        boolean flag = sideIn == HandSide.LEFT;
+    public void translateToHand(HumanoidArm sideIn, PoseStack matrixStackIn) {
+        boolean flag = sideIn == HumanoidArm.LEFT;
         matrixStackIn.translate(flag ? 0.15D : -0.15D, 0.25D, 0.075D);
         matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(flag ? 25F : -25F));
         super.translateToHand(sideIn, matrixStackIn);

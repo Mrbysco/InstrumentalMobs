@@ -21,7 +21,7 @@
             "conditions": {
                 "items": [
                     {
-                        "item": "instrumentalmobs:french_horn"
+                        "items": ["instrumentalmobs:french_horn"]
                     }
                 ]
             }

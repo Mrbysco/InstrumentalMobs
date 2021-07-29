@@ -1,14 +1,14 @@
 package com.mrbysco.instrumentalmobs.init;
 
 import com.mrbysco.instrumentalmobs.Reference;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class InstrumentalTab {
-	public static final ItemGroup INSTRUMENTAL_TAB = new ItemGroup(Reference.MOD_ID) {
+	public static final CreativeModeTab INSTRUMENTAL_TAB = new CreativeModeTab(Reference.MOD_ID) {
 		@OnlyIn(Dist.CLIENT)
 		public ItemStack makeIcon() {
 			return new ItemStack(Blocks.NOTE_BLOCK);

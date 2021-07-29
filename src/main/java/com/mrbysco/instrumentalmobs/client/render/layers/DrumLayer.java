@@ -1,41 +1,41 @@
 package com.mrbysco.instrumentalmobs.client.render.layers;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Vector3f;
 import com.mrbysco.instrumentalmobs.entities.DrumZombieEntity;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.IEntityRenderer;
-import net.minecraft.client.renderer.entity.layers.LayerRenderer;
-import net.minecraft.client.renderer.entity.model.EntityModel;
-import net.minecraft.client.renderer.entity.model.IHasArm;
-import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.client.model.ArmedModel;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemStack;
 
-public class DrumLayer<T extends DrumZombieEntity, M extends EntityModel<T> & IHasArm> extends LayerRenderer<T, M> {
-	public DrumLayer(IEntityRenderer<T, M> p_i50934_1_) {
-		super(p_i50934_1_);
+public class DrumLayer<T extends DrumZombieEntity, M extends EntityModel<T> & ArmedModel> extends RenderLayer<T, M> {
+	public DrumLayer(RenderLayerParent<T, M> layerParent) {
+		super(layerParent);
 	}
 
 	@Override
-	public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn, T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		ItemStack itemstack = entitylivingbaseIn.getItemBySlot(EquipmentSlotType.CHEST);
+	public void render(PoseStack poseStack, MultiBufferSource bufferSource, int packedLightIn, T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		ItemStack itemstack = entitylivingbaseIn.getItemBySlot(EquipmentSlot.CHEST);
 		if (!itemstack.isEmpty()) {
-			matrixStackIn.pushPose();
+			poseStack.pushPose();
 
-			matrixStackIn.translate(0.0F, 0.6F, -0.55F);
-			matrixStackIn.scale(0.75F, 0.75F, 0.75F);
+			poseStack.translate(0.0F, 0.6F, -0.55F);
+			poseStack.scale(0.75F, 0.75F, 0.75F);
 			if (this.getParentModel().young) {
 				float f = 0.5F;
-				matrixStackIn.translate(0.0D, 0.75D, 0.0D);
-				matrixStackIn.scale(f, f, f);
+				poseStack.translate(0.0D, 0.75D, 0.0D);
+				poseStack.scale(f, f, f);
 			}
-			matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(-10F));
+			poseStack.mulPose(Vector3f.XP.rotationDegrees(-10F));
 
-			Minecraft.getInstance().getItemInHandRenderer().renderItem(entitylivingbaseIn, itemstack, ItemCameraTransforms.TransformType.NONE, false, matrixStackIn, bufferIn, packedLightIn);
+			Minecraft.getInstance().getItemInHandRenderer().renderItem(entitylivingbaseIn, itemstack, ItemTransforms.TransformType.NONE, false, poseStack, bufferSource, packedLightIn);
 
-			matrixStackIn.popPose();
+			poseStack.popPose();
 		}
 	}
 }

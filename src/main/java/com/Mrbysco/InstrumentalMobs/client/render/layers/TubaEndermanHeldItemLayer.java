@@ -1,39 +1,39 @@
 package com.mrbysco.instrumentalmobs.client.render.layers;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.IEntityRenderer;
-import net.minecraft.client.renderer.entity.layers.LayerRenderer;
-import net.minecraft.client.renderer.entity.model.EntityModel;
-import net.minecraft.client.renderer.entity.model.IHasHead;
-import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.entity.monster.EndermanEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.HeadedModel;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.monster.EnderMan;
+import net.minecraft.world.item.ItemStack;
 
-public class TubaEndermanHeldItemLayer<T extends EndermanEntity, M extends EntityModel<T> & IHasHead> extends LayerRenderer<T, M> {
-    public TubaEndermanHeldItemLayer(IEntityRenderer<T, M> p_i50934_1_) {
-        super(p_i50934_1_);
+public class TubaEndermanHeldItemLayer<T extends EnderMan, M extends EntityModel<T> & HeadedModel> extends RenderLayer<T, M> {
+    public TubaEndermanHeldItemLayer(RenderLayerParent<T, M> layerParent) {
+        super(layerParent);
     }
 
     @Override
-    public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn, T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        ItemStack stack = entitylivingbaseIn.getItemBySlot(EquipmentSlotType.MAINHAND);
+    public void render(PoseStack poseStack, MultiBufferSource bufferSource, int packedLightIn, T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+        ItemStack stack = entitylivingbaseIn.getItemBySlot(EquipmentSlot.MAINHAND);
         if (!stack.isEmpty()) {
-            matrixStackIn.pushPose();
-            this.getParentModel().getHead().translateAndRotate(matrixStackIn);
+            poseStack.pushPose();
+            this.getParentModel().getHead().translateAndRotate(poseStack);
 
-            matrixStackIn.translate(0.0F, -0.73F, -0.775F);
-            matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(-90F));
-            matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(90F));
-            matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(-10F));
+            poseStack.translate(0.0F, -0.73F, -0.775F);
+            poseStack.mulPose(Vector3f.ZP.rotationDegrees(-90F));
+            poseStack.mulPose(Vector3f.XP.rotationDegrees(90F));
+            poseStack.mulPose(Vector3f.ZP.rotationDegrees(-10F));
 
-            matrixStackIn.translate(-0.8F, 0.0F, 0.0F);
+            poseStack.translate(-0.8F, 0.0F, 0.0F);
 
-            Minecraft.getInstance().getItemInHandRenderer().renderItem(entitylivingbaseIn, stack, ItemCameraTransforms.TransformType.NONE, false, matrixStackIn, bufferIn, packedLightIn);
-            matrixStackIn.popPose();
+            Minecraft.getInstance().getItemInHandRenderer().renderItem(entitylivingbaseIn, stack, ItemTransforms.TransformType.NONE, false, poseStack, bufferSource, packedLightIn);
+            poseStack.popPose();
         }
     }
 }

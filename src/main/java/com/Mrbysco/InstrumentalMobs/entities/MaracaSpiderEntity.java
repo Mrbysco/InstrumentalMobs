@@ -2,51 +2,51 @@ package com.mrbysco.instrumentalmobs.entities;
 
 import com.mrbysco.instrumentalmobs.entities.goals.InstrumentAttackGoal;
 import com.mrbysco.instrumentalmobs.init.InstrumentalRegistry;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.HurtByTargetGoal;
-import net.minecraft.entity.ai.goal.LeapAtTargetGoal;
-import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
-import net.minecraft.entity.monster.SpiderEntity;
-import net.minecraft.entity.passive.IronGolemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.entity.monster.Spider;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 
-public class MaracaSpiderEntity extends SpiderEntity implements IInstrumentalMobs {
-    private static final DataParameter<Boolean> ATTACKING = EntityDataManager.<Boolean>defineId(MaracaSpiderEntity.class, DataSerializers.BOOLEAN);
+public class MaracaSpiderEntity extends Spider implements IInstrumentalMobs {
+    private static final EntityDataAccessor<Boolean> ATTACKING = SynchedEntityData.<Boolean>defineId(MaracaSpiderEntity.class, EntityDataSerializers.BOOLEAN);
 
-    public MaracaSpiderEntity(EntityType<? extends MaracaSpiderEntity> type, World worldIn) {
+    public MaracaSpiderEntity(EntityType<? extends MaracaSpiderEntity> type, Level worldIn) {
         super(type, worldIn);
-		this.setItemSlot(EquipmentSlotType.MAINHAND, new ItemStack(InstrumentalRegistry.maraca.get()));
-		this.setItemSlot(EquipmentSlotType.OFFHAND, new ItemStack(InstrumentalRegistry.maraca.get()));
-        this.setDropChance(EquipmentSlotType.MAINHAND, getDropChance());
-        this.setDropChance(EquipmentSlotType.OFFHAND, getDropChance());
+		this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(InstrumentalRegistry.maraca.get()));
+		this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(InstrumentalRegistry.maraca.get()));
+        this.setDropChance(EquipmentSlot.MAINHAND, getDropChance());
+        this.setDropChance(EquipmentSlot.OFFHAND, getDropChance());
 	}
 	
 	@Override
 	protected void registerGoals() {
-        this.goalSelector.addGoal(1, new SwimGoal(this));
+        this.goalSelector.addGoal(1, new FloatGoal(this));
         this.goalSelector.addGoal(3, new LeapAtTargetGoal(this, 0.4F));
         this.goalSelector.addGoal(4, new MaracaSpiderEntity.SpiderInstrumentAttack(this));
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 0.8D));
-        this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 8.0F));
-        this.goalSelector.addGoal(6, new LookRandomlyGoal(this));
+        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.8D));
+        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new MaracaSpiderEntity.TargetGoal<>(this, PlayerEntity.class));
-        this.targetSelector.addGoal(3, new MaracaSpiderEntity.TargetGoal<>(this, IronGolemEntity.class));
+        this.targetSelector.addGoal(2, new MaracaSpiderEntity.TargetGoal<>(this, Player.class));
+        this.targetSelector.addGoal(3, new MaracaSpiderEntity.TargetGoal<>(this, IronGolem.class));
     }
 
     @Override
@@ -94,7 +94,7 @@ public class MaracaSpiderEntity extends SpiderEntity implements IInstrumentalMob
             super.start();
             MaracaSpiderEntity spider = (MaracaSpiderEntity)this.mob;
             spider.setAttacking(true);
-            spider.swing(Hand.MAIN_HAND);
+            spider.swing(InteractionHand.MAIN_HAND);
         }
 
         protected double getAttackReachSqr(LivingEntity attackTarget) {

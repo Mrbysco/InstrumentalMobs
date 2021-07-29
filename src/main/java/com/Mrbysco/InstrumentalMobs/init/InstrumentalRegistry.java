@@ -15,19 +15,19 @@ import com.mrbysco.instrumentalmobs.items.CustomSpawnEggItem;
 import com.mrbysco.instrumentalmobs.items.DrumInstrument;
 import com.mrbysco.instrumentalmobs.items.InstrumentItem;
 import com.mrbysco.instrumentalmobs.items.InstrumentMicrophone;
-import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntityType;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MaterialColor;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -52,39 +52,39 @@ public class InstrumentalRegistry {
 
     public static final RegistryObject<Item> CYMBAL_HUSK_SPAWN_EGG = ITEMS.register("cymbal_husk_spawn_egg", () -> new CustomSpawnEggItem(() -> InstrumentalRegistry.CYMBAL_HUSK.get(), 7958625, 15125652, itemBuilder()));
     public static final RegistryObject<Item> DRUM_ZOMBIE_SPAWN_EGG = ITEMS.register("drum_zombie_spawn_egg", () -> new CustomSpawnEggItem(() -> InstrumentalRegistry.DRUM_ZOMBIE.get(), 44975, 7969893, itemBuilder()));
-    public static final RegistryObject<Item> FRENCH_HORN_CREEPER_SPAWN_EGG = ITEMS.register("french_horn_creeper_egg", () -> new CustomSpawnEggItem(() -> InstrumentalRegistry.FRENCH_HORN_CREEPER.get(), 894731, 0, itemBuilder()));
+    public static final RegistryObject<Item> FRENCH_HORN_CREEPER_SPAWN_EGG = ITEMS.register("french_horn_creeper_spawn_egg", () -> new CustomSpawnEggItem(() -> InstrumentalRegistry.FRENCH_HORN_CREEPER.get(), 894731, 0, itemBuilder()));
     public static final RegistryObject<Item> MARACA_SPIDER_SPAWN_EGG = ITEMS.register("maraca_spider_spawn_egg", () -> new CustomSpawnEggItem(() -> InstrumentalRegistry.MARACA_SPIDER.get(), 803406, 11013646, itemBuilder()));
     public static final RegistryObject<Item> MICROPHONE_GHAST_SPAWN_EGG = ITEMS.register("microphone_ghast_spawn_egg", () -> new CustomSpawnEggItem(() -> InstrumentalRegistry.MICROPHONE_GHAST.get(), 16382457, 12369084, itemBuilder()));
     public static final RegistryObject<Item> TUBA_ENDERMAN_SPAWN_EGG = ITEMS.register("tuba_enderman_spawn_egg", () -> new CustomSpawnEggItem(() -> InstrumentalRegistry.TUBA_ENDERMAN.get(), 1447446, 0, itemBuilder()));
     public static final RegistryObject<Item> XYLOPHONE_SKELETON_SPAWN_EGG = ITEMS.register("xylophone_skeleton_spawn_egg", () -> new CustomSpawnEggItem(() -> InstrumentalRegistry.XYLOPHONE_SKELETON.get(), 12698049, 4802889, itemBuilder()));
 
     public static final RegistryObject<EntityType<CymbalHuskEntity>> CYMBAL_HUSK = ENTITIES.register("cymbal_husk",
-        () -> register("cymbal_husk", EntityType.Builder.<CymbalHuskEntity>of(CymbalHuskEntity::new, EntityClassification.MONSTER)
+        () -> register("cymbal_husk", EntityType.Builder.<CymbalHuskEntity>of(CymbalHuskEntity::new, MobCategory.MONSTER)
                 .sized(0.6F, 1.95F).clientTrackingRange(8)));
     public static final RegistryObject<EntityType<DrumZombieEntity>> DRUM_ZOMBIE = ENTITIES.register("drum_zombie",
-        () -> register("drum_zombie", EntityType.Builder.<DrumZombieEntity>of(DrumZombieEntity::new, EntityClassification.MONSTER)
+        () -> register("drum_zombie", EntityType.Builder.<DrumZombieEntity>of(DrumZombieEntity::new, MobCategory.MONSTER)
                 .sized(0.6F, 1.95F).clientTrackingRange(8)));
     public static final RegistryObject<EntityType<FrenchHornCreeperEntity>> FRENCH_HORN_CREEPER = ENTITIES.register("french_horn_creeper",
-        () -> register("french_horn_creeper", EntityType.Builder.<FrenchHornCreeperEntity>of(FrenchHornCreeperEntity::new, EntityClassification.MONSTER)
+        () -> register("french_horn_creeper", EntityType.Builder.<FrenchHornCreeperEntity>of(FrenchHornCreeperEntity::new, MobCategory.MONSTER)
                 .sized(0.6F, 1.7F).clientTrackingRange(8)));
     public static final RegistryObject<EntityType<MaracaSpiderEntity>> MARACA_SPIDER = ENTITIES.register("maraca_spider",
-        () -> register("maraca_spider", EntityType.Builder.<MaracaSpiderEntity>of(MaracaSpiderEntity::new, EntityClassification.MONSTER)
+        () -> register("maraca_spider", EntityType.Builder.<MaracaSpiderEntity>of(MaracaSpiderEntity::new, MobCategory.MONSTER)
                 .sized(1.4F, 0.9F).clientTrackingRange(8)));
     public static final RegistryObject<EntityType<MicrophoneGhastEntity>> MICROPHONE_GHAST = ENTITIES.register("microphone_ghast",
-        () -> register("microphone_ghast", EntityType.Builder.<MicrophoneGhastEntity>of(MicrophoneGhastEntity::new, EntityClassification.MONSTER)
+        () -> register("microphone_ghast", EntityType.Builder.<MicrophoneGhastEntity>of(MicrophoneGhastEntity::new, MobCategory.MONSTER)
                 .sized(4.0F, 4.0F).fireImmune().clientTrackingRange(10)));
     public static final RegistryObject<EntityType<TubaEndermanEntity>> TUBA_ENDERMAN = ENTITIES.register("tuba_enderman",
-        () -> register("tuba_enderman", EntityType.Builder.<TubaEndermanEntity>of(TubaEndermanEntity::new, EntityClassification.MONSTER)
+        () -> register("tuba_enderman", EntityType.Builder.<TubaEndermanEntity>of(TubaEndermanEntity::new, MobCategory.MONSTER)
                 .sized(0.6F, 2.9F).clientTrackingRange(8)));
     public static final RegistryObject<EntityType<XylophoneSkeletonEntity>> XYLOPHONE_SKELETON = ENTITIES.register("xylophone_skeleton",
-        () -> register("xylophone_skeleton", EntityType.Builder.<XylophoneSkeletonEntity>of(XylophoneSkeletonEntity::new, EntityClassification.MONSTER)
+        () -> register("xylophone_skeleton", EntityType.Builder.<XylophoneSkeletonEntity>of(XylophoneSkeletonEntity::new, MobCategory.MONSTER)
                 .sized(0.6F, 1.99F).clientTrackingRange(8)));
     public static final RegistryObject<EntityType<EntityMicrophoneWave>> MICROPHONE_WAVE = ENTITIES.register("microphone_sound", () ->
-            register("microphone_sound", EntityType.Builder.<EntityMicrophoneWave>of(EntityMicrophoneWave::new, EntityClassification.MISC)
+            register("microphone_sound", EntityType.Builder.<EntityMicrophoneWave>of(EntityMicrophoneWave::new, MobCategory.MISC)
                 .sized(0.3125F, 0.3125F).clientTrackingRange(4).clientTrackingRange(10)
                 .setCustomClientFactory(EntityMicrophoneWave::new)));
     public static final RegistryObject<EntityType<EntitySoundWaves>> SOUND_WAVE = ENTITIES.register("sound_waves", () ->
-            register("sound_waves", EntityType.Builder.<EntitySoundWaves>of(EntitySoundWaves::new, EntityClassification.MISC)
+            register("sound_waves", EntityType.Builder.<EntitySoundWaves>of(EntitySoundWaves::new, MobCategory.MISC)
                 .sized(0.3125F, 0.3125F).clientTrackingRange(4).clientTrackingRange(10)
                 .setCustomClientFactory(EntitySoundWaves::new)));
 

@@ -4,53 +4,46 @@ import com.mrbysco.instrumentalmobs.Reference;
 import com.mrbysco.instrumentalmobs.config.InstrumentalConfig;
 import com.mrbysco.instrumentalmobs.init.InstrumentalRegistry;
 import com.mrbysco.instrumentalmobs.utils.InstrumentHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.IRendersAsItem;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.ThrowableEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.IPacket;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.network.FMLPlayMessages;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.fmllegacy.network.FMLPlayMessages;
+import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
-@OnlyIn(
-        value = Dist.CLIENT,
-        _interface = IRendersAsItem.class
-)
-public class EntityMicrophoneWave extends ThrowableEntity implements IRendersAsItem {
+public class EntityMicrophoneWave extends ThrowableItemProjectile {
     private SoundEvent sound = SoundEvents.GHAST_SCREAM;
     private LivingEntity shootingEntity;
 
-    public EntityMicrophoneWave(EntityType<? extends EntityMicrophoneWave> type, World worldIn) {
+    public EntityMicrophoneWave(EntityType<? extends EntityMicrophoneWave> type, Level worldIn) {
         super(type, worldIn);
     }
 
-    public EntityMicrophoneWave(World worldIn, LivingEntity throwerIn, SoundEvent theSound) {
+    public EntityMicrophoneWave(Level worldIn, LivingEntity throwerIn, SoundEvent theSound) {
         super(InstrumentalRegistry.MICROPHONE_WAVE.get(), throwerIn, worldIn);
         this.shootingEntity = throwerIn;
         this.sound = theSound;
     }
 
-    public EntityMicrophoneWave(World worldIn, double x, double y, double z) {
+    public EntityMicrophoneWave(Level worldIn, double x, double y, double z) {
         super(InstrumentalRegistry.MICROPHONE_WAVE.get(), x, y, z, worldIn);
     }
 
-    public EntityMicrophoneWave(FMLPlayMessages.SpawnEntity spawnEntity, World worldIn) {
+    public EntityMicrophoneWave(FMLPlayMessages.SpawnEntity spawnEntity, Level worldIn) {
         this(InstrumentalRegistry.MICROPHONE_WAVE.get(), worldIn);
     }
 
     @Override
-    public IPacket<?> getAddEntityPacket() {
+    public Packet<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
@@ -58,22 +51,22 @@ public class EntityMicrophoneWave extends ThrowableEntity implements IRendersAsI
      * Called when this EntitySoundWaves hits a block or entity.
      */
     
-    protected void onHit(RayTraceResult result) {
+    protected void onHit(HitResult result) {
         super.onHit(result);
         if (!this.level.isClientSide) {
             this.soundExplosion();
 
             this.level.broadcastEntityEvent(this, (byte)3);
-            this.remove();
+            this.discard();
         }
     }
 
     @Override
-    protected void onHitEntity(EntityRayTraceResult result) {
+    protected void onHitEntity(EntityHitResult result) {
         Entity entity = result.getEntity();
-        if(entity instanceof PlayerEntity && shootingEntity instanceof PlayerEntity) {
-            PlayerEntity playerIn = (PlayerEntity)shootingEntity;
-            PlayerEntity collidingPlayer = (PlayerEntity)entity;
+        if(entity instanceof Player && shootingEntity instanceof Player) {
+            Player playerIn = (Player)shootingEntity;
+            Player collidingPlayer = (Player)entity;
             if(playerIn.canHarmPlayer(collidingPlayer)) {
                 if(this.level.random.nextInt(10) <= 2) {
                     collidingPlayer.hurt(Reference.causeSoundDamage(this), 1F);
@@ -98,7 +91,7 @@ public class EntityMicrophoneWave extends ThrowableEntity implements IRendersAsI
     }
 
     @Override
-    public ItemStack getItem() {
-        return new ItemStack(InstrumentalRegistry.microphone.get());
+    protected Item getDefaultItem() {
+        return InstrumentalRegistry.microphone.get();
     }
 }

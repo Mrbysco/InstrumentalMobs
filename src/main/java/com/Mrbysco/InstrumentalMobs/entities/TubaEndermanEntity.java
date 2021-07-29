@@ -2,35 +2,35 @@ package com.mrbysco.instrumentalmobs.entities;
 
 import com.mrbysco.instrumentalmobs.entities.goals.InstrumentAttackGoal;
 import com.mrbysco.instrumentalmobs.init.InstrumentalRegistry;
-import net.minecraft.entity.EntityPredicate;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.HurtByTargetGoal;
-import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.ai.goal.ResetAngerGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
-import net.minecraft.entity.monster.EndermanEntity;
-import net.minecraft.entity.monster.EndermiteEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.monster.EnderMan;
+import net.minecraft.world.entity.monster.Endermite;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 
-public class TubaEndermanEntity extends EndermanEntity implements IInstrumentalMobs {
+public class TubaEndermanEntity extends EnderMan implements IInstrumentalMobs {
 
-    public TubaEndermanEntity(EntityType<? extends TubaEndermanEntity> type, World worldIn) {
+    public TubaEndermanEntity(EntityType<? extends TubaEndermanEntity> type, Level worldIn) {
         super(type, worldIn);
-		this.setItemSlot(EquipmentSlotType.MAINHAND, new ItemStack(InstrumentalRegistry.tuba.get()));
-        this.setDropChance(EquipmentSlotType.MAINHAND, getDropChance());
+		this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(InstrumentalRegistry.tuba.get()));
+        this.setDropChance(EquipmentSlot.MAINHAND, getDropChance());
 		this.setCombatTask();
 	}
 
@@ -62,32 +62,44 @@ public class TubaEndermanEntity extends EndermanEntity implements IInstrumentalM
 
     @Override
 	protected void registerGoals() {
-        this.goalSelector.addGoal(0, new SwimGoal(this));
+        this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new TubaEndermanEntity.StareGoal(this));
-        this.goalSelector.addGoal(7, new WaterAvoidingRandomWalkingGoal(this, 1.0D, 0.0F));
-        this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 8.0F));
-        this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
-        this.targetSelector.addGoal(1, new TubaEndermanEntity.FindPlayerGoal(this, this::isAngryAt));
+        this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D, 0.0F));
+        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.targetSelector.addGoal(1, new LookForPlayerGOal(this, this::isAngryAt));
         this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, EndermiteEntity.class, 10, true, false, ENDERMITE_SELECTOR));
-        this.targetSelector.addGoal(4, new ResetAngerGoal<>(this, false));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Endermite.class, true, false));
+        this.targetSelector.addGoal(4, new ResetUniversalAngerTargetGoal<>(this, false));
     }
 
-    static class FindPlayerGoal extends NearestAttackableTargetGoal<PlayerEntity> {
+    private boolean isLookingAtMe(Player player) {
+        ItemStack itemstack = player.getInventory().armor.get(3);
+        if (itemstack.isEnderMask(player, this)) {
+            return false;
+        } else {
+            Vec3 vec3 = player.getViewVector(1.0F).normalize();
+            Vec3 vec31 = new Vec3(this.getX() - player.getX(), this.getEyeY() - player.getEyeY(), this.getZ() - player.getZ());
+            double d0 = vec31.length();
+            vec31 = vec31.normalize();
+            double d1 = vec3.dot(vec31);
+            return d1 > 1.0D - 0.025D / d0 ? player.hasLineOfSight(this) : false;
+        }
+    }
+
+    static class LookForPlayerGOal extends NearestAttackableTargetGoal<Player> {
         private final TubaEndermanEntity enderman;
         /** The player */
-        private PlayerEntity player;
+        private Player pendingTarget;
         private int aggroTime;
         private int teleportTime;
-        private final EntityPredicate startAggroTargetConditions;
-        private final EntityPredicate continueAggroTargetConditions = (new EntityPredicate()).allowUnseeable();
+        private final TargetingConditions startAggroTargetConditions;
+        private final TargetingConditions continueAggroTargetConditions = TargetingConditions.forCombat().ignoreLineOfSight();
 
-        public FindPlayerGoal(TubaEndermanEntity p_i241912_1_, @Nullable java.util.function.Predicate<LivingEntity> p_i241912_2_) {
-            super(p_i241912_1_, PlayerEntity.class, 10, false, false, p_i241912_2_);
-            this.enderman = p_i241912_1_;
-            this.startAggroTargetConditions = (new EntityPredicate()).range(this.getFollowDistance()).selector((p_220790_1_) -> {
-                return p_i241912_1_.shouldAttackPlayer((PlayerEntity)p_220790_1_);
-            });
+        public LookForPlayerGOal(TubaEndermanEntity tubaEnderman, @Nullable java.util.function.Predicate<LivingEntity> livingEntityPredicate) {
+            super(tubaEnderman, Player.class, 10, false, false, livingEntityPredicate);
+            this.enderman = tubaEnderman;
+            this.startAggroTargetConditions = TargetingConditions.forCombat().range(this.getFollowDistance()).selector((entity) -> tubaEnderman.isLookingAtMe((Player)entity));
         }
 
         /**
@@ -95,8 +107,8 @@ public class TubaEndermanEntity extends EndermanEntity implements IInstrumentalM
          * method as well.
          */
         public boolean canUse() {
-            this.player = this.enderman.level.getNearestPlayer(this.startAggroTargetConditions, this.enderman);
-            return this.player != null;
+            this.pendingTarget = this.enderman.level.getNearestPlayer(this.startAggroTargetConditions, this.enderman);
+            return this.pendingTarget != null;
         }
 
         /**
@@ -112,7 +124,7 @@ public class TubaEndermanEntity extends EndermanEntity implements IInstrumentalM
          * Reset the task's internal state. Called when this task is interrupted by another one
          */
         public void stop() {
-            this.player = null;
+            this.pendingTarget = null;
             super.stop();
         }
 
@@ -120,11 +132,11 @@ public class TubaEndermanEntity extends EndermanEntity implements IInstrumentalM
          * Returns whether an in-progress EntityAIBase should continue executing
          */
         public boolean canContinueToUse() {
-            if (this.player != null) {
-                if (!this.enderman.shouldAttackPlayer(this.player)) {
+            if (this.pendingTarget != null) {
+                if (!this.enderman.isLookingAtMe(this.pendingTarget)) {
                     return false;
                 } else {
-                    this.enderman.lookAt(this.player, 10.0F, 10.0F);
+                    this.enderman.lookAt(this.pendingTarget, 10.0F, 10.0F);
                     return true;
                 }
             } else {
@@ -140,15 +152,15 @@ public class TubaEndermanEntity extends EndermanEntity implements IInstrumentalM
                 super.setTarget((LivingEntity)null);
             }
 
-            if (this.player != null) {
+            if (this.pendingTarget != null) {
                 if (--this.aggroTime <= 0) {
-                    this.target = this.player;
-                    this.player = null;
+                    this.target = this.pendingTarget;
+                    this.pendingTarget = null;
                     super.start();
                 }
             } else {
                 if (this.target != null && !this.enderman.isPassenger()) {
-                    if (this.enderman.shouldAttackPlayer((PlayerEntity)this.target)) {
+                    if (this.enderman.isLookingAtMe((Player)this.target)) {
                         if (this.target.distanceToSqr(this.enderman) < 16.0D) {
                             this.enderman.teleport();
                         }
@@ -180,11 +192,11 @@ public class TubaEndermanEntity extends EndermanEntity implements IInstrumentalM
          */
         public boolean canUse() {
             this.targetPlayer = this.enderman.getTarget();
-            if (!(this.targetPlayer instanceof PlayerEntity)) {
+            if (!(this.targetPlayer instanceof Player)) {
                 return false;
             } else {
                 double d0 = this.targetPlayer.distanceToSqr(this.enderman);
-                return d0 > 256.0D ? false : this.enderman.shouldAttackPlayer((PlayerEntity)this.targetPlayer);
+                return d0 > 256.0D ? false : this.enderman.isLookingAtMe((Player)this.targetPlayer);
             }
         }
 
@@ -200,20 +212,6 @@ public class TubaEndermanEntity extends EndermanEntity implements IInstrumentalM
          */
         public void tick() {
             this.enderman.getLookControl().setLookAt(this.targetPlayer.getX(), this.targetPlayer.getEyeY(), this.targetPlayer.getZ());
-        }
-    }
-
-    private boolean shouldAttackPlayer(PlayerEntity player) {
-        ItemStack itemstack = player.inventory.armor.get(3);
-        if (itemstack.isEnderMask(player, this)) {
-            return false;
-        } else {
-            Vector3d vector3d = player.getViewVector(1.0F).normalize();
-            Vector3d vector3d1 = new Vector3d(this.getX() - player.getX(), this.getEyeY() - player.getEyeY(), this.getZ() - player.getZ());
-            double d0 = vector3d1.length();
-            vector3d1 = vector3d1.normalize();
-            double d1 = vector3d.dot(vector3d1);
-            return d1 > 1.0D - 0.025D / d0 ? player.canSee(this) : false;
         }
     }
 }

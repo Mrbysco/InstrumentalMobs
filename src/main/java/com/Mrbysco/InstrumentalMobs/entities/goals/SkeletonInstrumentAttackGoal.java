@@ -1,7 +1,7 @@
 package com.mrbysco.instrumentalmobs.entities.goals;
 
 import com.mrbysco.instrumentalmobs.entities.XylophoneSkeletonEntity;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.sounds.SoundEvent;
 
 import java.util.function.Supplier;
 
