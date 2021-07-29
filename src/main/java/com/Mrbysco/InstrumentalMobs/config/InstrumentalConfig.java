@@ -14,6 +14,7 @@ public class InstrumentalConfig {
 		public final BooleanValue mobsReact;
 		public final DoubleValue instrumentRange;
 		public final DoubleValue soundDamageChance;
+		public final DoubleValue instrumentDropChance;
 
 		Common(ForgeConfigSpec.Builder builder) {
 			builder.comment("Server settings")
@@ -30,6 +31,10 @@ public class InstrumentalConfig {
 			soundDamageChance = builder
 					.comment("The chance of instrument sounds damaging mobs after pushing. [default: 0.35D]")
 					.defineInRange("soundDamageChance", 0.35D, 0.001D, 1.0D);
+
+			instrumentDropChance = builder
+					.comment("The chance of instrument dropping from a mob holding one [default: 0.5D]")
+					.defineInRange("instrumentDropChance", 0.5D, 0.0D, 1.0D);
 
 			builder.pop();
 		}

@@ -14,6 +14,7 @@ public class FrenchHornCreeperEntity extends CreeperEntity implements IInstrumen
     public FrenchHornCreeperEntity(EntityType<? extends FrenchHornCreeperEntity> type, World worldIn) {
 		super(type, worldIn);
         this.setItemSlot(EquipmentSlotType.MAINHAND, new ItemStack(InstrumentalRegistry.french_horn.get()));
+        this.setDropChance(EquipmentSlotType.MAINHAND, getDropChance());
 	}
 
     @Override

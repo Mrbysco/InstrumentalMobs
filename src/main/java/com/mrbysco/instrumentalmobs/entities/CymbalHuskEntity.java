@@ -41,6 +41,8 @@ public class CymbalHuskEntity extends HuskEntity implements IInstrumentalMobs {
 		super(type, worldIn);
 		this.setItemSlot(EquipmentSlotType.MAINHAND, new ItemStack(InstrumentalRegistry.cymbal.get()));
         this.setItemSlot(EquipmentSlotType.OFFHAND, new ItemStack(InstrumentalRegistry.cymbal.get()));
+        this.setDropChance(EquipmentSlotType.MAINHAND, getDropChance());
+        this.setDropChance(EquipmentSlotType.OFFHAND, getDropChance());
 	}
 	
 	@Override

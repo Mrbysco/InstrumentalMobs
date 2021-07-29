@@ -32,6 +32,8 @@ public class MaracaSpiderEntity extends SpiderEntity implements IInstrumentalMob
         super(type, worldIn);
 		this.setItemSlot(EquipmentSlotType.MAINHAND, new ItemStack(InstrumentalRegistry.maraca.get()));
 		this.setItemSlot(EquipmentSlotType.OFFHAND, new ItemStack(InstrumentalRegistry.maraca.get()));
+        this.setDropChance(EquipmentSlotType.MAINHAND, getDropChance());
+        this.setDropChance(EquipmentSlotType.OFFHAND, getDropChance());
 	}
 	
 	@Override

@@ -22,6 +22,7 @@ import net.minecraft.item.Items;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.DamageSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
@@ -48,7 +49,15 @@ public class XylophoneSkeletonEntity extends SkeletonEntity implements IInstrume
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolemEntity.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, TurtleEntity.class, 10, true, false, TurtleEntity.BABY_ON_LAND_SELECTOR));
     }
-    
+
+    @Override
+    protected void dropCustomDeathLoot(DamageSource source, int p_213333_2_, boolean p_213333_3_) {
+        super.dropCustomDeathLoot(source, p_213333_2_, p_213333_3_);
+        if(getDropChance() <= random.nextFloat()) {
+            this.spawnAtLocation(InstrumentalRegistry.xylophone.get());
+        }
+    }
+
     @Override
     public void reassessWeaponGoal() {
     }

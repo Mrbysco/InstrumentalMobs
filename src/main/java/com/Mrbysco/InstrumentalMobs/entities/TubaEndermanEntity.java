@@ -30,6 +30,7 @@ public class TubaEndermanEntity extends EndermanEntity implements IInstrumentalM
     public TubaEndermanEntity(EntityType<? extends TubaEndermanEntity> type, World worldIn) {
         super(type, worldIn);
 		this.setItemSlot(EquipmentSlotType.MAINHAND, new ItemStack(InstrumentalRegistry.tuba.get()));
+        this.setDropChance(EquipmentSlotType.MAINHAND, getDropChance());
 		this.setCombatTask();
 	}
 

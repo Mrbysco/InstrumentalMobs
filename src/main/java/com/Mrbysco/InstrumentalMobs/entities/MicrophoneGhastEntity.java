@@ -25,12 +25,13 @@ import net.minecraft.world.World;
 import java.util.EnumSet;
 import java.util.Random;
 
-public class MicrophoneGhastEntity extends GhastEntity {
+public class MicrophoneGhastEntity extends GhastEntity implements IInstrumentalMobs {
     private static final DataParameter<Boolean> SINGING = EntityDataManager.<Boolean>defineId(MicrophoneGhastEntity.class, DataSerializers.BOOLEAN);
 
     public MicrophoneGhastEntity(EntityType<? extends MicrophoneGhastEntity> type, World worldIn) {
         super(type, worldIn);
         this.setItemSlot(EquipmentSlotType.HEAD, new ItemStack(InstrumentalRegistry.microphone.get()));
+        this.setDropChance(EquipmentSlotType.HEAD, getDropChance());
 	}
 
 	@Override

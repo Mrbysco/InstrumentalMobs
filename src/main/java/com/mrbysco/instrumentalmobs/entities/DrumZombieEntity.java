@@ -65,6 +65,7 @@ public class DrumZombieEntity extends ZombieEntity implements IInstrumentalMobs 
         this.setItemSlot(EquipmentSlotType.CHEST, new ItemStack(InstrumentalRegistry.DRUM_BLOCK_ITEM.get()));
         this.setItemSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.STICK));
         this.setItemSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.STICK));
+        this.setDropChance(EquipmentSlotType.CHEST, getDropChance());
     }
 
 
