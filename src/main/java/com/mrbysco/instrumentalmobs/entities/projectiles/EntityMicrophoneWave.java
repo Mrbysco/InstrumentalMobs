@@ -17,8 +17,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.fmllegacy.network.FMLPlayMessages;
-import net.minecraftforge.fmllegacy.network.NetworkHooks;
+import net.minecraftforge.network.NetworkHooks;
+import net.minecraftforge.network.PlayMessages.SpawnEntity;
 
 public class EntityMicrophoneWave extends ThrowableItemProjectile {
     private SoundEvent sound = SoundEvents.GHAST_SCREAM;
@@ -38,7 +38,7 @@ public class EntityMicrophoneWave extends ThrowableItemProjectile {
         super(InstrumentalRegistry.MICROPHONE_WAVE.get(), x, y, z, worldIn);
     }
 
-    public EntityMicrophoneWave(FMLPlayMessages.SpawnEntity spawnEntity, Level worldIn) {
+    public EntityMicrophoneWave(SpawnEntity spawnEntity, Level worldIn) {
         this(InstrumentalRegistry.MICROPHONE_WAVE.get(), worldIn);
     }
 

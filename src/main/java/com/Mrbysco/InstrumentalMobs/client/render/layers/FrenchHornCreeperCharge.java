@@ -15,7 +15,7 @@ public class FrenchHornCreeperCharge extends EnergySwirlLayer<FrenchHornCreeperE
 
     public FrenchHornCreeperCharge(RenderLayerParent<FrenchHornCreeperEntity, FrenchHornCreeperModel<FrenchHornCreeperEntity>> layerParent, EntityModelSet modelSet) {
         super(layerParent);
-        this.creeperModel = new FrenchHornCreeperModel(modelSet.bakeLayer(ModelLayers.CREEPER_ARMOR));
+        this.creeperModel = new FrenchHornCreeperModel<>(modelSet.bakeLayer(ModelLayers.CREEPER_ARMOR));
     }
 
     protected float xOffset(float p_225634_1_) {

@@ -20,8 +20,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.fmllegacy.network.FMLPlayMessages;
-import net.minecraftforge.fmllegacy.network.NetworkHooks;
+import net.minecraftforge.network.NetworkHooks;
+import net.minecraftforge.network.PlayMessages.SpawnEntity;
 
 public class EntitySoundWaves extends AbstractHurtingProjectile implements ItemSupplier {
     private SoundEvent sound = SoundEvents.GHAST_SCREAM;
@@ -43,7 +43,7 @@ public class EntitySoundWaves extends AbstractHurtingProjectile implements ItemS
 		this.sound = theSound;
 	}
 
-    public EntitySoundWaves(FMLPlayMessages.SpawnEntity spawnEntity, Level worldIn) {
+    public EntitySoundWaves(SpawnEntity spawnEntity, Level worldIn) {
         this(InstrumentalRegistry.SOUND_WAVE.get(), worldIn);
     }
 

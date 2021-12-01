@@ -14,8 +14,8 @@ public class CymbalHuskModel<T extends CymbalHuskEntity> extends ZombieModel<T> 
     }
 
     @Override
-    public void setupAnim(CymbalHuskEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        super.setupAnim((T) entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+    public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        super.setupAnim(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 
         boolean flag2 = entityIn.isClapping();
 

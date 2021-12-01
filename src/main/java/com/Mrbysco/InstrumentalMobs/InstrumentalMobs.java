@@ -34,9 +34,7 @@ public class InstrumentalMobs {
 
 		eventBus.addListener(InstrumentalEntities::registerEntityAttributes);
 
-		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-			eventBus.addListener(ClientHandler::registerEntityRenders);
-		});
+		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> eventBus.addListener(ClientHandler::registerEntityRenders));
 	}
 
 	private void setup(final FMLCommonSetupEvent event) {
