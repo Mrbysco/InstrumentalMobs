@@ -4,9 +4,6 @@ import com.mrbysco.instrumentalmobs.client.ClientHandler;
 import com.mrbysco.instrumentalmobs.config.InstrumentalConfig;
 import com.mrbysco.instrumentalmobs.init.InstrumentalEntities;
 import com.mrbysco.instrumentalmobs.init.InstrumentalRegistry;
-import com.mrbysco.instrumentalmobs.items.CustomSpawnEggItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.SpawnEggItem;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
@@ -15,7 +12,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fmllegacy.RegistryObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -40,20 +36,10 @@ public class InstrumentalMobs {
 
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
 			eventBus.addListener(ClientHandler::registerEntityRenders);
-			eventBus.addListener(ClientHandler::registerItemColors);
 		});
 	}
 
 	private void setup(final FMLCommonSetupEvent event) {
 		InstrumentalEntities.initializeMobs();
-
-		event.enqueueWork(() -> {
-					for(RegistryObject<Item> registryObject : InstrumentalRegistry.ITEMS.getEntries()) {
-						if(registryObject.get() instanceof CustomSpawnEggItem spawnEgg) {
-							SpawnEggItem.BY_ID.put(spawnEgg.entityType.get(), spawnEgg);
-						}
-					}
-				}
-		);
 	}
 }

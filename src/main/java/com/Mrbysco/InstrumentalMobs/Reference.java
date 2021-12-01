@@ -1,8 +1,8 @@
 package com.mrbysco.instrumentalmobs;
 
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.EntityDamageSource;
+import net.minecraft.world.entity.Entity;
 
 public class Reference {
 	public static final String MOD_ID = "instrumentalmobs";

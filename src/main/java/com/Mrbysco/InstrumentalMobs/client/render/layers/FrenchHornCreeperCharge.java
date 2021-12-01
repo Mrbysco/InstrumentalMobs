@@ -2,14 +2,12 @@ package com.mrbysco.instrumentalmobs.client.render.layers;
 
 import com.mrbysco.instrumentalmobs.client.render.model.FrenchHornCreeperModel;
 import com.mrbysco.instrumentalmobs.entities.FrenchHornCreeperEntity;
-import net.minecraft.client.model.CreeperModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.EnergySwirlLayer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.monster.Creeper;
 
 public class FrenchHornCreeperCharge extends EnergySwirlLayer<FrenchHornCreeperEntity, FrenchHornCreeperModel<FrenchHornCreeperEntity>> {
     private static final ResourceLocation LIGHTNING_TEXTURE = new ResourceLocation("textures/entity/creeper/creeper_armor.png");

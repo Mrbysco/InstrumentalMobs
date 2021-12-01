@@ -1,9 +1,9 @@
 package com.mrbysco.instrumentalmobs.init;
 
 import com.mrbysco.instrumentalmobs.Reference;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 

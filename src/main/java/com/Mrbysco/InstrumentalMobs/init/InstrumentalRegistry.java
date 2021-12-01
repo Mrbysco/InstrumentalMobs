@@ -11,7 +11,6 @@ import com.mrbysco.instrumentalmobs.entities.TubaEndermanEntity;
 import com.mrbysco.instrumentalmobs.entities.XylophoneSkeletonEntity;
 import com.mrbysco.instrumentalmobs.entities.projectiles.EntityMicrophoneWave;
 import com.mrbysco.instrumentalmobs.entities.projectiles.EntitySoundWaves;
-import com.mrbysco.instrumentalmobs.items.CustomSpawnEggItem;
 import com.mrbysco.instrumentalmobs.items.DrumInstrument;
 import com.mrbysco.instrumentalmobs.items.InstrumentItem;
 import com.mrbysco.instrumentalmobs.items.InstrumentMicrophone;
@@ -27,6 +26,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -50,13 +50,13 @@ public class InstrumentalRegistry {
     public static final RegistryObject<Item> tuba = ITEMS.register("tuba", () -> (new InstrumentItem(itemBuilder().stacksTo(1).stacksTo(180), () -> InstrumentalRegistry.tuba_sound.get(), 20, 40)));
     public static final RegistryObject<Item> xylophone = ITEMS.register("xylophone", () -> (new InstrumentItem(itemBuilder().stacksTo(1).durability(160), () -> InstrumentalRegistry.xylophone_sound.get(), 30, 30)));
 
-    public static final RegistryObject<Item> CYMBAL_HUSK_SPAWN_EGG = ITEMS.register("cymbal_husk_spawn_egg", () -> new CustomSpawnEggItem(() -> InstrumentalRegistry.CYMBAL_HUSK.get(), 7958625, 15125652, itemBuilder()));
-    public static final RegistryObject<Item> DRUM_ZOMBIE_SPAWN_EGG = ITEMS.register("drum_zombie_spawn_egg", () -> new CustomSpawnEggItem(() -> InstrumentalRegistry.DRUM_ZOMBIE.get(), 44975, 7969893, itemBuilder()));
-    public static final RegistryObject<Item> FRENCH_HORN_CREEPER_SPAWN_EGG = ITEMS.register("french_horn_creeper_spawn_egg", () -> new CustomSpawnEggItem(() -> InstrumentalRegistry.FRENCH_HORN_CREEPER.get(), 894731, 0, itemBuilder()));
-    public static final RegistryObject<Item> MARACA_SPIDER_SPAWN_EGG = ITEMS.register("maraca_spider_spawn_egg", () -> new CustomSpawnEggItem(() -> InstrumentalRegistry.MARACA_SPIDER.get(), 803406, 11013646, itemBuilder()));
-    public static final RegistryObject<Item> MICROPHONE_GHAST_SPAWN_EGG = ITEMS.register("microphone_ghast_spawn_egg", () -> new CustomSpawnEggItem(() -> InstrumentalRegistry.MICROPHONE_GHAST.get(), 16382457, 12369084, itemBuilder()));
-    public static final RegistryObject<Item> TUBA_ENDERMAN_SPAWN_EGG = ITEMS.register("tuba_enderman_spawn_egg", () -> new CustomSpawnEggItem(() -> InstrumentalRegistry.TUBA_ENDERMAN.get(), 1447446, 0, itemBuilder()));
-    public static final RegistryObject<Item> XYLOPHONE_SKELETON_SPAWN_EGG = ITEMS.register("xylophone_skeleton_spawn_egg", () -> new CustomSpawnEggItem(() -> InstrumentalRegistry.XYLOPHONE_SKELETON.get(), 12698049, 4802889, itemBuilder()));
+    public static final RegistryObject<Item> CYMBAL_HUSK_SPAWN_EGG = ITEMS.register("cymbal_husk_spawn_egg", () -> new ForgeSpawnEggItem(() -> InstrumentalRegistry.CYMBAL_HUSK.get(), 7958625, 15125652, itemBuilder()));
+    public static final RegistryObject<Item> DRUM_ZOMBIE_SPAWN_EGG = ITEMS.register("drum_zombie_spawn_egg", () -> new ForgeSpawnEggItem(() -> InstrumentalRegistry.DRUM_ZOMBIE.get(), 44975, 7969893, itemBuilder()));
+    public static final RegistryObject<Item> FRENCH_HORN_CREEPER_SPAWN_EGG = ITEMS.register("french_horn_creeper_spawn_egg", () -> new ForgeSpawnEggItem(() -> InstrumentalRegistry.FRENCH_HORN_CREEPER.get(), 894731, 0, itemBuilder()));
+    public static final RegistryObject<Item> MARACA_SPIDER_SPAWN_EGG = ITEMS.register("maraca_spider_spawn_egg", () -> new ForgeSpawnEggItem(() -> InstrumentalRegistry.MARACA_SPIDER.get(), 803406, 11013646, itemBuilder()));
+    public static final RegistryObject<Item> MICROPHONE_GHAST_SPAWN_EGG = ITEMS.register("microphone_ghast_spawn_egg", () -> new ForgeSpawnEggItem(() -> InstrumentalRegistry.MICROPHONE_GHAST.get(), 16382457, 12369084, itemBuilder()));
+    public static final RegistryObject<Item> TUBA_ENDERMAN_SPAWN_EGG = ITEMS.register("tuba_enderman_spawn_egg", () -> new ForgeSpawnEggItem(() -> InstrumentalRegistry.TUBA_ENDERMAN.get(), 1447446, 0, itemBuilder()));
+    public static final RegistryObject<Item> XYLOPHONE_SKELETON_SPAWN_EGG = ITEMS.register("xylophone_skeleton_spawn_egg", () -> new ForgeSpawnEggItem(() -> InstrumentalRegistry.XYLOPHONE_SKELETON.get(), 12698049, 4802889, itemBuilder()));
 
     public static final RegistryObject<EntityType<CymbalHuskEntity>> CYMBAL_HUSK = ENTITIES.register("cymbal_husk",
         () -> register("cymbal_husk", EntityType.Builder.<CymbalHuskEntity>of(CymbalHuskEntity::new, MobCategory.MONSTER)
