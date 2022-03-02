@@ -26,21 +26,21 @@ public class InstrumentMicrophone extends Item {
 	}
 	
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
+	public InteractionResultHolder<ItemStack> use(Level level, Player playerIn, InteractionHand handIn) {
 		ItemStack itemstack = playerIn.getItemInHand(handIn);
         
         if(this.cooldown != 0) {
 			playerIn.getCooldowns().addCooldown(this, this.cooldown);
 		}
         
-        if (!worldIn.isClientSide) {
-			EntityMicrophoneWave soundWave = new EntityMicrophoneWave(worldIn, playerIn, sound.get());
+        if (!level.isClientSide) {
+			EntityMicrophoneWave soundWave = new EntityMicrophoneWave(level, playerIn, sound.get());
             soundWave.shoot(playerIn.getXRot(), playerIn.getYRot(), 0.0F, 2.0F, 0.0F);
             soundWave.setOwner(playerIn);
-            worldIn.addFreshEntity(soundWave);
+            level.addFreshEntity(soundWave);
         }
 
-		itemstack.hurtAndBreak(1, playerIn, (p_220040_1_) -> p_220040_1_.broadcastBreakEvent(handIn));
+		itemstack.hurtAndBreak(1, playerIn, (player) -> player.broadcastBreakEvent(handIn));
         return new InteractionResultHolder<ItemStack>(InteractionResult.SUCCESS, itemstack);
 	}
 

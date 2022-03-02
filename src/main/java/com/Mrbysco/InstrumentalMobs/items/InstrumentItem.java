@@ -27,7 +27,7 @@ public class InstrumentItem extends Item {
 	}
 	
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
+	public InteractionResultHolder<ItemStack> use(Level level, Player playerIn, InteractionHand handIn) {
 		ItemStack itemstack = playerIn.getItemInHand(handIn);
         
         if(this.cooldown != 0) {
@@ -36,10 +36,10 @@ public class InstrumentItem extends Item {
         
 		playerIn.playSound(sound.get(), 1F, 1F);
 		if(InstrumentalConfig.COMMON.mobsReact.get()) {
-			InstrumentHelper.instrumentDamage(worldIn, playerIn);
+			InstrumentHelper.instrumentDamage(level, playerIn);
 		}
-		itemstack.hurtAndBreak(1, playerIn, (p_220040_1_) -> p_220040_1_.broadcastBreakEvent(handIn));
-		return super.use(worldIn, playerIn, handIn);
+		itemstack.hurtAndBreak(1, playerIn, (player) -> player.broadcastBreakEvent(handIn));
+		return super.use(level, playerIn, handIn);
 	}
 
 	@Override
