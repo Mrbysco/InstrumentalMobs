@@ -3,9 +3,9 @@ package com.mrbysco.instrumentalmobs.client.render.layers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.mrbysco.instrumentalmobs.entities.DrumZombieEntity;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
@@ -14,8 +14,11 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 
 public class DrumLayer<T extends DrumZombieEntity, M extends EntityModel<T> & ArmedModel> extends RenderLayer<T, M> {
-	public DrumLayer(RenderLayerParent<T, M> layerParent) {
+	private final ItemInHandRenderer itemInHandRenderer;
+
+	public DrumLayer(RenderLayerParent<T, M> layerParent, ItemInHandRenderer itemInHandRenderer) {
 		super(layerParent);
+		this.itemInHandRenderer = itemInHandRenderer;
 	}
 
 	@Override
@@ -33,7 +36,7 @@ public class DrumLayer<T extends DrumZombieEntity, M extends EntityModel<T> & Ar
 			}
 			poseStack.mulPose(Vector3f.XP.rotationDegrees(-10F));
 
-			Minecraft.getInstance().getItemInHandRenderer().renderItem(entitylivingbaseIn, itemstack, ItemTransforms.TransformType.NONE, false, poseStack, bufferSource, packedLightIn);
+			itemInHandRenderer.renderItem(entitylivingbaseIn, itemstack, ItemTransforms.TransformType.NONE, false, poseStack, bufferSource, packedLightIn);
 
 			poseStack.popPose();
 		}

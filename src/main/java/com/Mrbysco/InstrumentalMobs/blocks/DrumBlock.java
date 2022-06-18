@@ -29,7 +29,7 @@ public class DrumBlock extends Block {
 			Block.box(2, 0, 14, 14, 1, 15),
 			Block.box(2, 0, 1, 14, 1, 2),
 			Block.box(1, 0, 2, 2, 1, 14)
-			).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get();
+	).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get();
 
 	public DrumBlock(Block.Properties properties) {
 		super(properties.noOcclusion());

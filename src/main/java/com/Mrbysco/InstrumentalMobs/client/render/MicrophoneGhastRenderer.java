@@ -6,8 +6,8 @@ import net.minecraft.client.renderer.entity.GhastRenderer;
 
 public class MicrophoneGhastRenderer extends GhastRenderer {
 
-	public MicrophoneGhastRenderer(EntityRendererProvider.Context renderManagerIn) {
-		super(renderManagerIn);
-        this.addLayer(new MicrophoneLayer(this));
+	public MicrophoneGhastRenderer(EntityRendererProvider.Context context) {
+		super(context);
+		this.addLayer(new MicrophoneLayer(this, context.getItemInHandRenderer()));
 	}
 }

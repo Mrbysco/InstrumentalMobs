@@ -1,0 +1,8 @@
+// 1.19	2022-06-19T00:48:19.4451426	forge/biome_modifier generator for instrumentalmobs
+8d725403b1a4a959ce148490e48ffc16b41e619f data/minecraft/forge/biome_modifier/creeper.json
+ccd36caa44ab6a03e7815a6ce97d71cce569d1ba data/minecraft/forge/biome_modifier/enderman.json
+63c0f5ec981bae684da233a1f60707e035923ae3 data/minecraft/forge/biome_modifier/ghast.json
+2ce7ebcb7a32cb55f68c7565f6523c1f82729040 data/minecraft/forge/biome_modifier/husk.json
+2ba9faf2184d55f18e5410d69303fdd3129765be data/minecraft/forge/biome_modifier/skeleton.json
+023529e3199300e47de5c087529b65c547c3461a data/minecraft/forge/biome_modifier/spider.json
+0636013fd4744843984d5a8c6eadc75791688fca data/minecraft/forge/biome_modifier/zombie.json

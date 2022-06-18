@@ -1,0 +1,6 @@
+{
+  "type": "instrumentalmobs:add_relative_mob_spawns",
+  "newType": "instrumentalmobs:tuba_enderman",
+  "originalType": "minecraft:enderman",
+  "relativeWeight": 5
+}

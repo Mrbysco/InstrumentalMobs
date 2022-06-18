@@ -7,6 +7,6 @@ import net.minecraft.client.renderer.entity.ZombieRenderer;
 public class DrumZombieRenderer extends ZombieRenderer {
 	public DrumZombieRenderer(EntityRendererProvider.Context context) {
 		super(context);
-        this.addLayer(new DrumLayer(this));
+		this.addLayer(new DrumLayer(this, context.getItemInHandRenderer()));
 	}
 }

@@ -1,0 +1,6 @@
+{
+  "type": "instrumentalmobs:add_relative_mob_spawns",
+  "newType": "instrumentalmobs:cymbal_husk",
+  "originalType": "minecraft:husk",
+  "relativeWeight": 5
+}

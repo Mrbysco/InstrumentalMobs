@@ -1,0 +1,6 @@
+{
+  "type": "instrumentalmobs:add_relative_mob_spawns",
+  "newType": "instrumentalmobs:microphone_ghast",
+  "originalType": "minecraft:ghast",
+  "relativeWeight": 5
+}

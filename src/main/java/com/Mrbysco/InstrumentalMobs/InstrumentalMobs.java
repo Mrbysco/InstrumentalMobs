@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import com.mrbysco.instrumentalmobs.client.ClientHandler;
 import com.mrbysco.instrumentalmobs.config.InstrumentalConfig;
 import com.mrbysco.instrumentalmobs.init.InstrumentalEntities;
+import com.mrbysco.instrumentalmobs.init.InstrumentalModifiers;
 import com.mrbysco.instrumentalmobs.init.InstrumentalRegistry;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -31,6 +32,7 @@ public class InstrumentalMobs {
 		InstrumentalRegistry.ITEMS.register(eventBus);
 		InstrumentalRegistry.ENTITIES.register(eventBus);
 		InstrumentalRegistry.SOUND_EVENTS.register(eventBus);
+		InstrumentalModifiers.BIOME_MODIFIER_SERIALIZERS.register(eventBus);
 
 		eventBus.addListener(InstrumentalEntities::registerEntityAttributes);
 

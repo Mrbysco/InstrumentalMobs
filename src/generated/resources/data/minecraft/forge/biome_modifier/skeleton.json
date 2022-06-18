@@ -1,0 +1,6 @@
+{
+  "type": "instrumentalmobs:add_relative_mob_spawns",
+  "newType": "instrumentalmobs:xylophone_skeleton",
+  "originalType": "minecraft:skeleton",
+  "relativeWeight": 5
+}

@@ -1,0 +1,6 @@
+{
+  "type": "instrumentalmobs:add_relative_mob_spawns",
+  "newType": "instrumentalmobs:drum_zombie",
+  "originalType": "minecraft:zombie",
+  "relativeWeight": 5
+}

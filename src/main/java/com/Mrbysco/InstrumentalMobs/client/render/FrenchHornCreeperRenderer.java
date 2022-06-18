@@ -17,7 +17,7 @@ public class FrenchHornCreeperRenderer extends MobRenderer<FrenchHornCreeperEnti
 	public FrenchHornCreeperRenderer(EntityRendererProvider.Context context) {
 		super(context, new FrenchHornCreeperModel(context.bakeLayer(ModelLayers.CREEPER)), 0.5F);
 		this.addLayer(new FrenchHornCreeperCharge(this, context.getModelSet()));
-		this.addLayer(new FrenchHornLayer(this));
+		this.addLayer(new FrenchHornLayer(this, context.getItemInHandRenderer()));
 	}
 
 	protected void scale(FrenchHornCreeperEntity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
@@ -33,7 +33,7 @@ public class FrenchHornCreeperRenderer extends MobRenderer<FrenchHornCreeperEnti
 
 	protected float getWhiteOverlayProgress(FrenchHornCreeperEntity livingEntityIn, float partialTicks) {
 		float f = livingEntityIn.getSwelling(partialTicks);
-		return (int)(f * 10.0F) % 2 == 0 ? 0.0F : Mth.clamp(f, 0.5F, 1.0F);
+		return (int) (f * 10.0F) % 2 == 0 ? 0.0F : Mth.clamp(f, 0.5F, 1.0F);
 	}
 
 	/**

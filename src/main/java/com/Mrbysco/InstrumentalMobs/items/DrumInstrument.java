@@ -30,12 +30,12 @@ public class DrumInstrument extends Item {
 	public InteractionResultHolder<ItemStack> use(Level level, Player playerIn, InteractionHand handIn) {
 		ItemStack itemstack = playerIn.getItemInHand(handIn);
 
-		if(this.cooldown != 0) {
+		if (this.cooldown != 0) {
 			playerIn.getCooldowns().addCooldown(this, this.cooldown);
 		}
 
 		playerIn.playSound(sound.get(), 1F, 1F);
-		if(InstrumentalConfig.COMMON.mobsReact.get()) {
+		if (InstrumentalConfig.COMMON.mobsReact.get()) {
 			InstrumentHelper.instrumentDamage(level, playerIn);
 		}
 		itemstack.hurtAndBreak(1, playerIn, (player) -> player.broadcastBreakEvent(handIn));

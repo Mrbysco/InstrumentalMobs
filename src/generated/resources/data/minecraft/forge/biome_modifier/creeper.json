@@ -1,0 +1,6 @@
+{
+  "type": "instrumentalmobs:add_relative_mob_spawns",
+  "newType": "instrumentalmobs:french_horn_creeper",
+  "originalType": "minecraft:creeper",
+  "relativeWeight": 5
+}
