@@ -33,8 +33,6 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 
-import java.util.Random;
-
 public class CymbalHuskEntity extends Husk implements IInstrumentalMobs {
 	private static final EntityDataAccessor<Boolean> CLAPPING = SynchedEntityData.<Boolean>defineId(CymbalHuskEntity.class, EntityDataSerializers.BOOLEAN);
 

@@ -39,9 +39,9 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.JsonCodecProvider;
 import net.minecraftforge.common.world.BiomeModifier;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -89,7 +89,7 @@ public class InstrumentalDataGen {
 	}
 
 	private static Map<ResourceLocation, BiomeModifier> addModifierForType(EntityType<?> originalType, EntityType<?> newType, int relativeWeight) {
-		return Map.of(ForgeRegistries.ENTITIES.getKey(originalType), new AddRelativeSpawnBiomeModifier(
+		return Map.of(ForgeRegistries.ENTITY_TYPES.getKey(originalType), new AddRelativeSpawnBiomeModifier(
 				originalType, newType, relativeWeight));
 	}
 
