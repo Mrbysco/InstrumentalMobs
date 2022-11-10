@@ -1,63 +1,85 @@
 {
-    "display": {
-        "icon": {
-            "item": "minecraft:note_block"
-        },
-        "title": {
-            "translate": "Instrumental Mobs"
-        },
-        "description": {
-            "translate": "Getting instrumental with mobs"
-        },
-        "background": "textures/block/yellow_wool.png",
-        "show_toast": true,
-        "announce_to_chat": true
+  "display": {
+    "icon": {
+      "item": "minecraft:note_block"
     },
- "criteria":{  
-    "frenchhorn":{  
-		"trigger": "minecraft:player_killed_entity",
-		"conditions": {
-			"entity": {"type": "instrumentalmobs:french_horn_creeper" }
-		}
+    "title": {
+      "translate": "Instrumental Mobs"
     },
-    "tuba":{  
-		"trigger": "minecraft:player_killed_entity",
-		"conditions": {
-			"entity": {"type": "instrumentalmobs:tuba_enderman" }
-		}
+    "description": {
+      "translate": "Getting instrumental with mobs"
     },
-    "drum":{  
-		"trigger": "minecraft:player_killed_entity",
-		"conditions": {
-			"entity": {"type": "instrumentalmobs:drum_zombie" }
-		}
+    "background": "textures/block/yellow_wool.png",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "frenchhorn": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "instrumentalmobs:french_horn_creeper"
+        }
+      }
     },
-    "cymbal":{  
-		"trigger": "minecraft:player_killed_entity",
-		"conditions": {
-			"entity": {"type": "instrumentalmobs:cymbal_husk" }
-		}
+    "tuba": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "instrumentalmobs:tuba_enderman"
+        }
+      }
     },
-    "xylophone":{  
-		"trigger": "minecraft:player_killed_entity",
-		"conditions": {
-			"entity": {"type": "instrumentalmobs:xylophone_skeleton" }
-		}
+    "drum": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "instrumentalmobs:drum_zombie"
+        }
+      }
     },
-    "maracas":{  
-		"trigger": "minecraft:player_killed_entity",
-		"conditions": {
-			"entity": {"type": "instrumentalmobs:maraca_spider" }
-		}
+    "cymbal": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "instrumentalmobs:cymbal_husk"
+        }
+      }
     },
-    "microphone":{  
-		"trigger": "minecraft:player_killed_entity",
-		"conditions": {
-			"entity": {"type": "instrumentalmobs:microphone_ghast" }
-		}
+    "xylophone": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "instrumentalmobs:xylophone_skeleton"
+        }
+      }
+    },
+    "maracas": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "instrumentalmobs:maraca_spider"
+        }
+      }
+    },
+    "microphone": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "instrumentalmobs:microphone_ghast"
+        }
+      }
     }
-   },
+  },
   "requirements": [
-        ["frenchhorn", "tuba", "drum", "cymbal", "xylophone", "maracas", "microphone"]
+    [
+      "frenchhorn",
+      "tuba",
+      "drum",
+      "cymbal",
+      "xylophone",
+      "maracas",
+      "microphone"
     ]
+  ]
 }

@@ -33,8 +33,8 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.List;
 import java.util.Map;
@@ -43,7 +43,15 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import static com.mrbysco.instrumentalmobs.init.InstrumentalRegistry.*;
+import static com.mrbysco.instrumentalmobs.init.InstrumentalRegistry.CYMBAL_HUSK;
+import static com.mrbysco.instrumentalmobs.init.InstrumentalRegistry.DRUM_BLOCK;
+import static com.mrbysco.instrumentalmobs.init.InstrumentalRegistry.DRUM_ITEM;
+import static com.mrbysco.instrumentalmobs.init.InstrumentalRegistry.DRUM_ZOMBIE;
+import static com.mrbysco.instrumentalmobs.init.InstrumentalRegistry.FRENCH_HORN_CREEPER;
+import static com.mrbysco.instrumentalmobs.init.InstrumentalRegistry.MARACA_SPIDER;
+import static com.mrbysco.instrumentalmobs.init.InstrumentalRegistry.MICROPHONE_GHAST;
+import static com.mrbysco.instrumentalmobs.init.InstrumentalRegistry.TUBA_ENDERMAN;
+import static com.mrbysco.instrumentalmobs.init.InstrumentalRegistry.XYLOPHONE_SKELETON;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class InstrumentalDataGen {
