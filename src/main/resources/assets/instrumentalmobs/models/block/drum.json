@@ -1,7 +1,7 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"texture": "instrumentalmobs:items/fancy_drum"
+		"texture": "instrumentalmobs:item/fancy_drum"
 	},
 	"elements": [
 		{

@@ -1,7 +1,7 @@
 package com.mrbysco.instrumentalmobs.client.render.layers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import com.mrbysco.instrumentalmobs.entities.FrenchHornCreeperEntity;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HeadedModel;
@@ -29,9 +29,9 @@ public class FrenchHornLayer<T extends FrenchHornCreeperEntity, M extends Entity
 			this.getParentModel().getHead().translateAndRotate(matrixStackIn);
 
 			matrixStackIn.scale(0.75F, 0.75F, 0.75F);
-			matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(90F));
+			matrixStackIn.mulPose(Axis.YP.rotationDegrees(90F));
 			matrixStackIn.translate(0.85F, 0.15F, 0.0F);
-			matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(-20F));
+			matrixStackIn.mulPose(Axis.ZP.rotationDegrees(-20F));
 
 			itemInHandRenderer.renderItem(entitylivingbaseIn, itemstack, ItemTransforms.TransformType.NONE, false, matrixStackIn, bufferIn, packedLightIn);
 

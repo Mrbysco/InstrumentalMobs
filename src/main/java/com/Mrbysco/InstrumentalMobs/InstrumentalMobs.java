@@ -6,6 +6,7 @@ import com.mrbysco.instrumentalmobs.config.InstrumentalConfig;
 import com.mrbysco.instrumentalmobs.init.InstrumentalEntities;
 import com.mrbysco.instrumentalmobs.init.InstrumentalModifiers;
 import com.mrbysco.instrumentalmobs.init.InstrumentalRegistry;
+import com.mrbysco.instrumentalmobs.init.InstrumentalTab;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
@@ -26,6 +27,7 @@ public class InstrumentalMobs {
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, InstrumentalConfig.commonSpec);
 		eventBus.register(InstrumentalConfig.class);
 
+		eventBus.register(new InstrumentalTab());
 		eventBus.addListener(this::setup);
 
 		InstrumentalRegistry.BLOCKS.register(eventBus);

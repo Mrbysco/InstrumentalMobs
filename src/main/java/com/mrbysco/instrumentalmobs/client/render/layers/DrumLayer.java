@@ -1,7 +1,7 @@
 package com.mrbysco.instrumentalmobs.client.render.layers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import com.mrbysco.instrumentalmobs.entities.DrumZombieEntity;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
@@ -34,7 +34,7 @@ public class DrumLayer<T extends DrumZombieEntity, M extends EntityModel<T> & Ar
 				poseStack.translate(0.0D, 0.75D, 0.0D);
 				poseStack.scale(f, f, f);
 			}
-			poseStack.mulPose(Vector3f.XP.rotationDegrees(-10F));
+			poseStack.mulPose(Axis.XP.rotationDegrees(-10F));
 
 			itemInHandRenderer.renderItem(entitylivingbaseIn, itemstack, ItemTransforms.TransformType.NONE, false, poseStack, bufferSource, packedLightIn);
 

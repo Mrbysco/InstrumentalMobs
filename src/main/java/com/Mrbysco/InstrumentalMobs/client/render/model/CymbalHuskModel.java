@@ -1,7 +1,7 @@
 package com.mrbysco.instrumentalmobs.client.render.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import com.mrbysco.instrumentalmobs.entities.CymbalHuskEntity;
 import net.minecraft.client.model.ZombieModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -29,7 +29,7 @@ public class CymbalHuskModel<T extends CymbalHuskEntity> extends ZombieModel<T> 
 	public void translateToHand(HumanoidArm sideIn, PoseStack matrixStackIn) {
 		boolean flag = sideIn == HumanoidArm.LEFT;
 		matrixStackIn.translate(flag ? 0.15D : -0.15D, 0.25D, 0.075D);
-		matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(flag ? 25F : -25F));
+		matrixStackIn.mulPose(Axis.YP.rotationDegrees(flag ? 25F : -25F));
 		super.translateToHand(sideIn, matrixStackIn);
 	}
 }

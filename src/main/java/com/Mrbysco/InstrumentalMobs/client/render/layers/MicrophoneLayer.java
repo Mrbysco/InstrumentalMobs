@@ -1,7 +1,7 @@
 package com.mrbysco.instrumentalmobs.client.render.layers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import com.mrbysco.instrumentalmobs.entities.MicrophoneGhastEntity;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.ItemInHandRenderer;
@@ -27,7 +27,7 @@ public class MicrophoneLayer<T extends MicrophoneGhastEntity, M extends EntityMo
 			matrixStackIn.pushPose();
 
 			matrixStackIn.scale(0.25F, 0.25F, 0.25F);
-			matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(-180F));
+			matrixStackIn.mulPose(Axis.XP.rotationDegrees(-180F));
 			matrixStackIn.translate(-0.5F, -6F, 2F);
 			itemInHandRenderer.renderItem(entitylivingbaseIn, stack, ItemTransforms.TransformType.NONE, false, matrixStackIn, bufferIn, packedLightIn);
 			matrixStackIn.popPose();

@@ -1,7 +1,7 @@
 package com.mrbysco.instrumentalmobs.client.render.layers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.ItemInHandRenderer;
@@ -40,8 +40,8 @@ public class MaracasLayer<T extends Spider, M extends EntityModel<T> & ArmedMode
 		if (!stack.isEmpty()) {
 			matrixStack.pushPose();
 			this.getParentModel().translateToHand(handSide, matrixStack);
-			matrixStack.mulPose(Vector3f.XP.rotationDegrees(-90.0F));
-			matrixStack.mulPose(Vector3f.YP.rotationDegrees(180.0F));
+			matrixStack.mulPose(Axis.XP.rotationDegrees(-90.0F));
+			matrixStack.mulPose(Axis.YP.rotationDegrees(180.0F));
 			boolean flag = handSide == HumanoidArm.LEFT;
 			matrixStack.translate((double) ((float) (flag ? -1 : 1) / 16.0F), 0.125D, -0.625D);
 			itemInHandRenderer.renderItem(spiderEntity, stack, transformType, flag, matrixStack, typeBuffer, packedLightIn);

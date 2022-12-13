@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "instrumentalmobs:items/microphone"
+        "layer0": "instrumentalmobs:item/microphone"
     }
 }

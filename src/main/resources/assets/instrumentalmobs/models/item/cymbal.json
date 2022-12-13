@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "instrumentalmobs:items/cymbal"
+        "layer0": "instrumentalmobs:item/cymbal"
     }
 }

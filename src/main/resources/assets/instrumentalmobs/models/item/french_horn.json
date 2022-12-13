@@ -1,7 +1,7 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "instrumentalmobs:items/french_horn"
+        "layer0": "instrumentalmobs:item/french_horn"
     },
     "display": {
 		"thirdperson_righthand": {
