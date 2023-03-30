@@ -69,9 +69,7 @@ public class EntitySoundWaves extends AbstractHurtingProjectile implements ItemS
 	@Override
 	protected void onHitEntity(EntityHitResult result) {
 		Entity entity = result.getEntity();
-		if (entity instanceof Player && getOwner() instanceof Player) {
-			Player playerIn = (Player) getOwner();
-			Player collidingPlayer = (Player) entity;
+		if (entity instanceof Player collidingPlayer && getOwner() instanceof Player playerIn) {
 			if (playerIn.canHarmPlayer(collidingPlayer)) {
 				if (this.level.random.nextInt(10) <= 2) {
 					collidingPlayer.hurt(Reference.causeSoundDamage(this), 1F);

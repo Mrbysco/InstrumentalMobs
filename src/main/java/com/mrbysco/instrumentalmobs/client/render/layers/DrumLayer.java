@@ -2,18 +2,18 @@ package com.mrbysco.instrumentalmobs.client.render.layers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import com.mrbysco.instrumentalmobs.entities.DrumZombieEntity;
 import net.minecraft.client.model.ArmedModel;
-import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.ZombieModel;
 import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
-public class DrumLayer<T extends DrumZombieEntity, M extends EntityModel<T> & ArmedModel> extends RenderLayer<T, M> {
+public class DrumLayer<T extends Zombie, M extends ZombieModel<T> & ArmedModel> extends RenderLayer<T, M> {
 	private final ItemInHandRenderer itemInHandRenderer;
 
 	public DrumLayer(RenderLayerParent<T, M> layerParent, ItemInHandRenderer itemInHandRenderer) {
@@ -36,7 +36,7 @@ public class DrumLayer<T extends DrumZombieEntity, M extends EntityModel<T> & Ar
 			}
 			poseStack.mulPose(Axis.XP.rotationDegrees(-10F));
 
-			itemInHandRenderer.renderItem(entitylivingbaseIn, itemstack, ItemTransforms.TransformType.NONE, false, poseStack, bufferSource, packedLightIn);
+			itemInHandRenderer.renderItem(entitylivingbaseIn, itemstack, ItemDisplayContext.NONE, false, poseStack, bufferSource, packedLightIn);
 
 			poseStack.popPose();
 		}

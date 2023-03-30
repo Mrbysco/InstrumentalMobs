@@ -13,9 +13,9 @@ public class MaracaSpiderRenderer extends MobRenderer<MaracaSpiderEntity, Maraca
 	private static final ResourceLocation SPIDER_TEXTURES = new ResourceLocation("textures/entity/spider/spider.png");
 
 	public MaracaSpiderRenderer(EntityRendererProvider.Context context) {
-		super(context, new MaracaSpiderModel(context.bakeLayer(ModelLayers.SPIDER)), 1.0F);
+		super(context, new MaracaSpiderModel<>(context.bakeLayer(ModelLayers.SPIDER)), 1.0F);
 		this.addLayer(new MaracaSpiderEyesLayer<>(this));
-		this.addLayer(new MaracasLayer(this, context.getItemInHandRenderer()));
+		this.addLayer(new MaracasLayer<>(this, context.getItemInHandRenderer()));
 	}
 
 	@Override

@@ -6,11 +6,11 @@ import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.monster.Spider;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 public class MaracasLayer<T extends Spider, M extends EntityModel<T> & ArmedModel> extends RenderLayer<T, M> {
@@ -30,13 +30,13 @@ public class MaracasLayer<T extends Spider, M extends EntityModel<T> & ArmedMode
 		if (!itemstack.isEmpty() || !itemstack1.isEmpty()) {
 			matrixStackIn.pushPose();
 
-			this.renderHeldItem(entitylivingbaseIn, itemstack, ItemTransforms.TransformType.THIRD_PERSON_LEFT_HAND, HumanoidArm.LEFT, matrixStackIn, bufferIn, packedLightIn);
-			this.renderHeldItem(entitylivingbaseIn, itemstack1, ItemTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, HumanoidArm.RIGHT, matrixStackIn, bufferIn, packedLightIn);
+			this.renderHeldItem(entitylivingbaseIn, itemstack, ItemDisplayContext.THIRD_PERSON_LEFT_HAND, HumanoidArm.LEFT, matrixStackIn, bufferIn, packedLightIn);
+			this.renderHeldItem(entitylivingbaseIn, itemstack1, ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, HumanoidArm.RIGHT, matrixStackIn, bufferIn, packedLightIn);
 			matrixStackIn.popPose();
 		}
 	}
 
-	private void renderHeldItem(Spider spiderEntity, ItemStack stack, ItemTransforms.TransformType transformType, HumanoidArm handSide, PoseStack matrixStack, MultiBufferSource typeBuffer, int packedLightIn) {
+	private void renderHeldItem(Spider spiderEntity, ItemStack stack, ItemDisplayContext transformType, HumanoidArm handSide, PoseStack matrixStack, MultiBufferSource typeBuffer, int packedLightIn) {
 		if (!stack.isEmpty()) {
 			matrixStack.pushPose();
 			this.getParentModel().translateToHand(handSide, matrixStack);

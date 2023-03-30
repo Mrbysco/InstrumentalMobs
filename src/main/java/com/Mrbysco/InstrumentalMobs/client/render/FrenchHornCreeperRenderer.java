@@ -15,9 +15,9 @@ public class FrenchHornCreeperRenderer extends MobRenderer<FrenchHornCreeperEnti
 	private static final ResourceLocation CREEPER_TEXTURES = new ResourceLocation("textures/entity/creeper/creeper.png");
 
 	public FrenchHornCreeperRenderer(EntityRendererProvider.Context context) {
-		super(context, new FrenchHornCreeperModel(context.bakeLayer(ModelLayers.CREEPER)), 0.5F);
+		super(context, new FrenchHornCreeperModel<>(context.bakeLayer(ModelLayers.CREEPER)), 0.5F);
 		this.addLayer(new FrenchHornCreeperCharge(this, context.getModelSet()));
-		this.addLayer(new FrenchHornLayer(this, context.getItemInHandRenderer()));
+		this.addLayer(new FrenchHornLayer<>(this, context.getItemInHandRenderer()));
 	}
 
 	protected void scale(FrenchHornCreeperEntity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {

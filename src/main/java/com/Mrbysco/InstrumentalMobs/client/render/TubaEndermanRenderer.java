@@ -22,9 +22,9 @@ public class TubaEndermanRenderer extends MobRenderer<TubaEndermanEntity, TubaEn
 	private final Random rnd = new Random();
 
 	public TubaEndermanRenderer(EntityRendererProvider.Context context) {
-		super(context, new TubaEndermanModel(context.bakeLayer(ModelLayers.ENDERMAN)), 0.5F);
-		this.addLayer(new TubaEndermanEyesLayer(this));
-		this.addLayer(new TubaEndermanHeldItemLayer(this, context.getItemInHandRenderer()));
+		super(context, new TubaEndermanModel<>(context.bakeLayer(ModelLayers.ENDERMAN)), 0.5F);
+		this.addLayer(new TubaEndermanEyesLayer<>(this));
+		this.addLayer(new TubaEndermanHeldItemLayer<>(this, context.getItemInHandRenderer()));
 	}
 
 	public void render(TubaEndermanEntity entityIn, float entityYaw, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {

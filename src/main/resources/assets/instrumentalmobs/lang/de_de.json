@@ -48,6 +48,6 @@
     "instrumentalmobs.subtitle.maraca": "Maraca ertönt",
 
     "_comment": "Damage Source",
-    "death.attack.instrumentalmobs:soundDamage": "%1$s wurde ertaubt",
-    "death.attack.instrumentalmobs:soundDamage.player": "%1$s wurde ertaubt bei dem Versuch %2$s zu entkommen"
+    "death.attack.instrumentalmobs.sound": "%1$s wurde ertaubt",
+    "death.attack.instrumentalmobs.sound.player": "%1$s wurde ertaubt bei dem Versuch %2$s zu entkommen"
 }

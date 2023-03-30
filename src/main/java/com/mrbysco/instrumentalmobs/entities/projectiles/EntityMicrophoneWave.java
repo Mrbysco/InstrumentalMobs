@@ -65,9 +65,7 @@ public class EntityMicrophoneWave extends ThrowableItemProjectile {
 	@Override
 	protected void onHitEntity(EntityHitResult result) {
 		Entity entity = result.getEntity();
-		if (entity instanceof Player && shootingEntity instanceof Player) {
-			Player playerIn = (Player) shootingEntity;
-			Player collidingPlayer = (Player) entity;
+		if (entity instanceof Player collidingPlayer && shootingEntity instanceof Player playerIn) {
 			if (playerIn.canHarmPlayer(collidingPlayer)) {
 				if (this.level.random.nextInt(10) <= 2) {
 					collidingPlayer.hurt(Reference.causeSoundDamage(this), 1F);

@@ -19,7 +19,7 @@ public class InstrumentalTab {
 		INSTRUMENTAL_TAB = event.registerCreativeModeTab(new ResourceLocation(Reference.MOD_ID, "instrumental_tab"), builder ->
 				builder.icon(() -> new ItemStack(Blocks.NOTE_BLOCK))
 						.title(Component.translatable("itemGroup.instrumentalmobs"))
-						.displayItems((features, output, hasPermissions) -> {
+						.displayItems((displayParameters, output) -> {
 							List<ItemStack> stacks = InstrumentalRegistry.ITEMS.getEntries().stream().map(reg -> new ItemStack(reg.get())).toList();
 							output.acceptAll(stacks);
 						}));

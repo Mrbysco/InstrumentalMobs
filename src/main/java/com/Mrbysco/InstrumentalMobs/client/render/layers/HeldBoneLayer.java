@@ -7,11 +7,11 @@ import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import org.joml.Vector3f;
 
@@ -38,13 +38,13 @@ public class HeldBoneLayer<T extends LivingEntity, M extends EntityModel<T> & Ar
 				matrixStackIn.scale(f, f, f);
 			}
 
-			this.renderHeldItem(entitylivingbaseIn, itemstack1, ItemTransforms.TransformType.THIRD_PERSON_LEFT_HAND, HumanoidArm.LEFT, matrixStackIn, bufferIn, packedLightIn);
-			this.renderHeldItem(entitylivingbaseIn, itemstack, ItemTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, HumanoidArm.RIGHT, matrixStackIn, bufferIn, packedLightIn);
+			this.renderHeldItem(entitylivingbaseIn, itemstack1, ItemDisplayContext.THIRD_PERSON_LEFT_HAND, HumanoidArm.LEFT, matrixStackIn, bufferIn, packedLightIn);
+			this.renderHeldItem(entitylivingbaseIn, itemstack, ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, HumanoidArm.RIGHT, matrixStackIn, bufferIn, packedLightIn);
 			matrixStackIn.popPose();
 		}
 	}
 
-	private void renderHeldItem(LivingEntity livingBase, ItemStack stack, ItemTransforms.TransformType transformType, HumanoidArm handSide, PoseStack matrixStack, MultiBufferSource typeBuffer, int packedLightIn) {
+	private void renderHeldItem(LivingEntity livingBase, ItemStack stack, ItemDisplayContext displayContext, HumanoidArm handSide, PoseStack matrixStack, MultiBufferSource typeBuffer, int packedLightIn) {
 		if (!stack.isEmpty()) {
 			matrixStack.pushPose();
 
@@ -57,8 +57,7 @@ public class HeldBoneLayer<T extends LivingEntity, M extends EntityModel<T> & Ar
 			matrixStack.mulPose(Axis.XP.rotationDegrees(-90.0F));
 			matrixStack.mulPose(Axis.YP.rotationDegrees(180.0F));
 			boolean flag = handSide == HumanoidArm.LEFT;
-			if (livingBase instanceof XylophoneSkeletonEntity) {
-				XylophoneSkeletonEntity skeletal = (XylophoneSkeletonEntity) livingBase;
+			if (livingBase instanceof XylophoneSkeletonEntity skeletal) {
 				boolean flag2 = skeletal.isPlayingRibs();
 				if (flag2) {
 					matrixStack.scale(0.75F, 0.75F, 0.75F);
@@ -67,7 +66,7 @@ public class HeldBoneLayer<T extends LivingEntity, M extends EntityModel<T> & Ar
 				}
 			}
 			matrixStack.translate((double) ((float) (flag ? -1 : 1) / 16.0F), 0.125D, -0.625D);
-			itemInHandRenderer.renderItem(livingBase, stack, transformType, flag, matrixStack, typeBuffer, packedLightIn);
+			itemInHandRenderer.renderItem(livingBase, stack, displayContext, flag, matrixStack, typeBuffer, packedLightIn);
 			matrixStack.popPose();
 		}
 	}

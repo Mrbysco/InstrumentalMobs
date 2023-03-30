@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[44,)"
+loaderVersion="[45,)"
 issueTrackerURL="https://github.com/Mrbysco/InstrumentalMobs/issues"
 license="MIT"
 
@@ -16,12 +16,6 @@ credits="Darkosto's chat for inspiring me"
 [[dependencies.instrumentalmobs]]
 modId="minecraft"
 mandatory=true
-versionRange="[1.19.3,1.20)"
-ordering="NONE"
-side="BOTH"
-[[dependencies.instrumentalmobs]]
-modId="forge"
-mandatory=true
-versionRange="[44.0.0,)"
+versionRange="[1.19.4,1.20)"
 ordering="NONE"
 side="BOTH"

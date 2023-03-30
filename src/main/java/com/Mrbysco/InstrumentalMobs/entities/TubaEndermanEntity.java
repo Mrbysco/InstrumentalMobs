@@ -83,7 +83,7 @@ public class TubaEndermanEntity extends EnderMan implements IInstrumentalMobs {
 			double d0 = vec31.length();
 			vec31 = vec31.normalize();
 			double d1 = vec3.dot(vec31);
-			return d1 > 1.0D - 0.025D / d0 ? player.hasLineOfSight(this) : false;
+			return d1 > 1.0D - 0.025D / d0 && player.hasLineOfSight(this);
 		}
 	}
 
@@ -142,7 +142,7 @@ public class TubaEndermanEntity extends EnderMan implements IInstrumentalMobs {
 					return true;
 				}
 			} else {
-				return this.target != null && this.continueAggroTargetConditions.test(this.enderman, this.target) ? true : super.canContinueToUse();
+				return this.target != null && this.continueAggroTargetConditions.test(this.enderman, this.target) || super.canContinueToUse();
 			}
 		}
 
@@ -198,7 +198,7 @@ public class TubaEndermanEntity extends EnderMan implements IInstrumentalMobs {
 				return false;
 			} else {
 				double d0 = this.targetPlayer.distanceToSqr(this.enderman);
-				return d0 > 256.0D ? false : this.enderman.isLookingAtMe((Player) this.targetPlayer);
+				return !(d0 > 256.0D) && this.enderman.isLookingAtMe((Player) this.targetPlayer);
 			}
 		}
 

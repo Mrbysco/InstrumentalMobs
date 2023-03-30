@@ -11,8 +11,8 @@ public class XylophoneSkeletonRenderer extends CustomBipedRenderer<XylophoneSkel
 	private static final ResourceLocation SKELETON_TEXTURES = new ResourceLocation("textures/entity/skeleton/skeleton.png");
 
 	public XylophoneSkeletonRenderer(EntityRendererProvider.Context context) {
-		super(context, new XylophoneSkeletonModel(context.bakeLayer(ModelLayers.SKELETON)), 0.5F);
-		this.addLayer(new HeldBoneLayer(this, context.getItemInHandRenderer()));
+		super(context, new XylophoneSkeletonModel<>(context.bakeLayer(ModelLayers.SKELETON)), 0.5F);
+		this.addLayer(new HeldBoneLayer<>(this, context.getItemInHandRenderer()));
 	}
 
 	public ResourceLocation getTextureLocation(XylophoneSkeletonEntity entity) {

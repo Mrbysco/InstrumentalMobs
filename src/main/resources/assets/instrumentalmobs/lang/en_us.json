@@ -48,6 +48,6 @@
     "instrumentalmobs.subtitle.maraca": "Maraca sounds",
 
     "_comment": "Damage Source",
-    "death.attack.instrumentalmobs:soundDamage": "%1$s was deafened",
-    "death.attack.instrumentalmobs:soundDamage.player": "%1$s was deafened trying to escape %2$s"
+    "death.attack.instrumentalmobs.sound": "%1$s was deafened",
+    "death.attack.instrumentalmobs.sound.player": "%1$s was deafened trying to escape %2$s"
 }

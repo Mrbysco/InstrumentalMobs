@@ -81,6 +81,7 @@ public class InstrumentalDataGen {
 
 	private static HolderLookup.Provider getProvider() {
 		final RegistrySetBuilder registryBuilder = new RegistrySetBuilder();
+		registryBuilder.add(Registries.DAMAGE_TYPE, InstrumentalDamageTypeProvider::bootstrap);
 		registryBuilder.add(ForgeRegistries.Keys.BIOME_MODIFIERS, context -> {
 			registerModifier(context, EntityType.HUSK, InstrumentalRegistry.CYMBAL_HUSK.get(), 5);
 			registerModifier(context, EntityType.ZOMBIE, InstrumentalRegistry.DRUM_ZOMBIE.get(), 5);
