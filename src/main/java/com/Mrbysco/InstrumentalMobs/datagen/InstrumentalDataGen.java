@@ -1,7 +1,5 @@
 package com.mrbysco.instrumentalmobs.datagen;
 
-import com.google.gson.JsonElement;
-import com.mojang.serialization.JsonOps;
 import com.mrbysco.instrumentalmobs.Reference;
 import com.mrbysco.instrumentalmobs.init.InstrumentalRegistry;
 import com.mrbysco.instrumentalmobs.modifier.AddRelativeSpawnBiomeModifier;
@@ -17,7 +15,8 @@ import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.data.registries.VanillaRegistries;
-import net.minecraft.resources.RegistryOps;
+import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.ItemTags;
@@ -40,8 +39,8 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerC
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWithLootingCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.common.data.JsonCodecProvider;
 import net.minecraftforge.common.world.BiomeModifier;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -49,10 +48,10 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
 import static com.mrbysco.instrumentalmobs.init.InstrumentalRegistry.CYMBAL_HUSK;
@@ -69,41 +68,42 @@ import static com.mrbysco.instrumentalmobs.init.InstrumentalRegistry.XYLOPHONE_S
 public class InstrumentalDataGen {
 	@SubscribeEvent
 	public static void gatherData(GatherDataEvent event) {
-		HolderLookup.Provider provider = getProvider();
-		final RegistryOps<JsonElement> ops = RegistryOps.create(JsonOps.INSTANCE, provider);
 		DataGenerator generator = event.getGenerator();
 		PackOutput packOutput = generator.getPackOutput();
+		CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 		ExistingFileHelper helper = event.getExistingFileHelper();
 
-
-		Map<ResourceLocation, BiomeModifier> biomeModifiers = new LinkedHashMap<>();
-		addModifierToMap(biomeModifiers, EntityType.HUSK, InstrumentalRegistry.CYMBAL_HUSK.get(), 5);
-		addModifierToMap(biomeModifiers, EntityType.ZOMBIE, InstrumentalRegistry.DRUM_ZOMBIE.get(), 5);
-		addModifierToMap(biomeModifiers, EntityType.CREEPER, InstrumentalRegistry.FRENCH_HORN_CREEPER.get(), 5);
-		addModifierToMap(biomeModifiers, EntityType.SPIDER, InstrumentalRegistry.MARACA_SPIDER.get(), 5);
-		addModifierToMap(biomeModifiers, EntityType.GHAST, InstrumentalRegistry.MICROPHONE_GHAST.get(), 5);
-		addModifierToMap(biomeModifiers, EntityType.ENDERMAN, InstrumentalRegistry.TUBA_ENDERMAN.get(), 5);
-		addModifierToMap(biomeModifiers, EntityType.SKELETON, InstrumentalRegistry.XYLOPHONE_SKELETON.get(), 5);
-
-		generator.addProvider(event.includeServer(), JsonCodecProvider.forDatapackRegistry(
-				packOutput, helper, Reference.MOD_ID, ops, ForgeRegistries.Keys.BIOME_MODIFIERS, biomeModifiers
-		));
+		generator.addProvider(event.includeServer(), new DatapackBuiltinEntriesProvider(
+				packOutput, CompletableFuture.supplyAsync(InstrumentalDataGen::getProvider), Set.of(Reference.MOD_ID)));
 
 		generator.addProvider(event.includeServer(), new InstrumentalLoot(packOutput));
 	}
 
 	private static HolderLookup.Provider getProvider() {
 		final RegistrySetBuilder registryBuilder = new RegistrySetBuilder();
+		registryBuilder.add(ForgeRegistries.Keys.BIOME_MODIFIERS, context -> {
+			registerModifier(context, EntityType.HUSK, InstrumentalRegistry.CYMBAL_HUSK.get(), 5);
+			registerModifier(context, EntityType.ZOMBIE, InstrumentalRegistry.DRUM_ZOMBIE.get(), 5);
+			registerModifier(context, EntityType.CREEPER, InstrumentalRegistry.FRENCH_HORN_CREEPER.get(), 5);
+			registerModifier(context, EntityType.SPIDER, InstrumentalRegistry.MARACA_SPIDER.get(), 5);
+			registerModifier(context, EntityType.GHAST, InstrumentalRegistry.MICROPHONE_GHAST.get(), 5);
+			registerModifier(context, EntityType.ENDERMAN, InstrumentalRegistry.TUBA_ENDERMAN.get(), 5);
+			registerModifier(context, EntityType.SKELETON, InstrumentalRegistry.XYLOPHONE_SKELETON.get(), 5);
+		});
 		// We need the BIOME registry to be present so we can use a biome tag, doesn't matter that it's empty
-		registryBuilder.add(Registries.BIOME, $ -> {
+		registryBuilder.add(Registries.BIOME, context -> {
 		});
 		RegistryAccess.Frozen regAccess = RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY);
 		return registryBuilder.buildPatch(regAccess, VanillaRegistries.createLookup());
 	}
 
-	private static void addModifierToMap(Map<ResourceLocation, BiomeModifier> map, EntityType<?> originalType, EntityType<?> newType, int relativeWeight) {
-		map.put(ForgeRegistries.ENTITY_TYPES.getKey(newType), new AddRelativeSpawnBiomeModifier(
+	private static void registerModifier(BootstapContext<BiomeModifier> context, EntityType<?> originalType, EntityType<?> newType, int relativeWeight) {
+		context.register(getModifierKey(newType), new AddRelativeSpawnBiomeModifier(
 				originalType, newType, relativeWeight));
+	}
+
+	private static ResourceKey<BiomeModifier> getModifierKey(EntityType<?> type) {
+		return ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, ForgeRegistries.ENTITY_TYPES.getKey(type));
 	}
 
 	private static class InstrumentalLoot extends LootTableProvider {
