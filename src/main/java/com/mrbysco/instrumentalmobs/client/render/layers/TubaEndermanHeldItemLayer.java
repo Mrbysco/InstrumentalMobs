@@ -14,26 +14,26 @@ import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.item.ItemStack;
 
 public class TubaEndermanHeldItemLayer<T extends EnderMan, M extends EntityModel<T> & HeadedModel> extends RenderLayer<T, M> {
-    public TubaEndermanHeldItemLayer(RenderLayerParent<T, M> layerParent) {
-        super(layerParent);
-    }
+	public TubaEndermanHeldItemLayer(RenderLayerParent<T, M> layerParent) {
+		super(layerParent);
+	}
 
-    @Override
-    public void render(PoseStack poseStack, MultiBufferSource bufferSource, int packedLightIn, T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        ItemStack stack = entitylivingbaseIn.getItemBySlot(EquipmentSlot.MAINHAND);
-        if (!stack.isEmpty()) {
-            poseStack.pushPose();
-            this.getParentModel().getHead().translateAndRotate(poseStack);
+	@Override
+	public void render(PoseStack poseStack, MultiBufferSource bufferSource, int packedLightIn, T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		ItemStack stack = entitylivingbaseIn.getItemBySlot(EquipmentSlot.MAINHAND);
+		if (!stack.isEmpty()) {
+			poseStack.pushPose();
+			this.getParentModel().getHead().translateAndRotate(poseStack);
 
-            poseStack.translate(0.0F, -0.73F, -0.775F);
-            poseStack.mulPose(Vector3f.ZP.rotationDegrees(-90F));
-            poseStack.mulPose(Vector3f.XP.rotationDegrees(90F));
-            poseStack.mulPose(Vector3f.ZP.rotationDegrees(-10F));
+			poseStack.translate(0.0F, -0.73F, -0.775F);
+			poseStack.mulPose(Vector3f.ZP.rotationDegrees(-90F));
+			poseStack.mulPose(Vector3f.XP.rotationDegrees(90F));
+			poseStack.mulPose(Vector3f.ZP.rotationDegrees(-10F));
 
-            poseStack.translate(-0.8F, 0.0F, 0.0F);
+			poseStack.translate(-0.8F, 0.0F, 0.0F);
 
-            Minecraft.getInstance().getItemInHandRenderer().renderItem(entitylivingbaseIn, stack, ItemTransforms.TransformType.NONE, false, poseStack, bufferSource, packedLightIn);
-            poseStack.popPose();
-        }
-    }
+			Minecraft.getInstance().getItemInHandRenderer().renderItem(entitylivingbaseIn, stack, ItemTransforms.TransformType.NONE, false, poseStack, bufferSource, packedLightIn);
+			poseStack.popPose();
+		}
+	}
 }

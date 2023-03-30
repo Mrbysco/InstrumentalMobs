@@ -8,6 +8,6 @@ public class MicrophoneGhastRenderer extends GhastRenderer {
 
 	public MicrophoneGhastRenderer(EntityRendererProvider.Context renderManagerIn) {
 		super(renderManagerIn);
-        this.addLayer(new MicrophoneLayer(this));
+		this.addLayer(new MicrophoneLayer(this));
 	}
 }

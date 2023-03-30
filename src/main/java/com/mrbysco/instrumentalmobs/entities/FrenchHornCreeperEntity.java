@@ -11,24 +11,24 @@ import net.minecraft.world.level.Level;
 
 public class FrenchHornCreeperEntity extends Creeper implements IInstrumentalMobs {
 
-    public FrenchHornCreeperEntity(EntityType<? extends FrenchHornCreeperEntity> type, Level worldIn) {
+	public FrenchHornCreeperEntity(EntityType<? extends FrenchHornCreeperEntity> type, Level worldIn) {
 		super(type, worldIn);
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(InstrumentalRegistry.french_horn.get()));
-        this.setDropChance(EquipmentSlot.MAINHAND, getDropChance());
+		this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(InstrumentalRegistry.french_horn.get()));
+		this.setDropChance(EquipmentSlot.MAINHAND, getDropChance());
 	}
 
-    @Override
+	@Override
 	public void explodeCreeper() {
-        if (!this.level.isClientSide) {
-            Explosion.BlockInteraction explosion$mode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
-            float f = this.isPowered() ? 2.0F : 1.0F;
-            this.dead = true;
-            this.level.explode(this, this.getX(), this.getY(), this.getZ(), (float)this.explosionRadius * f, explosion$mode);
-            InstrumentHelper.instrumentDamage(this.level, this);
-            this.playSound(InstrumentalRegistry.french_horn_sound.get(), 1F, 1F);
+		if (!this.level.isClientSide) {
+			Explosion.BlockInteraction explosion$mode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
+			float f = this.isPowered() ? 2.0F : 1.0F;
+			this.dead = true;
+			this.level.explode(this, this.getX(), this.getY(), this.getZ(), (float) this.explosionRadius * f, explosion$mode);
+			InstrumentHelper.instrumentDamage(this.level, this);
+			this.playSound(InstrumentalRegistry.french_horn_sound.get(), 1F, 1F);
 
-            this.discard();
-            this.spawnLingeringCloud();
-        }
-    }
+			this.discard();
+			this.spawnLingeringCloud();
+		}
+	}
 }

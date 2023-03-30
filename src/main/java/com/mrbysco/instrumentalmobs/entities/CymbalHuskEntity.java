@@ -35,75 +35,73 @@ import net.minecraft.world.level.block.Blocks;
 import java.util.Random;
 
 public class CymbalHuskEntity extends Husk implements IInstrumentalMobs {
-    private static final EntityDataAccessor<Boolean> CLAPPING = SynchedEntityData.<Boolean>defineId(CymbalHuskEntity.class, EntityDataSerializers.BOOLEAN);
-    
+	private static final EntityDataAccessor<Boolean> CLAPPING = SynchedEntityData.<Boolean>defineId(CymbalHuskEntity.class, EntityDataSerializers.BOOLEAN);
+
 	public CymbalHuskEntity(EntityType<? extends CymbalHuskEntity> type, Level worldIn) {
 		super(type, worldIn);
 		this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(InstrumentalRegistry.cymbal.get()));
-        this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(InstrumentalRegistry.cymbal.get()));
-        this.setDropChance(EquipmentSlot.MAINHAND, getDropChance());
-        this.setDropChance(EquipmentSlot.OFFHAND, getDropChance());
+		this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(InstrumentalRegistry.cymbal.get()));
+		this.setDropChance(EquipmentSlot.MAINHAND, getDropChance());
+		this.setDropChance(EquipmentSlot.OFFHAND, getDropChance());
 	}
-	
+
 	@Override
 	protected void registerGoals() {
-        this.goalSelector.addGoal(4, new CymbalHuskEntity.AttackTurtleEggGoal(this, 1.0D, 3));
-        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-        this.addBehaviourGoals();
-    }
-
-    @Override
-    protected void addBehaviourGoals() {
-        this.goalSelector.addGoal(2, new HuskInstrumentAttackGoal(this, 1.0D, false, () -> InstrumentalRegistry.cymbals_sound.get()));
-        this.goalSelector.addGoal(6, new MoveThroughVillageGoal(this, 1.0D, true, 4, this::canBreakDoors));
-        this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(ZombifiedPiglin.class));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractVillager.class, false));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
-        this.targetSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, Turtle.class, 10, true, false, Turtle.BABY_ON_LAND_SELECTOR));
-    }
-
-    @Override
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-        this.getEntityData().define(CLAPPING, Boolean.valueOf(false));
+		this.goalSelector.addGoal(4, new CymbalHuskEntity.AttackTurtleEggGoal(this, 1.0D, 3));
+		this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
+		this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+		this.addBehaviourGoals();
 	}
 
-    public void setClapping(boolean isClapping)
-    {
-        this.getEntityData().set(CLAPPING, Boolean.valueOf(isClapping));
-    }
+	@Override
+	protected void addBehaviourGoals() {
+		this.goalSelector.addGoal(2, new HuskInstrumentAttackGoal(this, 1.0D, false, () -> InstrumentalRegistry.cymbals_sound.get()));
+		this.goalSelector.addGoal(6, new MoveThroughVillageGoal(this, 1.0D, true, 4, this::canBreakDoors));
+		this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(ZombifiedPiglin.class));
+		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+		this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractVillager.class, false));
+		this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
+		this.targetSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, Turtle.class, 10, true, false, Turtle.BABY_ON_LAND_SELECTOR));
+	}
 
-    public boolean isClapping()
-    {
-        return ((Boolean)this.getEntityData().get(CLAPPING)).booleanValue();
-    }
-    
-    @Override
+	@Override
+	protected void defineSynchedData() {
+		super.defineSynchedData();
+		this.getEntityData().define(CLAPPING, Boolean.valueOf(false));
+	}
+
+	public void setClapping(boolean isClapping) {
+		this.getEntityData().set(CLAPPING, Boolean.valueOf(isClapping));
+	}
+
+	public boolean isClapping() {
+		return ((Boolean) this.getEntityData().get(CLAPPING)).booleanValue();
+	}
+
+	@Override
 	protected void populateDefaultEquipmentSlots(DifficultyInstance difficulty) {
-    }
+	}
 
-    class AttackTurtleEggGoal extends RemoveBlockGoal {
-        AttackTurtleEggGoal(PathfinderMob creatureIn, double speed, int yMax) {
-            super(Blocks.TURTLE_EGG, creatureIn, speed, yMax);
-        }
+	class AttackTurtleEggGoal extends RemoveBlockGoal {
+		AttackTurtleEggGoal(PathfinderMob creatureIn, double speed, int yMax) {
+			super(Blocks.TURTLE_EGG, creatureIn, speed, yMax);
+		}
 
-        public void playDestroyProgressSound(LevelAccessor worldIn, BlockPos pos) {
-            worldIn.playSound((Player)null, pos, SoundEvents.ZOMBIE_DESTROY_EGG, SoundSource.HOSTILE, 0.5F, 0.9F + CymbalHuskEntity.this.random.nextFloat() * 0.2F);
-        }
+		public void playDestroyProgressSound(LevelAccessor worldIn, BlockPos pos) {
+			worldIn.playSound((Player) null, pos, SoundEvents.ZOMBIE_DESTROY_EGG, SoundSource.HOSTILE, 0.5F, 0.9F + CymbalHuskEntity.this.random.nextFloat() * 0.2F);
+		}
 
-        public void playBreakSound(Level worldIn, BlockPos pos) {
-            worldIn.playSound((Player)null, pos, SoundEvents.TURTLE_EGG_BREAK, SoundSource.BLOCKS, 0.7F, 0.9F + worldIn.random.nextFloat() * 0.2F);
-        }
+		public void playBreakSound(Level worldIn, BlockPos pos) {
+			worldIn.playSound((Player) null, pos, SoundEvents.TURTLE_EGG_BREAK, SoundSource.BLOCKS, 0.7F, 0.9F + worldIn.random.nextFloat() * 0.2F);
+		}
 
-        public double acceptedDistance() {
-            return 1.14D;
-        }
-    }
+		public double acceptedDistance() {
+			return 1.14D;
+		}
+	}
 
-    public static boolean canSpawnHere(EntityType<CymbalHuskEntity> p_223334_0_, ServerLevelAccessor p_223334_1_, MobSpawnType reason, BlockPos p_223334_3_, Random p_223334_4_) {
-        return checkMonsterSpawnRules(p_223334_0_, p_223334_1_, reason, p_223334_3_, p_223334_4_) && (reason == MobSpawnType.SPAWNER || p_223334_1_.canSeeSky(p_223334_3_));
-    }
+	public static boolean canSpawnHere(EntityType<CymbalHuskEntity> p_223334_0_, ServerLevelAccessor p_223334_1_, MobSpawnType reason, BlockPos p_223334_3_, Random p_223334_4_) {
+		return checkMonsterSpawnRules(p_223334_0_, p_223334_1_, reason, p_223334_3_, p_223334_4_) && (reason == MobSpawnType.SPAWNER || p_223334_1_.canSeeSky(p_223334_3_));
+	}
 }

@@ -14,25 +14,25 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 
 public class FrenchHornLayer<T extends FrenchHornCreeperEntity, M extends EntityModel<T> & HeadedModel> extends RenderLayer<T, M> {
-    public FrenchHornLayer(RenderLayerParent<T, M> layerParent) {
-        super(layerParent);
-    }
+	public FrenchHornLayer(RenderLayerParent<T, M> layerParent) {
+		super(layerParent);
+	}
 
-    @Override
-    public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        ItemStack itemstack = entitylivingbaseIn.getItemBySlot(EquipmentSlot.MAINHAND);
-        if (!itemstack.isEmpty()) {
-            matrixStackIn.pushPose();
-            this.getParentModel().getHead().translateAndRotate(matrixStackIn);
+	@Override
+	public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		ItemStack itemstack = entitylivingbaseIn.getItemBySlot(EquipmentSlot.MAINHAND);
+		if (!itemstack.isEmpty()) {
+			matrixStackIn.pushPose();
+			this.getParentModel().getHead().translateAndRotate(matrixStackIn);
 
-            matrixStackIn.scale(0.75F, 0.75F, 0.75F);
-            matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(90F));
-            matrixStackIn.translate(0.85F, 0.15F, 0.0F);
-            matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(-20F));
+			matrixStackIn.scale(0.75F, 0.75F, 0.75F);
+			matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(90F));
+			matrixStackIn.translate(0.85F, 0.15F, 0.0F);
+			matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(-20F));
 
-            Minecraft.getInstance().getItemInHandRenderer().renderItem(entitylivingbaseIn, itemstack, ItemTransforms.TransformType.NONE, false, matrixStackIn, bufferIn, packedLightIn);
+			Minecraft.getInstance().getItemInHandRenderer().renderItem(entitylivingbaseIn, itemstack, ItemTransforms.TransformType.NONE, false, matrixStackIn, bufferIn, packedLightIn);
 
-            matrixStackIn.popPose();
-        }
-    }
+			matrixStackIn.popPose();
+		}
+	}
 }

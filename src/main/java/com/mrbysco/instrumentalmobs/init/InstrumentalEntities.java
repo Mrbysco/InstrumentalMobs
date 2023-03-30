@@ -31,13 +31,13 @@ import java.util.List;
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID)
 public class InstrumentalEntities {
 
-	@SubscribeEvent(priority =  EventPriority.HIGH)
+	@SubscribeEvent(priority = EventPriority.HIGH)
 	public static void addSpawn(BiomeLoadingEvent event) {
 		Biome biome = ForgeRegistries.BIOMES.getValue(event.getName());
-		if(biome != null) {
+		if (biome != null) {
 			MobSpawnSettings info = biome.getMobSettings();
 			List<MobSpawnSettings.SpawnerData> spawns = event.getSpawns().getSpawner(MobCategory.MONSTER);
-			for(MobSpawnSettings.SpawnerData entry : info.getMobs(MobCategory.MONSTER).unwrap()) {
+			for (MobSpawnSettings.SpawnerData entry : info.getMobs(MobCategory.MONSTER).unwrap()) {
 				registerSpawn(spawns, entry, EntityType.HUSK, InstrumentalRegistry.CYMBAL_HUSK.get());
 				registerSpawn(spawns, entry, EntityType.ZOMBIE, InstrumentalRegistry.DRUM_ZOMBIE.get());
 				registerSpawn(spawns, entry, EntityType.CREEPER, InstrumentalRegistry.FRENCH_HORN_CREEPER.get());
@@ -70,7 +70,7 @@ public class InstrumentalEntities {
 	}
 
 	public static void registerSpawn(List<SpawnerData> spawns, SpawnerData entry, EntityType<? extends LivingEntity> oldEntity, EntityType<? extends LivingEntity> newEntity) {
-		if(entry.type == oldEntity) {
+		if (entry.type == oldEntity) {
 			spawns.add(new MobSpawnSettings.SpawnerData(newEntity, Math.min(1, entry.getWeight().asInt() / 5), entry.minCount, entry.maxCount));
 		}
 	}
