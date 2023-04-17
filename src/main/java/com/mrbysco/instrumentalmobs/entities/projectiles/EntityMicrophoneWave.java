@@ -89,6 +89,7 @@ public class EntityMicrophoneWave extends ThrowableItemProjectile {
 
 	@Override
 	protected void defineSynchedData() {
+		super.defineSynchedData();
 	}
 
 	@Override

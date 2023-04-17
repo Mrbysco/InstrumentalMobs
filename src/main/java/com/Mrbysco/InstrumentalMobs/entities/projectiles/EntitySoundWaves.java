@@ -108,6 +108,7 @@ public class EntitySoundWaves extends AbstractHurtingProjectile implements ItemS
 
 	@Override
 	protected void defineSynchedData() {
+		super.defineSynchedData();
 	}
 
 	@Override
