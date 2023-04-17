@@ -1,1 +1,1 @@
-* Minor internal change
+* Fix crash when using the Microphone item
