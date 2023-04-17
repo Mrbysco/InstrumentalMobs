@@ -1,0 +1,1 @@
+* Fix crash when using the Microphone item

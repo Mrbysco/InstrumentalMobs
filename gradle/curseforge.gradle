@@ -7,6 +7,8 @@ if (System.getenv().CURSEFORGE_KEY) {
             id = project.curseforge_id
             releaseType = "release"
             addGameVersion "Forge"
+            addGameVersion "1.19"
+            addGameVersion "1.19.1"
             addGameVersion "${mc_version}"
             addGameVersion "Java 17"
             mainArtifact(jar)
