@@ -1,0 +1,44 @@
+{
+  "cymbal.sound": {
+    "sounds": [
+      "instrumentalmobs:instruments/cymbals/cymbals"
+    ],
+    "subtitle": "instrumentalmobs.subtitle.cymbal.sound"
+  },
+  "drum.single.sound": {
+    "sounds": [
+      "instrumentalmobs:instruments/drum/singledrum"
+    ],
+    "subtitle": "instrumentalmobs.subtitle.drum.single.sound"
+  },
+  "drum.sound": {
+    "sounds": [
+      "instrumentalmobs:instruments/drum/drum"
+    ],
+    "subtitle": "instrumentalmobs.subtitle.drum.sound"
+  },
+  "frenchhorn.sound": {
+    "sounds": [
+      "instrumentalmobs:instruments/french_horn/frenchhorn"
+    ],
+    "subtitle": "instrumentalmobs.subtitle.frenchhorn.sound"
+  },
+  "maraca.sound": {
+    "sounds": [
+      "instrumentalmobs:instruments/maraca/maraca"
+    ],
+    "subtitle": "instrumentalmobs.subtitle.maraca.sound"
+  },
+  "tuba.sound": {
+    "sounds": [
+      "instrumentalmobs:instruments/tuba/tuba"
+    ],
+    "subtitle": "instrumentalmobs.subtitle.tuba.sound"
+  },
+  "xylophone.sound": {
+    "sounds": [
+      "instrumentalmobs:instruments/xylophone/xylophone"
+    ],
+    "subtitle": "instrumentalmobs.subtitle.xylophone.sound"
+  }
+}

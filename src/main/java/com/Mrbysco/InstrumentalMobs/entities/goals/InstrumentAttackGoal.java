@@ -25,7 +25,7 @@ public class InstrumentAttackGoal extends MeleeAttackGoal {
 			this.ticksUntilNextAttack = 20;
 			this.mob.swing(InteractionHand.MAIN_HAND);
 			this.mob.playSound(instrumentSound.get(), 1F, 1F);
-			InstrumentHelper.instrumentDamage(this.mob.level, this.mob);
+			InstrumentHelper.instrumentDamage(this.mob.level(), this.mob);
 		}
 	}
 }

@@ -14,40 +14,47 @@ import com.mrbysco.instrumentalmobs.entities.projectiles.EntitySoundWaves;
 import com.mrbysco.instrumentalmobs.items.DrumInstrument;
 import com.mrbysco.instrumentalmobs.items.InstrumentItem;
 import com.mrbysco.instrumentalmobs.items.InstrumentMicrophone;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.List;
+
 public class InstrumentalRegistry {
 	public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Reference.MOD_ID);
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Reference.MOD_ID);
+	public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Reference.MOD_ID);
 	public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, Reference.MOD_ID);
 	public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Reference.MOD_ID);
 
-	public static final RegistryObject<Block> DRUM_BLOCK = BLOCKS.register("drum_block", () -> new DrumBlock(Block.Properties.of(Material.WOOL, MaterialColor.SNOW).strength(0.8F).sound(SoundType.WOOL).noOcclusion()));
+	public static final RegistryObject<Block> DRUM_BLOCK = BLOCKS.register("drum_block", () -> new DrumBlock(Block.Properties.of().mapColor(MapColor.SNOW).ignitedByLava().strength(0.8F).sound(SoundType.WOOL).noOcclusion()));
 	public static final RegistryObject<Item> DRUM_BLOCK_ITEM = ITEMS.register("drum_block", () -> new BlockItem(DRUM_BLOCK.get(), (new Item.Properties())));
-	public static final RegistryObject<Item> DRUM_ITEM = ITEMS.register("drum", () -> new DrumInstrument((new Item.Properties()).stacksTo(1).durability(140), () -> InstrumentalRegistry.drum_sound.get(), 30, 40));
+	public static final RegistryObject<Item> DRUM_ITEM = ITEMS.register("drum", () -> new DrumInstrument((new Item.Properties()).stacksTo(1).durability(140), () -> InstrumentalRegistry.DRUM_SOUND.get(), 30, 40));
 
-	public static final RegistryObject<Item> cymbal = ITEMS.register("cymbal", () -> (new Item((new Item.Properties()).stacksTo(1))));
-	public static final RegistryObject<Item> cymbals = ITEMS.register("cymbals", () -> (new InstrumentItem((new Item.Properties()).stacksTo(1).durability(100), () -> InstrumentalRegistry.cymbals_sound.get(), 30, 40)));
-	public static final RegistryObject<Item> french_horn = ITEMS.register("french_horn", () -> (new InstrumentItem((new Item.Properties()).stacksTo(1).durability(165), () -> InstrumentalRegistry.french_horn_sound.get(), 40, 50)));
-	public static final RegistryObject<Item> maraca = ITEMS.register("maraca", () -> (new Item((new Item.Properties()).stacksTo(1))));
-	public static final RegistryObject<Item> maracas = ITEMS.register("maracas", () -> (new InstrumentItem((new Item.Properties()).stacksTo(1).durability(125), () -> InstrumentalRegistry.maraca_sound.get(), 30, 20)));
-	public static final RegistryObject<Item> microphone = ITEMS.register("microphone", () -> (new InstrumentMicrophone((new Item.Properties()).stacksTo(1).durability(110), () -> SoundEvents.GHAST_SCREAM, 40, 40)));
-	public static final RegistryObject<Item> tuba = ITEMS.register("tuba", () -> (new InstrumentItem((new Item.Properties()).stacksTo(1).stacksTo(180), () -> InstrumentalRegistry.tuba_sound.get(), 20, 40)));
-	public static final RegistryObject<Item> xylophone = ITEMS.register("xylophone", () -> (new InstrumentItem((new Item.Properties()).stacksTo(1).durability(160), () -> InstrumentalRegistry.xylophone_sound.get(), 30, 30)));
+	public static final RegistryObject<Item> CYMBAL = ITEMS.register("cymbal", () -> (new Item((new Item.Properties()).stacksTo(1))));
+	public static final RegistryObject<Item> CYMBALS = ITEMS.register("cymbals", () -> (new InstrumentItem((new Item.Properties()).stacksTo(1).durability(100), () -> InstrumentalRegistry.CYMBALS_SOUND.get(), 30, 40)));
+	public static final RegistryObject<Item> FRENCH_HORN = ITEMS.register("french_horn", () -> (new InstrumentItem((new Item.Properties()).stacksTo(1).durability(165), () -> InstrumentalRegistry.FRENCH_HORN_SOUND.get(), 40, 50)));
+	public static final RegistryObject<Item> MARACA = ITEMS.register("maraca", () -> (new Item((new Item.Properties()).stacksTo(1))));
+	public static final RegistryObject<Item> MARACAS = ITEMS.register("maracas", () -> (new InstrumentItem((new Item.Properties()).stacksTo(1).durability(125), () -> InstrumentalRegistry.MARACA_SOUND.get(), 30, 20)));
+	public static final RegistryObject<Item> MICROPHONE = ITEMS.register("microphone", () -> (new InstrumentMicrophone((new Item.Properties()).stacksTo(1).durability(110), () -> SoundEvents.GHAST_SCREAM, 40, 40)));
+	public static final RegistryObject<Item> TUBA = ITEMS.register("tuba", () -> (new InstrumentItem((new Item.Properties()).stacksTo(1).stacksTo(180), () -> InstrumentalRegistry.TUBA_SOUND.get(), 20, 40)));
+	public static final RegistryObject<Item> XYLOPHONE = ITEMS.register("xylophone", () -> (new InstrumentItem((new Item.Properties()).stacksTo(1).durability(160), () -> InstrumentalRegistry.XYLOPHONE_SOUND.get(), 30, 30)));
 
 	public static final RegistryObject<Item> CYMBAL_HUSK_SPAWN_EGG = ITEMS.register("cymbal_husk_spawn_egg", () -> new ForgeSpawnEggItem(() -> InstrumentalRegistry.CYMBAL_HUSK.get(), 7958625, 15125652, (new Item.Properties())));
 	public static final RegistryObject<Item> DRUM_ZOMBIE_SPAWN_EGG = ITEMS.register("drum_zombie_spawn_egg", () -> new ForgeSpawnEggItem(() -> InstrumentalRegistry.DRUM_ZOMBIE.get(), 44975, 7969893, (new Item.Properties())));
@@ -56,6 +63,13 @@ public class InstrumentalRegistry {
 	public static final RegistryObject<Item> MICROPHONE_GHAST_SPAWN_EGG = ITEMS.register("microphone_ghast_spawn_egg", () -> new ForgeSpawnEggItem(() -> InstrumentalRegistry.MICROPHONE_GHAST.get(), 16382457, 12369084, (new Item.Properties())));
 	public static final RegistryObject<Item> TUBA_ENDERMAN_SPAWN_EGG = ITEMS.register("tuba_enderman_spawn_egg", () -> new ForgeSpawnEggItem(() -> InstrumentalRegistry.TUBA_ENDERMAN.get(), 1447446, 0, (new Item.Properties())));
 	public static final RegistryObject<Item> XYLOPHONE_SKELETON_SPAWN_EGG = ITEMS.register("xylophone_skeleton_spawn_egg", () -> new ForgeSpawnEggItem(() -> InstrumentalRegistry.XYLOPHONE_SKELETON.get(), 12698049, 4802889, (new Item.Properties())));
+	public static final RegistryObject<CreativeModeTab> INSTRUMENTAL_TAB = CREATIVE_MODE_TABS.register("tab", () -> CreativeModeTab.builder()
+			.icon(() -> new ItemStack(Blocks.NOTE_BLOCK))
+			.title(Component.translatable("itemGroup.instrumentalmobs"))
+			.displayItems((displayParameters, output) -> {
+				List<ItemStack> stacks = InstrumentalRegistry.ITEMS.getEntries().stream().map(reg -> new ItemStack(reg.get())).toList();
+				output.acceptAll(stacks);
+			}).build());
 
 	public static final RegistryObject<EntityType<CymbalHuskEntity>> CYMBAL_HUSK = ENTITIES.register("cymbal_husk",
 			() -> EntityType.Builder.<CymbalHuskEntity>of(CymbalHuskEntity::new, MobCategory.MONSTER)
@@ -86,13 +100,13 @@ public class InstrumentalRegistry {
 			() -> EntityType.Builder.<EntitySoundWaves>of(EntitySoundWaves::new, MobCategory.MISC)
 					.sized(0.3125F, 0.3125F).clientTrackingRange(4).clientTrackingRange(10)
 					.setCustomClientFactory(EntitySoundWaves::new).build("sound_waves"));
-	public static final RegistryObject<SoundEvent> cymbals_sound = SOUND_EVENTS.register("cymbal.sound", () -> createSound("cymbal.sound"));
-	public static final RegistryObject<SoundEvent> drum_sound = SOUND_EVENTS.register("drum.sound", () -> createSound("drum.sound"));
-	public static final RegistryObject<SoundEvent> french_horn_sound = SOUND_EVENTS.register("frenchhorn.sound", () -> createSound("frenchhorn.sound"));
-	public static final RegistryObject<SoundEvent> maraca_sound = SOUND_EVENTS.register("maraca.sound", () -> createSound("maraca.sound"));
-	public static final RegistryObject<SoundEvent> single_drum_sound = SOUND_EVENTS.register("drum.single.sound", () -> createSound("drum.single.sound"));
-	public static final RegistryObject<SoundEvent> tuba_sound = SOUND_EVENTS.register("tuba.sound", () -> createSound("tuba.sound"));
-	public static final RegistryObject<SoundEvent> xylophone_sound = SOUND_EVENTS.register("xylophone.sound", () -> createSound("xylophone.sound"));
+	public static final RegistryObject<SoundEvent> CYMBALS_SOUND = SOUND_EVENTS.register("cymbal.sound", () -> createSound("cymbal.sound"));
+	public static final RegistryObject<SoundEvent> DRUM_SOUND = SOUND_EVENTS.register("drum.sound", () -> createSound("drum.sound"));
+	public static final RegistryObject<SoundEvent> FRENCH_HORN_SOUND = SOUND_EVENTS.register("frenchhorn.sound", () -> createSound("frenchhorn.sound"));
+	public static final RegistryObject<SoundEvent> MARACA_SOUND = SOUND_EVENTS.register("maraca.sound", () -> createSound("maraca.sound"));
+	public static final RegistryObject<SoundEvent> SINGLE_DRUM_SOUND = SOUND_EVENTS.register("drum.single.sound", () -> createSound("drum.single.sound"));
+	public static final RegistryObject<SoundEvent> TUBA_SOUND = SOUND_EVENTS.register("tuba.sound", () -> createSound("tuba.sound"));
+	public static final RegistryObject<SoundEvent> XYLOPHONE_SOUND = SOUND_EVENTS.register("xylophone.sound", () -> createSound("xylophone.sound"));
 
 	private static SoundEvent createSound(String name) {
 		ResourceLocation resourceLocation = new ResourceLocation(Reference.MOD_ID, name);

@@ -1,0 +1,38 @@
+{
+  "parent": "instrumentalmobs:main/root",
+  "criteria": {
+    "instrument": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "instrumentalmobs:tuba"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.instrumentalmobs.tuba.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "instrumentalmobs:tuba"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.instrumentalmobs.tuba.title"
+    }
+  },
+  "requirements": [
+    [
+      "instrument"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

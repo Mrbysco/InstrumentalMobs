@@ -41,7 +41,7 @@ public class XylophoneSkeletonEntity extends Skeleton implements IInstrumentalMo
 		this.goalSelector.addGoal(2, new RestrictSunGoal(this));
 		this.goalSelector.addGoal(3, new FleeSunGoal(this, 1.0D));
 		this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, Wolf.class, 6.0F, 1.0D, 1.2D));
-		this.goalSelector.addGoal(4, new SkeletonInstrumentAttackGoal(this, 1.2D, false, () -> InstrumentalRegistry.xylophone_sound.get()));
+		this.goalSelector.addGoal(4, new SkeletonInstrumentAttackGoal(this, 1.2D, false, () -> InstrumentalRegistry.XYLOPHONE_SOUND.get()));
 		this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
 		this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
 		this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
@@ -55,7 +55,7 @@ public class XylophoneSkeletonEntity extends Skeleton implements IInstrumentalMo
 	protected void dropCustomDeathLoot(DamageSource source, int p_213333_2_, boolean p_213333_3_) {
 		super.dropCustomDeathLoot(source, p_213333_2_, p_213333_3_);
 		if (getDropChance() <= random.nextFloat()) {
-			this.spawnAtLocation(InstrumentalRegistry.xylophone.get());
+			this.spawnAtLocation(InstrumentalRegistry.XYLOPHONE.get());
 		}
 	}
 

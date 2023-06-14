@@ -30,7 +30,7 @@ public class MicrophoneGhastEntity extends Ghast implements IInstrumentalMobs {
 
 	public MicrophoneGhastEntity(EntityType<? extends MicrophoneGhastEntity> type, Level worldIn) {
 		super(type, worldIn);
-		this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(InstrumentalRegistry.microphone.get()));
+		this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(InstrumentalRegistry.MICROPHONE.get()));
 		this.setDropChance(EquipmentSlot.HEAD, getDropChance());
 	}
 
@@ -98,7 +98,7 @@ public class MicrophoneGhastEntity extends Ghast implements IInstrumentalMobs {
 			LivingEntity livingentity = this.parentEntity.getTarget();
 			double d0 = 64.0D;
 			if (livingentity.distanceToSqr(this.parentEntity) < 4096.0D && this.parentEntity.hasLineOfSight(livingentity)) {
-				Level world = this.parentEntity.level;
+				Level world = this.parentEntity.level();
 				++this.attackTimer;
 				if (this.attackTimer == 10 && !this.parentEntity.isSilent()) {
 					world.levelEvent((Player) null, 1015, this.parentEntity.blockPosition(), 0);
@@ -114,9 +114,9 @@ public class MicrophoneGhastEntity extends Ghast implements IInstrumentalMobs {
 						world.levelEvent((Player) null, 1016, this.parentEntity.blockPosition(), 0);
 					}
 
-					EntitySoundWaves entitysoundwave = new EntitySoundWaves(world, this.parentEntity, d2, d3, d4);
-					entitysoundwave.setPos(this.parentEntity.getX() + vector3d.x * 4.0D, this.parentEntity.getY(0.5D) + 0.5D, entitysoundwave.getZ() + vector3d.z * 4.0D);
-					world.addFreshEntity(entitysoundwave);
+					EntitySoundWaves soundWaves = new EntitySoundWaves(world, this.parentEntity, d2, d3, d4);
+					soundWaves.setPos(this.parentEntity.getX() + vector3d.x * 4.0D, this.parentEntity.getY(0.5D) + 0.5D, soundWaves.getZ() + vector3d.z * 4.0D);
+					world.addFreshEntity(soundWaves);
 					this.attackTimer = -40;
 				}
 			} else if (this.attackTimer > 0) {

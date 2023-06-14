@@ -6,14 +6,12 @@ import com.mrbysco.instrumentalmobs.config.InstrumentalConfig;
 import com.mrbysco.instrumentalmobs.init.InstrumentalEntities;
 import com.mrbysco.instrumentalmobs.init.InstrumentalModifiers;
 import com.mrbysco.instrumentalmobs.init.InstrumentalRegistry;
-import com.mrbysco.instrumentalmobs.init.InstrumentalTab;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 
@@ -27,21 +25,16 @@ public class InstrumentalMobs {
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, InstrumentalConfig.commonSpec);
 		eventBus.register(InstrumentalConfig.class);
 
-		eventBus.register(new InstrumentalTab());
-		eventBus.addListener(this::setup);
-
 		InstrumentalRegistry.BLOCKS.register(eventBus);
 		InstrumentalRegistry.ITEMS.register(eventBus);
 		InstrumentalRegistry.ENTITIES.register(eventBus);
+		InstrumentalRegistry.CREATIVE_MODE_TABS.register(eventBus);
 		InstrumentalRegistry.SOUND_EVENTS.register(eventBus);
 		InstrumentalModifiers.BIOME_MODIFIER_SERIALIZERS.register(eventBus);
 
 		eventBus.addListener(InstrumentalEntities::registerEntityAttributes);
+		eventBus.addListener(InstrumentalEntities::registerSpawnPlacements);
 
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> eventBus.addListener(ClientHandler::registerEntityRenders));
-	}
-
-	private void setup(final FMLCommonSetupEvent event) {
-		InstrumentalEntities.initializeMobs();
 	}
 }

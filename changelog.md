@@ -1,1 +1,1 @@
-* Fix crash when using the Microphone item
+* Initial update to 1.20

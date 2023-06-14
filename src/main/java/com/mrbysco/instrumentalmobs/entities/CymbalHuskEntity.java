@@ -38,8 +38,8 @@ public class CymbalHuskEntity extends Husk implements IInstrumentalMobs {
 
 	public CymbalHuskEntity(EntityType<? extends CymbalHuskEntity> type, Level worldIn) {
 		super(type, worldIn);
-		this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(InstrumentalRegistry.cymbal.get()));
-		this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(InstrumentalRegistry.cymbal.get()));
+		this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(InstrumentalRegistry.CYMBAL.get()));
+		this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(InstrumentalRegistry.CYMBAL.get()));
 		this.setDropChance(EquipmentSlot.MAINHAND, getDropChance());
 		this.setDropChance(EquipmentSlot.OFFHAND, getDropChance());
 	}
@@ -54,7 +54,7 @@ public class CymbalHuskEntity extends Husk implements IInstrumentalMobs {
 
 	@Override
 	protected void addBehaviourGoals() {
-		this.goalSelector.addGoal(2, new HuskInstrumentAttackGoal(this, 1.0D, false, () -> InstrumentalRegistry.cymbals_sound.get()));
+		this.goalSelector.addGoal(2, new HuskInstrumentAttackGoal(this, 1.0D, false, () -> InstrumentalRegistry.CYMBALS_SOUND.get()));
 		this.goalSelector.addGoal(6, new MoveThroughVillageGoal(this, 1.0D, true, 4, this::canBreakDoors));
 		this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D));
 		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(ZombifiedPiglin.class));

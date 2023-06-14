@@ -50,5 +50,6 @@
       ],
       "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "instrumentalmobs:entities/french_horn_creeper"
 }

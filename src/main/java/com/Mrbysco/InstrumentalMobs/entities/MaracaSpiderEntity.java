@@ -30,8 +30,8 @@ public class MaracaSpiderEntity extends Spider implements IInstrumentalMobs {
 
 	public MaracaSpiderEntity(EntityType<? extends MaracaSpiderEntity> type, Level worldIn) {
 		super(type, worldIn);
-		this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(InstrumentalRegistry.maraca.get()));
-		this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(InstrumentalRegistry.maraca.get()));
+		this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(InstrumentalRegistry.MARACA.get()));
+		this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(InstrumentalRegistry.MARACA.get()));
 		this.setDropChance(EquipmentSlot.MAINHAND, getDropChance());
 		this.setDropChance(EquipmentSlot.OFFHAND, getDropChance());
 	}
@@ -65,7 +65,7 @@ public class MaracaSpiderEntity extends Spider implements IInstrumentalMobs {
 
 	static class SpiderInstrumentAttack extends InstrumentAttackGoal {
 		public SpiderInstrumentAttack(MaracaSpiderEntity spider) {
-			super(spider, 1.0D, true, () -> InstrumentalRegistry.maraca_sound.get());
+			super(spider, 1.0D, true, () -> InstrumentalRegistry.MARACA_SOUND.get());
 		}
 
 		/**
@@ -118,6 +118,6 @@ public class MaracaSpiderEntity extends Spider implements IInstrumentalMobs {
 	@Override
 	protected void playStepSound(BlockPos pos, BlockState blockIn) {
 		this.playSound(SoundEvents.SPIDER_STEP, 0.15F, 1.0F);
-		this.playSound(InstrumentalRegistry.maraca_sound.get(), 0.15F, 1.0F);
+		this.playSound(InstrumentalRegistry.MARACA_SOUND.get(), 0.15F, 1.0F);
 	}
 }

@@ -54,10 +54,10 @@ public class EntityMicrophoneWave extends ThrowableItemProjectile {
 
 	protected void onHit(HitResult result) {
 		super.onHit(result);
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			this.soundExplosion();
 
-			this.level.broadcastEntityEvent(this, (byte) 3);
+			this.level().broadcastEntityEvent(this, (byte) 3);
 			this.discard();
 		}
 	}
@@ -67,7 +67,7 @@ public class EntityMicrophoneWave extends ThrowableItemProjectile {
 		Entity entity = result.getEntity();
 		if (entity instanceof Player collidingPlayer && shootingEntity instanceof Player playerIn) {
 			if (playerIn.canHarmPlayer(collidingPlayer)) {
-				if (this.level.random.nextInt(10) <= 2) {
+				if (this.level().random.nextInt(10) <= 2) {
 					collidingPlayer.hurt(Reference.causeSoundDamage(this), 1F);
 				}
 			}
@@ -78,10 +78,10 @@ public class EntityMicrophoneWave extends ThrowableItemProjectile {
 	}
 
 	public void soundExplosion() {
-		this.level.playSound(null, this.blockPosition(), sound, this.getSoundSource(), 1.0F, this.level.random.nextFloat() * 0.1F + 0.9F);
-		this.level.addParticle(ParticleTypes.NOTE, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
+		this.level().playSound(null, this.blockPosition(), sound, this.getSoundSource(), 1.0F, this.level().random.nextFloat() * 0.1F + 0.9F);
+		this.level().addParticle(ParticleTypes.NOTE, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
 		if (InstrumentalConfig.COMMON.mobsReact.get()) {
-			InstrumentHelper.instrumentDamage(this.level, (LivingEntity) this.getOwner(), this.getBoundingBox().inflate(InstrumentalConfig.COMMON.instrumentRange.get()));
+			InstrumentHelper.instrumentDamage(this.level(), (LivingEntity) this.getOwner(), this.getBoundingBox().inflate(InstrumentalConfig.COMMON.instrumentRange.get()));
 		}
 	}
 
@@ -92,6 +92,6 @@ public class EntityMicrophoneWave extends ThrowableItemProjectile {
 
 	@Override
 	protected Item getDefaultItem() {
-		return InstrumentalRegistry.microphone.get();
+		return InstrumentalRegistry.MICROPHONE.get();
 	}
 }

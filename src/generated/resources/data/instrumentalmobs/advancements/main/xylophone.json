@@ -1,0 +1,39 @@
+{
+  "parent": "instrumentalmobs:main/root",
+  "criteria": {
+    "instrument": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "instrumentalmobs:xylophone"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.instrumentalmobs.xylophone.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "instrumentalmobs:xylophone",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.instrumentalmobs.xylophone.title"
+    }
+  },
+  "requirements": [
+    [
+      "instrument"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

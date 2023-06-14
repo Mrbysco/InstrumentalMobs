@@ -1,0 +1,39 @@
+{
+  "parent": "instrumentalmobs:main/root",
+  "criteria": {
+    "instrument": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "instrumentalmobs:french_horn"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.instrumentalmobs.french_horn.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "instrumentalmobs:french_horn",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.instrumentalmobs.french_horn.title"
+    }
+  },
+  "requirements": [
+    [
+      "instrument"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

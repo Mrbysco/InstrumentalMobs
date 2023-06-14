@@ -29,19 +29,19 @@ public class TubaEndermanEntity extends EnderMan implements IInstrumentalMobs {
 
 	public TubaEndermanEntity(EntityType<? extends TubaEndermanEntity> type, Level worldIn) {
 		super(type, worldIn);
-		this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(InstrumentalRegistry.tuba.get()));
+		this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(InstrumentalRegistry.TUBA.get()));
 		this.setDropChance(EquipmentSlot.MAINHAND, getDropChance());
 		this.setCombatTask();
 	}
 
-	private final InstrumentAttackGoal playOnCollideGoal = new InstrumentAttackGoal(this, 1.0D, false, () -> InstrumentalRegistry.tuba_sound.get());
+	private final InstrumentAttackGoal playOnCollideGoal = new InstrumentAttackGoal(this, 1.0D, false, () -> InstrumentalRegistry.TUBA_SOUND.get());
 
 	private void setCombatTask() {
-		if (this.level != null && !this.level.isClientSide) {
+		if (this.level() != null && !this.level().isClientSide) {
 			this.goalSelector.removeGoal(this.playOnCollideGoal);
 			ItemStack itemstack = this.getMainHandItem();
 
-			if (itemstack.getItem() == InstrumentalRegistry.tuba.get()) {
+			if (itemstack.getItem() == InstrumentalRegistry.TUBA.get()) {
 				this.goalSelector.addGoal(7, this.playOnCollideGoal);
 			}
 		}
@@ -52,9 +52,9 @@ public class TubaEndermanEntity extends EnderMan implements IInstrumentalMobs {
 		if (this.tickCount >= this.lastStareSound + 400) {
 			this.lastStareSound = this.tickCount;
 			if (!this.isSilent()) {
-				this.level.playLocalSound(this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENDERMAN_STARE, this.getSoundSource(), 2.5F, 1.0F, false);
+				this.level().playLocalSound(this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENDERMAN_STARE, this.getSoundSource(), 2.5F, 1.0F, false);
 				if (this.getRandom().nextFloat() < 0.3) {
-					this.level.playLocalSound(this.getX(), this.getEyeY(), this.getZ(), InstrumentalRegistry.tuba_sound.get(), this.getSoundSource(), 2.5F, 1.0F, false);
+					this.level().playLocalSound(this.getX(), this.getEyeY(), this.getZ(), InstrumentalRegistry.TUBA_SOUND.get(), this.getSoundSource(), 2.5F, 1.0F, false);
 				}
 			}
 		}
@@ -109,7 +109,7 @@ public class TubaEndermanEntity extends EnderMan implements IInstrumentalMobs {
 		 * method as well.
 		 */
 		public boolean canUse() {
-			this.pendingTarget = this.enderman.level.getNearestPlayer(this.startAggroTargetConditions, this.enderman);
+			this.pendingTarget = this.enderman.level().getNearestPlayer(this.startAggroTargetConditions, this.enderman);
 			return this.pendingTarget != null;
 		}
 

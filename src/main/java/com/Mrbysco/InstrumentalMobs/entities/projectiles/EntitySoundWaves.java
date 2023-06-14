@@ -59,7 +59,7 @@ public class EntitySoundWaves extends AbstractHurtingProjectile implements ItemS
 
 	protected void onHit(HitResult result) {
 		super.onHit(result);
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			this.soundExplosion();
 
 			this.removeAfterChangingDimensions();
@@ -71,7 +71,7 @@ public class EntitySoundWaves extends AbstractHurtingProjectile implements ItemS
 		Entity entity = result.getEntity();
 		if (entity instanceof Player collidingPlayer && getOwner() instanceof Player playerIn) {
 			if (playerIn.canHarmPlayer(collidingPlayer)) {
-				if (this.level.random.nextInt(10) <= 2) {
+				if (this.level().random.nextInt(10) <= 2) {
 					collidingPlayer.hurt(Reference.causeSoundDamage(this), 1F);
 				}
 			}
@@ -85,10 +85,10 @@ public class EntitySoundWaves extends AbstractHurtingProjectile implements ItemS
 	}
 
 	public void soundExplosion() {
-		this.level.playSound(null, this.blockPosition(), sound, this.getSoundSource(), 1.0F, this.level.random.nextFloat() * 0.1F + 0.9F);
-		this.level.addParticle(ParticleTypes.NOTE, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
+		this.level().playSound(null, this.blockPosition(), sound, this.getSoundSource(), 1.0F, this.level().random.nextFloat() * 0.1F + 0.9F);
+		this.level().addParticle(ParticleTypes.NOTE, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
 		if (InstrumentalConfig.COMMON.mobsReact.get() && getOwner() instanceof LivingEntity) {
-			InstrumentHelper.instrumentDamage(this.level, (LivingEntity) this.getOwner(), this.getBoundingBox().inflate(InstrumentalConfig.COMMON.instrumentRange.get()));
+			InstrumentHelper.instrumentDamage(this.level(), (LivingEntity) this.getOwner(), this.getBoundingBox().inflate(InstrumentalConfig.COMMON.instrumentRange.get()));
 		}
 	}
 
@@ -111,6 +111,6 @@ public class EntitySoundWaves extends AbstractHurtingProjectile implements ItemS
 
 	@Override
 	public ItemStack getItem() {
-		return new ItemStack(InstrumentalRegistry.microphone.get());
+		return new ItemStack(InstrumentalRegistry.MICROPHONE.get());
 	}
 }

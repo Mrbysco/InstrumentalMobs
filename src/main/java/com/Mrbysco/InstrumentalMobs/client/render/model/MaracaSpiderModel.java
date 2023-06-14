@@ -18,8 +18,8 @@ public class MaracaSpiderModel<T extends MaracaSpiderEntity> extends SpiderModel
 	@Override
 	public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		super.setupAnim(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-		if (entityIn.isAttacking() && entityIn.level.random.nextFloat() > 0.5F) {
-			float randAngle = (float) entityIn.level.random.nextInt(45);
+		if (entityIn.isAttacking() && entityIn.getRandom().nextFloat() > 0.5F) {
+			float randAngle = (float) entityIn.getRandom().nextInt(45);
 			this.rightFrontLeg.yRot += randAngle;
 			this.leftFrontLeg.yRot += randAngle;
 		}
