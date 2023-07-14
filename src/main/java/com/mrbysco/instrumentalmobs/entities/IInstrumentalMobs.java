@@ -4,6 +4,6 @@ import com.mrbysco.instrumentalmobs.config.InstrumentalConfig;
 
 public interface IInstrumentalMobs {
 	default float getDropChance() {
-		return (float) InstrumentalConfig.COMMON.instrumentDropChance.get().doubleValue();
+		return InstrumentalConfig.COMMON.instrumentDropChance.get().floatValue();
 	}
 }
