@@ -33,6 +33,8 @@ public class XylophoneSkeletonEntity extends Skeleton implements IInstrumentalMo
 		super(type, worldIn);
 		this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.BONE));
 		this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.BONE));
+		this.setDropChance(EquipmentSlot.MAINHAND, getDropChance());
+		this.setDropChance(EquipmentSlot.OFFHAND, getDropChance());
 	}
 
 	@Override
