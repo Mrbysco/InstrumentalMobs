@@ -1,1 +1,1 @@
-* Fix creative tab ordering
+* Fix Xylophone Skeletons not setting the drop chance correctly
