@@ -1,1 +1,1 @@
-* Fix crash when using the Microphone item
+* Fix Xylophone Skeletons not setting the drop chance correctly
