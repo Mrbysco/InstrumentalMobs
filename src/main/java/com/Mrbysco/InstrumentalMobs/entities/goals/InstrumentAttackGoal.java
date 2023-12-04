@@ -18,13 +18,11 @@ public class InstrumentAttackGoal extends MeleeAttackGoal {
 	}
 
 	@Override
-	protected void checkAndPerformAttack(LivingEntity livingEntity, double p_190102_2_) {
-		double attackReach = this.getAttackReachSqr(livingEntity);
-
-		if (p_190102_2_ <= attackReach && this.ticksUntilNextAttack <= 0) {
-			this.ticksUntilNextAttack = 20;
+	protected void checkAndPerformAttack(LivingEntity livingEntity) {
+		if (this.canPerformAttack(livingEntity)) {
+			this.resetAttackCooldown();
 			this.mob.swing(InteractionHand.MAIN_HAND);
-			this.mob.playSound(instrumentSound.get(), 1F, 1F);
+			this.mob.doHurtTarget(livingEntity);
 			InstrumentHelper.instrumentDamage(this.mob);
 		}
 	}

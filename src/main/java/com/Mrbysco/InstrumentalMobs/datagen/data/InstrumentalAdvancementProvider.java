@@ -3,9 +3,10 @@ package com.mrbysco.instrumentalmobs.datagen.data;
 import com.mrbysco.instrumentalmobs.Reference;
 import com.mrbysco.instrumentalmobs.init.InstrumentalRegistry;
 import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementHolder;
+import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.advancements.FrameType;
-import net.minecraft.advancements.RequirementsStrategy;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.KilledTrigger;
@@ -15,12 +16,11 @@ import net.minecraft.data.advancements.AdvancementProvider;
 import net.minecraft.data.advancements.AdvancementSubProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredItem;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -37,9 +37,9 @@ public class InstrumentalAdvancementProvider extends AdvancementProvider {
 		}
 
 		@Override
-		public void generate(HolderLookup.Provider provider, Consumer<Advancement> consumer) {
+		public void generate(HolderLookup.Provider provider, Consumer<AdvancementHolder> consumer) {
 			//Root advancement
-			Advancement root = Advancement.Builder.advancement()
+			AdvancementHolder root = Advancement.Builder.advancement()
 					.display(rootDisplay(Items.NOTE_BLOCK, advancementPrefix("root" + ".title"),
 							advancementPrefix("root" + ".desc"), new ResourceLocation("textures/block/yellow_wool.png")))
 					.addCriterion("french_horn_creeper", KilledTrigger.TriggerInstance.playerKilledEntity(
@@ -57,13 +57,16 @@ public class InstrumentalAdvancementProvider extends AdvancementProvider {
 					.addCriterion("xylophone_skeleton", KilledTrigger.TriggerInstance.playerKilledEntity(
 							EntityPredicate.Builder.entity().of(InstrumentalRegistry.XYLOPHONE_SKELETON.get())
 					))
+					.addCriterion("trumpet_skeleton", KilledTrigger.TriggerInstance.playerKilledEntity(
+							EntityPredicate.Builder.entity().of(InstrumentalRegistry.TRUMPET_SKELETON.get())
+					))
 					.addCriterion("maraca_spider", KilledTrigger.TriggerInstance.playerKilledEntity(
 							EntityPredicate.Builder.entity().of(InstrumentalRegistry.MARACA_SPIDER.get())
 					))
 					.addCriterion("microphone_ghast", KilledTrigger.TriggerInstance.playerKilledEntity(
 							EntityPredicate.Builder.entity().of(InstrumentalRegistry.MICROPHONE_GHAST.get())
 					))
-					.requirements(RequirementsStrategy.OR)
+					.requirements(AdvancementRequirements.Strategy.OR)
 					.save(consumer, rootID("root"));
 
 			//Generate an advancement for every instrument
@@ -79,15 +82,16 @@ public class InstrumentalAdvancementProvider extends AdvancementProvider {
 
 		/**
 		 * Generate an advancement for picking up an instrument
-		 * @param consumer The consumer to add the advancement to
+		 *
+		 * @param consumer       The consumer to add the advancement to
 		 * @param registryObject The registry object of the instrument
-		 * @param root The root advancement
+		 * @param root           The root advancement
 		 */
-		public static void addInstrumentAdvancement(Consumer<Advancement> consumer, RegistryObject<Item> registryObject, Advancement root) {
+		public static void addInstrumentAdvancement(Consumer<AdvancementHolder> consumer, DeferredItem<? extends Item> registryObject, AdvancementHolder root) {
 			ResourceLocation registryLocation = registryObject.getId();
 			Item item = registryObject.get();
 			if (registryLocation != null) {
-				Advancement advancement = Advancement.Builder.advancement()
+				Advancement.Builder.advancement()
 						.display(simpleDisplay(item, registryLocation.getPath()))
 						.parent(root)
 						.addCriterion("instrument", InventoryChangeTrigger.TriggerInstance.hasItems(item))
@@ -123,16 +127,6 @@ public class InstrumentalAdvancementProvider extends AdvancementProvider {
 					Component.translatable(advancementPrefix(name + ".title")),
 					Component.translatable(advancementPrefix(name + ".desc")),
 					null, FrameType.TASK, true, false, false);
-		}
-
-		/**
-		 * Get a trigger instance for killing an entity.
-		 *
-		 * @param entityType The entity type.
-		 * @return The trigger instance.
-		 */
-		protected static KilledTrigger.TriggerInstance onKill(EntityType<?> entityType) {
-			return KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entityType));
 		}
 
 		/**

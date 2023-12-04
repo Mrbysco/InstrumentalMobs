@@ -20,13 +20,13 @@ import net.minecraft.data.registries.VanillaRegistries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
-import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.common.world.BiomeModifier;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.world.BiomeModifier;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
@@ -46,7 +46,7 @@ public class InstrumentalDataGen {
 
 			generator.addProvider(event.includeServer(), new InstrumentalAdvancementProvider(packOutput, lookupProvider));
 			generator.addProvider(event.includeServer(), new InstrumentalLoot(packOutput));
-			generator.addProvider(event.includeServer(), new InstrumentalRecipeProvider(packOutput));
+			generator.addProvider(event.includeServer(), new InstrumentalRecipeProvider(packOutput, lookupProvider));
 		}
 		if (event.includeClient()) {
 			generator.addProvider(event.includeClient(), new InstrumentalLanguageProvider(packOutput));
@@ -57,7 +57,7 @@ public class InstrumentalDataGen {
 	private static HolderLookup.Provider getProvider() {
 		final RegistrySetBuilder registryBuilder = new RegistrySetBuilder();
 		registryBuilder.add(Registries.DAMAGE_TYPE, InstrumentalDamageTypeProvider::bootstrap);
-		registryBuilder.add(ForgeRegistries.Keys.BIOME_MODIFIERS, context -> {
+		registryBuilder.add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, context -> {
 			registerModifier(context, EntityType.HUSK, InstrumentalRegistry.CYMBAL_HUSK.get(), 5);
 			registerModifier(context, EntityType.ZOMBIE, InstrumentalRegistry.DRUM_ZOMBIE.get(), 5);
 			registerModifier(context, EntityType.CREEPER, InstrumentalRegistry.FRENCH_HORN_CREEPER.get(), 5);
@@ -80,6 +80,6 @@ public class InstrumentalDataGen {
 	}
 
 	private static ResourceKey<BiomeModifier> getModifierKey(EntityType<?> type) {
-		return ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, ForgeRegistries.ENTITY_TYPES.getKey(type));
+		return ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, BuiltInRegistries.ENTITY_TYPE.getKey(type));
 	}
 }

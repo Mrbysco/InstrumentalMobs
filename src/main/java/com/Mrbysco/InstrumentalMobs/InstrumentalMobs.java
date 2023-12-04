@@ -6,13 +6,12 @@ import com.mrbysco.instrumentalmobs.config.InstrumentalConfig;
 import com.mrbysco.instrumentalmobs.init.InstrumentalEntities;
 import com.mrbysco.instrumentalmobs.init.InstrumentalModifiers;
 import com.mrbysco.instrumentalmobs.init.InstrumentalRegistry;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.fml.loading.FMLEnvironment;
 import org.slf4j.Logger;
 
 @Mod(Reference.MOD_ID)
@@ -35,6 +34,8 @@ public class InstrumentalMobs {
 		eventBus.addListener(InstrumentalEntities::registerEntityAttributes);
 		eventBus.addListener(InstrumentalEntities::registerSpawnPlacements);
 
-		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> eventBus.addListener(ClientHandler::registerEntityRenders));
+		if (FMLEnvironment.dist.isClient()) {
+			eventBus.addListener(ClientHandler::registerEntityRenders);
+		}
 	}
 }

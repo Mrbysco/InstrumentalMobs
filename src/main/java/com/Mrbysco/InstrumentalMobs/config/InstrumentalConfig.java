@@ -1,21 +1,21 @@
 package com.mrbysco.instrumentalmobs.config;
 
 import com.mrbysco.instrumentalmobs.InstrumentalMobs;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
+import net.neoforged.neoforge.common.ModConfigSpec;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.event.config.ModConfigEvent;
 import org.apache.commons.lang3.tuple.Pair;
 
 public class InstrumentalConfig {
 
 	public static class Common {
-		public final ForgeConfigSpec.BooleanValue mobsReact;
-		public final ForgeConfigSpec.DoubleValue instrumentRange;
-		public final ForgeConfigSpec.DoubleValue soundDamageChance;
-		public final ForgeConfigSpec.DoubleValue instrumentDropChance;
-		public final ForgeConfigSpec.DoubleValue instrumentHurtChance;
+		public final ModConfigSpec.BooleanValue mobsReact;
+		public final ModConfigSpec.DoubleValue instrumentRange;
+		public final ModConfigSpec.DoubleValue soundDamageChance;
+		public final ModConfigSpec.DoubleValue instrumentDropChance;
+		public final ModConfigSpec.DoubleValue instrumentHurtChance;
 
-		Common(ForgeConfigSpec.Builder builder) {
+		Common(ModConfigSpec.Builder builder) {
 			builder.comment("Server settings")
 					.push("Server");
 
@@ -43,11 +43,11 @@ public class InstrumentalConfig {
 		}
 	}
 
-	public static final ForgeConfigSpec commonSpec;
+	public static final ModConfigSpec commonSpec;
 	public static final InstrumentalConfig.Common COMMON;
 
 	static {
-		final Pair<Common, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(InstrumentalConfig.Common::new);
+		final Pair<Common, ModConfigSpec> specPair = new ModConfigSpec.Builder().configure(InstrumentalConfig.Common::new);
 		commonSpec = specPair.getRight();
 		COMMON = specPair.getLeft();
 	}

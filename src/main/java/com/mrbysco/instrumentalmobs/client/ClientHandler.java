@@ -10,7 +10,7 @@ import com.mrbysco.instrumentalmobs.client.render.XylophoneSkeletonRenderer;
 import com.mrbysco.instrumentalmobs.init.InstrumentalRegistry;
 import net.minecraft.client.renderer.entity.HuskRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
-import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 
 public class ClientHandler {
 	public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event) {

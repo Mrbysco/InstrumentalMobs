@@ -20,5 +20,7 @@ build
 # other
 eclipse
 run
-classes
-InstrumentalLogo.png
+runs
+run-data
+
+repo

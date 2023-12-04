@@ -18,8 +18,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.network.NetworkHooks;
-import net.minecraftforge.network.PlayMessages.SpawnEntity;
+import net.neoforged.neoforge.network.NetworkHooks;
+import net.neoforged.neoforge.network.PlayMessages;
 
 public class MicrophoneWave extends ThrowableItemProjectile {
 	private SoundEvent sound = SoundEvents.GHAST_SCREAM;
@@ -39,7 +39,7 @@ public class MicrophoneWave extends ThrowableItemProjectile {
 		super(InstrumentalRegistry.MICROPHONE_WAVE.get(), x, y, z, level);
 	}
 
-	public MicrophoneWave(SpawnEntity spawnEntity, Level level) {
+	public MicrophoneWave(PlayMessages.SpawnEntity spawnEntity, Level level) {
 		this(InstrumentalRegistry.MICROPHONE_WAVE.get(), level);
 	}
 

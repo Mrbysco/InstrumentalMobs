@@ -8,19 +8,19 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.biome.MobSpawnSettings.SpawnerData;
-import net.minecraftforge.common.world.BiomeModifier;
-import net.minecraftforge.common.world.MobSpawnSettingsBuilder;
-import net.minecraftforge.common.world.ModifiableBiomeInfo.BiomeInfo.Builder;
+import net.neoforged.neoforge.common.world.BiomeModifier;
+import net.neoforged.neoforge.common.world.MobSpawnSettingsBuilder;
+import net.neoforged.neoforge.common.world.ModifiableBiomeInfo;
 
 import java.util.List;
 
 public record AddRelativeSpawnBiomeModifier(EntityType<?> originalType,
 											EntityType<?> newType, int relativeWeight) implements BiomeModifier {
 	@Override
-	public void modify(Holder<Biome> biome, Phase phase, Builder builder) {
+	public void modify(Holder<Biome> biome, Phase phase, ModifiableBiomeInfo.BiomeInfo.Builder builder) {
 		if (phase == Phase.ADD) {
 			MobSpawnSettingsBuilder spawns = builder.getMobSpawnSettings();
-			MobSpawnSettings info = biome.get().getMobSettings();
+			MobSpawnSettings info = biome.value().getMobSettings();
 			final List<SpawnerData> spawnsList = spawns.getSpawner(MobCategory.MONSTER);
 			for (MobSpawnSettings.SpawnerData entry : info.getMobs(MobCategory.MONSTER).unwrap()) {
 				if (entry.type == originalType) {

@@ -1,6 +1,5 @@
 package com.mrbysco.instrumentalmobs.init;
 
-import com.mrbysco.instrumentalmobs.Reference;
 import com.mrbysco.instrumentalmobs.entities.CymbalHusk;
 import com.mrbysco.instrumentalmobs.entities.MicrophoneGhast;
 import net.minecraft.world.entity.SpawnPlacements.Type;
@@ -12,11 +11,9 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.level.levelgen.Heightmap.Types;
-import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
-import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
+import net.neoforged.neoforge.event.entity.SpawnPlacementRegisterEvent;
 
-@Mod.EventBusSubscriber(modid = Reference.MOD_ID)
 public class InstrumentalEntities {
 
 	public static void registerSpawnPlacements(SpawnPlacementRegisterEvent event) {

@@ -70,6 +70,20 @@
       },
       "trigger": "minecraft:player_killed_entity"
     },
+    "trumpet_skeleton": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "instrumentalmobs:trumpet_skeleton"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    },
     "tuba_enderman": {
       "conditions": {
         "entity": [
@@ -122,6 +136,7 @@
       "drum_zombie",
       "cymbal_husk",
       "xylophone_skeleton",
+      "trumpet_skeleton",
       "maraca_spider",
       "microphone_ghast"
     ]
