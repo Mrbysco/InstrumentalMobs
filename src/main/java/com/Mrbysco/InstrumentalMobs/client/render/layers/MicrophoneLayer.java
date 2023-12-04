@@ -2,7 +2,7 @@ package com.mrbysco.instrumentalmobs.client.render.layers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import com.mrbysco.instrumentalmobs.entities.MicrophoneGhastEntity;
+import com.mrbysco.instrumentalmobs.entities.MicrophoneGhast;
 import net.minecraft.client.model.GhastModel;
 import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -22,16 +22,17 @@ public class MicrophoneLayer<T extends Ghast, M extends GhastModel<T>> extends R
 	}
 
 	@Override
-	public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T ghast, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void render(PoseStack poseStack, MultiBufferSource bufferSource, int packedLightIn, T ghast,
+					   float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		ItemStack stack = ghast.getItemBySlot(EquipmentSlot.HEAD);
-		if (!stack.isEmpty() && ghast instanceof MicrophoneGhastEntity microphoneGhast && !microphoneGhast.isSinging()) {
-			matrixStackIn.pushPose();
+		if (!stack.isEmpty() && ghast instanceof MicrophoneGhast microphoneGhast && !microphoneGhast.isSinging()) {
+			poseStack.pushPose();
 
-			matrixStackIn.scale(0.25F, 0.25F, 0.25F);
-			matrixStackIn.mulPose(Axis.XP.rotationDegrees(-180F));
-			matrixStackIn.translate(-0.5F, -6F, 2F);
-			itemInHandRenderer.renderItem(ghast, stack, ItemDisplayContext.NONE, false, matrixStackIn, bufferIn, packedLightIn);
-			matrixStackIn.popPose();
+			poseStack.scale(0.25F, 0.25F, 0.25F);
+			poseStack.mulPose(Axis.XP.rotationDegrees(-180F));
+			poseStack.translate(-0.5F, -6F, 2F);
+			itemInHandRenderer.renderItem(ghast, stack, ItemDisplayContext.NONE, false, poseStack, bufferSource, packedLightIn);
+			poseStack.popPose();
 		}
 	}
 }

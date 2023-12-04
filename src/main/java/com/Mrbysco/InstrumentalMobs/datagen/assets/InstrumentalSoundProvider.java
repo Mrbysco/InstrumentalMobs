@@ -36,6 +36,9 @@ public class InstrumentalSoundProvider extends SoundDefinitionsProvider {
 		this.add(InstrumentalRegistry.MARACA_SOUND, definition()
 				.subtitle(modSubtitle(InstrumentalRegistry.MARACA_SOUND.getId()))
 				.with(sound(modLoc("instruments/maraca/maraca"))));
+		this.add(InstrumentalRegistry.TRUMPET_SOUND, definition()
+				.subtitle(modSubtitle(InstrumentalRegistry.TRUMPET_SOUND.getId()))
+				.with(sound(modLoc("instruments/trumpet/trumpet"))));
 	}
 
 

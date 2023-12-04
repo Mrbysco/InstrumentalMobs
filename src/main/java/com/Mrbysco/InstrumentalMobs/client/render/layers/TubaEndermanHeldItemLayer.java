@@ -22,8 +22,9 @@ public class TubaEndermanHeldItemLayer<T extends EnderMan, M extends EntityModel
 	}
 
 	@Override
-	public void render(PoseStack poseStack, MultiBufferSource bufferSource, int packedLightIn, T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		ItemStack stack = entitylivingbaseIn.getItemBySlot(EquipmentSlot.MAINHAND);
+	public void render(PoseStack poseStack, MultiBufferSource bufferSource, int packedLightIn, T enderman,
+					   float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		ItemStack stack = enderman.getItemBySlot(EquipmentSlot.MAINHAND);
 		if (!stack.isEmpty()) {
 			poseStack.pushPose();
 			this.getParentModel().getHead().translateAndRotate(poseStack);
@@ -35,7 +36,7 @@ public class TubaEndermanHeldItemLayer<T extends EnderMan, M extends EntityModel
 
 			poseStack.translate(-0.8F, 0.0F, 0.0F);
 
-			itemInHandRenderer.renderItem(entitylivingbaseIn, stack, ItemDisplayContext.NONE, false, poseStack, bufferSource, packedLightIn);
+			itemInHandRenderer.renderItem(enderman, stack, ItemDisplayContext.NONE, false, poseStack, bufferSource, packedLightIn);
 			poseStack.popPose();
 		}
 	}

@@ -18,28 +18,28 @@ public class DrumInstrument extends Item {
 	private final int cooldown;
 	private final int useDuration;
 
-	public DrumInstrument(Item.Properties properties, Supplier<? extends SoundEvent> soundIn, int cooldown, int duration) {
+	public DrumInstrument(Item.Properties properties, Supplier<? extends SoundEvent> soundSupplier, int cooldown, int duration) {
 		super(properties);
 
 		this.cooldown = cooldown;
-		this.sound = soundIn;
+		this.sound = soundSupplier;
 		this.useDuration = duration;
 	}
 
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level level, Player playerIn, InteractionHand handIn) {
-		ItemStack itemstack = playerIn.getItemInHand(handIn);
+	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+		ItemStack stack = player.getItemInHand(hand);
 
 		if (this.cooldown != 0) {
-			playerIn.getCooldowns().addCooldown(this, this.cooldown);
+			player.getCooldowns().addCooldown(this, this.cooldown);
 		}
 
-		playerIn.playSound(sound.get(), 1F, 1F);
+		player.playSound(sound.get(), 1F, 1F);
 		if (InstrumentalConfig.COMMON.mobsReact.get()) {
-			InstrumentHelper.instrumentDamage(level, playerIn);
+			InstrumentHelper.instrumentDamage(player);
 		}
-		itemstack.hurtAndBreak(1, playerIn, (player) -> player.broadcastBreakEvent(handIn));
-		return super.use(level, playerIn, handIn);
+		stack.hurtAndBreak(1, player, (playerIn) -> playerIn.broadcastBreakEvent(hand));
+		return super.use(level, player, hand);
 	}
 
 	@Override

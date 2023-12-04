@@ -29,6 +29,12 @@
     ],
     "subtitle": "instrumentalmobs.subtitle.maraca.sound"
   },
+  "trumpet.sound": {
+    "sounds": [
+      "instrumentalmobs:instruments/trumpet/trumpet"
+    ],
+    "subtitle": "instrumentalmobs.subtitle.trumpet.sound"
+  },
   "tuba.sound": {
     "sounds": [
       "instrumentalmobs:instruments/tuba/tuba"

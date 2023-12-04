@@ -1,15 +1,15 @@
 package com.mrbysco.instrumentalmobs.entities.goals;
 
-import com.mrbysco.instrumentalmobs.entities.CymbalHuskEntity;
+import com.mrbysco.instrumentalmobs.entities.CymbalHusk;
 import net.minecraft.sounds.SoundEvent;
 
 import java.util.function.Supplier;
 
 public class HuskInstrumentAttackGoal extends InstrumentAttackGoal {
-	private final CymbalHuskEntity zombie;
+	private final CymbalHusk zombie;
 	private int raiseArmTicks;
 
-	public HuskInstrumentAttackGoal(CymbalHuskEntity zombieIn, double speedIn, boolean longMemoryIn, Supplier<SoundEvent> sound) {
+	public HuskInstrumentAttackGoal(CymbalHusk zombieIn, double speedIn, boolean longMemoryIn, Supplier<SoundEvent> sound) {
 		super(zombieIn, speedIn, longMemoryIn, sound);
 		this.zombie = zombieIn;
 	}
@@ -37,6 +37,6 @@ public class HuskInstrumentAttackGoal extends InstrumentAttackGoal {
 		super.tick();
 		++this.raiseArmTicks;
 
-		this.zombie.setClapping(this.raiseArmTicks >= 5 && this.ticksUntilNextAttack < 10);
+		this.zombie.setPlayingInstrument(this.raiseArmTicks >= 5 && this.ticksUntilNextAttack < 10);
 	}
 }

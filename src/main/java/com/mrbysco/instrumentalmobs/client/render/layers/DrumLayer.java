@@ -22,8 +22,9 @@ public class DrumLayer<T extends Zombie, M extends ZombieModel<T> & ArmedModel> 
 	}
 
 	@Override
-	public void render(PoseStack poseStack, MultiBufferSource bufferSource, int packedLightIn, T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		ItemStack itemstack = entitylivingbaseIn.getItemBySlot(EquipmentSlot.CHEST);
+	public void render(PoseStack poseStack, MultiBufferSource bufferSource, int packedLightIn, T zombie,
+					   float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		ItemStack itemstack = zombie.getItemBySlot(EquipmentSlot.CHEST);
 		if (!itemstack.isEmpty()) {
 			poseStack.pushPose();
 
@@ -36,7 +37,7 @@ public class DrumLayer<T extends Zombie, M extends ZombieModel<T> & ArmedModel> 
 			}
 			poseStack.mulPose(Axis.XP.rotationDegrees(-10F));
 
-			itemInHandRenderer.renderItem(entitylivingbaseIn, itemstack, ItemDisplayContext.NONE, false, poseStack, bufferSource, packedLightIn);
+			itemInHandRenderer.renderItem(zombie, itemstack, ItemDisplayContext.NONE, false, poseStack, bufferSource, packedLightIn);
 
 			poseStack.popPose();
 		}

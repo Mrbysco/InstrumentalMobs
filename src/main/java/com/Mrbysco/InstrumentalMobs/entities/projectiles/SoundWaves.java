@@ -24,28 +24,28 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.network.PlayMessages.SpawnEntity;
 
-public class EntitySoundWaves extends AbstractHurtingProjectile implements ItemSupplier {
+public class SoundWaves extends AbstractHurtingProjectile implements ItemSupplier {
 	private SoundEvent sound = SoundEvents.GHAST_SCREAM;
 
-	public EntitySoundWaves(EntityType<? extends EntitySoundWaves> type, Level worldIn) {
-		super(type, worldIn);
+	public SoundWaves(EntityType<? extends SoundWaves> type, Level level) {
+		super(type, level);
 	}
 
-	public EntitySoundWaves(Level worldIn, double x, double y, double z, double accelX, double accelY, double accelZ) {
-		super(InstrumentalRegistry.SOUND_WAVE.get(), x, y, z, accelX, accelY, accelZ, worldIn);
+	public SoundWaves(Level level, double x, double y, double z, double accelX, double accelY, double accelZ) {
+		super(InstrumentalRegistry.SOUND_WAVE.get(), x, y, z, accelX, accelY, accelZ, level);
 	}
 
-	public EntitySoundWaves(Level worldIn, LivingEntity shooter, double accelX, double accelY, double accelZ) {
-		super(InstrumentalRegistry.SOUND_WAVE.get(), shooter, accelX, accelY, accelZ, worldIn);
+	public SoundWaves(Level level, LivingEntity shooter, double accelX, double accelY, double accelZ) {
+		super(InstrumentalRegistry.SOUND_WAVE.get(), shooter, accelX, accelY, accelZ, level);
 	}
 
-	public EntitySoundWaves(Level worldIn, LivingEntity shooter, SoundEvent theSound) {
-		super(InstrumentalRegistry.SOUND_WAVE.get(), shooter, 1, 1, 1, worldIn);
+	public SoundWaves(Level level, LivingEntity shooter, SoundEvent theSound) {
+		super(InstrumentalRegistry.SOUND_WAVE.get(), shooter, 1, 1, 1, level);
 		this.sound = theSound;
 	}
 
-	public EntitySoundWaves(SpawnEntity spawnEntity, Level worldIn) {
-		this(InstrumentalRegistry.SOUND_WAVE.get(), worldIn);
+	public SoundWaves(SpawnEntity spawnEntity, Level level) {
+		this(InstrumentalRegistry.SOUND_WAVE.get(), level);
 	}
 
 	@Override

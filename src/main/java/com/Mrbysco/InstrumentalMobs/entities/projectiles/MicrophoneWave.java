@@ -21,26 +21,26 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.network.PlayMessages.SpawnEntity;
 
-public class EntityMicrophoneWave extends ThrowableItemProjectile {
+public class MicrophoneWave extends ThrowableItemProjectile {
 	private SoundEvent sound = SoundEvents.GHAST_SCREAM;
 	private LivingEntity shootingEntity;
 
-	public EntityMicrophoneWave(EntityType<? extends EntityMicrophoneWave> type, Level worldIn) {
-		super(type, worldIn);
+	public MicrophoneWave(EntityType<? extends MicrophoneWave> type, Level level) {
+		super(type, level);
 	}
 
-	public EntityMicrophoneWave(Level worldIn, LivingEntity throwerIn, SoundEvent theSound) {
-		super(InstrumentalRegistry.MICROPHONE_WAVE.get(), throwerIn, worldIn);
+	public MicrophoneWave(Level level, LivingEntity throwerIn, SoundEvent theSound) {
+		super(InstrumentalRegistry.MICROPHONE_WAVE.get(), throwerIn, level);
 		this.shootingEntity = throwerIn;
 		this.sound = theSound;
 	}
 
-	public EntityMicrophoneWave(Level worldIn, double x, double y, double z) {
-		super(InstrumentalRegistry.MICROPHONE_WAVE.get(), x, y, z, worldIn);
+	public MicrophoneWave(Level level, double x, double y, double z) {
+		super(InstrumentalRegistry.MICROPHONE_WAVE.get(), x, y, z, level);
 	}
 
-	public EntityMicrophoneWave(SpawnEntity spawnEntity, Level worldIn) {
-		this(InstrumentalRegistry.MICROPHONE_WAVE.get(), worldIn);
+	public MicrophoneWave(SpawnEntity spawnEntity, Level level) {
+		this(InstrumentalRegistry.MICROPHONE_WAVE.get(), level);
 	}
 
 	@Override

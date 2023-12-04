@@ -36,14 +36,14 @@ public class DrumBlock extends Block {
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 
 	@Override
-	public void attack(BlockState state, Level worldIn, BlockPos pos, Player player) {
-		if (!worldIn.isClientSide) {
-			worldIn.blockEvent(pos, Blocks.NOTE_BLOCK, 1, 0);
+	public void attack(BlockState state, Level level, BlockPos pos, Player player) {
+		if (!level.isClientSide) {
+			level.blockEvent(pos, Blocks.NOTE_BLOCK, 1, 0);
 		}
 	}
 }

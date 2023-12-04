@@ -27,11 +27,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 
-public class XylophoneSkeletonEntity extends Skeleton implements IInstrumentalMobs {
-	private static final EntityDataAccessor<Boolean> PLAYING_RIBS = SynchedEntityData.<Boolean>defineId(XylophoneSkeletonEntity.class, EntityDataSerializers.BOOLEAN);
+public class XylophoneSkeleton extends Skeleton implements IInstrumentalMobs, IInstrumentalSkeleton {
+	private static final EntityDataAccessor<Boolean> PLAYING_RIBS = SynchedEntityData.<Boolean>defineId(XylophoneSkeleton.class, EntityDataSerializers.BOOLEAN);
 
-	public XylophoneSkeletonEntity(EntityType<? extends XylophoneSkeletonEntity> type, Level worldIn) {
-		super(type, worldIn);
+	public XylophoneSkeleton(EntityType<? extends XylophoneSkeleton> type, Level level) {
+		super(type, level);
 		this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.BONE));
 		this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.BONE));
 		this.setDropChance(EquipmentSlot.MAINHAND, getDropChance());
@@ -43,7 +43,7 @@ public class XylophoneSkeletonEntity extends Skeleton implements IInstrumentalMo
 		this.goalSelector.addGoal(2, new RestrictSunGoal(this));
 		this.goalSelector.addGoal(3, new FleeSunGoal(this, 1.0D));
 		this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, Wolf.class, 6.0F, 1.0D, 1.2D));
-		this.goalSelector.addGoal(4, new SkeletonInstrumentAttackGoal(this, 1.2D, false, () -> InstrumentalRegistry.XYLOPHONE_SOUND.get()));
+		this.goalSelector.addGoal(4, new SkeletonInstrumentAttackGoal<>(this, 1.2D, false, InstrumentalRegistry.XYLOPHONE_SOUND::get));
 		this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
 		this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
 		this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
@@ -68,15 +68,17 @@ public class XylophoneSkeletonEntity extends Skeleton implements IInstrumentalMo
 	@Override
 	protected void defineSynchedData() {
 		super.defineSynchedData();
-		this.getEntityData().define(PLAYING_RIBS, Boolean.valueOf(false));
+		this.getEntityData().define(PLAYING_RIBS, Boolean.FALSE);
 	}
 
-	public void setPlayingRibs(boolean armsRaised) {
-		this.getEntityData().set(PLAYING_RIBS, Boolean.valueOf(armsRaised));
+	@Override
+	public void setPlayingInstrument(boolean armsRaised) {
+		this.getEntityData().set(PLAYING_RIBS, armsRaised);
 	}
 
-	public boolean isPlayingRibs() {
-		return ((Boolean) this.getEntityData().get(PLAYING_RIBS)).booleanValue();
+	@Override
+	public boolean isPlayingInstrument() {
+		return (Boolean) this.getEntityData().get(PLAYING_RIBS);
 	}
 
 	@Override

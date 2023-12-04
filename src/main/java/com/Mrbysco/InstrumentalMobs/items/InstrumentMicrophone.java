@@ -1,6 +1,6 @@
 package com.mrbysco.instrumentalmobs.items;
 
-import com.mrbysco.instrumentalmobs.entities.projectiles.EntityMicrophoneWave;
+import com.mrbysco.instrumentalmobs.entities.projectiles.MicrophoneWave;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -27,21 +27,21 @@ public class InstrumentMicrophone extends Item {
 
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level level, Player playerIn, InteractionHand handIn) {
-		ItemStack itemstack = playerIn.getItemInHand(handIn);
+		ItemStack stack = playerIn.getItemInHand(handIn);
 
 		if (this.cooldown != 0) {
 			playerIn.getCooldowns().addCooldown(this, this.cooldown);
 		}
 
 		if (!level.isClientSide) {
-			EntityMicrophoneWave soundWave = new EntityMicrophoneWave(level, playerIn, sound.get());
+			MicrophoneWave soundWave = new MicrophoneWave(level, playerIn, sound.get());
 			soundWave.shoot(playerIn.getXRot(), playerIn.getYRot(), 0.0F, 2.0F, 0.0F);
 			soundWave.setOwner(playerIn);
 			level.addFreshEntity(soundWave);
 		}
 
-		itemstack.hurtAndBreak(1, playerIn, (player) -> player.broadcastBreakEvent(handIn));
-		return new InteractionResultHolder<ItemStack>(InteractionResult.SUCCESS, itemstack);
+		stack.hurtAndBreak(1, playerIn, (player) -> player.broadcastBreakEvent(handIn));
+		return new InteractionResultHolder<ItemStack>(InteractionResult.SUCCESS, stack);
 	}
 
 	@Override

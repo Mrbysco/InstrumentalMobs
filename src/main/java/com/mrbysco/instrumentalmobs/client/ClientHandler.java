@@ -4,6 +4,7 @@ import com.mrbysco.instrumentalmobs.client.render.DrumZombieRenderer;
 import com.mrbysco.instrumentalmobs.client.render.FrenchHornCreeperRenderer;
 import com.mrbysco.instrumentalmobs.client.render.MaracaSpiderRenderer;
 import com.mrbysco.instrumentalmobs.client.render.MicrophoneGhastRenderer;
+import com.mrbysco.instrumentalmobs.client.render.TrumpetSkeletonRenderer;
 import com.mrbysco.instrumentalmobs.client.render.TubaEndermanRenderer;
 import com.mrbysco.instrumentalmobs.client.render.XylophoneSkeletonRenderer;
 import com.mrbysco.instrumentalmobs.init.InstrumentalRegistry;
@@ -14,6 +15,7 @@ import net.minecraftforge.client.event.EntityRenderersEvent;
 public class ClientHandler {
 	public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event) {
 		event.registerEntityRenderer(InstrumentalRegistry.XYLOPHONE_SKELETON.get(), XylophoneSkeletonRenderer::new);
+		event.registerEntityRenderer(InstrumentalRegistry.TRUMPET_SKELETON.get(), TrumpetSkeletonRenderer::new);
 		event.registerEntityRenderer(InstrumentalRegistry.TUBA_ENDERMAN.get(), TubaEndermanRenderer::new);
 		event.registerEntityRenderer(InstrumentalRegistry.FRENCH_HORN_CREEPER.get(), FrenchHornCreeperRenderer::new);
 		event.registerEntityRenderer(InstrumentalRegistry.DRUM_ZOMBIE.get(), DrumZombieRenderer::new);

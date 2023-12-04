@@ -2,14 +2,14 @@ package com.mrbysco.instrumentalmobs.client.render.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import com.mrbysco.instrumentalmobs.entities.MaracaSpiderEntity;
+import com.mrbysco.instrumentalmobs.entities.MaracaSpider;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.SpiderModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.world.entity.HumanoidArm;
 import org.joml.Vector3f;
 
-public class MaracaSpiderModel<T extends MaracaSpiderEntity> extends SpiderModel<T> implements ArmedModel {
+public class MaracaSpiderModel<T extends MaracaSpider> extends SpiderModel<T> implements ArmedModel {
 
 	public MaracaSpiderModel(ModelPart part) {
 		super(part);
@@ -30,15 +30,15 @@ public class MaracaSpiderModel<T extends MaracaSpiderEntity> extends SpiderModel
 	}
 
 	@Override
-	public void translateToHand(HumanoidArm sideIn, PoseStack matrixStackIn) {
-		this.getLegForSide(sideIn).translateAndRotate(matrixStackIn);
-		matrixStackIn.mulPose(Axis.XP.rotation(-90.0F));
-		matrixStackIn.mulPose(Axis.YP.rotation(180.0F));
-		matrixStackIn.mulPose(Axis.XP.rotation(90.0F));
-		boolean flag = sideIn == HumanoidArm.LEFT;
+	public void translateToHand(HumanoidArm arm, PoseStack poseStack) {
+		this.getLegForSide(arm).translateAndRotate(poseStack);
+		poseStack.mulPose(Axis.XP.rotation(-90.0F));
+		poseStack.mulPose(Axis.YP.rotation(180.0F));
+		poseStack.mulPose(Axis.XP.rotation(90.0F));
+		boolean flag = arm == HumanoidArm.LEFT;
 
-		matrixStackIn.mulPose(Axis.of(new Vector3f(0.0F, flag ? -0.23F : 0.23F, flag ? -0.23F : 0.23F)).rotationDegrees(90F));
+		poseStack.mulPose(Axis.of(new Vector3f(0.0F, flag ? -0.23F : 0.23F, flag ? -0.23F : 0.23F)).rotationDegrees(90F));
 
-		matrixStackIn.translate((float) (flag ? 0.05F : -0.7F), flag ? -0.00F : -1F, flag ? -0.25F : 0.35F);
+		poseStack.translate((float) (flag ? 0.05F : -0.7F), flag ? -0.00F : -1F, flag ? -0.25F : 0.35F);
 	}
 }

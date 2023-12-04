@@ -1,11 +1,11 @@
 package com.mrbysco.instrumentalmobs.client.render.model;
 
-import com.mrbysco.instrumentalmobs.entities.TubaEndermanEntity;
+import com.mrbysco.instrumentalmobs.entities.TubaEnderman;
 import net.minecraft.client.model.EndermanModel;
 import net.minecraft.client.model.HeadedModel;
 import net.minecraft.client.model.geom.ModelPart;
 
-public class TubaEndermanModel<T extends TubaEndermanEntity> extends EndermanModel<T> implements HeadedModel {
+public class TubaEndermanModel<T extends TubaEnderman> extends EndermanModel<T> implements HeadedModel {
 
 	public TubaEndermanModel(ModelPart part) {
 		super(part);

@@ -74,6 +74,7 @@ public class InstrumentalAdvancementProvider extends AdvancementProvider {
 			addInstrumentAdvancement(consumer, InstrumentalRegistry.MICROPHONE, root);
 			addInstrumentAdvancement(consumer, InstrumentalRegistry.TUBA, root);
 			addInstrumentAdvancement(consumer, InstrumentalRegistry.XYLOPHONE, root);
+			addInstrumentAdvancement(consumer, InstrumentalRegistry.TRUMPET, root);
 		}
 
 		/**

@@ -2,7 +2,7 @@ package com.mrbysco.instrumentalmobs.client.render.layers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import com.mrbysco.instrumentalmobs.entities.XylophoneSkeletonEntity;
+import com.mrbysco.instrumentalmobs.entities.XylophoneSkeleton;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.ItemInHandRenderer;
@@ -24,50 +24,51 @@ public class HeldBoneLayer<T extends LivingEntity, M extends EntityModel<T> & Ar
 	}
 
 	@Override
-	public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		boolean flag = entitylivingbaseIn.getMainArm() == HumanoidArm.RIGHT;
-		ItemStack itemstack = flag ? entitylivingbaseIn.getOffhandItem() : entitylivingbaseIn.getMainHandItem();
-		ItemStack itemstack1 = flag ? entitylivingbaseIn.getMainHandItem() : entitylivingbaseIn.getOffhandItem();
+	public void render(PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn, T livingEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		boolean flag = livingEntity.getMainArm() == HumanoidArm.RIGHT;
+		ItemStack itemstack = flag ? livingEntity.getOffhandItem() : livingEntity.getMainHandItem();
+		ItemStack itemstack1 = flag ? livingEntity.getMainHandItem() : livingEntity.getOffhandItem();
 
 		if (!itemstack.isEmpty() || !itemstack1.isEmpty()) {
-			matrixStackIn.pushPose();
+			poseStack.pushPose();
 
-			if (entitylivingbaseIn.isBaby()) {
+			if (livingEntity.isBaby()) {
 				float f = 0.5F;
-				matrixStackIn.translate(0.0F, 0.75F, 0.0F);
-				matrixStackIn.scale(f, f, f);
+				poseStack.translate(0.0F, 0.75F, 0.0F);
+				poseStack.scale(f, f, f);
 			}
 
-			this.renderHeldItem(entitylivingbaseIn, itemstack1, ItemDisplayContext.THIRD_PERSON_LEFT_HAND, HumanoidArm.LEFT, matrixStackIn, bufferIn, packedLightIn);
-			this.renderHeldItem(entitylivingbaseIn, itemstack, ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, HumanoidArm.RIGHT, matrixStackIn, bufferIn, packedLightIn);
-			matrixStackIn.popPose();
+			this.renderHeldItem(livingEntity, itemstack1, ItemDisplayContext.THIRD_PERSON_LEFT_HAND, HumanoidArm.LEFT, poseStack, bufferIn, packedLightIn);
+			this.renderHeldItem(livingEntity, itemstack, ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, HumanoidArm.RIGHT, poseStack, bufferIn, packedLightIn);
+			poseStack.popPose();
 		}
 	}
 
-	private void renderHeldItem(LivingEntity livingBase, ItemStack stack, ItemDisplayContext displayContext, HumanoidArm handSide, PoseStack matrixStack, MultiBufferSource typeBuffer, int packedLightIn) {
+	private void renderHeldItem(LivingEntity livingBase, ItemStack stack, ItemDisplayContext displayContext,
+								HumanoidArm arm, PoseStack poseStack, MultiBufferSource bufferSource, int packedLightIn) {
 		if (!stack.isEmpty()) {
-			matrixStack.pushPose();
+			poseStack.pushPose();
 
 			if (livingBase.isShiftKeyDown()) {
-				matrixStack.translate(0.0F, 0.2F, 0.0F);
+				poseStack.translate(0.0F, 0.2F, 0.0F);
 			}
 
-			this.getParentModel().translateToHand(handSide, matrixStack);
+			this.getParentModel().translateToHand(arm, poseStack);
 
-			matrixStack.mulPose(Axis.XP.rotationDegrees(-90.0F));
-			matrixStack.mulPose(Axis.YP.rotationDegrees(180.0F));
-			boolean flag = handSide == HumanoidArm.LEFT;
-			if (livingBase instanceof XylophoneSkeletonEntity skeletal) {
-				boolean flag2 = skeletal.isPlayingRibs();
+			poseStack.mulPose(Axis.XP.rotationDegrees(-90.0F));
+			poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
+			boolean flag = arm == HumanoidArm.LEFT;
+			if (livingBase instanceof XylophoneSkeleton skeletal) {
+				boolean flag2 = skeletal.isPlayingInstrument();
 				if (flag2) {
-					matrixStack.scale(0.75F, 0.75F, 0.75F);
-					matrixStack.translate(0.0F, -0.225F, -0.5F);
-					matrixStack.mulPose(Axis.of(new Vector3f(1.0F, flag ? -0.2F : 0.2F, flag ? -0.2F : 0.2F)).rotationDegrees(45.0F));
+					poseStack.scale(0.75F, 0.75F, 0.75F);
+					poseStack.translate(0.0F, -0.225F, -0.5F);
+					poseStack.mulPose(Axis.of(new Vector3f(1.0F, flag ? -0.2F : 0.2F, flag ? -0.2F : 0.2F)).rotationDegrees(45.0F));
 				}
 			}
-			matrixStack.translate((double) ((float) (flag ? -1 : 1) / 16.0F), 0.125D, -0.625D);
-			itemInHandRenderer.renderItem(livingBase, stack, displayContext, flag, matrixStack, typeBuffer, packedLightIn);
-			matrixStack.popPose();
+			poseStack.translate((double) ((float) (flag ? -1 : 1) / 16.0F), 0.125D, -0.625D);
+			itemInHandRenderer.renderItem(livingBase, stack, displayContext, flag, poseStack, bufferSource, packedLightIn);
+			poseStack.popPose();
 		}
 	}
 }

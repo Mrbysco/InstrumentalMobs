@@ -2,8 +2,6 @@ package com.mrbysco.instrumentalmobs.config;
 
 import com.mrbysco.instrumentalmobs.InstrumentalMobs;
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
-import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 import org.apache.commons.lang3.tuple.Pair;
@@ -11,10 +9,11 @@ import org.apache.commons.lang3.tuple.Pair;
 public class InstrumentalConfig {
 
 	public static class Common {
-		public final BooleanValue mobsReact;
-		public final DoubleValue instrumentRange;
-		public final DoubleValue soundDamageChance;
-		public final DoubleValue instrumentDropChance;
+		public final ForgeConfigSpec.BooleanValue mobsReact;
+		public final ForgeConfigSpec.DoubleValue instrumentRange;
+		public final ForgeConfigSpec.DoubleValue soundDamageChance;
+		public final ForgeConfigSpec.DoubleValue instrumentDropChance;
+		public final ForgeConfigSpec.DoubleValue instrumentHurtChance;
 
 		Common(ForgeConfigSpec.Builder builder) {
 			builder.comment("Server settings")
@@ -35,6 +34,10 @@ public class InstrumentalConfig {
 			instrumentDropChance = builder
 					.comment("The chance of instrument dropping from a mob holding one [default: 0.5D]")
 					.defineInRange("instrumentDropChance", 0.5D, 0.0D, 1.0D);
+
+			instrumentHurtChance = builder
+					.comment("The chance of instrument hurting nearby entities upon sounding [default: 0.3D]")
+					.defineInRange("instrumentHurtChance", 0.3D, 0.0D, 1.0D);
 
 			builder.pop();
 		}

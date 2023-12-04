@@ -1,15 +1,16 @@
 package com.mrbysco.instrumentalmobs.entities.goals;
 
-import com.mrbysco.instrumentalmobs.entities.XylophoneSkeletonEntity;
+import com.mrbysco.instrumentalmobs.entities.IInstrumentalSkeleton;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.entity.monster.Skeleton;
 
 import java.util.function.Supplier;
 
-public class SkeletonInstrumentAttackGoal extends InstrumentAttackGoal {
-	private final XylophoneSkeletonEntity skeleton;
+public class SkeletonInstrumentAttackGoal<T extends Skeleton & IInstrumentalSkeleton> extends InstrumentAttackGoal {
+	private final T skeleton;
 	private int raiseArmTicks;
 
-	public SkeletonInstrumentAttackGoal(XylophoneSkeletonEntity skeletonIn, double speedIn, boolean longMemoryIn, Supplier<SoundEvent> sound) {
+	public SkeletonInstrumentAttackGoal(T skeletonIn, double speedIn, boolean longMemoryIn, Supplier<SoundEvent> sound) {
 		super(skeletonIn, speedIn, longMemoryIn, sound);
 		this.skeleton = skeletonIn;
 	}
@@ -27,7 +28,7 @@ public class SkeletonInstrumentAttackGoal extends InstrumentAttackGoal {
 	 */
 	public void stop() {
 		super.stop();
-		this.skeleton.setPlayingRibs(false);
+		this.skeleton.setPlayingInstrument(false);
 	}
 
 	/**
@@ -37,6 +38,6 @@ public class SkeletonInstrumentAttackGoal extends InstrumentAttackGoal {
 		super.tick();
 		++this.raiseArmTicks;
 
-		this.skeleton.setPlayingRibs(this.raiseArmTicks >= 5 && this.ticksUntilNextAttack < 10);
+		this.skeleton.setPlayingInstrument(this.raiseArmTicks >= 5 && this.ticksUntilNextAttack < 10);
 	}
 }

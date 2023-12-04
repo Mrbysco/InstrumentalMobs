@@ -25,16 +25,16 @@ import net.minecraft.world.phys.Vec3;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 
-public class TubaEndermanEntity extends EnderMan implements IInstrumentalMobs {
+public class TubaEnderman extends EnderMan implements IInstrumentalMobs {
 
-	public TubaEndermanEntity(EntityType<? extends TubaEndermanEntity> type, Level worldIn) {
-		super(type, worldIn);
+	public TubaEnderman(EntityType<? extends TubaEnderman> type, Level level) {
+		super(type, level);
 		this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(InstrumentalRegistry.TUBA.get()));
 		this.setDropChance(EquipmentSlot.MAINHAND, getDropChance());
 		this.setCombatTask();
 	}
 
-	private final InstrumentAttackGoal playOnCollideGoal = new InstrumentAttackGoal(this, 1.0D, false, () -> InstrumentalRegistry.TUBA_SOUND.get());
+	private final InstrumentAttackGoal playOnCollideGoal = new InstrumentAttackGoal(this, 1.0D, false, InstrumentalRegistry.TUBA_SOUND::get);
 
 	private void setCombatTask() {
 		if (this.level() != null && !this.level().isClientSide) {
@@ -63,7 +63,7 @@ public class TubaEndermanEntity extends EnderMan implements IInstrumentalMobs {
 	@Override
 	protected void registerGoals() {
 		this.goalSelector.addGoal(0, new FloatGoal(this));
-		this.goalSelector.addGoal(1, new TubaEndermanEntity.StareGoal(this));
+		this.goalSelector.addGoal(1, new TubaEnderman.StareGoal(this));
 		this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D, 0.0F));
 		this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
 		this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
@@ -88,7 +88,7 @@ public class TubaEndermanEntity extends EnderMan implements IInstrumentalMobs {
 	}
 
 	static class LookForPlayerGOal extends NearestAttackableTargetGoal<Player> {
-		private final TubaEndermanEntity enderman;
+		private final TubaEnderman enderman;
 		/**
 		 * The player
 		 */
@@ -98,7 +98,7 @@ public class TubaEndermanEntity extends EnderMan implements IInstrumentalMobs {
 		private final TargetingConditions startAggroTargetConditions;
 		private final TargetingConditions continueAggroTargetConditions = TargetingConditions.forCombat().ignoreLineOfSight();
 
-		public LookForPlayerGOal(TubaEndermanEntity tubaEnderman, @Nullable java.util.function.Predicate<LivingEntity> livingEntityPredicate) {
+		public LookForPlayerGOal(TubaEnderman tubaEnderman, @Nullable java.util.function.Predicate<LivingEntity> livingEntityPredicate) {
 			super(tubaEnderman, Player.class, 10, false, false, livingEntityPredicate);
 			this.enderman = tubaEnderman;
 			this.startAggroTargetConditions = TargetingConditions.forCombat().range(this.getFollowDistance()).selector((entity) -> tubaEnderman.isLookingAtMe((Player) entity));
@@ -180,10 +180,10 @@ public class TubaEndermanEntity extends EnderMan implements IInstrumentalMobs {
 	}
 
 	static class StareGoal extends Goal {
-		private final TubaEndermanEntity enderman;
+		private final TubaEnderman enderman;
 		private LivingEntity targetPlayer;
 
-		public StareGoal(TubaEndermanEntity endermanIn) {
+		public StareGoal(TubaEnderman endermanIn) {
 			this.enderman = endermanIn;
 			this.setFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
 		}

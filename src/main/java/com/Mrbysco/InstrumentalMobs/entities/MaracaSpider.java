@@ -25,11 +25,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class MaracaSpiderEntity extends Spider implements IInstrumentalMobs {
-	private static final EntityDataAccessor<Boolean> ATTACKING = SynchedEntityData.<Boolean>defineId(MaracaSpiderEntity.class, EntityDataSerializers.BOOLEAN);
+public class MaracaSpider extends Spider implements IInstrumentalMobs {
+	private static final EntityDataAccessor<Boolean> ATTACKING = SynchedEntityData.<Boolean>defineId(MaracaSpider.class, EntityDataSerializers.BOOLEAN);
 
-	public MaracaSpiderEntity(EntityType<? extends MaracaSpiderEntity> type, Level worldIn) {
-		super(type, worldIn);
+	public MaracaSpider(EntityType<? extends MaracaSpider> type, Level level) {
+		super(type, level);
 		this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(InstrumentalRegistry.MARACA.get()));
 		this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(InstrumentalRegistry.MARACA.get()));
 		this.setDropChance(EquipmentSlot.MAINHAND, getDropChance());
@@ -40,13 +40,13 @@ public class MaracaSpiderEntity extends Spider implements IInstrumentalMobs {
 	protected void registerGoals() {
 		this.goalSelector.addGoal(1, new FloatGoal(this));
 		this.goalSelector.addGoal(3, new LeapAtTargetGoal(this, 0.4F));
-		this.goalSelector.addGoal(4, new MaracaSpiderEntity.SpiderInstrumentAttack(this));
+		this.goalSelector.addGoal(4, new MaracaSpider.SpiderInstrumentAttack(this));
 		this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.8D));
 		this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
 		this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
-		this.targetSelector.addGoal(2, new MaracaSpiderEntity.TargetGoal<>(this, Player.class));
-		this.targetSelector.addGoal(3, new MaracaSpiderEntity.TargetGoal<>(this, IronGolem.class));
+		this.targetSelector.addGoal(2, new MaracaSpider.TargetGoal<>(this, Player.class));
+		this.targetSelector.addGoal(3, new MaracaSpider.TargetGoal<>(this, IronGolem.class));
 	}
 
 	@Override
@@ -60,12 +60,12 @@ public class MaracaSpiderEntity extends Spider implements IInstrumentalMobs {
 	}
 
 	public boolean isAttacking() {
-		return ((Boolean) this.getEntityData().get(ATTACKING)).booleanValue();
+		return (Boolean) this.getEntityData().get(ATTACKING);
 	}
 
 	static class SpiderInstrumentAttack extends InstrumentAttackGoal {
-		public SpiderInstrumentAttack(MaracaSpiderEntity spider) {
-			super(spider, 1.0D, true, () -> InstrumentalRegistry.MARACA_SOUND.get());
+		public SpiderInstrumentAttack(MaracaSpider spider) {
+			super(spider, 1.0D, true, InstrumentalRegistry.MARACA_SOUND::get);
 		}
 
 		/**
@@ -84,14 +84,14 @@ public class MaracaSpiderEntity extends Spider implements IInstrumentalMobs {
 
 		public void stop() {
 			super.stop();
-			MaracaSpiderEntity spider = (MaracaSpiderEntity) this.mob;
+			MaracaSpider spider = (MaracaSpider) this.mob;
 			spider.setAttacking(false);
 			spider.swinging = false;
 		}
 
 		public void start() {
 			super.start();
-			MaracaSpiderEntity spider = (MaracaSpiderEntity) this.mob;
+			MaracaSpider spider = (MaracaSpider) this.mob;
 			spider.setAttacking(true);
 			spider.swing(InteractionHand.MAIN_HAND);
 		}
@@ -102,7 +102,7 @@ public class MaracaSpiderEntity extends Spider implements IInstrumentalMobs {
 	}
 
 	static class TargetGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {
-		public TargetGoal(MaracaSpiderEntity spider, Class<T> classTarget) {
+		public TargetGoal(MaracaSpider spider, Class<T> classTarget) {
 			super(spider, classTarget, true);
 		}
 

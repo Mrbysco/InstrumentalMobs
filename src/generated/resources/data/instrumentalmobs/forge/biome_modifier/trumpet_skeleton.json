@@ -1,0 +1,6 @@
+{
+  "type": "instrumentalmobs:add_relative_mob_spawns",
+  "newType": "instrumentalmobs:trumpet_skeleton",
+  "originalType": "minecraft:skeleton",
+  "relativeWeight": 5
+}

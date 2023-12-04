@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mrbysco.instrumentalmobs.client.render.layers.TubaEndermanEyesLayer;
 import com.mrbysco.instrumentalmobs.client.render.layers.TubaEndermanHeldItemLayer;
 import com.mrbysco.instrumentalmobs.client.render.model.TubaEndermanModel;
-import com.mrbysco.instrumentalmobs.entities.TubaEndermanEntity;
+import com.mrbysco.instrumentalmobs.entities.TubaEnderman;
 import net.minecraft.client.model.EndermanModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -17,7 +17,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.Random;
 
-public class TubaEndermanRenderer extends MobRenderer<TubaEndermanEntity, TubaEndermanModel<TubaEndermanEntity>> {
+public class TubaEndermanRenderer extends MobRenderer<TubaEnderman, TubaEndermanModel<TubaEnderman>> {
 	private static final ResourceLocation ENDERMAN_TEXTURES = new ResourceLocation("textures/entity/enderman/enderman.png");
 	private final Random rnd = new Random();
 
@@ -27,27 +27,27 @@ public class TubaEndermanRenderer extends MobRenderer<TubaEndermanEntity, TubaEn
 		this.addLayer(new TubaEndermanHeldItemLayer<>(this, context.getItemInHandRenderer()));
 	}
 
-	public void render(TubaEndermanEntity entityIn, float entityYaw, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {
-		BlockState blockstate = entityIn.getCarriedBlock();
+	public void render(TubaEnderman tubaEnderman, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferSource, int packedLightIn) {
+		BlockState blockstate = tubaEnderman.getCarriedBlock();
 		EndermanModel<EnderMan> endermanmodel = (EndermanModel) this.getModel();
 		endermanmodel.carrying = blockstate != null;
-		endermanmodel.creepy = entityIn.isCreepy();
-		super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+		endermanmodel.creepy = tubaEnderman.isCreepy();
+		super.render(tubaEnderman, entityYaw, partialTicks, poseStack, bufferSource, packedLightIn);
 	}
 
-	public Vec3 getRenderOffset(TubaEndermanEntity entityIn, float partialTicks) {
-		if (entityIn.isCreepy()) {
+	public Vec3 getRenderOffset(TubaEnderman tubaEnderman, float partialTicks) {
+		if (tubaEnderman.isCreepy()) {
 			double d0 = 0.02D;
 			return new Vec3(this.rnd.nextGaussian() * 0.02D, 0.0D, this.rnd.nextGaussian() * 0.02D);
 		} else {
-			return super.getRenderOffset(entityIn, partialTicks);
+			return super.getRenderOffset(tubaEnderman, partialTicks);
 		}
 	}
 
 	/**
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
-	public ResourceLocation getTextureLocation(TubaEndermanEntity entity) {
+	public ResourceLocation getTextureLocation(TubaEnderman tubaEnderman) {
 		return ENDERMAN_TEXTURES;
 	}
 }

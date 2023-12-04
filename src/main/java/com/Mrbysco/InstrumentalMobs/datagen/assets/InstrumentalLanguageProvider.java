@@ -29,6 +29,7 @@ public class InstrumentalLanguageProvider extends LanguageProvider {
 		addItem(InstrumentalRegistry.MARACAS, "Maracas");
 		addItem(InstrumentalRegistry.MICROPHONE, "Microphone");
 		addItem(InstrumentalRegistry.XYLOPHONE_SKELETON_SPAWN_EGG, "Xylophone Skeleton Spawn Egg");
+		addItem(InstrumentalRegistry.TRUMPET_SKELETON_SPAWN_EGG, "Trumpet Skeleton Spawn Egg");
 		addItem(InstrumentalRegistry.FRENCH_HORN_CREEPER_SPAWN_EGG, "French Horn Creeper Spawn Egg");
 		addItem(InstrumentalRegistry.TUBA_ENDERMAN_SPAWN_EGG, "Tuba Enderman Spawn Egg");
 		addItem(InstrumentalRegistry.DRUM_ZOMBIE_SPAWN_EGG, "Drum Zombie Spawn Egg");
@@ -54,6 +55,7 @@ public class InstrumentalLanguageProvider extends LanguageProvider {
 		addSubtitle(InstrumentalRegistry.DRUM_SOUND, "Drum sounds");
 		addSubtitle(InstrumentalRegistry.CYMBALS_SOUND, "A Cymbal Crash sounds");
 		addSubtitle(InstrumentalRegistry.MARACA_SOUND, "Maraca sounds");
+		addSubtitle(InstrumentalRegistry.TRUMPET_SOUND, "Doot Doot");
 
 		add("death.attack.instrumentalmobs.sound", "%1$s was deafened");
 		add("death.attack.instrumentalmobs.sound.player", "%1$s was deafened trying to escape %2$s");
@@ -66,6 +68,7 @@ public class InstrumentalLanguageProvider extends LanguageProvider {
 		addAdvancement("microphone", "Microphone", "Just scream...");
 		addAdvancement("tuba", "Tuba", "Teleporting musicians... not fair *tuba noise*");
 		addAdvancement("xylophone", "Xylophone", "Did you enjoy the skeletons?");
+		addAdvancement("trumpet", "Trumpet", "Doot doot!");
 	}
 
 	public void addSubtitle(RegistryObject<SoundEvent> sound, String name) {

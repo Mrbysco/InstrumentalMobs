@@ -1,6 +1,6 @@
 package com.mrbysco.instrumentalmobs.entities;
 
-import com.mrbysco.instrumentalmobs.entities.projectiles.EntitySoundWaves;
+import com.mrbysco.instrumentalmobs.entities.projectiles.SoundWaves;
 import com.mrbysco.instrumentalmobs.init.InstrumentalRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -25,23 +25,22 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.EnumSet;
 
-public class MicrophoneGhastEntity extends Ghast implements IInstrumentalMobs {
-	private static final EntityDataAccessor<Boolean> SINGING = SynchedEntityData.<Boolean>defineId(MicrophoneGhastEntity.class, EntityDataSerializers.BOOLEAN);
+public class MicrophoneGhast extends Ghast implements IInstrumentalMobs {
+	private static final EntityDataAccessor<Boolean> SINGING = SynchedEntityData.<Boolean>defineId(MicrophoneGhast.class, EntityDataSerializers.BOOLEAN);
 
-	public MicrophoneGhastEntity(EntityType<? extends MicrophoneGhastEntity> type, Level worldIn) {
-		super(type, worldIn);
+	public MicrophoneGhast(EntityType<? extends MicrophoneGhast> type, Level level) {
+		super(type, level);
 		this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(InstrumentalRegistry.MICROPHONE.get()));
 		this.setDropChance(EquipmentSlot.HEAD, getDropChance());
 	}
 
 	@Override
 	protected void registerGoals() {
-		this.goalSelector.addGoal(5, new MicrophoneGhastEntity.RandomFlyGoal(this));
-		this.goalSelector.addGoal(7, new MicrophoneGhastEntity.LookAroundGoal(this));
-		this.goalSelector.addGoal(7, new MicrophoneGhastEntity.VoiceAttackGoal(this));
-		this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, (p_213812_1_) -> {
-			return Math.abs(p_213812_1_.getY() - this.getY()) <= 4.0D;
-		}));
+		this.goalSelector.addGoal(5, new MicrophoneGhast.RandomFlyGoal(this));
+		this.goalSelector.addGoal(7, new MicrophoneGhast.LookAroundGoal(this));
+		this.goalSelector.addGoal(7, new MicrophoneGhast.VoiceAttackGoal(this));
+		this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class,
+				10, true, false, (livingEntity) -> Math.abs(livingEntity.getY() - this.getY()) <= 4.0D));
 	}
 
 	@Override
@@ -55,14 +54,14 @@ public class MicrophoneGhastEntity extends Ghast implements IInstrumentalMobs {
 	}
 
 	public boolean isSinging() {
-		return ((Boolean) this.getEntityData().get(SINGING)).booleanValue();
+		return (Boolean) this.getEntityData().get(SINGING);
 	}
 
 	static class VoiceAttackGoal extends Goal {
-		private final MicrophoneGhastEntity parentEntity;
+		private final MicrophoneGhast parentEntity;
 		public int attackTimer;
 
-		public VoiceAttackGoal(MicrophoneGhastEntity ghast) {
+		public VoiceAttackGoal(MicrophoneGhast ghast) {
 			this.parentEntity = ghast;
 		}
 
@@ -114,7 +113,7 @@ public class MicrophoneGhastEntity extends Ghast implements IInstrumentalMobs {
 						world.levelEvent((Player) null, 1016, this.parentEntity.blockPosition(), 0);
 					}
 
-					EntitySoundWaves soundWaves = new EntitySoundWaves(world, this.parentEntity, d2, d3, d4);
+					SoundWaves soundWaves = new SoundWaves(world, this.parentEntity, d2, d3, d4);
 					soundWaves.setPos(this.parentEntity.getX() + vector3d.x * 4.0D, this.parentEntity.getY(0.5D) + 0.5D, soundWaves.getZ() + vector3d.z * 4.0D);
 					world.addFreshEntity(soundWaves);
 					this.attackTimer = -40;
@@ -128,9 +127,9 @@ public class MicrophoneGhastEntity extends Ghast implements IInstrumentalMobs {
 	}
 
 	static class LookAroundGoal extends Goal {
-		private final MicrophoneGhastEntity ghast;
+		private final MicrophoneGhast ghast;
 
-		public LookAroundGoal(MicrophoneGhastEntity ghast) {
+		public LookAroundGoal(MicrophoneGhast ghast) {
 			this.ghast = ghast;
 			this.setFlags(EnumSet.of(Goal.Flag.LOOK));
 		}
@@ -166,9 +165,9 @@ public class MicrophoneGhastEntity extends Ghast implements IInstrumentalMobs {
 	}
 
 	static class RandomFlyGoal extends Goal {
-		private final MicrophoneGhastEntity parentEntity;
+		private final MicrophoneGhast parentEntity;
 
-		public RandomFlyGoal(MicrophoneGhastEntity ghast) {
+		public RandomFlyGoal(MicrophoneGhast ghast) {
 			this.parentEntity = ghast;
 			this.setFlags(EnumSet.of(Goal.Flag.MOVE));
 		}
@@ -209,7 +208,7 @@ public class MicrophoneGhastEntity extends Ghast implements IInstrumentalMobs {
 		}
 	}
 
-	public static boolean canSpawnHere(EntityType<MicrophoneGhastEntity> p_223368_0_, LevelAccessor p_223368_1_, MobSpawnType reason, BlockPos p_223368_3_, RandomSource p_223368_4_) {
+	public static boolean canSpawnHere(EntityType<MicrophoneGhast> p_223368_0_, LevelAccessor p_223368_1_, MobSpawnType reason, BlockPos p_223368_3_, RandomSource p_223368_4_) {
 		return p_223368_1_.getDifficulty() != Difficulty.PEACEFUL && p_223368_4_.nextInt(20) == 0 && checkMobSpawnRules(p_223368_0_, p_223368_1_, reason, p_223368_3_, p_223368_4_);
 	}
 }

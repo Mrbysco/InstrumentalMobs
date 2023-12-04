@@ -1,15 +1,15 @@
 package com.mrbysco.instrumentalmobs.entities.goals;
 
-import com.mrbysco.instrumentalmobs.entities.DrumZombieEntity;
+import com.mrbysco.instrumentalmobs.entities.DrumZombie;
 import net.minecraft.sounds.SoundEvent;
 
 import java.util.function.Supplier;
 
 public class ZombieInstrumentAttackGoal extends InstrumentAttackGoal {
-	private final DrumZombieEntity zombie;
+	private final DrumZombie zombie;
 	private int raiseArmTicks;
 
-	public ZombieInstrumentAttackGoal(DrumZombieEntity zombieIn, double speedIn, boolean longMemoryIn, Supplier<SoundEvent> sound) {
+	public ZombieInstrumentAttackGoal(DrumZombie zombieIn, double speedIn, boolean longMemoryIn, Supplier<SoundEvent> sound) {
 		super(zombieIn, speedIn, longMemoryIn, sound);
 		this.zombie = zombieIn;
 	}

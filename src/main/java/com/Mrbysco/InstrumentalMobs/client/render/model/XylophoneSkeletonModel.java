@@ -1,7 +1,7 @@
 package com.mrbysco.instrumentalmobs.client.render.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mrbysco.instrumentalmobs.entities.XylophoneSkeletonEntity;
+import com.mrbysco.instrumentalmobs.entities.XylophoneSkeleton;
 import net.minecraft.client.model.SkeletonModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.util.Mth;
@@ -9,7 +9,7 @@ import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-public class XylophoneSkeletonModel<T extends XylophoneSkeletonEntity> extends SkeletonModel<T> {
+public class XylophoneSkeletonModel<T extends XylophoneSkeleton> extends SkeletonModel<T> {
 
 	public XylophoneSkeletonModel(ModelPart part) {
 		super(part);
@@ -20,7 +20,7 @@ public class XylophoneSkeletonModel<T extends XylophoneSkeletonEntity> extends S
 		super.setupAnim(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 		ItemStack stack = entityIn.getMainHandItem();
 
-		if (entityIn.isPlayingRibs() && stack.getItem() == Items.BONE) {
+		if (entityIn.isPlayingInstrument() && stack.getItem() == Items.BONE) {
 			float f = Mth.sin(this.attackTime * (float) Math.PI);
 			float f1 = Mth.sin((1.0F - (1.0F - this.attackTime) * (1.0F - this.attackTime)) * (float) Math.PI);
 			this.rightArm.zRot = 0.0F;
@@ -46,11 +46,11 @@ public class XylophoneSkeletonModel<T extends XylophoneSkeletonEntity> extends S
 		}
 	}
 
-	public void translateToHand(HumanoidArm sideIn, PoseStack matrixStackIn) {
-		float f = sideIn == HumanoidArm.RIGHT ? 1.0F : -1.0F;
-		ModelPart modelrenderer = this.getArm(sideIn);
-		modelrenderer.x += f;
-		modelrenderer.translateAndRotate(matrixStackIn);
-		modelrenderer.x -= f;
+	public void translateToHand(HumanoidArm arm, PoseStack poseStack) {
+		float f = arm == HumanoidArm.RIGHT ? 1.0F : -1.0F;
+		ModelPart modelPart = this.getArm(arm);
+		modelPart.x += f;
+		modelPart.translateAndRotate(poseStack);
+		modelPart.x -= f;
 	}
 }

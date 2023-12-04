@@ -65,6 +65,7 @@ public class InstrumentalDataGen {
 			registerModifier(context, EntityType.GHAST, InstrumentalRegistry.MICROPHONE_GHAST.get(), 5);
 			registerModifier(context, EntityType.ENDERMAN, InstrumentalRegistry.TUBA_ENDERMAN.get(), 5);
 			registerModifier(context, EntityType.SKELETON, InstrumentalRegistry.XYLOPHONE_SKELETON.get(), 5);
+			registerModifier(context, EntityType.SKELETON, InstrumentalRegistry.TRUMPET_SKELETON.get(), 5);
 		});
 		// We need the BIOME registry to be present so we can use a biome tag, doesn't matter that it's empty
 		registryBuilder.add(Registries.BIOME, context -> {

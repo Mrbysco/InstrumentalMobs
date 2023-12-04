@@ -22,30 +22,32 @@ public class MaracasLayer<T extends Spider, M extends EntityModel<T> & ArmedMode
 	}
 
 	@Override
-	public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		boolean flag = entitylivingbaseIn.getMainArm() == HumanoidArm.RIGHT;
-		ItemStack itemstack = flag ? entitylivingbaseIn.getOffhandItem() : entitylivingbaseIn.getMainHandItem();
-		ItemStack itemstack1 = flag ? entitylivingbaseIn.getMainHandItem() : entitylivingbaseIn.getOffhandItem();
+	public void render(PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn, T spider, float limbSwing,
+					   float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		boolean flag = spider.getMainArm() == HumanoidArm.RIGHT;
+		ItemStack stack = flag ? spider.getOffhandItem() : spider.getMainHandItem();
+		ItemStack otherStack = flag ? spider.getMainHandItem() : spider.getOffhandItem();
 
-		if (!itemstack.isEmpty() || !itemstack1.isEmpty()) {
-			matrixStackIn.pushPose();
+		if (!stack.isEmpty() || !otherStack.isEmpty()) {
+			poseStack.pushPose();
 
-			this.renderHeldItem(entitylivingbaseIn, itemstack, ItemDisplayContext.THIRD_PERSON_LEFT_HAND, HumanoidArm.LEFT, matrixStackIn, bufferIn, packedLightIn);
-			this.renderHeldItem(entitylivingbaseIn, itemstack1, ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, HumanoidArm.RIGHT, matrixStackIn, bufferIn, packedLightIn);
-			matrixStackIn.popPose();
+			this.renderHeldItem(spider, stack, ItemDisplayContext.THIRD_PERSON_LEFT_HAND, HumanoidArm.LEFT, poseStack, bufferIn, packedLightIn);
+			this.renderHeldItem(spider, otherStack, ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, HumanoidArm.RIGHT, poseStack, bufferIn, packedLightIn);
+			poseStack.popPose();
 		}
 	}
 
-	private void renderHeldItem(Spider spiderEntity, ItemStack stack, ItemDisplayContext transformType, HumanoidArm handSide, PoseStack matrixStack, MultiBufferSource typeBuffer, int packedLightIn) {
+	private void renderHeldItem(Spider spider, ItemStack stack, ItemDisplayContext displayContext, HumanoidArm handSide,
+								PoseStack poseStack, MultiBufferSource bufferSource, int packedLightIn) {
 		if (!stack.isEmpty()) {
-			matrixStack.pushPose();
-			this.getParentModel().translateToHand(handSide, matrixStack);
-			matrixStack.mulPose(Axis.XP.rotationDegrees(-90.0F));
-			matrixStack.mulPose(Axis.YP.rotationDegrees(180.0F));
+			poseStack.pushPose();
+			this.getParentModel().translateToHand(handSide, poseStack);
+			poseStack.mulPose(Axis.XP.rotationDegrees(-90.0F));
+			poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
 			boolean flag = handSide == HumanoidArm.LEFT;
-			matrixStack.translate((double) ((float) (flag ? -1 : 1) / 16.0F), 0.125D, -0.625D);
-			itemInHandRenderer.renderItem(spiderEntity, stack, transformType, flag, matrixStack, typeBuffer, packedLightIn);
-			matrixStack.popPose();
+			poseStack.translate((double) ((float) (flag ? -1 : 1) / 16.0F), 0.125D, -0.625D);
+			itemInHandRenderer.renderItem(spider, stack, displayContext, flag, poseStack, bufferSource, packedLightIn);
+			poseStack.popPose();
 		}
 	}
 }
