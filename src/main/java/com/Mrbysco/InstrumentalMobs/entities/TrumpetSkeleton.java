@@ -54,7 +54,7 @@ public class TrumpetSkeleton extends Skeleton implements IInstrumentalMobs, IIns
 	protected void dropCustomDeathLoot(DamageSource source, int p_213333_2_, boolean p_213333_3_) {
 		super.dropCustomDeathLoot(source, p_213333_2_, p_213333_3_);
 		if (getDropChance() <= random.nextFloat()) {
-			this.spawnAtLocation(InstrumentalRegistry.XYLOPHONE.get());
+			this.spawnAtLocation(InstrumentalRegistry.TRUMPET.get());
 		}
 	}
 
