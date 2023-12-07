@@ -41,7 +41,6 @@ import static com.mrbysco.instrumentalmobs.init.InstrumentalRegistry.DRUM_ZOMBIE
 import static com.mrbysco.instrumentalmobs.init.InstrumentalRegistry.FRENCH_HORN_CREEPER;
 import static com.mrbysco.instrumentalmobs.init.InstrumentalRegistry.MARACA_SPIDER;
 import static com.mrbysco.instrumentalmobs.init.InstrumentalRegistry.MICROPHONE_GHAST;
-import static com.mrbysco.instrumentalmobs.init.InstrumentalRegistry.TRUMPET;
 import static com.mrbysco.instrumentalmobs.init.InstrumentalRegistry.TRUMPET_SKELETON;
 import static com.mrbysco.instrumentalmobs.init.InstrumentalRegistry.TUBA_ENDERMAN;
 import static com.mrbysco.instrumentalmobs.init.InstrumentalRegistry.XYLOPHONE_SKELETON;
