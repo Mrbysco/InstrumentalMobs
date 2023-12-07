@@ -54,7 +54,7 @@
               "function": "minecraft:looting_enchant"
             }
           ],
-          "name": "instrumentalmobs:trumpet"
+          "name": "minecraft:bone"
         }
       ],
       "rolls": 1.0
