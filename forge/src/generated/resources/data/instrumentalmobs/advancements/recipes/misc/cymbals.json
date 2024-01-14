@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_cymbal": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "instrumentalmobs:cymbal"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "instrumentalmobs:cymbals"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_cymbal",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "instrumentalmobs:cymbals"
+    ]
+  },
+  "sends_telemetry_event": false
+}

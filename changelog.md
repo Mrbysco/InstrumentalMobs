@@ -1,1 +1,0 @@
-* Fix Trumpet skeleton dropping a Xylophone instead of a Trumpet

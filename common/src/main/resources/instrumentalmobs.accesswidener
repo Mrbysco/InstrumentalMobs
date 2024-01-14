@@ -1,0 +1,11 @@
+accessWidener   v1      named
+accessible field net/minecraft/client/model/CreeperModel head Lnet/minecraft/client/model/geom/ModelPart;
+accessible field net/minecraft/client/model/SpiderModel rightFrontLeg Lnet/minecraft/client/model/geom/ModelPart;
+accessible field net/minecraft/client/model/SpiderModel leftFrontLeg Lnet/minecraft/client/model/geom/ModelPart;
+accessible field net/minecraft/world/entity/ai/goal/MeleeAttackGoal ticksUntilNextAttack I
+accessible method net/minecraft/world/entity/monster/EnderMan teleportTowards (Lnet/minecraft/world/entity/Entity;)Z
+accessible field net/minecraft/world/entity/monster/EnderMan lastStareSound I
+extendable method net/minecraft/world/entity/monster/Creeper explodeCreeper ()V
+accessible method net/minecraft/world/entity/monster/Creeper spawnLingeringCloud ()V
+accessible field net/minecraft/world/entity/monster/Creeper explosionRadius I
+accessible method net/minecraft/world/damagesource/DamageSources source (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/entity/Entity;)Lnet/minecraft/world/damagesource/DamageSource;
