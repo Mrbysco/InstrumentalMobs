@@ -32,8 +32,6 @@ public class TrumpetSkeleton extends Skeleton implements IInstrumentalMobs, IIns
 
 	public TrumpetSkeleton(EntityType<? extends TrumpetSkeleton> type, Level level) {
 		super(type, level);
-		this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(InstrumentalRegistry.TRUMPET.get()));
-		this.setDropChance(EquipmentSlot.MAINHAND, getDropChance());
 	}
 
 	@Override
@@ -79,7 +77,10 @@ public class TrumpetSkeleton extends Skeleton implements IInstrumentalMobs, IIns
 		return (Boolean) this.getEntityData().get(DOOTING);
 	}
 
+
 	@Override
-	protected void populateDefaultEquipmentSlots(RandomSource randomSource, DifficultyInstance instance) {
+	protected void populateDefaultEquipmentSlots(RandomSource randomSource, DifficultyInstance difficultyInstance) {
+		this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(InstrumentalRegistry.TRUMPET.get()));
+		this.setDropChance(EquipmentSlot.MAINHAND, getDropChance());
 	}
 }

@@ -4,10 +4,15 @@ import com.mrbysco.instrumentalmobs.entities.goals.InstrumentAttackGoal;
 import com.mrbysco.instrumentalmobs.platform.Services;
 import com.mrbysco.instrumentalmobs.registration.InstrumentalRegistry;
 import com.mrbysco.instrumentalmobs.registration.InstrumentalSounds;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
@@ -22,6 +27,7 @@ import net.minecraft.world.entity.monster.Endermite;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
@@ -32,14 +38,12 @@ public class TubaEnderman extends EnderMan implements IInstrumentalMobs {
 
 	public TubaEnderman(EntityType<? extends TubaEnderman> type, Level level) {
 		super(type, level);
-		this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(InstrumentalRegistry.TUBA.get()));
-		this.setDropChance(EquipmentSlot.MAINHAND, getDropChance());
-		this.setCombatTask();
+		this.reassessWeaponGoal();
 	}
 
 	private final InstrumentAttackGoal playOnCollideGoal = new InstrumentAttackGoal(this, 1.0D, false, InstrumentalSounds.TUBA_SOUND::get);
 
-	private void setCombatTask() {
+	private void reassessWeaponGoal() {
 		if (this.level() != null && !this.level().isClientSide) {
 			this.goalSelector.removeGoal(this.playOnCollideGoal);
 			ItemStack itemstack = this.getMainHandItem();
@@ -87,6 +91,38 @@ public class TubaEnderman extends EnderMan implements IInstrumentalMobs {
 			vec31 = vec31.normalize();
 			double d1 = vec3.dot(vec31);
 			return d1 > 1.0D - 0.025D / d0 && player.hasLineOfSight(this);
+		}
+	}
+
+	@Override
+	protected void populateDefaultEquipmentSlots(RandomSource randomSource, DifficultyInstance difficultyInstance) {
+		this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(InstrumentalRegistry.TUBA.get()));
+		this.setDropChance(EquipmentSlot.MAINHAND, getDropChance());
+	}
+
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance,
+										MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData,
+										@Nullable CompoundTag compoundTag) {
+		RandomSource randomSource = serverLevelAccessor.getRandom();
+		spawnGroupData = super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
+
+		this.populateDefaultEquipmentSlots(randomSource, difficultyInstance);
+		this.reassessWeaponGoal();
+
+		return spawnGroupData;
+	}
+
+	@Override
+	public void readAdditionalSaveData(CompoundTag compoundTag) {
+		super.readAdditionalSaveData(compoundTag);
+		this.reassessWeaponGoal();
+	}
+
+	@Override
+	public void setItemSlot(EquipmentSlot equipmentSlot, ItemStack itemStack) {
+		super.setItemSlot(equipmentSlot, itemStack);
+		if (!this.level().isClientSide) {
+			this.reassessWeaponGoal();
 		}
 	}
 

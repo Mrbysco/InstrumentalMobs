@@ -33,10 +33,6 @@ public class XylophoneSkeleton extends Skeleton implements IInstrumentalMobs, II
 
 	public XylophoneSkeleton(EntityType<? extends XylophoneSkeleton> type, Level level) {
 		super(type, level);
-		this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.BONE));
-		this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.BONE));
-		this.setDropChance(EquipmentSlot.MAINHAND, getDropChance());
-		this.setDropChance(EquipmentSlot.OFFHAND, getDropChance());
 	}
 
 	@Override
@@ -84,5 +80,9 @@ public class XylophoneSkeleton extends Skeleton implements IInstrumentalMobs, II
 
 	@Override
 	protected void populateDefaultEquipmentSlots(RandomSource randomSource, DifficultyInstance instance) {
+		this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.BONE));
+		this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.BONE));
+		this.setDropChance(EquipmentSlot.MAINHAND, getDropChance());
+		this.setDropChance(EquipmentSlot.OFFHAND, getDropChance());
 	}
 }

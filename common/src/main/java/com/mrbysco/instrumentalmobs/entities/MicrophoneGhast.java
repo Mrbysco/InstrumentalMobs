@@ -3,16 +3,19 @@ package com.mrbysco.instrumentalmobs.entities;
 import com.mrbysco.instrumentalmobs.entities.projectiles.SoundWaves;
 import com.mrbysco.instrumentalmobs.registration.InstrumentalRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -21,7 +24,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
 
@@ -30,8 +35,6 @@ public class MicrophoneGhast extends Ghast implements IInstrumentalMobs {
 
 	public MicrophoneGhast(EntityType<? extends MicrophoneGhast> type, Level level) {
 		super(type, level);
-		this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(InstrumentalRegistry.MICROPHONE.get()));
-		this.setDropChance(EquipmentSlot.HEAD, getDropChance());
 	}
 
 	@Override
@@ -55,6 +58,23 @@ public class MicrophoneGhast extends Ghast implements IInstrumentalMobs {
 
 	public boolean isSinging() {
 		return (Boolean) this.getEntityData().get(SINGING);
+	}
+
+	@Override
+	protected void populateDefaultEquipmentSlots(RandomSource randomSource, DifficultyInstance difficultyInstance) {
+		this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(InstrumentalRegistry.MICROPHONE.get()));
+		this.setDropChance(EquipmentSlot.HEAD, getDropChance());
+	}
+
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance,
+										MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData,
+										@Nullable CompoundTag compoundTag) {
+		RandomSource randomSource = serverLevelAccessor.getRandom();
+		spawnGroupData = super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
+
+		this.populateDefaultEquipmentSlots(randomSource, difficultyInstance);
+
+		return spawnGroupData;
 	}
 
 	static class VoiceAttackGoal extends Goal {

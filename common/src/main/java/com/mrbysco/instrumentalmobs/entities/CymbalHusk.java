@@ -39,10 +39,6 @@ public class CymbalHusk extends Husk implements IInstrumentalMobs {
 
 	public CymbalHusk(EntityType<? extends CymbalHusk> type, Level level) {
 		super(type, level);
-		this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(InstrumentalRegistry.CYMBAL.get()));
-		this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(InstrumentalRegistry.CYMBAL.get()));
-		this.setDropChance(EquipmentSlot.MAINHAND, getDropChance());
-		this.setDropChance(EquipmentSlot.OFFHAND, getDropChance());
 	}
 
 	@Override
@@ -80,7 +76,11 @@ public class CymbalHusk extends Husk implements IInstrumentalMobs {
 	}
 
 	@Override
-	protected void populateDefaultEquipmentSlots(RandomSource p_219165_, DifficultyInstance p_219166_) {
+	protected void populateDefaultEquipmentSlots(RandomSource randomSource, DifficultyInstance difficultyInstance) {
+		this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(InstrumentalRegistry.CYMBAL.get()));
+		this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(InstrumentalRegistry.CYMBAL.get()));
+		this.setDropChance(EquipmentSlot.MAINHAND, getDropChance());
+		this.setDropChance(EquipmentSlot.OFFHAND, getDropChance());
 	}
 
 	class AttackTurtleEggGoal extends RemoveBlockGoal {
