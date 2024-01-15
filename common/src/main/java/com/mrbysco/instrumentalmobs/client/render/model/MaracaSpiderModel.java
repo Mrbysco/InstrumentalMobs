@@ -39,6 +39,6 @@ public class MaracaSpiderModel<T extends MaracaSpider> extends SpiderModel<T> im
 
 		poseStack.mulPose(Axis.of(new Vector3f(0.0F, flag ? -0.23F : 0.23F, flag ? -0.23F : 0.23F)).rotationDegrees(90F));
 
-		poseStack.translate((float) (flag ? 0.05F : -0.7F), flag ? -0.00F : -1F, flag ? -0.25F : 0.35F);
+		poseStack.translate((float) (flag ? 0.315F : -0.6125F), flag ? -0.125F : -1.3125F, flag ? -0.6875F : 0.425F);
 	}
 }
