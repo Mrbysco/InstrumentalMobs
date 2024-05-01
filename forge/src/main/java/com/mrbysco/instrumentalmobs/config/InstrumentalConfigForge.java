@@ -24,19 +24,19 @@ public class InstrumentalConfigForge {
 					.define("mobsReact", true);
 
 			instrumentRange = builder
-					.comment("The area in which the instruments react with mobs. [default: 10.0D]")
+					.comment("The area in which the instruments react with mobs. [default: 10.0]")
 					.defineInRange("instrumentRange", 10.0D, 0.01D, 128.0D);
 
 			soundDamageChance = builder
-					.comment("The chance of instrument sounds damaging mobs after pushing. [default: 0.35D]")
+					.comment("The chance of instrument sounds damaging mobs after pushing. [default: 0.35]")
 					.defineInRange("soundDamageChance", 0.35D, 0.001D, 1.0D);
 
 			instrumentDropChance = builder
-					.comment("The chance of instrument dropping from a mob holding one [default: 0.5D]")
+					.comment("The chance of instrument dropping from a mob holding one [default: 0.5]")
 					.defineInRange("instrumentDropChance", 0.5D, 0.0D, 1.0D);
 
 			instrumentHurtChance = builder
-					.comment("The chance of instrument hurting nearby entities upon sounding [default: 0.3D]")
+					.comment("The chance of instrument hurting nearby entities upon sounding [default: 0.3]")
 					.defineInRange("instrumentHurtChance", 0.3D, 0.0D, 1.0D);
 
 			builder.pop();

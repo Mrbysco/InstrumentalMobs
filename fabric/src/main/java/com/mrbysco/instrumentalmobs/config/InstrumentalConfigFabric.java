@@ -16,16 +16,16 @@ public class InstrumentalConfigFabric implements ConfigData {
 		@Comment("Mobs react upon usage of the instruments [default: true]")
 		public boolean mobsReact = true;
 
-		@Comment("The area in which the instruments react with mobs. [default: 10.0D]")
+		@Comment("The area in which the instruments react with mobs. [default: 10.0]")
 		public double instrumentRange = 10.0D;
 
-		@Comment("The chance of instrument sounds damaging mobs after pushing. [default: 0.35D]")
+		@Comment("The chance of instrument sounds damaging mobs after pushing. [default: 0.35]")
 		public double soundDamageChance = 0.35D;
 
-		@Comment("The chance of instrument dropping from a mob holding one [default: 0.5D]")
+		@Comment("The chance of instrument dropping from a mob holding one [default: 0.5]")
 		public double instrumentDropChance = 0.5D;
 
-		@Comment("The chance of instrument hurting nearby entities upon sounding [default: 0.3D]")
+		@Comment("The chance of instrument hurting nearby entities upon sounding [default: 0.3]")
 		public double instrumentHurtChance = 0.3D;
 	}
 
