@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "instrumentalmobs:maracas"
-            ]
+            "items": "instrumentalmobs:maracas"
           }
         ]
       },
@@ -20,8 +18,8 @@
       "translate": "advancement.instrumentalmobs.maracas.desc"
     },
     "icon": {
-      "item": "instrumentalmobs:maracas",
-      "nbt": "{Damage:0}"
+      "count": 1,
+      "id": "instrumentalmobs:maracas"
     },
     "title": {
       "translate": "advancement.instrumentalmobs.maracas.title"

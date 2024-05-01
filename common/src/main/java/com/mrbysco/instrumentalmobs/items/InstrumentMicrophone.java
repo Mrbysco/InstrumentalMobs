@@ -5,6 +5,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -26,21 +27,21 @@ public class InstrumentMicrophone extends Item {
 	}
 
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level level, Player playerIn, InteractionHand handIn) {
-		ItemStack stack = playerIn.getItemInHand(handIn);
+	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+		ItemStack stack = player.getItemInHand(hand);
 
 		if (this.cooldown != 0) {
-			playerIn.getCooldowns().addCooldown(this, this.cooldown);
+			player.getCooldowns().addCooldown(this, this.cooldown);
 		}
 
 		if (!level.isClientSide) {
-			MicrophoneWave soundWave = new MicrophoneWave(level, playerIn, sound.get());
-			soundWave.shoot(playerIn.getXRot(), playerIn.getYRot(), 0.0F, 2.0F, 0.0F);
-			soundWave.setOwner(playerIn);
+			MicrophoneWave soundWave = new MicrophoneWave(level, player, sound.get());
+			soundWave.shoot(player.getXRot(), player.getYRot(), 0.0F, 2.0F, 0.0F);
+			soundWave.setOwner(player);
 			level.addFreshEntity(soundWave);
 		}
 
-		stack.hurtAndBreak(1, playerIn, (player) -> player.broadcastBreakEvent(handIn));
+		stack.hurtAndBreak(1, player, hand == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
 		return new InteractionResultHolder<ItemStack>(InteractionResult.SUCCESS, stack);
 	}
 

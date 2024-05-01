@@ -63,9 +63,9 @@ public class XylophoneSkeleton extends Skeleton implements IInstrumentalMobs, II
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		this.getEntityData().define(PLAYING_RIBS, Boolean.FALSE);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(PLAYING_RIBS, Boolean.FALSE);
 	}
 
 	@Override

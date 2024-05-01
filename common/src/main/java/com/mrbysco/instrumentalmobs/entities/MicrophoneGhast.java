@@ -47,9 +47,9 @@ public class MicrophoneGhast extends Ghast implements IInstrumentalMobs {
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		this.getEntityData().define(SINGING, false);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(SINGING, false);
 	}
 
 	public void setSinging(boolean isSinging) {
@@ -66,11 +66,11 @@ public class MicrophoneGhast extends Ghast implements IInstrumentalMobs {
 		this.setDropChance(EquipmentSlot.HEAD, getDropChance());
 	}
 
+	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance,
-										MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData,
-										@Nullable CompoundTag compoundTag) {
+	                                    MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData) {
 		RandomSource randomSource = serverLevelAccessor.getRandom();
-		spawnGroupData = super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
+		spawnGroupData = super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData);
 
 		this.populateDefaultEquipmentSlots(randomSource, difficultyInstance);
 

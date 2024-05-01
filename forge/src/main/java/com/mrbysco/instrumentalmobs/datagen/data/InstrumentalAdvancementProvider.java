@@ -31,8 +31,8 @@ import java.util.function.Consumer;
 
 public class InstrumentalAdvancementProvider extends AdvancementProvider {
 
-	public InstrumentalAdvancementProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> completableFuture) {
-		super(packOutput, completableFuture, List.of(new InstrumentalAdvancements()));
+	public InstrumentalAdvancementProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+		super(packOutput, lookupProvider, List.of(new InstrumentalAdvancements()));
 	}
 
 	public static class InstrumentalAdvancements implements AdvancementSubProvider {

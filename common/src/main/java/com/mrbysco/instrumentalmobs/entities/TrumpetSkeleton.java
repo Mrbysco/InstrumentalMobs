@@ -62,9 +62,9 @@ public class TrumpetSkeleton extends Skeleton implements IInstrumentalMobs, IIns
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		this.getEntityData().define(DOOTING, Boolean.FALSE);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(DOOTING, Boolean.FALSE);
 	}
 
 	@Override

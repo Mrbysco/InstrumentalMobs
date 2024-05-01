@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "instrumentalmobs:tuba"
-            ]
+            "items": "instrumentalmobs:tuba"
           }
         ]
       },
@@ -20,7 +18,8 @@
       "translate": "advancement.instrumentalmobs.tuba.desc"
     },
     "icon": {
-      "item": "instrumentalmobs:tuba"
+      "count": 1,
+      "id": "instrumentalmobs:tuba"
     },
     "title": {
       "translate": "advancement.instrumentalmobs.tuba.title"

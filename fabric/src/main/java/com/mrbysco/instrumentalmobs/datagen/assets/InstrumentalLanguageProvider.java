@@ -6,16 +6,19 @@ import com.mrbysco.instrumentalmobs.registration.InstrumentalRegistry;
 import com.mrbysco.instrumentalmobs.registration.InstrumentalSounds;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.sounds.SoundEvent;
+
+import java.util.concurrent.CompletableFuture;
 
 public class InstrumentalLanguageProvider extends FabricLanguageProvider {
 
-	public InstrumentalLanguageProvider(FabricDataOutput dataOutput) {
-		super(dataOutput);
+	public InstrumentalLanguageProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+		super(dataOutput, registryLookup);
 	}
 
 	@Override
-	public void generateTranslations(TranslationBuilder builder) {
+	public void generateTranslations(HolderLookup.Provider registryLookup, TranslationBuilder builder) {
 		builder.add("instrumentalmobs.config.title", "Instrumental Mobs config");
 
 		builder.add("itemGroup.instrumentalmobs", "Instrumental Mobs");
@@ -55,6 +58,7 @@ public class InstrumentalLanguageProvider extends FabricLanguageProvider {
 		addSubtitle(builder, InstrumentalSounds.TUBA_SOUND.get(), "Tuba Plays");
 		addSubtitle(builder, InstrumentalSounds.FRENCH_HORN_SOUND.get(), "French Horn Plays");
 		addSubtitle(builder, InstrumentalSounds.DRUM_SOUND.get(), "Drum sounds");
+		addSubtitle(builder, InstrumentalSounds.SINGLE_DRUM_SOUND.get(), "Drum sounds");
 		addSubtitle(builder, InstrumentalSounds.CYMBALS_SOUND.get(), "A Cymbal Crash sounds");
 		addSubtitle(builder, InstrumentalSounds.MARACA_SOUND.get(), "Maraca sounds");
 		addSubtitle(builder, InstrumentalSounds.TRUMPET_SOUND.get(), "Doot Doot");

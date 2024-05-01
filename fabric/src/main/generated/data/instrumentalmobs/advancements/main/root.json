@@ -105,7 +105,8 @@
       "translate": "advancement.instrumentalmobs.root.desc"
     },
     "icon": {
-      "item": "minecraft:note_block"
+      "count": 1,
+      "id": "minecraft:note_block"
     },
     "title": {
       "translate": "advancement.instrumentalmobs.root.title"

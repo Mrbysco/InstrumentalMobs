@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "instrumentalmobs:trumpet"
-            ]
+            "items": "instrumentalmobs:trumpet"
           }
         ]
       },
@@ -20,8 +18,8 @@
       "translate": "advancement.instrumentalmobs.trumpet.desc"
     },
     "icon": {
-      "item": "instrumentalmobs:trumpet",
-      "nbt": "{Damage:0}"
+      "count": 1,
+      "id": "instrumentalmobs:trumpet"
     },
     "title": {
       "translate": "advancement.instrumentalmobs.trumpet.title"

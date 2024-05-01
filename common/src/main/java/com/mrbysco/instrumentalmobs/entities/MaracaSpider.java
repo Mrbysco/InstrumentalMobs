@@ -54,9 +54,9 @@ public class MaracaSpider extends Spider implements IInstrumentalMobs {
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		this.getEntityData().define(ATTACKING, false);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(ATTACKING, false);
 	}
 
 	public void setAttacking(boolean isAttacking) {
@@ -133,11 +133,11 @@ public class MaracaSpider extends Spider implements IInstrumentalMobs {
 		this.setDropChance(EquipmentSlot.OFFHAND, getDropChance());
 	}
 
+	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance,
-										MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData,
-										@Nullable CompoundTag compoundTag) {
+	                                    MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData) {
 		RandomSource randomSource = serverLevelAccessor.getRandom();
-		spawnGroupData = super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
+		spawnGroupData = super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData);
 
 		this.populateDefaultEquipmentSlots(randomSource, difficultyInstance);
 

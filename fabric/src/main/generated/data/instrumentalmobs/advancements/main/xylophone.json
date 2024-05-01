@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "instrumentalmobs:xylophone"
-            ]
+            "items": "instrumentalmobs:xylophone"
           }
         ]
       },
@@ -20,8 +18,8 @@
       "translate": "advancement.instrumentalmobs.xylophone.desc"
     },
     "icon": {
-      "item": "instrumentalmobs:xylophone",
-      "nbt": "{Damage:0}"
+      "count": 1,
+      "id": "instrumentalmobs:xylophone"
     },
     "title": {
       "translate": "advancement.instrumentalmobs.xylophone.title"

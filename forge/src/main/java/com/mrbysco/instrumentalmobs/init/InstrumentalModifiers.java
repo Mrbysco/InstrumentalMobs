@@ -1,6 +1,7 @@
 package com.mrbysco.instrumentalmobs.init;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.mrbysco.instrumentalmobs.Constants;
 import com.mrbysco.instrumentalmobs.modifier.AddRelativeSpawnBiomeModifier;
@@ -12,10 +13,10 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import java.util.function.Supplier;
 
 public class InstrumentalModifiers {
-	public static final DeferredRegister<Codec<? extends BiomeModifier>> BIOME_MODIFIER_SERIALIZERS = DeferredRegister.create(NeoForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS, Constants.MOD_ID);
+	public static final DeferredRegister<MapCodec<? extends BiomeModifier>> BIOME_MODIFIER_SERIALIZERS = DeferredRegister.create(NeoForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS, Constants.MOD_ID);
 
-	public static final Supplier<Codec<AddRelativeSpawnBiomeModifier>> ADD_RELATIVE_MOB_SPAWNS = BIOME_MODIFIER_SERIALIZERS.register("add_relative_mob_spawns", () ->
-			RecordCodecBuilder.create(builder -> builder.group(
+	public static final Supplier<MapCodec<AddRelativeSpawnBiomeModifier>> ADD_RELATIVE_MOB_SPAWNS = BIOME_MODIFIER_SERIALIZERS.register("add_relative_mob_spawns", () ->
+			RecordCodecBuilder.mapCodec(builder -> builder.group(
 					BuiltInRegistries.ENTITY_TYPE.byNameCodec().fieldOf("originalType").forGetter(AddRelativeSpawnBiomeModifier::originalType),
 					BuiltInRegistries.ENTITY_TYPE.byNameCodec().fieldOf("newType").forGetter(AddRelativeSpawnBiomeModifier::newType),
 					Codec.INT.fieldOf("relativeWeight").forGetter(AddRelativeSpawnBiomeModifier::relativeWeight)

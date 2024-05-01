@@ -62,9 +62,9 @@ public class CymbalHusk extends Husk implements IInstrumentalMobs {
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		this.getEntityData().define(CLAPPING, Boolean.FALSE);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(CLAPPING, Boolean.FALSE);
 	}
 
 	public void setPlayingInstrument(boolean isClapping) {

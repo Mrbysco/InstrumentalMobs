@@ -14,6 +14,7 @@ import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.KilledTrigger;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -23,16 +24,17 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 public class InstrumentalAdvancementProvider extends FabricAdvancementProvider {
 
-	public InstrumentalAdvancementProvider(FabricDataOutput dataOutput) {
-		super(dataOutput);
+	public InstrumentalAdvancementProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+		super(dataOutput, registryLookup);
 	}
 
 	@Override
-	public void generateAdvancement(Consumer<AdvancementHolder> consumer) {
+	public void generateAdvancement(HolderLookup.Provider registryLookup, Consumer<AdvancementHolder> consumer) {
 		//Root advancement
 		AdvancementHolder root = Advancement.Builder.advancement()
 				.display(rootDisplay(Items.NOTE_BLOCK, advancementPrefix("root" + ".title"),

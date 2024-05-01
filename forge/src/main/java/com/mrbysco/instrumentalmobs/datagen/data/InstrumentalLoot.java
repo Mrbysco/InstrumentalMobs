@@ -4,6 +4,8 @@ import com.mrbysco.instrumentalmobs.registration.InstrumentalEntities;
 import com.mrbysco.instrumentalmobs.registration.InstrumentalRegistry;
 import com.mrbysco.instrumentalmobs.registration.RegistryObject;
 import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.WritableRegistry;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.data.loot.EntityLootSubProvider;
@@ -11,6 +13,7 @@ import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
@@ -33,6 +36,7 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
 import static com.mrbysco.instrumentalmobs.registration.InstrumentalEntities.CYMBAL_HUSK;
@@ -47,9 +51,10 @@ import static com.mrbysco.instrumentalmobs.registration.InstrumentalRegistry.DRU
 import static com.mrbysco.instrumentalmobs.registration.InstrumentalRegistry.DRUM_ITEM;
 
 public class InstrumentalLoot extends LootTableProvider {
-	public InstrumentalLoot(PackOutput packOutput) {
+	public InstrumentalLoot(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
 		super(packOutput, Set.of(), List.of(new SubProviderEntry(InstrumentalBlocks::new, LootContextParamSets.BLOCK),
-				new SubProviderEntry(InstrumentalEntityLoot::new, LootContextParamSets.ENTITY)));
+						new SubProviderEntry(InstrumentalEntityLoot::new, LootContextParamSets.ENTITY)),
+				lookupProvider);
 	}
 
 	private static class InstrumentalBlocks extends BlockLootSubProvider {
@@ -101,7 +106,7 @@ public class InstrumentalLoot extends LootTableProvider {
 	}
 
 	@Override
-	protected void validate(Map<ResourceLocation, LootTable> map, ValidationContext validationtracker) {
-		map.forEach((name, table) -> table.validate(validationtracker));
+	protected void validate(WritableRegistry<LootTable> writableregistry, ValidationContext validationcontext, ProblemReporter.Collector problemreporter$collector) {
+		super.validate(writableregistry, validationcontext, problemreporter$collector);
 	}
 }

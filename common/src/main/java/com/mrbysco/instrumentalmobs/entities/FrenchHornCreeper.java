@@ -44,11 +44,11 @@ public class FrenchHornCreeper extends Creeper implements IInstrumentalMobs {
 		this.setDropChance(EquipmentSlot.MAINHAND, getDropChance());
 	}
 
+	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance,
-										MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData,
-										@Nullable CompoundTag compoundTag) {
+										MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData) {
 		RandomSource randomSource = serverLevelAccessor.getRandom();
-		spawnGroupData = super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
+		spawnGroupData = super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData);
 
 		this.populateDefaultEquipmentSlots(randomSource, difficultyInstance);
 

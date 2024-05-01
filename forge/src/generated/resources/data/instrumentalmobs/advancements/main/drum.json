@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "instrumentalmobs:drum"
-            ]
+            "items": "instrumentalmobs:drum"
           }
         ]
       },
@@ -20,8 +18,8 @@
       "translate": "advancement.instrumentalmobs.drum.desc"
     },
     "icon": {
-      "item": "instrumentalmobs:drum",
-      "nbt": "{Damage:0}"
+      "count": 1,
+      "id": "instrumentalmobs:drum"
     },
     "title": {
       "translate": "advancement.instrumentalmobs.drum.title"

@@ -1,6 +1,7 @@
 package com.mrbysco.instrumentalmobs.modifier;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mrbysco.instrumentalmobs.init.InstrumentalModifiers;
 import net.minecraft.core.Holder;
 import net.minecraft.world.entity.EntityType;
@@ -31,7 +32,7 @@ public record AddRelativeSpawnBiomeModifier(EntityType<?> originalType,
 	}
 
 	@Override
-	public Codec<? extends BiomeModifier> codec() {
+	public MapCodec<? extends BiomeModifier> codec() {
 		return InstrumentalModifiers.ADD_RELATIVE_MOB_SPAWNS.get();
 	}
 }

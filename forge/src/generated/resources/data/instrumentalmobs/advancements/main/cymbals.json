@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "instrumentalmobs:cymbals"
-            ]
+            "items": "instrumentalmobs:cymbals"
           }
         ]
       },
@@ -20,8 +18,8 @@
       "translate": "advancement.instrumentalmobs.cymbals.desc"
     },
     "icon": {
-      "item": "instrumentalmobs:cymbals",
-      "nbt": "{Damage:0}"
+      "count": 1,
+      "id": "instrumentalmobs:cymbals"
     },
     "title": {
       "translate": "advancement.instrumentalmobs.cymbals.title"

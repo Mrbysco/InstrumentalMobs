@@ -1,16 +1,19 @@
 package com.mrbysco.instrumentalmobs.datagen.data;
 
 import com.mrbysco.instrumentalmobs.registration.InstrumentalRegistry;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 
+import java.util.concurrent.CompletableFuture;
+
 public class InstrumentalRecipeProvider extends RecipeProvider {
 
-	public InstrumentalRecipeProvider(PackOutput packOutput) {
-		super(packOutput);
+	public InstrumentalRecipeProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+		super(packOutput, lookupProvider);
 	}
 
 	@Override

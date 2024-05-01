@@ -55,6 +55,7 @@ public class InstrumentalLanguageProvider extends LanguageProvider {
 		addSubtitle(InstrumentalSounds.TUBA_SOUND.get(), "Tuba Plays");
 		addSubtitle(InstrumentalSounds.FRENCH_HORN_SOUND.get(), "French Horn Plays");
 		addSubtitle(InstrumentalSounds.DRUM_SOUND.get(), "Drum sounds");
+		addSubtitle(InstrumentalSounds.SINGLE_DRUM_SOUND.get(), "Drum sounds");
 		addSubtitle(InstrumentalSounds.CYMBALS_SOUND.get(), "A Cymbal Crash sounds");
 		addSubtitle(InstrumentalSounds.MARACA_SOUND.get(), "Maraca sounds");
 		addSubtitle(InstrumentalSounds.TRUMPET_SOUND.get(), "Doot Doot");

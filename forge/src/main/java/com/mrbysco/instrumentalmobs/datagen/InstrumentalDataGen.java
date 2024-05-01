@@ -4,7 +4,6 @@ import com.mrbysco.instrumentalmobs.Constants;
 import com.mrbysco.instrumentalmobs.datagen.assets.InstrumentalLanguageProvider;
 import com.mrbysco.instrumentalmobs.datagen.assets.InstrumentalSoundProvider;
 import com.mrbysco.instrumentalmobs.datagen.data.InstrumentalAdvancementProvider;
-import com.mrbysco.instrumentalmobs.datagen.data.InstrumentalDamageTypeProvider;
 import com.mrbysco.instrumentalmobs.datagen.data.InstrumentalLoot;
 import com.mrbysco.instrumentalmobs.datagen.data.InstrumentalRecipeProvider;
 import com.mrbysco.instrumentalmobs.modifier.AddRelativeSpawnBiomeModifier;
@@ -18,11 +17,11 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.registries.VanillaRegistries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.common.world.BiomeModifier;
@@ -32,7 +31,7 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
 public class InstrumentalDataGen {
 	@SubscribeEvent
 	public static void gatherData(GatherDataEvent event) {
@@ -46,8 +45,8 @@ public class InstrumentalDataGen {
 					packOutput, CompletableFuture.supplyAsync(InstrumentalDataGen::getProvider), Set.of(Constants.MOD_ID)));
 
 			generator.addProvider(event.includeServer(), new InstrumentalAdvancementProvider(packOutput, lookupProvider));
-			generator.addProvider(event.includeServer(), new InstrumentalLoot(packOutput));
-			generator.addProvider(event.includeServer(), new InstrumentalRecipeProvider(packOutput));
+			generator.addProvider(event.includeServer(), new InstrumentalLoot(packOutput, lookupProvider));
+			generator.addProvider(event.includeServer(), new InstrumentalRecipeProvider(packOutput, lookupProvider));
 		}
 		if (event.includeClient()) {
 			generator.addProvider(event.includeClient(), new InstrumentalLanguageProvider(packOutput));
@@ -77,7 +76,7 @@ public class InstrumentalDataGen {
 		return registryBuilder.buildPatch(regAccess, VanillaRegistries.createLookup(), cloner$factory);
 	}
 
-	private static void registerModifier(BootstapContext<BiomeModifier> context, EntityType<?> originalType, EntityType<?> newType, int relativeWeight) {
+	private static void registerModifier(BootstrapContext<BiomeModifier> context, EntityType<?> originalType, EntityType<?> newType, int relativeWeight) {
 		context.register(getModifierKey(newType), new AddRelativeSpawnBiomeModifier(
 				originalType, newType, relativeWeight));
 	}

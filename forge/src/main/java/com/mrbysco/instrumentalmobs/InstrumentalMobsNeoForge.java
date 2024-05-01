@@ -6,7 +6,7 @@ import com.mrbysco.instrumentalmobs.entities.CymbalHusk;
 import com.mrbysco.instrumentalmobs.entities.MicrophoneGhast;
 import com.mrbysco.instrumentalmobs.init.InstrumentalModifiers;
 import com.mrbysco.instrumentalmobs.registration.InstrumentalEntities;
-import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.EnderMan;
@@ -15,19 +15,19 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
-import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.SpawnPlacementRegisterEvent;
 
 @Mod(Constants.MOD_ID)
-public class InstrumentalMobsForge {
+public class InstrumentalMobsNeoForge {
 
-	public InstrumentalMobsForge(IEventBus eventBus) {
-		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, InstrumentalConfigForge.commonSpec);
+	public InstrumentalMobsNeoForge(IEventBus eventBus, Dist dist, ModContainer container) {
+		container.registerConfig(ModConfig.Type.COMMON, InstrumentalConfigForge.commonSpec);
 		eventBus.register(InstrumentalConfigForge.class);
 
 		InstrumentalModifiers.BIOME_MODIFIER_SERIALIZERS.register(eventBus);
@@ -37,20 +37,20 @@ public class InstrumentalMobsForge {
 		eventBus.addListener(this::registerEntityAttributes);
 		eventBus.addListener(this::registerSpawnPlacements);
 
-		if (FMLEnvironment.dist.isClient()) {
+		if (dist.isClient()) {
 			eventBus.addListener(ClientHandler::registerEntityRenders);
 		}
 	}
 
 	public void registerSpawnPlacements(SpawnPlacementRegisterEvent event) {
-		event.register(InstrumentalEntities.CYMBAL_HUSK.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CymbalHusk::canSpawnHere, SpawnPlacementRegisterEvent.Operation.AND);
-		event.register(InstrumentalEntities.DRUM_ZOMBIE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
-		event.register(InstrumentalEntities.FRENCH_HORN_CREEPER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
-		event.register(InstrumentalEntities.MARACA_SPIDER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
-		event.register(InstrumentalEntities.MICROPHONE_GHAST.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MicrophoneGhast::canSpawnHere, SpawnPlacementRegisterEvent.Operation.AND);
-		event.register(InstrumentalEntities.TUBA_ENDERMAN.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
-		event.register(InstrumentalEntities.XYLOPHONE_SKELETON.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
-		event.register(InstrumentalEntities.TRUMPET_SKELETON.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+		event.register(InstrumentalEntities.CYMBAL_HUSK.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CymbalHusk::canSpawnHere, SpawnPlacementRegisterEvent.Operation.AND);
+		event.register(InstrumentalEntities.DRUM_ZOMBIE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+		event.register(InstrumentalEntities.FRENCH_HORN_CREEPER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+		event.register(InstrumentalEntities.MARACA_SPIDER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+		event.register(InstrumentalEntities.MICROPHONE_GHAST.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MicrophoneGhast::canSpawnHere, SpawnPlacementRegisterEvent.Operation.AND);
+		event.register(InstrumentalEntities.TUBA_ENDERMAN.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+		event.register(InstrumentalEntities.XYLOPHONE_SKELETON.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+		event.register(InstrumentalEntities.TRUMPET_SKELETON.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
 	}
 
 	public void registerEntityAttributes(EntityAttributeCreationEvent event) {

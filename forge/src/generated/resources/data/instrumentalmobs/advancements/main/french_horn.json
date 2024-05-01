@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "instrumentalmobs:french_horn"
-            ]
+            "items": "instrumentalmobs:french_horn"
           }
         ]
       },
@@ -20,8 +18,8 @@
       "translate": "advancement.instrumentalmobs.french_horn.desc"
     },
     "icon": {
-      "item": "instrumentalmobs:french_horn",
-      "nbt": "{Damage:0}"
+      "count": 1,
+      "id": "instrumentalmobs:french_horn"
     },
     "title": {
       "translate": "advancement.instrumentalmobs.french_horn.title"

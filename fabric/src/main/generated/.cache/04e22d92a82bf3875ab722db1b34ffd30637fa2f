@@ -1,10 +1,10 @@
-// 1.20.4	2024-05-01T23:13:17.2749526	Instrumental Mobs/Advancements
-8f54c6544726368efe25a3b179219785fcb14234 data\instrumentalmobs\advancements\main\cymbals.json
-12dd3030fa2e777900fdb7ba57b043058dac4718 data\instrumentalmobs\advancements\main\tuba.json
-a346fd6c95391c6fd1a9db26e92bae952dc6dfab data\instrumentalmobs\advancements\main\maracas.json
-4a6f32575338b6b5e1deb425cfe96d3de6e82cb3 data\instrumentalmobs\advancements\main\french_horn.json
-b8f7ea0e3a7d84b90d895a77d0ffd6aef6c7c18e data\instrumentalmobs\advancements\main\root.json
-f146f4dcfa251c0a2d4c0f43090f099fa444daed data\instrumentalmobs\advancements\main\trumpet.json
-d3b9f0a4c36a1478c7ab422cb429df7db286b858 data\instrumentalmobs\advancements\main\microphone.json
-2744153c7e98363e921ee9e0762a079a24d338ed data\instrumentalmobs\advancements\main\drum.json
-5c39f7fe13c8822a54364d035defab71dc60b3e2 data\instrumentalmobs\advancements\main\xylophone.json
+// 1.20.6	2024-05-02T00:19:20.5931061	Instrumental Mobs/Advancements
+8eec1d0e7c445084e44cec85359f70982e6e165e data\instrumentalmobs\advancements\main\cymbals.json
+bbda4df524448732a80075682585f4ef83a7f79b data\instrumentalmobs\advancements\main\tuba.json
+d907172e4e25db47cc4c7cfa38559f006cdb56d1 data\instrumentalmobs\advancements\main\maracas.json
+edf68f7f96eae6f23099fb11dc43b30f4abc884e data\instrumentalmobs\advancements\main\french_horn.json
+f7cf11b53ab0f63c8280190f71b19a3fb096ef80 data\instrumentalmobs\advancements\main\root.json
+aa119eac7816e432ecb9d80dffaa5094303f69fd data\instrumentalmobs\advancements\main\trumpet.json
+0e2847fd0095fddb58af67b8ca3ac5e7712194e6 data\instrumentalmobs\advancements\main\microphone.json
+d4c2819af190c823978b18f728211e8d7e81ca6c data\instrumentalmobs\advancements\main\drum.json
+76dac958769e30b5c247a752090d28e3c3ff1e31 data\instrumentalmobs\advancements\main\xylophone.json

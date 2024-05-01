@@ -4,7 +4,6 @@ import com.mrbysco.instrumentalmobs.datagen.assets.InstrumentalLanguageProvider;
 import com.mrbysco.instrumentalmobs.datagen.assets.InstrumentalSoundProvider;
 import com.mrbysco.instrumentalmobs.datagen.data.InstrumentalAdvancementProvider;
 import com.mrbysco.instrumentalmobs.datagen.data.InstrumentalBlockLootProvider;
-import com.mrbysco.instrumentalmobs.datagen.data.InstrumentalDamageTypeProvider;
 import com.mrbysco.instrumentalmobs.datagen.data.InstrumentalEntityLootProvider;
 import com.mrbysco.instrumentalmobs.datagen.data.InstrumentalRecipeProvider;
 import com.mrbysco.instrumentalmobs.datagen.data.InstrumentalRegistryDataProvider;
