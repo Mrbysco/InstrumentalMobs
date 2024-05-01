@@ -5,9 +5,10 @@ import com.mrbysco.instrumentalmobs.registration.InstrumentalEntities;
 import com.mrbysco.instrumentalmobs.registration.InstrumentalRegistry;
 import com.mrbysco.instrumentalmobs.registration.RegistryObject;
 import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementHolder;
+import net.minecraft.advancements.AdvancementRequirements;
+import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.DisplayInfo;
-import net.minecraft.advancements.FrameType;
-import net.minecraft.advancements.RequirementsStrategy;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.KilledTrigger;
@@ -24,6 +25,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
@@ -38,34 +40,9 @@ public class InstrumentalAdvancementProvider extends AdvancementProvider {
 		}
 
 		@Override
-		public void generate(HolderLookup.Provider provider, Consumer<Advancement> consumer) {
+		public void generate(HolderLookup.Provider provider, Consumer<AdvancementHolder> consumer) {
 			//Root advancement
-			Advancement root = Advancement.Builder.advancement()
-					.display(rootDisplay(Items.NOTE_BLOCK, advancementPrefix("root" + ".title"),
-							advancementPrefix("root" + ".desc"), new ResourceLocation("textures/block/yellow_wool.png")))
-					.addCriterion("french_horn_creeper", KilledTrigger.TriggerInstance.playerKilledEntity(
-							EntityPredicate.Builder.entity().of(InstrumentalEntities.FRENCH_HORN_CREEPER.get())
-					))
-					.addCriterion("tuba_enderman", KilledTrigger.TriggerInstance.playerKilledEntity(
-							EntityPredicate.Builder.entity().of(InstrumentalEntities.TUBA_ENDERMAN.get())
-					))
-					.addCriterion("drum_zombie", KilledTrigger.TriggerInstance.playerKilledEntity(
-							EntityPredicate.Builder.entity().of(InstrumentalEntities.DRUM_ZOMBIE.get())
-					))
-					.addCriterion("cymbal_husk", KilledTrigger.TriggerInstance.playerKilledEntity(
-							EntityPredicate.Builder.entity().of(InstrumentalEntities.CYMBAL_HUSK.get())
-					))
-					.addCriterion("xylophone_skeleton", KilledTrigger.TriggerInstance.playerKilledEntity(
-							EntityPredicate.Builder.entity().of(InstrumentalEntities.XYLOPHONE_SKELETON.get())
-					))
-					.addCriterion("maraca_spider", KilledTrigger.TriggerInstance.playerKilledEntity(
-							EntityPredicate.Builder.entity().of(InstrumentalEntities.MARACA_SPIDER.get())
-					))
-					.addCriterion("microphone_ghast", KilledTrigger.TriggerInstance.playerKilledEntity(
-							EntityPredicate.Builder.entity().of(InstrumentalEntities.MICROPHONE_GHAST.get())
-					))
-					.requirements(RequirementsStrategy.OR)
-					.save(consumer, rootID("root"));
+			AdvancementHolder root = Advancement.Builder.advancement().display(rootDisplay(Items.NOTE_BLOCK, advancementPrefix("root" + ".title"), advancementPrefix("root" + ".desc"), new ResourceLocation("textures/block/yellow_wool.png"))).addCriterion("french_horn_creeper", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(InstrumentalEntities.FRENCH_HORN_CREEPER.get()))).addCriterion("tuba_enderman", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(InstrumentalEntities.TUBA_ENDERMAN.get()))).addCriterion("drum_zombie", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(InstrumentalEntities.DRUM_ZOMBIE.get()))).addCriterion("cymbal_husk", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(InstrumentalEntities.CYMBAL_HUSK.get()))).addCriterion("xylophone_skeleton", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(InstrumentalEntities.XYLOPHONE_SKELETON.get()))).addCriterion("maraca_spider", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(InstrumentalEntities.MARACA_SPIDER.get()))).addCriterion("microphone_ghast", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(InstrumentalEntities.MICROPHONE_GHAST.get()))).requirements(AdvancementRequirements.Strategy.OR).save(consumer, rootID("root"));
 
 			//Generate an advancement for every instrument
 			addInstrumentAdvancement(consumer, InstrumentalRegistry.CYMBALS, root);
@@ -85,15 +62,11 @@ public class InstrumentalAdvancementProvider extends AdvancementProvider {
 		 * @param registryObject The registry object of the instrument
 		 * @param root           The root advancement
 		 */
-		public static void addInstrumentAdvancement(Consumer<Advancement> consumer, RegistryObject<Item> registryObject, Advancement root) {
+		public static void addInstrumentAdvancement(Consumer<AdvancementHolder> consumer, RegistryObject<Item> registryObject, AdvancementHolder root) {
 			ResourceLocation registryLocation = registryObject.getId();
 			Item item = registryObject.get();
 			if (registryLocation != null) {
-				Advancement advancement = Advancement.Builder.advancement()
-						.display(simpleDisplay(item, registryLocation.getPath()))
-						.parent(root)
-						.addCriterion("instrument", InventoryChangeTrigger.TriggerInstance.hasItems(item))
-						.save(consumer, rootID(registryLocation.getPath()));
+				Advancement.Builder.advancement().display(simpleDisplay(item, registryLocation.getPath())).parent(root).addCriterion("instrument", InventoryChangeTrigger.TriggerInstance.hasItems(item)).save(consumer, rootID(registryLocation.getPath()));
 			}
 		}
 
@@ -107,10 +80,7 @@ public class InstrumentalAdvancementProvider extends AdvancementProvider {
 		 * @return The DisplayInfo object.
 		 */
 		protected static DisplayInfo rootDisplay(ItemLike icon, String titleKey, String descKey, ResourceLocation background) {
-			return new DisplayInfo(new ItemStack(icon.asItem()),
-					Component.translatable(titleKey),
-					Component.translatable(descKey),
-					background, FrameType.TASK, true, true, false);
+			return new DisplayInfo(new ItemStack(icon.asItem()), Component.translatable(titleKey), Component.translatable(descKey), Optional.of(background), AdvancementType.TASK, true, true, false);
 		}
 
 		/**
@@ -121,10 +91,7 @@ public class InstrumentalAdvancementProvider extends AdvancementProvider {
 		 * @return The DisplayInfo object.
 		 */
 		protected static DisplayInfo simpleDisplay(ItemLike icon, String name) {
-			return new DisplayInfo(new ItemStack(icon.asItem()),
-					Component.translatable(advancementPrefix(name + ".title")),
-					Component.translatable(advancementPrefix(name + ".desc")),
-					null, FrameType.TASK, true, false, false);
+			return new DisplayInfo(new ItemStack(icon.asItem()), Component.translatable(advancementPrefix(name + ".title")), Component.translatable(advancementPrefix(name + ".desc")), Optional.empty(), AdvancementType.TASK, true, false, false);
 		}
 
 		/**
@@ -134,7 +101,7 @@ public class InstrumentalAdvancementProvider extends AdvancementProvider {
 		 * @return The trigger instance.
 		 */
 		protected static KilledTrigger.TriggerInstance onKill(EntityType<?> entityType) {
-			return KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entityType));
+			return KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entityType)).triggerInstance();
 		}
 
 		/**

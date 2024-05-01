@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'idea'
     id 'maven-publish'
-    id 'fabric-loom'
+    id 'fabric-loom' version '1.6-SNAPSHOT'
     id 'net.darkhax.curseforgegradle'
     id 'com.modrinth.minotaur'
 }
@@ -120,7 +120,7 @@ if (System.getenv().CURSEFORGE_KEY) {
         apiToken = System.getenv().CURSEFORGE_KEY
 
         def mainFile = upload(project.curseforge_id, remapJar)
-        mainFile.releaseType = 'beta'
+        mainFile.releaseType = 'alpha'
         mainFile.addGameVersion "Fabric"
         mainFile.addGameVersion "${minecraft_version}"
         mainFile.addGameVersion "Java 17"
@@ -137,7 +137,7 @@ if (System.getenv().MODRINTH_KEY) {
     modrinth {
         token = System.getenv().MODRINTH_KEY
         projectId = project.modrinth_id
-        versionType = "beta"
+        versionType = "alpha"
         versionName = "${mod_name} ${minecraft_version}"
         versionNumber = project.version
         uploadFile = remapJar

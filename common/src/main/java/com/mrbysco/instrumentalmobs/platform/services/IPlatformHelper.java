@@ -1,7 +1,5 @@
 package com.mrbysco.instrumentalmobs.platform.services;
 
-import com.mrbysco.instrumentalmobs.entities.projectiles.MicrophoneWave;
-import com.mrbysco.instrumentalmobs.entities.projectiles.SoundWaves;
 import com.mrbysco.instrumentalmobs.registration.RegistryObject;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -33,20 +31,6 @@ public interface IPlatformHelper {
 	 * @return The spawn egg
 	 */
 	<T extends Mob> SpawnEggItem buildSpawnEgg(RegistryObject<EntityType<T>> type, int backgroundColor, int highlightColor, Item.Properties props);
-
-	/**
-	 * Build the microphone wave entity
-	 *
-	 * @return The microphone wave entity
-	 */
-	EntityType<? extends MicrophoneWave> buildMicrophoneWave();
-
-	/**
-	 * Build the sound waves entity
-	 *
-	 * @return The sound waves entity
-	 */
-	EntityType<? extends SoundWaves> buildSoundWaves();
 
 	/**
 	 * Gets the explosion interaction mode for the given entity

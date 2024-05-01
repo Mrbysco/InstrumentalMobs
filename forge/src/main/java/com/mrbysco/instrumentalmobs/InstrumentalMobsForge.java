@@ -15,22 +15,18 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
-import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.loading.FMLEnvironment;
+import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
+import net.neoforged.neoforge.event.entity.SpawnPlacementRegisterEvent;
 
 @Mod(Constants.MOD_ID)
 public class InstrumentalMobsForge {
 
-	public InstrumentalMobsForge() {
-		IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
+	public InstrumentalMobsForge(IEventBus eventBus) {
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, InstrumentalConfigForge.commonSpec);
 		eventBus.register(InstrumentalConfigForge.class);
 
@@ -41,9 +37,9 @@ public class InstrumentalMobsForge {
 		eventBus.addListener(this::registerEntityAttributes);
 		eventBus.addListener(this::registerSpawnPlacements);
 
-		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
+		if (FMLEnvironment.dist.isClient()) {
 			eventBus.addListener(ClientHandler::registerEntityRenders);
-		});
+		}
 	}
 
 	public void registerSpawnPlacements(SpawnPlacementRegisterEvent event) {

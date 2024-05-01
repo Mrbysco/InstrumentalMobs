@@ -7,9 +7,10 @@ import com.mrbysco.instrumentalmobs.registration.RegistryObject;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementHolder;
+import net.minecraft.advancements.AdvancementRequirements;
+import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.DisplayInfo;
-import net.minecraft.advancements.FrameType;
-import net.minecraft.advancements.RequirementsStrategy;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.KilledTrigger;
@@ -21,6 +22,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 
+import java.util.Optional;
 import java.util.function.Consumer;
 
 public class InstrumentalAdvancementProvider extends FabricAdvancementProvider {
@@ -30,9 +32,9 @@ public class InstrumentalAdvancementProvider extends FabricAdvancementProvider {
 	}
 
 	@Override
-	public void generateAdvancement(Consumer<Advancement> consumer) {
+	public void generateAdvancement(Consumer<AdvancementHolder> consumer) {
 		//Root advancement
-		Advancement root = Advancement.Builder.advancement()
+		AdvancementHolder root = Advancement.Builder.advancement()
 				.display(rootDisplay(Items.NOTE_BLOCK, advancementPrefix("root" + ".title"),
 						advancementPrefix("root" + ".desc"), new ResourceLocation("textures/block/yellow_wool.png")))
 				.addCriterion("french_horn_creeper", KilledTrigger.TriggerInstance.playerKilledEntity(
@@ -56,7 +58,7 @@ public class InstrumentalAdvancementProvider extends FabricAdvancementProvider {
 				.addCriterion("microphone_ghast", KilledTrigger.TriggerInstance.playerKilledEntity(
 						EntityPredicate.Builder.entity().of(InstrumentalEntities.MICROPHONE_GHAST.get())
 				))
-				.requirements(RequirementsStrategy.OR)
+				.requirements(AdvancementRequirements.Strategy.OR)
 				.save(consumer, rootID("root"));
 
 		//Generate an advancement for every instrument
@@ -78,11 +80,11 @@ public class InstrumentalAdvancementProvider extends FabricAdvancementProvider {
 	 * @param registryObject The registry object of the instrument
 	 * @param root           The root advancement
 	 */
-	public static void addInstrumentAdvancement(Consumer<Advancement> consumer, RegistryObject<Item> registryObject, Advancement root) {
+	public static void addInstrumentAdvancement(Consumer<AdvancementHolder> consumer, RegistryObject<Item> registryObject, AdvancementHolder root) {
 		ResourceLocation registryLocation = registryObject.getId();
 		Item item = registryObject.get();
 		if (registryLocation != null) {
-			Advancement advancement = Advancement.Builder.advancement()
+			Advancement.Builder.advancement()
 					.display(simpleDisplay(item, registryLocation.getPath()))
 					.parent(root)
 					.addCriterion("instrument", InventoryChangeTrigger.TriggerInstance.hasItems(item))
@@ -103,7 +105,7 @@ public class InstrumentalAdvancementProvider extends FabricAdvancementProvider {
 		return new DisplayInfo(new ItemStack(icon.asItem()),
 				Component.translatable(titleKey),
 				Component.translatable(descKey),
-				background, FrameType.TASK, true, true, false);
+				Optional.of(background), AdvancementType.TASK, true, true, false);
 	}
 
 	/**
@@ -117,7 +119,7 @@ public class InstrumentalAdvancementProvider extends FabricAdvancementProvider {
 		return new DisplayInfo(new ItemStack(icon.asItem()),
 				Component.translatable(advancementPrefix(name + ".title")),
 				Component.translatable(advancementPrefix(name + ".desc")),
-				null, FrameType.TASK, true, false, false);
+				Optional.empty(), AdvancementType.TASK, true, false, false);
 	}
 
 	/**
@@ -127,7 +129,7 @@ public class InstrumentalAdvancementProvider extends FabricAdvancementProvider {
 	 * @return The trigger instance.
 	 */
 	protected static KilledTrigger.TriggerInstance onKill(EntityType<?> entityType) {
-		return KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entityType));
+		return KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entityType)).triggerInstance();
 	}
 
 	/**

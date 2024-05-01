@@ -22,14 +22,13 @@
   },
   "requirements": [
     [
-      "has_cymbal",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_cymbal"
     ]
   ],
   "rewards": {
     "recipes": [
       "instrumentalmobs:cymbals"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

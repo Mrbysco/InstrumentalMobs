@@ -44,9 +44,13 @@ public class InstrumentalEntities {
 			() -> EntityType.Builder.<TrumpetSkeleton>of(TrumpetSkeleton::new, MobCategory.MONSTER)
 					.sized(0.6F, 1.99F).clientTrackingRange(8).build("trumpet_skeleton"));
 	public static final RegistryObject<EntityType<? extends MicrophoneWave>> MICROPHONE_WAVE = ENTITIES.register("microphone_sound",
-			Services.PLATFORM::buildMicrophoneWave);
+			() -> EntityType.Builder.<MicrophoneWave>of(MicrophoneWave::new, MobCategory.MISC)
+					.sized(0.3125F, 0.3125F).clientTrackingRange(4).clientTrackingRange(10)
+					.build("microphone_sound"));
 	public static final RegistryObject<EntityType<? extends SoundWaves>> SOUND_WAVE = ENTITIES.register("sound_waves",
-			Services.PLATFORM::buildSoundWaves);
+			() -> EntityType.Builder.<SoundWaves>of(SoundWaves::new, MobCategory.MISC)
+					.sized(0.3125F, 0.3125F).clientTrackingRange(4).clientTrackingRange(10)
+					.build("sound_waves"));
 
 	// Called in the mod initializer / constructor in order to make sure that items are registered
 	public static void loadClass() {

@@ -22,14 +22,13 @@
   },
   "requirements": [
     [
-      "has_maraca",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_maraca"
     ]
   ],
   "rewards": {
     "recipes": [
       "instrumentalmobs:maracas"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

@@ -19,12 +19,9 @@
     "description": {
       "translate": "advancement.instrumentalmobs.tuba.desc"
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
       "item": "instrumentalmobs:tuba"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancement.instrumentalmobs.tuba.title"
     }

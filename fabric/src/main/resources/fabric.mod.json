@@ -29,11 +29,11 @@
     ]
   },
   "depends": {
-    "fabricloader": ">=0.14",
-    "fabric": "*",
-    "minecraft": "~1.20",
+    "fabricloader": ">=0.15.3",
+    "minecraft": "~1.20.4",
     "java": ">=17",
-    "cloth-config": ">=11.0.99"
+    "fabric-api": "*",
+    "cloth-config": ">=13"
   },
   "accessWidener": "instrumentalmobs.accesswidener"
 }

@@ -6,7 +6,7 @@ import com.mrbysco.instrumentalmobs.entities.MicrophoneGhast;
 import com.mrbysco.instrumentalmobs.registration.InstrumentalEntities;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigHolder;
-import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
+import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
@@ -31,7 +31,7 @@ public class InstrumentalMobsFabric implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		config = AutoConfig.register(InstrumentalConfigFabric.class, Toml4jConfigSerializer::new);
+		config = AutoConfig.register(InstrumentalConfigFabric.class, JanksonConfigSerializer::new);
 
 		CommonClass.init();
 

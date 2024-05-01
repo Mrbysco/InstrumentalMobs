@@ -100,17 +100,13 @@
     }
   },
   "display": {
-    "announce_to_chat": true,
     "background": "minecraft:textures/block/yellow_wool.png",
     "description": {
       "translate": "advancement.instrumentalmobs.root.desc"
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
       "item": "minecraft:note_block"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancement.instrumentalmobs.root.title"
     }

@@ -1,8 +1,6 @@
 package com.mrbysco.instrumentalmobs.platform;
 
 import com.mrbysco.instrumentalmobs.InstrumentalMobsFabric;
-import com.mrbysco.instrumentalmobs.entities.projectiles.MicrophoneWave;
-import com.mrbysco.instrumentalmobs.entities.projectiles.SoundWaves;
 import com.mrbysco.instrumentalmobs.init.SupplierSpawnEggItem;
 import com.mrbysco.instrumentalmobs.platform.services.IPlatformHelper;
 import com.mrbysco.instrumentalmobs.registration.InstrumentalRegistry;
@@ -12,7 +10,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
@@ -40,20 +37,6 @@ public class FabricPlatformHelper implements IPlatformHelper {
 	@Override
 	public <T extends Mob> SpawnEggItem buildSpawnEgg(RegistryObject<EntityType<T>> type, int backgroundColor, int highlightColor, Item.Properties props) {
 		return new SupplierSpawnEggItem(type, backgroundColor, highlightColor, props);
-	}
-
-	@Override
-	public EntityType<? extends MicrophoneWave> buildMicrophoneWave() {
-		return EntityType.Builder.<MicrophoneWave>of(MicrophoneWave::new, MobCategory.MISC)
-				.sized(0.3125F, 0.3125F).clientTrackingRange(4).clientTrackingRange(10)
-				.build("microphone_sound");
-	}
-
-	@Override
-	public EntityType<? extends SoundWaves> buildSoundWaves() {
-		return EntityType.Builder.<SoundWaves>of(SoundWaves::new, MobCategory.MISC)
-				.sized(0.3125F, 0.3125F).clientTrackingRange(4).clientTrackingRange(10)
-				.build("sound_waves");
 	}
 
 	@Override
