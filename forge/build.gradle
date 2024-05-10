@@ -47,8 +47,6 @@ runs {
         programArgument '--nogui'
     }
 
-
-
     data {
         // example of overriding the workingDirectory set in configureEach above, uncomment if you want to use it
         // workingDirectory project.file('run-data')
