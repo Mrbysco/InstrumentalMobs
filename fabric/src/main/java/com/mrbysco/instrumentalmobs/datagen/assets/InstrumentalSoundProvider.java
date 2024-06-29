@@ -40,37 +40,33 @@ public class InstrumentalSoundProvider implements DataProvider {
 	public void registerSounds() {
 		this.add(InstrumentalSounds.XYLOPHONE_SOUND, definition()
 				.subtitle(modSubtitle(InstrumentalSounds.XYLOPHONE_SOUND.getId()))
-				.with(sound(modLoc("instruments/xylophone/xylophone"))));
+				.with(sound(Constants.modLoc("instruments/xylophone/xylophone"))));
 		this.add(InstrumentalSounds.TUBA_SOUND, definition()
 				.subtitle(modSubtitle(InstrumentalSounds.TUBA_SOUND.getId()))
-				.with(sound(modLoc("instruments/tuba/tuba"))));
+				.with(sound(Constants.modLoc("instruments/tuba/tuba"))));
 		this.add(InstrumentalSounds.FRENCH_HORN_SOUND, definition()
 				.subtitle(modSubtitle(InstrumentalSounds.FRENCH_HORN_SOUND.getId()))
-				.with(sound(modLoc("instruments/french_horn/frenchhorn"))));
+				.with(sound(Constants.modLoc("instruments/french_horn/frenchhorn"))));
 		this.add(InstrumentalSounds.DRUM_SOUND, definition()
 				.subtitle(modSubtitle(InstrumentalSounds.DRUM_SOUND.getId()))
-				.with(sound(modLoc("instruments/drum/drum"))));
+				.with(sound(Constants.modLoc("instruments/drum/drum"))));
 		this.add(InstrumentalSounds.SINGLE_DRUM_SOUND, definition()
 				.subtitle(modSubtitle(InstrumentalSounds.SINGLE_DRUM_SOUND.getId()))
-				.with(sound(modLoc("instruments/drum/singledrum"))));
+				.with(sound(Constants.modLoc("instruments/drum/singledrum"))));
 		this.add(InstrumentalSounds.CYMBALS_SOUND, definition()
 				.subtitle(modSubtitle(InstrumentalSounds.CYMBALS_SOUND.getId()))
-				.with(sound(modLoc("instruments/cymbals/cymbals"))));
+				.with(sound(Constants.modLoc("instruments/cymbals/cymbals"))));
 		this.add(InstrumentalSounds.MARACA_SOUND, definition()
 				.subtitle(modSubtitle(InstrumentalSounds.MARACA_SOUND.getId()))
-				.with(sound(modLoc("instruments/maraca/maraca"))));
+				.with(sound(Constants.modLoc("instruments/maraca/maraca"))));
 		this.add(InstrumentalSounds.TRUMPET_SOUND, definition()
 				.subtitle(modSubtitle(InstrumentalSounds.TRUMPET_SOUND.getId()))
-				.with(sound(modLoc("instruments/trumpet/trumpet"))));
+				.with(sound(Constants.modLoc("instruments/trumpet/trumpet"))));
 	}
 
 
 	public String modSubtitle(ResourceLocation id) {
 		return Constants.MOD_ID + ".subtitle." + id.getPath();
-	}
-
-	public ResourceLocation modLoc(String name) {
-		return new ResourceLocation(Constants.MOD_ID, name);
 	}
 
 	@Override
@@ -117,26 +113,6 @@ public class InstrumentalSoundProvider implements DataProvider {
 	 */
 	protected static SoundDefinition.Sound sound(final ResourceLocation name) {
 		return sound(name, SoundDefinition.SoundType.SOUND);
-	}
-
-	/**
-	 * Creates a new sound with the given name and type.
-	 *
-	 * @param name The name of the sound to create.
-	 * @param type The type of sound to create.
-	 */
-	protected static SoundDefinition.Sound sound(final String name, final SoundDefinition.SoundType type) {
-		return sound(new ResourceLocation(name), type);
-	}
-
-	/**
-	 * Creates a new sound with the given name and {@link SoundDefinition.SoundType#SOUND} as
-	 * sound type.
-	 *
-	 * @param name The name of the sound to create.
-	 */
-	protected static SoundDefinition.Sound sound(final String name) {
-		return sound(new ResourceLocation(name));
 	}
 
 	// Addition methods
@@ -194,7 +170,7 @@ public class InstrumentalSoundProvider implements DataProvider {
 	 * @param definition The {@link SoundDefinition} that defines the given event.
 	 */
 	protected void add(final String soundEvent, final SoundDefinition definition) {
-		this.add(new ResourceLocation(soundEvent), definition);
+		this.add(ResourceLocation.tryParse(soundEvent), definition);
 	}
 
 	private void addSounds(final String soundEvent, final SoundDefinition definition) {

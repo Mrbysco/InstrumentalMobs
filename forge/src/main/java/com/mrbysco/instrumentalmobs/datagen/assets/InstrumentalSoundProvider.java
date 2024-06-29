@@ -17,36 +17,32 @@ public class InstrumentalSoundProvider extends SoundDefinitionsProvider {
 	public void registerSounds() {
 		this.add(InstrumentalSounds.XYLOPHONE_SOUND, definition()
 				.subtitle(modSubtitle(InstrumentalSounds.XYLOPHONE_SOUND.getId()))
-				.with(sound(modLoc("instruments/xylophone/xylophone"))));
+				.with(sound(Constants.modLoc("instruments/xylophone/xylophone"))));
 		this.add(InstrumentalSounds.TUBA_SOUND, definition()
 				.subtitle(modSubtitle(InstrumentalSounds.TUBA_SOUND.getId()))
-				.with(sound(modLoc("instruments/tuba/tuba"))));
+				.with(sound(Constants.modLoc("instruments/tuba/tuba"))));
 		this.add(InstrumentalSounds.FRENCH_HORN_SOUND, definition()
 				.subtitle(modSubtitle(InstrumentalSounds.FRENCH_HORN_SOUND.getId()))
-				.with(sound(modLoc("instruments/french_horn/frenchhorn"))));
+				.with(sound(Constants.modLoc("instruments/french_horn/frenchhorn"))));
 		this.add(InstrumentalSounds.DRUM_SOUND, definition()
 				.subtitle(modSubtitle(InstrumentalSounds.DRUM_SOUND.getId()))
-				.with(sound(modLoc("instruments/drum/drum"))));
+				.with(sound(Constants.modLoc("instruments/drum/drum"))));
 		this.add(InstrumentalSounds.SINGLE_DRUM_SOUND, definition()
 				.subtitle(modSubtitle(InstrumentalSounds.SINGLE_DRUM_SOUND.getId()))
-				.with(sound(modLoc("instruments/drum/singledrum"))));
+				.with(sound(Constants.modLoc("instruments/drum/singledrum"))));
 		this.add(InstrumentalSounds.CYMBALS_SOUND, definition()
 				.subtitle(modSubtitle(InstrumentalSounds.CYMBALS_SOUND.getId()))
-				.with(sound(modLoc("instruments/cymbals/cymbals"))));
+				.with(sound(Constants.modLoc("instruments/cymbals/cymbals"))));
 		this.add(InstrumentalSounds.MARACA_SOUND, definition()
 				.subtitle(modSubtitle(InstrumentalSounds.MARACA_SOUND.getId()))
-				.with(sound(modLoc("instruments/maraca/maraca"))));
+				.with(sound(Constants.modLoc("instruments/maraca/maraca"))));
 		this.add(InstrumentalSounds.TRUMPET_SOUND, definition()
 				.subtitle(modSubtitle(InstrumentalSounds.TRUMPET_SOUND.getId()))
-				.with(sound(modLoc("instruments/trumpet/trumpet"))));
+				.with(sound(Constants.modLoc("instruments/trumpet/trumpet"))));
 	}
 
 
 	public String modSubtitle(ResourceLocation id) {
 		return Constants.MOD_ID + ".subtitle." + id.getPath();
-	}
-
-	public ResourceLocation modLoc(String name) {
-		return new ResourceLocation(Constants.MOD_ID, name);
 	}
 }

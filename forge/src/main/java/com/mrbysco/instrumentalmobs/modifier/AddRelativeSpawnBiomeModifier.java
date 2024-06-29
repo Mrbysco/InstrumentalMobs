@@ -1,6 +1,5 @@
 package com.mrbysco.instrumentalmobs.modifier;
 
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mrbysco.instrumentalmobs.init.InstrumentalModifiers;
 import net.minecraft.core.Holder;
@@ -16,7 +15,7 @@ import net.neoforged.neoforge.common.world.ModifiableBiomeInfo.BiomeInfo.Builder
 import java.util.List;
 
 public record AddRelativeSpawnBiomeModifier(EntityType<?> originalType,
-											EntityType<?> newType, int relativeWeight) implements BiomeModifier {
+                                            EntityType<?> newType, int relativeWeight) implements BiomeModifier {
 	@Override
 	public void modify(Holder<Biome> biome, Phase phase, Builder builder) {
 		if (phase == Phase.ADD) {

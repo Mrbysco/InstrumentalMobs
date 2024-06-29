@@ -12,7 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 public class FrenchHornCreeperRenderer extends MobRenderer<FrenchHornCreeper, FrenchHornCreeperModel<FrenchHornCreeper>> {
-	private static final ResourceLocation CREEPER_TEXTURES = new ResourceLocation("textures/entity/creeper/creeper.png");
+	private static final ResourceLocation CREEPER_TEXTURES = ResourceLocation.withDefaultNamespace("textures/entity/creeper/creeper.png");
 
 	public FrenchHornCreeperRenderer(EntityRendererProvider.Context context) {
 		super(context, new FrenchHornCreeperModel<>(context.bakeLayer(ModelLayers.CREEPER)), 0.5F);

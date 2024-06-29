@@ -3,7 +3,6 @@ package com.mrbysco.instrumentalmobs.entities;
 import com.mrbysco.instrumentalmobs.entities.projectiles.SoundWaves;
 import com.mrbysco.instrumentalmobs.registration.InstrumentalRegistry;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -133,7 +132,7 @@ public class MicrophoneGhast extends Ghast implements IInstrumentalMobs {
 						world.levelEvent((Player) null, 1016, this.parentEntity.blockPosition(), 0);
 					}
 
-					SoundWaves soundWaves = new SoundWaves(world, this.parentEntity, d2, d3, d4);
+					SoundWaves soundWaves = new SoundWaves(world, this.parentEntity, new Vec3(d2, d3, d4));
 					soundWaves.setPos(this.parentEntity.getX() + vector3d.x * 4.0D, this.parentEntity.getY(0.5D) + 0.5D, soundWaves.getZ() + vector3d.z * 4.0D);
 					world.addFreshEntity(soundWaves);
 					this.attackTimer = -40;

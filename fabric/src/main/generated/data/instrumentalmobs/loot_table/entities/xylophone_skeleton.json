@@ -22,42 +22,44 @@
                 "max": 1.0,
                 "min": 0.0
               },
-              "function": "minecraft:looting_enchant"
+              "enchantment": "minecraft:looting",
+              "function": "minecraft:enchanted_count_increase"
             }
           ],
-          "name": "minecraft:rotten_flesh"
+          "name": "minecraft:arrow"
         }
       ],
       "rolls": 1.0
     },
     {
       "bonus_rolls": 0.0,
-      "conditions": [
-        {
-          "condition": "minecraft:killed_by_player"
-        },
-        {
-          "chance": 0.025,
-          "condition": "minecraft:random_chance_with_looting",
-          "looting_multiplier": 0.01
-        }
-      ],
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:iron_ingot"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:carrot"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:potato"
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 2.0,
+                "min": 0.0
+              },
+              "function": "minecraft:set_count"
+            },
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 1.0,
+                "min": 0.0
+              },
+              "enchantment": "minecraft:looting",
+              "function": "minecraft:enchanted_count_increase"
+            }
+          ],
+          "name": "minecraft:bone"
         }
       ],
       "rolls": 1.0
     }
-  ],
-  "random_sequence": "instrumentalmobs:entities/cymbal_husk"
+  ]
 }

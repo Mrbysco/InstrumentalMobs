@@ -11,7 +11,7 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 1.0,
+                "max": 2.0,
                 "min": 0.0
               },
               "function": "minecraft:set_count"
@@ -22,10 +22,11 @@
                 "max": 1.0,
                 "min": 0.0
               },
-              "function": "minecraft:looting_enchant"
+              "enchantment": "minecraft:looting",
+              "function": "minecraft:enchanted_count_increase"
             }
           ],
-          "name": "minecraft:ghast_tear"
+          "name": "minecraft:arrow"
         }
       ],
       "rolls": 1.0
@@ -51,13 +52,15 @@
                 "max": 1.0,
                 "min": 0.0
               },
-              "function": "minecraft:looting_enchant"
+              "enchantment": "minecraft:looting",
+              "function": "minecraft:enchanted_count_increase"
             }
           ],
-          "name": "minecraft:gunpowder"
+          "name": "minecraft:bone"
         }
       ],
       "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "instrumentalmobs:entities/trumpet_skeleton"
 }

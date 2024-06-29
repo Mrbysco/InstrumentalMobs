@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.entity.layers.EnergySwirlLayer;
 import net.minecraft.resources.ResourceLocation;
 
 public class FrenchHornCreeperCharge extends EnergySwirlLayer<FrenchHornCreeper, FrenchHornCreeperModel<FrenchHornCreeper>> {
-	private static final ResourceLocation LIGHTNING_TEXTURE = new ResourceLocation("textures/entity/creeper/creeper_armor.png");
+	private static final ResourceLocation LIGHTNING_TEXTURE = ResourceLocation.withDefaultNamespace("textures/entity/creeper/creeper_armor.png");
 	private final FrenchHornCreeperModel<FrenchHornCreeper> creeperModel;
 
 	public FrenchHornCreeperCharge(RenderLayerParent<FrenchHornCreeper, FrenchHornCreeperModel<FrenchHornCreeper>> layerParent, EntityModelSet modelSet) {

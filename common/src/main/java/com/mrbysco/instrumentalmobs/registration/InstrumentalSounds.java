@@ -2,7 +2,6 @@ package com.mrbysco.instrumentalmobs.registration;
 
 import com.mrbysco.instrumentalmobs.Constants;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 
 public class InstrumentalSounds {
@@ -19,7 +18,7 @@ public class InstrumentalSounds {
 	public static final RegistryObject<SoundEvent> TRUMPET_SOUND = registerSound("trumpet.sound");
 
 	private static RegistryObject<SoundEvent> registerSound(String name) {
-		return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Constants.MOD_ID, name)));
+		return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(Constants.modLoc(name)));
 	}
 
 	// Called in the mod initializer / constructor in order to make sure that items are registered

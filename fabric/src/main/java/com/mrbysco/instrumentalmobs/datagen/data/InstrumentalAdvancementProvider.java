@@ -38,7 +38,7 @@ public class InstrumentalAdvancementProvider extends FabricAdvancementProvider {
 		//Root advancement
 		AdvancementHolder root = Advancement.Builder.advancement()
 				.display(rootDisplay(Items.NOTE_BLOCK, advancementPrefix("root" + ".title"),
-						advancementPrefix("root" + ".desc"), new ResourceLocation("textures/block/yellow_wool.png")))
+						advancementPrefix("root" + ".desc"), ResourceLocation.withDefaultNamespace("textures/block/yellow_wool.png")))
 				.addCriterion("french_horn_creeper", KilledTrigger.TriggerInstance.playerKilledEntity(
 						EntityPredicate.Builder.entity().of(InstrumentalEntities.FRENCH_HORN_CREEPER.get())
 				))
@@ -135,16 +135,6 @@ public class InstrumentalAdvancementProvider extends FabricAdvancementProvider {
 	}
 
 	/**
-	 * Generate a ResourceLocation that has the mod ID as the namespace.
-	 *
-	 * @param path The path.
-	 * @return The ResourceLocation.
-	 */
-	private static ResourceLocation modLoc(String path) {
-		return new ResourceLocation(Constants.MOD_ID, path);
-	}
-
-	/**
 	 * Generate an advancement prefix.
 	 *
 	 * @param name The name of the advancement.
@@ -161,6 +151,6 @@ public class InstrumentalAdvancementProvider extends FabricAdvancementProvider {
 	 * @return The advancement ID.
 	 */
 	private static String rootID(String name) {
-		return modLoc("main/" + name).toString();
+		return Constants.modLoc("main/" + name).toString();
 	}
 }

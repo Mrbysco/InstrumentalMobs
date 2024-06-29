@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class MaracaSpiderRenderer extends MobRenderer<MaracaSpider, MaracaSpiderModel<MaracaSpider>> {
-	private static final ResourceLocation SPIDER_TEXTURES = new ResourceLocation("textures/entity/spider/spider.png");
+	private static final ResourceLocation SPIDER_TEXTURES = ResourceLocation.withDefaultNamespace("textures/entity/spider/spider.png");
 
 	public MaracaSpiderRenderer(EntityRendererProvider.Context context) {
 		super(context, new MaracaSpiderModel<>(context.bakeLayer(ModelLayers.SPIDER)), 1.0F);

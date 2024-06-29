@@ -18,7 +18,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.Random;
 
 public class TubaEndermanRenderer extends MobRenderer<TubaEnderman, TubaEndermanModel<TubaEnderman>> {
-	private static final ResourceLocation ENDERMAN_TEXTURES = new ResourceLocation("textures/entity/enderman/enderman.png");
+	private static final ResourceLocation ENDERMAN_TEXTURES = ResourceLocation.withDefaultNamespace("textures/entity/enderman/enderman.png");
 	private final Random rnd = new Random();
 
 	public TubaEndermanRenderer(EntityRendererProvider.Context context) {

@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.monster.Zombie;
 
 public class CymbalHuskRenderer extends AbstractZombieRenderer<CymbalHusk, CymbalHuskModel<CymbalHusk>> {
-	private static final ResourceLocation HUSK_LOCATION = new ResourceLocation("textures/entity/zombie/husk.png");
+	private static final ResourceLocation HUSK_LOCATION = ResourceLocation.withDefaultNamespace("textures/entity/zombie/husk.png");
 
 	public CymbalHuskRenderer(EntityRendererProvider.Context context) {
 		super(context, new CymbalHuskModel<>(context.bakeLayer(ModelLayers.HUSK)),

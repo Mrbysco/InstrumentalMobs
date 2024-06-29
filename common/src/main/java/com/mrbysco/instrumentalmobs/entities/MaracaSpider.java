@@ -4,7 +4,6 @@ import com.mrbysco.instrumentalmobs.entities.goals.InstrumentAttackGoal;
 import com.mrbysco.instrumentalmobs.registration.InstrumentalRegistry;
 import com.mrbysco.instrumentalmobs.registration.InstrumentalSounds;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;

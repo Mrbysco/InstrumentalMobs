@@ -11,7 +11,6 @@ import com.mrbysco.instrumentalmobs.entities.TubaEnderman;
 import com.mrbysco.instrumentalmobs.entities.XylophoneSkeleton;
 import com.mrbysco.instrumentalmobs.entities.projectiles.MicrophoneWave;
 import com.mrbysco.instrumentalmobs.entities.projectiles.SoundWaves;
-import com.mrbysco.instrumentalmobs.platform.Services;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;

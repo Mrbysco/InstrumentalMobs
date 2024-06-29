@@ -44,7 +44,7 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
 
 	@Override
 	public Level.ExplosionInteraction getExplosionInteraction(Entity entity) {
-		return EventHooks.getMobGriefingEvent(entity.level(), entity) ? Level.ExplosionInteraction.MOB : Level.ExplosionInteraction.NONE;
+		return EventHooks.canEntityGrief(entity.level(), entity) ? Level.ExplosionInteraction.MOB : Level.ExplosionInteraction.NONE;
 	}
 
 	@Override

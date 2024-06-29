@@ -22,10 +22,11 @@
                 "max": 1.0,
                 "min": 0.0
               },
-              "function": "minecraft:looting_enchant"
+              "enchantment": "minecraft:looting",
+              "function": "minecraft:enchanted_count_increase"
             }
           ],
-          "name": "minecraft:gunpowder"
+          "name": "minecraft:rotten_flesh"
         }
       ],
       "rolls": 1.0
@@ -34,18 +35,31 @@
       "bonus_rolls": 0.0,
       "conditions": [
         {
-          "condition": "minecraft:entity_properties",
-          "entity": "killer",
-          "predicate": {
-            "type": "#minecraft:skeletons"
-          }
+          "condition": "minecraft:killed_by_player"
+        },
+        {
+          "condition": "minecraft:random_chance_with_enchanted_bonus",
+          "enchanted_chance": {
+            "type": "minecraft:linear",
+            "base": 0.035,
+            "per_level_above_first": 0.01
+          },
+          "enchantment": "minecraft:looting",
+          "unenchanted_chance": 0.025
         }
       ],
       "entries": [
         {
-          "type": "minecraft:tag",
-          "expand": true,
-          "name": "minecraft:creeper_drop_music_discs"
+          "type": "minecraft:item",
+          "name": "minecraft:iron_ingot"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:carrot"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:potato"
         }
       ],
       "rolls": 1.0

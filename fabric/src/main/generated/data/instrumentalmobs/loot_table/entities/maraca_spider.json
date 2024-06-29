@@ -22,16 +22,22 @@
                 "max": 1.0,
                 "min": 0.0
               },
-              "function": "minecraft:looting_enchant"
+              "enchantment": "minecraft:looting",
+              "function": "minecraft:enchanted_count_increase"
             }
           ],
-          "name": "minecraft:arrow"
+          "name": "minecraft:string"
         }
       ],
       "rolls": 1.0
     },
     {
       "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:killed_by_player"
+        }
+      ],
       "entries": [
         {
           "type": "minecraft:item",
@@ -40,8 +46,8 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 2.0,
-                "min": 0.0
+                "max": 1.0,
+                "min": -1.0
               },
               "function": "minecraft:set_count"
             },
@@ -51,10 +57,11 @@
                 "max": 1.0,
                 "min": 0.0
               },
-              "function": "minecraft:looting_enchant"
+              "enchantment": "minecraft:looting",
+              "function": "minecraft:enchanted_count_increase"
             }
           ],
-          "name": "minecraft:bone"
+          "name": "minecraft:spider_eye"
         }
       ],
       "rolls": 1.0

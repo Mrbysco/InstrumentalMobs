@@ -7,14 +7,17 @@ import com.mrbysco.instrumentalmobs.registration.InstrumentalRegistry;
 import com.mrbysco.instrumentalmobs.utils.InstrumentHelper;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -54,15 +57,18 @@ public class MicrophoneWave extends ThrowableItemProjectile {
 	@Override
 	protected void onHitEntity(EntityHitResult result) {
 		Entity entity = result.getEntity();
+		DamageSource source = Constants.causeSoundDamage(this);
 		if (entity instanceof Player collidingPlayer && shootingEntity instanceof Player playerIn) {
 			if (playerIn.canHarmPlayer(collidingPlayer)) {
 				if (this.level().random.nextInt(10) <= 2) {
-					collidingPlayer.hurt(Constants.causeSoundDamage(this), 1F);
+					collidingPlayer.hurt(source, 1F);
 				}
 			}
 		} else {
-			entity.hurt(Constants.causeSoundDamage(this), 6.0F);
-			this.doEnchantDamageEffects(this.shootingEntity, entity);
+			boolean wasHurt = entity.hurt(Constants.causeSoundDamage(this), 6.0F);
+			if (wasHurt && this.level() instanceof ServerLevel serverlevel1) {
+				EnchantmentHelper.doPostAttackEffectsWithItemSource(serverlevel1, entity, source, this.getWeaponItem());
+			}
 		}
 	}
 

@@ -44,7 +44,7 @@ public class InstrumentalDataGen {
 			generator.addProvider(event.includeServer(), new DatapackBuiltinEntriesProvider(
 					packOutput, CompletableFuture.supplyAsync(InstrumentalDataGen::getProvider), Set.of(Constants.MOD_ID)));
 
-			generator.addProvider(event.includeServer(), new InstrumentalAdvancementProvider(packOutput, lookupProvider));
+			generator.addProvider(event.includeServer(), new InstrumentalAdvancementProvider(packOutput, lookupProvider, helper));
 			generator.addProvider(event.includeServer(), new InstrumentalLoot(packOutput, lookupProvider));
 			generator.addProvider(event.includeServer(), new InstrumentalRecipeProvider(packOutput, lookupProvider));
 		}

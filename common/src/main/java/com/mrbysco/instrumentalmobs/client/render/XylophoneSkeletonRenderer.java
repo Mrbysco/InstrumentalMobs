@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 
 public class XylophoneSkeletonRenderer extends CustomBipedRenderer<XylophoneSkeleton, XylophoneSkeletonModel<XylophoneSkeleton>> {
-	private static final ResourceLocation SKELETON_TEXTURES = new ResourceLocation("textures/entity/skeleton/skeleton.png");
+	private static final ResourceLocation SKELETON_TEXTURES = ResourceLocation.withDefaultNamespace("textures/entity/skeleton/skeleton.png");
 
 	public XylophoneSkeletonRenderer(EntityRendererProvider.Context context) {
 		super(context, new XylophoneSkeletonModel<>(context.bakeLayer(ModelLayers.SKELETON)), 0.5F);

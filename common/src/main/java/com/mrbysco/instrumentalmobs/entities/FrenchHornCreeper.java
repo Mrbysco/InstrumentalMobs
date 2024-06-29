@@ -4,7 +4,6 @@ import com.mrbysco.instrumentalmobs.platform.Services;
 import com.mrbysco.instrumentalmobs.registration.InstrumentalRegistry;
 import com.mrbysco.instrumentalmobs.registration.InstrumentalSounds;
 import com.mrbysco.instrumentalmobs.utils.InstrumentHelper;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;

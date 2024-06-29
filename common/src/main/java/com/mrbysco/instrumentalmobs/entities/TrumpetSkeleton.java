@@ -6,6 +6,7 @@ import com.mrbysco.instrumentalmobs.registration.InstrumentalSounds;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -50,8 +51,8 @@ public class TrumpetSkeleton extends Skeleton implements IInstrumentalMobs, IIns
 	}
 
 	@Override
-	protected void dropCustomDeathLoot(DamageSource source, int p_213333_2_, boolean p_213333_3_) {
-		super.dropCustomDeathLoot(source, p_213333_2_, p_213333_3_);
+	protected void dropCustomDeathLoot(ServerLevel serverLevel, DamageSource source, boolean recentlyHit) {
+		super.dropCustomDeathLoot(serverLevel, source, recentlyHit);
 		if (getDropChance() <= random.nextFloat()) {
 			this.spawnAtLocation(InstrumentalRegistry.TRUMPET.get());
 		}

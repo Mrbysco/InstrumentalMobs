@@ -7,9 +7,11 @@ import com.mrbysco.instrumentalmobs.registration.InstrumentalRegistry;
 import com.mrbysco.instrumentalmobs.utils.InstrumentHelper;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -17,6 +19,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.entity.projectile.ItemSupplier;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -29,16 +32,16 @@ public class SoundWaves extends AbstractHurtingProjectile implements ItemSupplie
 		super(type, level);
 	}
 
-	public SoundWaves(Level level, double x, double y, double z, double accelX, double accelY, double accelZ) {
-		super(InstrumentalEntities.SOUND_WAVE.get(), x, y, z, accelX, accelY, accelZ, level);
+	public SoundWaves(Level level, double x, double y, double z, Vec3 movement) {
+		super(InstrumentalEntities.SOUND_WAVE.get(), x, y, z, movement, level);
 	}
 
-	public SoundWaves(Level level, LivingEntity shooter, double accelX, double accelY, double accelZ) {
-		super(InstrumentalEntities.SOUND_WAVE.get(), shooter, accelX, accelY, accelZ, level);
+	public SoundWaves(Level level, LivingEntity shooter, Vec3 movement) {
+		super(InstrumentalEntities.SOUND_WAVE.get(), shooter, movement, level);
 	}
 
 	public SoundWaves(Level level, LivingEntity shooter, SoundEvent theSound) {
-		super(InstrumentalEntities.SOUND_WAVE.get(), shooter, 1, 1, 1, level);
+		super(InstrumentalEntities.SOUND_WAVE.get(), shooter, new Vec3(1, 1, 1), level);
 		this.sound = theSound;
 	}
 
@@ -58,17 +61,17 @@ public class SoundWaves extends AbstractHurtingProjectile implements ItemSupplie
 	@Override
 	protected void onHitEntity(EntityHitResult result) {
 		Entity entity = result.getEntity();
+		DamageSource source = Constants.causeSoundDamage(this);
 		if (entity instanceof Player collidingPlayer && getOwner() instanceof Player playerIn) {
 			if (playerIn.canHarmPlayer(collidingPlayer)) {
 				if (this.level().random.nextInt(10) <= 2) {
-					collidingPlayer.hurt(Constants.causeSoundDamage(this), 1F);
+					collidingPlayer.hurt(source, 1F);
 				}
 			}
 		} else {
-			if (getOwner() instanceof LivingEntity) {
-				LivingEntity livingEntity = (LivingEntity) this.getOwner();
-				entity.hurt(Constants.causeSoundDamage(this), 6.0F);
-				this.doEnchantDamageEffects(livingEntity, entity);
+			boolean wasHurt = entity.hurt(Constants.causeSoundDamage(this), 6.0F);
+			if (wasHurt && this.level() instanceof ServerLevel serverlevel1) {
+				EnchantmentHelper.doPostAttackEffectsWithItemSource(serverlevel1, entity, source, this.getWeaponItem());
 			}
 		}
 	}

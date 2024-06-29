@@ -8,7 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Mob;
 
 public class CustomBipedRenderer<T extends Mob, M extends HumanoidModel<T>> extends MobRenderer<T, M> {
-	private static final ResourceLocation DEFAULT_RES_LOC = new ResourceLocation("textures/entity/steve.png");
+	private static final ResourceLocation DEFAULT_RES_LOC = ResourceLocation.withDefaultNamespace("textures/entity/steve.png");
 
 	public CustomBipedRenderer(EntityRendererProvider.Context context, M humanoidModel, float shadowSize) {
 		this(context, humanoidModel, shadowSize, 1.0F, 1.0F, 1.0F);

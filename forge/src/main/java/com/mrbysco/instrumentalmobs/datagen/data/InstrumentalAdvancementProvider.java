@@ -14,8 +14,6 @@ import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.KilledTrigger;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.advancements.AdvancementProvider;
-import net.minecraft.data.advancements.AdvancementSubProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -23,6 +21,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
+import net.neoforged.neoforge.common.data.AdvancementProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,18 +31,36 @@ import java.util.function.Consumer;
 
 public class InstrumentalAdvancementProvider extends AdvancementProvider {
 
-	public InstrumentalAdvancementProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-		super(packOutput, lookupProvider, List.of(new InstrumentalAdvancements()));
+	public InstrumentalAdvancementProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper fileHelper) {
+		super(packOutput, lookupProvider, fileHelper, List.of(new InstrumentalAdvancements()));
 	}
 
-	public static class InstrumentalAdvancements implements AdvancementSubProvider {
+	public static class InstrumentalAdvancements implements AdvancementGenerator {
 		public InstrumentalAdvancements() {
 		}
 
 		@Override
-		public void generate(HolderLookup.Provider provider, Consumer<AdvancementHolder> consumer) {
+		public void generate(HolderLookup.Provider provider, Consumer<AdvancementHolder> consumer, ExistingFileHelper fileHelper) {
 			//Root advancement
-			AdvancementHolder root = Advancement.Builder.advancement().display(rootDisplay(Items.NOTE_BLOCK, advancementPrefix("root" + ".title"), advancementPrefix("root" + ".desc"), new ResourceLocation("textures/block/yellow_wool.png"))).addCriterion("french_horn_creeper", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(InstrumentalEntities.FRENCH_HORN_CREEPER.get()))).addCriterion("tuba_enderman", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(InstrumentalEntities.TUBA_ENDERMAN.get()))).addCriterion("drum_zombie", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(InstrumentalEntities.DRUM_ZOMBIE.get()))).addCriterion("cymbal_husk", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(InstrumentalEntities.CYMBAL_HUSK.get()))).addCriterion("xylophone_skeleton", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(InstrumentalEntities.XYLOPHONE_SKELETON.get()))).addCriterion("maraca_spider", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(InstrumentalEntities.MARACA_SPIDER.get()))).addCriterion("microphone_ghast", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(InstrumentalEntities.MICROPHONE_GHAST.get()))).requirements(AdvancementRequirements.Strategy.OR).save(consumer, rootID("root"));
+			AdvancementHolder root = Advancement.Builder.advancement()
+					.display(rootDisplay(Items.NOTE_BLOCK, advancementPrefix("root" + ".title"),
+							advancementPrefix("root" + ".desc"),
+							ResourceLocation.withDefaultNamespace("textures/block/yellow_wool.png")))
+					.addCriterion("french_horn_creeper", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity()
+							.of(InstrumentalEntities.FRENCH_HORN_CREEPER.get())))
+					.addCriterion("tuba_enderman", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity()
+							.of(InstrumentalEntities.TUBA_ENDERMAN.get())))
+					.addCriterion("drum_zombie", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity()
+							.of(InstrumentalEntities.DRUM_ZOMBIE.get())))
+					.addCriterion("cymbal_husk", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity()
+							.of(InstrumentalEntities.CYMBAL_HUSK.get())))
+					.addCriterion("xylophone_skeleton", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity()
+							.of(InstrumentalEntities.XYLOPHONE_SKELETON.get())))
+					.addCriterion("maraca_spider", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity()
+							.of(InstrumentalEntities.MARACA_SPIDER.get())))
+					.addCriterion("microphone_ghast", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity()
+							.of(InstrumentalEntities.MICROPHONE_GHAST.get())))
+					.requirements(AdvancementRequirements.Strategy.OR).save(consumer, rootID("root"));
 
 			//Generate an advancement for every instrument
 			addInstrumentAdvancement(consumer, InstrumentalRegistry.CYMBALS, root);
@@ -105,16 +123,6 @@ public class InstrumentalAdvancementProvider extends AdvancementProvider {
 		}
 
 		/**
-		 * Generate a ResourceLocation that has the mod ID as the namespace.
-		 *
-		 * @param path The path.
-		 * @return The ResourceLocation.
-		 */
-		private static ResourceLocation modLoc(String path) {
-			return new ResourceLocation(Constants.MOD_ID, path);
-		}
-
-		/**
 		 * Generate an advancement prefix.
 		 *
 		 * @param name The name of the advancement.
@@ -131,7 +139,7 @@ public class InstrumentalAdvancementProvider extends AdvancementProvider {
 		 * @return The advancement ID.
 		 */
 		private static String rootID(String name) {
-			return modLoc("main/" + name).toString();
+			return Constants.modLoc("main/" + name).toString();
 		}
 	}
 }
