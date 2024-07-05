@@ -1,1 +1,1 @@
-* Initial build from MultiLoader
+* Fix trumpet missing a translation on Forge
