@@ -1,1 +1,1 @@
-* Fix neoforge filename
+* Update support for NeoForge **21.0.75-beta** and above (Which is now the minimum required version)
