@@ -22,6 +22,6 @@ side="BOTH"
 [[dependencies.instrumentalmobs]]
 modId="neoforge"
 type="required"
-versionRange="[21.0.31,)"
+versionRange="[21.0.75-beta,)"
 ordering="NONE"
 side="BOTH"

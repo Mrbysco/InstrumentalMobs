@@ -21,7 +21,7 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
-import net.neoforged.neoforge.event.entity.SpawnPlacementRegisterEvent;
+import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 
 @Mod(Constants.MOD_ID)
 public class InstrumentalMobsNeoForge {
@@ -42,15 +42,15 @@ public class InstrumentalMobsNeoForge {
 		}
 	}
 
-	public void registerSpawnPlacements(SpawnPlacementRegisterEvent event) {
-		event.register(InstrumentalEntities.CYMBAL_HUSK.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CymbalHusk::canSpawnHere, SpawnPlacementRegisterEvent.Operation.AND);
-		event.register(InstrumentalEntities.DRUM_ZOMBIE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
-		event.register(InstrumentalEntities.FRENCH_HORN_CREEPER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
-		event.register(InstrumentalEntities.MARACA_SPIDER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
-		event.register(InstrumentalEntities.MICROPHONE_GHAST.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MicrophoneGhast::canSpawnHere, SpawnPlacementRegisterEvent.Operation.AND);
-		event.register(InstrumentalEntities.TUBA_ENDERMAN.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
-		event.register(InstrumentalEntities.XYLOPHONE_SKELETON.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
-		event.register(InstrumentalEntities.TRUMPET_SKELETON.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+	public void registerSpawnPlacements(RegisterSpawnPlacementsEvent event) {
+		event.register(InstrumentalEntities.CYMBAL_HUSK.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CymbalHusk::canSpawnHere, RegisterSpawnPlacementsEvent.Operation.AND);
+		event.register(InstrumentalEntities.DRUM_ZOMBIE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
+		event.register(InstrumentalEntities.FRENCH_HORN_CREEPER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
+		event.register(InstrumentalEntities.MARACA_SPIDER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
+		event.register(InstrumentalEntities.MICROPHONE_GHAST.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MicrophoneGhast::canSpawnHere, RegisterSpawnPlacementsEvent.Operation.AND);
+		event.register(InstrumentalEntities.TUBA_ENDERMAN.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
+		event.register(InstrumentalEntities.XYLOPHONE_SKELETON.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
+		event.register(InstrumentalEntities.TRUMPET_SKELETON.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
 	}
 
 	public void registerEntityAttributes(EntityAttributeCreationEvent event) {
