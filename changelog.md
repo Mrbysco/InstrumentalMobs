@@ -1,1 +1,2 @@
-* Update support for NeoForge **21.0.75-beta** and above (Which is now the minimum required version)
+* Add Spanish translation. Courtesy of [Witixin](https://github.com/Mrbysco/InstrumentalMobs/pull/19) 
+* Enable in-game config screen (NeoForge)
