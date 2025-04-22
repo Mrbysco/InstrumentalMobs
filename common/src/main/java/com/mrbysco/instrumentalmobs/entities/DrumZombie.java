@@ -46,7 +46,7 @@ public class DrumZombie extends Zombie implements IInstrumentalMobs {
 
 	@Override
 	protected void addBehaviourGoals() {
-		this.goalSelector.addGoal(2, new ZombieInstrumentAttackGoal(this, 1.0D, false, InstrumentalSounds.SINGLE_DRUM_SOUND::get));
+		this.goalSelector.addGoal(2, new ZombieInstrumentAttackGoal(this, 1.0D, false, InstrumentalSounds.SINGLE_DRUM_SOUND));
 		this.goalSelector.addGoal(6, new MoveThroughVillageGoal(this, 1.0D, true, 4, this::canBreakDoors));
 		this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D));
 		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(ZombifiedPiglin.class));

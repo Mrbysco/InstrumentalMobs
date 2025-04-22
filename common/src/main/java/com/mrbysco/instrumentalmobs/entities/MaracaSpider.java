@@ -11,10 +11,10 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
@@ -68,7 +68,7 @@ public class MaracaSpider extends Spider implements IInstrumentalMobs {
 
 	static class SpiderInstrumentAttack extends InstrumentAttackGoal {
 		public SpiderInstrumentAttack(MaracaSpider spider) {
-			super(spider, 1.0D, true, InstrumentalSounds.MARACA_SOUND::get);
+			super(spider, 1.0D, true, InstrumentalSounds.MARACA_SOUND);
 		}
 
 		/**
@@ -134,7 +134,7 @@ public class MaracaSpider extends Spider implements IInstrumentalMobs {
 
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance,
-	                                    MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData) {
+	                                    EntitySpawnReason mobSpawnType, @Nullable SpawnGroupData spawnGroupData) {
 		RandomSource randomSource = serverLevelAccessor.getRandom();
 		spawnGroupData = super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData);
 

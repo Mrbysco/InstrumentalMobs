@@ -6,9 +6,9 @@ import com.mrbysco.instrumentalmobs.registration.InstrumentalSounds;
 import com.mrbysco.instrumentalmobs.utils.InstrumentHelper;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.item.ItemStack;
@@ -45,7 +45,7 @@ public class FrenchHornCreeper extends Creeper implements IInstrumentalMobs {
 
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance,
-										MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData) {
+										EntitySpawnReason mobSpawnType, @Nullable SpawnGroupData spawnGroupData) {
 		RandomSource randomSource = serverLevelAccessor.getRandom();
 		spawnGroupData = super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData);
 

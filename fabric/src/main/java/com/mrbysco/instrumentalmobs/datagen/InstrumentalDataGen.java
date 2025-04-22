@@ -21,7 +21,7 @@ public class InstrumentalDataGen implements DataGeneratorEntrypoint {
 		pack.addProvider(InstrumentalAdvancementProvider::new);
 		pack.addProvider(InstrumentalBlockLootProvider::new);
 		pack.addProvider(InstrumentalEntityLootProvider::new);
-		pack.addProvider(InstrumentalRecipeProvider::new);
+		pack.addProvider(InstrumentalRecipeProvider.Runner::new);
 
 		pack.addProvider(InstrumentalLanguageProvider::new);
 		pack.addProvider(InstrumentalSoundProvider::new);

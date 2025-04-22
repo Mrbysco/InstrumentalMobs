@@ -23,7 +23,6 @@ import net.minecraft.world.entity.EntityType;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.common.world.BiomeModifier;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
@@ -34,24 +33,20 @@ import java.util.concurrent.CompletableFuture;
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
 public class InstrumentalDataGen {
 	@SubscribeEvent
-	public static void gatherData(GatherDataEvent event) {
+	public static void gatherData(GatherDataEvent.Client event) {
 		DataGenerator generator = event.getGenerator();
 		PackOutput packOutput = generator.getPackOutput();
 		CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
-		ExistingFileHelper helper = event.getExistingFileHelper();
 
-		if (event.includeServer()) {
-			generator.addProvider(event.includeServer(), new DatapackBuiltinEntriesProvider(
-					packOutput, CompletableFuture.supplyAsync(InstrumentalDataGen::getProvider), Set.of(Constants.MOD_ID)));
+		generator.addProvider(true, new DatapackBuiltinEntriesProvider(
+				packOutput, CompletableFuture.supplyAsync(InstrumentalDataGen::getProvider), Set.of(Constants.MOD_ID)));
 
-			generator.addProvider(event.includeServer(), new InstrumentalAdvancementProvider(packOutput, lookupProvider, helper));
-			generator.addProvider(event.includeServer(), new InstrumentalLoot(packOutput, lookupProvider));
-			generator.addProvider(event.includeServer(), new InstrumentalRecipeProvider(packOutput, lookupProvider));
-		}
-		if (event.includeClient()) {
-			generator.addProvider(event.includeClient(), new InstrumentalLanguageProvider(packOutput));
-			generator.addProvider(event.includeClient(), new InstrumentalSoundProvider(packOutput, helper));
-		}
+		generator.addProvider(true, new InstrumentalAdvancementProvider(packOutput, lookupProvider));
+		generator.addProvider(true, new InstrumentalLoot(packOutput, lookupProvider));
+		generator.addProvider(true, new InstrumentalRecipeProvider.Runner(packOutput, lookupProvider));
+
+		generator.addProvider(true, new InstrumentalLanguageProvider(packOutput));
+		generator.addProvider(true, new InstrumentalSoundProvider(packOutput));
 	}
 
 	private static RegistrySetBuilder.PatchedRegistries getProvider() {

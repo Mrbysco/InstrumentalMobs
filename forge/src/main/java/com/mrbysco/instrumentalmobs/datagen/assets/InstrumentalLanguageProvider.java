@@ -83,7 +83,7 @@ public class InstrumentalLanguageProvider extends LanguageProvider {
 	}
 
 	public void addSubtitle(SoundEvent sound, String name) {
-		String path = Constants.MOD_ID + ".subtitle." + sound.getLocation().getPath();
+		String path = Constants.MOD_ID + ".subtitle." + sound.location().getPath();
 		this.add(path, name);
 	}
 

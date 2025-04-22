@@ -4,10 +4,11 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
+import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Mob;
 
-public class CustomBipedRenderer<T extends Mob, M extends HumanoidModel<T>> extends MobRenderer<T, M> {
+public abstract class CustomBipedRenderer<T extends Mob, S extends HumanoidRenderState, M extends HumanoidModel<S>> extends MobRenderer<T, S, M> {
 	private static final ResourceLocation DEFAULT_RES_LOC = ResourceLocation.withDefaultNamespace("textures/entity/steve.png");
 
 	public CustomBipedRenderer(EntityRendererProvider.Context context, M humanoidModel, float shadowSize) {
@@ -16,13 +17,13 @@ public class CustomBipedRenderer<T extends Mob, M extends HumanoidModel<T>> exte
 
 	public CustomBipedRenderer(EntityRendererProvider.Context context, M humanoidModel, float p_i232471_3_, float p_i232471_4_, float p_i232471_5_, float p_i232471_6_) {
 		super(context, humanoidModel, p_i232471_3_);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), p_i232471_4_, p_i232471_5_, p_i232471_6_, context.getItemInHandRenderer()));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
 	}
 
 	/**
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
-	public ResourceLocation getTextureLocation(T entity) {
+	public ResourceLocation getTextureLocation(S state) {
 		return DEFAULT_RES_LOC;
 	}
 }

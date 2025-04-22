@@ -3,10 +3,13 @@ package com.mrbysco.instrumentalmobs.datagen.data;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -45,7 +48,8 @@ public class InstrumentalEntityLootProvider extends SimpleFabricLootTableProvide
 	@Override
 	public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> biConsumer) {
 		HolderLookup.Provider registryLookup = this.registries.join();
-		biConsumer.accept(CYMBAL_HUSK.get().getDefaultLootTable(), LootTable.lootTable()
+		HolderGetter<EntityType<?>> holdergetter = registryLookup.lookupOrThrow(Registries.ENTITY_TYPE);
+		biConsumer.accept(CYMBAL_HUSK.get().getDefaultLootTable().get(), LootTable.lootTable()
 				.withPool(LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1))
 						.add(LootItem.lootTableItem(Items.ROTTEN_FLESH)
@@ -57,7 +61,7 @@ public class InstrumentalEntityLootProvider extends SimpleFabricLootTableProvide
 						.add(LootItem.lootTableItem(Items.POTATO))
 						.when(LootItemKilledByPlayerCondition.killedByPlayer())
 						.when(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(registryLookup, 0.025F, 0.01F))));
-		biConsumer.accept(DRUM_ZOMBIE.get().getDefaultLootTable(), LootTable.lootTable()
+		biConsumer.accept(DRUM_ZOMBIE.get().getDefaultLootTable().get(), LootTable.lootTable()
 				.withPool(LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1))
 						.add(LootItem.lootTableItem(Items.ROTTEN_FLESH)
@@ -69,7 +73,7 @@ public class InstrumentalEntityLootProvider extends SimpleFabricLootTableProvide
 						.add(LootItem.lootTableItem(Items.POTATO))
 						.when(LootItemKilledByPlayerCondition.killedByPlayer())
 						.when(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(registryLookup, 0.025F, 0.01F))));
-		biConsumer.accept(FRENCH_HORN_CREEPER.get().getDefaultLootTable(), LootTable.lootTable()
+		biConsumer.accept(FRENCH_HORN_CREEPER.get().getDefaultLootTable().get(), LootTable.lootTable()
 				.withPool(LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1))
 						.add(LootItem.lootTableItem(Items.GUNPOWDER)
@@ -77,8 +81,8 @@ public class InstrumentalEntityLootProvider extends SimpleFabricLootTableProvide
 								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0.0F, 1.0F)))))
 				.withPool(LootPool.lootPool().add(TagEntry.expandTag(ItemTags.CREEPER_DROP_MUSIC_DISCS))
 						.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.ATTACKER, EntityPredicate.Builder.entity()
-								.of(EntityTypeTags.SKELETONS)))));
-		biConsumer.accept(MARACA_SPIDER.get().getDefaultLootTable(), LootTable.lootTable()
+								.of(holdergetter, EntityTypeTags.SKELETONS)))));
+		biConsumer.accept(MARACA_SPIDER.get().getDefaultLootTable().get(), LootTable.lootTable()
 				.withPool(LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1))
 						.add(LootItem.lootTableItem(Items.STRING)
@@ -89,7 +93,7 @@ public class InstrumentalEntityLootProvider extends SimpleFabricLootTableProvide
 								.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)))
 								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0.0F, 1.0F))))
 						.when(LootItemKilledByPlayerCondition.killedByPlayer())));
-		biConsumer.accept(MICROPHONE_GHAST.get().getDefaultLootTable(), LootTable.lootTable()
+		biConsumer.accept(MICROPHONE_GHAST.get().getDefaultLootTable().get(), LootTable.lootTable()
 				.withPool(LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1))
 						.add(LootItem.lootTableItem(Items.GHAST_TEAR)
@@ -99,13 +103,13 @@ public class InstrumentalEntityLootProvider extends SimpleFabricLootTableProvide
 						.add(LootItem.lootTableItem(Items.GUNPOWDER)
 								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
 								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0.0F, 1.0F))))));
-		biConsumer.accept(TUBA_ENDERMAN.get().getDefaultLootTable(), LootTable.lootTable()
+		biConsumer.accept(TUBA_ENDERMAN.get().getDefaultLootTable().get(), LootTable.lootTable()
 				.withPool(LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1))
 						.add(LootItem.lootTableItem(Items.ENDER_PEARL)
 								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
 								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0.0F, 1.0F))))));
-		biConsumer.accept(XYLOPHONE_SKELETON.get().getDefaultLootTable(), LootTable.lootTable()
+		biConsumer.accept(XYLOPHONE_SKELETON.get().getDefaultLootTable().get(), LootTable.lootTable()
 
 				.withPool(LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1))
@@ -116,7 +120,7 @@ public class InstrumentalEntityLootProvider extends SimpleFabricLootTableProvide
 						.add(LootItem.lootTableItem(Items.BONE)
 								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
 								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0.0F, 1.0F))))));
-		biConsumer.accept(TRUMPET_SKELETON.get().getDefaultLootTable(), LootTable.lootTable()
+		biConsumer.accept(TRUMPET_SKELETON.get().getDefaultLootTable().get(), LootTable.lootTable()
 				.withPool(LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1))
 						.add(LootItem.lootTableItem(Items.ARROW)

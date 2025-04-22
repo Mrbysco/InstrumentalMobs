@@ -8,10 +8,10 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -32,7 +32,6 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
-import java.util.function.Predicate;
 
 public class TubaEnderman extends EnderMan implements IInstrumentalMobs {
 
@@ -41,7 +40,7 @@ public class TubaEnderman extends EnderMan implements IInstrumentalMobs {
 		this.reassessWeaponGoal();
 	}
 
-	private final InstrumentAttackGoal playOnCollideGoal = new InstrumentAttackGoal(this, 1.0D, false, InstrumentalSounds.TUBA_SOUND::get);
+	private final InstrumentAttackGoal playOnCollideGoal = new InstrumentAttackGoal(this, 1.0D, false, InstrumentalSounds.TUBA_SOUND);
 
 	private void reassessWeaponGoal() {
 		if (this.level() != null && !this.level().isClientSide) {
@@ -102,7 +101,7 @@ public class TubaEnderman extends EnderMan implements IInstrumentalMobs {
 
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance,
-	                                    MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData) {
+	                                    EntitySpawnReason mobSpawnType, @Nullable SpawnGroupData spawnGroupData) {
 		RandomSource randomSource = serverLevelAccessor.getRandom();
 		spawnGroupData = super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData);
 
@@ -126,6 +125,11 @@ public class TubaEnderman extends EnderMan implements IInstrumentalMobs {
 		}
 	}
 
+	public boolean isBeingStaredBy(Player player) {
+		return !LivingEntity.PLAYER_NOT_WEARING_DISGUISE_ITEM.test(player) ? false :
+				this.isLookingAtMe(player, 0.025, true, false, new double[]{this.getEyeY()});
+	}
+
 	static class LookForPlayerGOal extends NearestAttackableTargetGoal<Player> {
 		private final TubaEnderman enderman;
 		/**
@@ -136,25 +140,31 @@ public class TubaEnderman extends EnderMan implements IInstrumentalMobs {
 		private int teleportTime;
 		private final TargetingConditions startAggroTargetConditions;
 		private final TargetingConditions continueAggroTargetConditions = TargetingConditions.forCombat().ignoreLineOfSight();
+		private final TargetingConditions.Selector isAngerInducing;
 
-		public LookForPlayerGOal(TubaEnderman tubaEnderman, @Nullable Predicate<LivingEntity> livingEntityPredicate) {
-			super(tubaEnderman, Player.class, 10, false, false, livingEntityPredicate);
+		public LookForPlayerGOal(TubaEnderman tubaEnderman, @Nullable TargetingConditions.Selector selector) {
+			super(tubaEnderman, Player.class, 10, false, false, selector);
 			this.enderman = tubaEnderman;
-			this.startAggroTargetConditions = TargetingConditions.forCombat().range(this.getFollowDistance()).selector((entity) -> tubaEnderman.isLookingAtMe((Player) entity));
+			this.isAngerInducing = (stared, serverLevel) ->
+					(tubaEnderman.isBeingStaredBy((Player)stared) || tubaEnderman.isAngryAt(stared, serverLevel)) &&
+							!tubaEnderman.hasIndirectPassenger(stared);
+			this.startAggroTargetConditions = TargetingConditions.forCombat().range(this.getFollowDistance()).selector(this.isAngerInducing);
 		}
 
 		/**
 		 * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
 		 * method as well.
 		 */
+		@Override
 		public boolean canUse() {
-			this.pendingTarget = this.enderman.level().getNearestPlayer(this.startAggroTargetConditions, this.enderman);
+			this.pendingTarget = getServerLevel(this.enderman).getNearestPlayer(this.startAggroTargetConditions.range(this.getFollowDistance()), this.enderman);
 			return this.pendingTarget != null;
 		}
 
 		/**
 		 * Execute a one shot task or start executing a continuous task
 		 */
+		@Override
 		public void start() {
 			this.aggroTime = 5;
 			this.teleportTime = 0;
@@ -164,6 +174,7 @@ public class TubaEnderman extends EnderMan implements IInstrumentalMobs {
 		/**
 		 * Reset the task's internal state. Called when this task is interrupted by another one
 		 */
+		@Override
 		public void stop() {
 			this.pendingTarget = null;
 			super.stop();
@@ -172,22 +183,34 @@ public class TubaEnderman extends EnderMan implements IInstrumentalMobs {
 		/**
 		 * Returns whether an in-progress EntityAIBase should continue executing
 		 */
+		@Override
 		public boolean canContinueToUse() {
 			if (this.pendingTarget != null) {
-				if (!this.enderman.isLookingAtMe(this.pendingTarget)) {
+				if (!this.isAngerInducing.test(this.pendingTarget, getServerLevel(this.enderman))) {
 					return false;
 				} else {
 					this.enderman.lookAt(this.pendingTarget, 10.0F, 10.0F);
 					return true;
 				}
 			} else {
-				return this.target != null && this.continueAggroTargetConditions.test(this.enderman, this.target) || super.canContinueToUse();
+				if (this.target != null) {
+					if (this.enderman.hasIndirectPassenger(this.target)) {
+						return false;
+					}
+
+					if (this.continueAggroTargetConditions.test(getServerLevel(this.enderman), this.enderman, this.target)) {
+						return true;
+					}
+				}
+
+				return super.canContinueToUse();
 			}
 		}
 
 		/**
 		 * Keep ticking a continuous task that has already been started
 		 */
+		@Override
 		public void tick() {
 			if (this.enderman.getTarget() == null) {
 				super.setTarget((LivingEntity) null);
@@ -231,6 +254,7 @@ public class TubaEnderman extends EnderMan implements IInstrumentalMobs {
 		 * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
 		 * method as well.
 		 */
+		@Override
 		public boolean canUse() {
 			this.targetPlayer = this.enderman.getTarget();
 			if (!(this.targetPlayer instanceof Player)) {
@@ -244,6 +268,7 @@ public class TubaEnderman extends EnderMan implements IInstrumentalMobs {
 		/**
 		 * Execute a one shot task or start executing a continuous task
 		 */
+		@Override
 		public void start() {
 			this.enderman.getNavigation().stop();
 		}
@@ -251,6 +276,7 @@ public class TubaEnderman extends EnderMan implements IInstrumentalMobs {
 		/**
 		 * Keep ticking a continuous task that has already been started
 		 */
+		@Override
 		public void tick() {
 			this.enderman.getLookControl().setLookAt(this.targetPlayer.getX(), this.targetPlayer.getEyeY(), this.targetPlayer.getZ());
 		}

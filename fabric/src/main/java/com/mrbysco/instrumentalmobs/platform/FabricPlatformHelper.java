@@ -1,21 +1,15 @@
 package com.mrbysco.instrumentalmobs.platform;
 
 import com.mrbysco.instrumentalmobs.InstrumentalMobsFabric;
-import com.mrbysco.instrumentalmobs.init.SupplierSpawnEggItem;
 import com.mrbysco.instrumentalmobs.platform.services.IPlatformHelper;
 import com.mrbysco.instrumentalmobs.registration.InstrumentalRegistry;
-import com.mrbysco.instrumentalmobs.registration.RegistryObject;
 import net.fabricmc.fabric.impl.itemgroup.FabricItemGroupBuilderImpl;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 
@@ -32,11 +26,6 @@ public class FabricPlatformHelper implements IPlatformHelper {
 					List<ItemStack> stacks = InstrumentalRegistry.ITEMS.getEntries().stream().map(reg -> new ItemStack(reg.get())).toList();
 					output.acceptAll(stacks);
 				}).build();
-	}
-
-	@Override
-	public <T extends Mob> SpawnEggItem buildSpawnEgg(RegistryObject<EntityType<T>> type, int backgroundColor, int highlightColor, Item.Properties props) {
-		return new SupplierSpawnEggItem(type, backgroundColor, highlightColor, props);
 	}
 
 	@Override

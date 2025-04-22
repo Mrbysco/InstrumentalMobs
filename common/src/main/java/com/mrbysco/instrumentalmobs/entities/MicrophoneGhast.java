@@ -10,10 +10,10 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -42,7 +42,7 @@ public class MicrophoneGhast extends Ghast implements IInstrumentalMobs {
 		this.goalSelector.addGoal(7, new MicrophoneGhast.LookAroundGoal(this));
 		this.goalSelector.addGoal(7, new MicrophoneGhast.VoiceAttackGoal(this));
 		this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class,
-				10, true, false, (livingEntity) -> Math.abs(livingEntity.getY() - this.getY()) <= 4.0D));
+				10, true, false, (livingEntity, serverLevel) -> Math.abs(livingEntity.getY() - this.getY()) <= 4.0D));
 	}
 
 	@Override
@@ -67,7 +67,7 @@ public class MicrophoneGhast extends Ghast implements IInstrumentalMobs {
 
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance,
-	                                    MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData) {
+	                                    EntitySpawnReason mobSpawnType, @Nullable SpawnGroupData spawnGroupData) {
 		RandomSource randomSource = serverLevelAccessor.getRandom();
 		spawnGroupData = super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData);
 
@@ -227,7 +227,7 @@ public class MicrophoneGhast extends Ghast implements IInstrumentalMobs {
 		}
 	}
 
-	public static boolean canSpawnHere(EntityType<MicrophoneGhast> p_223368_0_, LevelAccessor p_223368_1_, MobSpawnType reason, BlockPos p_223368_3_, RandomSource p_223368_4_) {
+	public static boolean canSpawnHere(EntityType<MicrophoneGhast> p_223368_0_, LevelAccessor p_223368_1_, EntitySpawnReason reason, BlockPos p_223368_3_, RandomSource p_223368_4_) {
 		return p_223368_1_.getDifficulty() != Difficulty.PEACEFUL && p_223368_4_.nextInt(20) == 0 && checkMobSpawnRules(p_223368_0_, p_223368_1_, reason, p_223368_3_, p_223368_4_);
 	}
 }

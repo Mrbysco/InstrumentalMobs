@@ -31,13 +31,13 @@ public class MicrophoneWave extends ThrowableItemProjectile {
 	}
 
 	public MicrophoneWave(Level level, LivingEntity throwerIn, SoundEvent theSound) {
-		super(InstrumentalEntities.MICROPHONE_WAVE.get(), throwerIn, level);
+		super(InstrumentalEntities.MICROPHONE_WAVE.get(), throwerIn, level, InstrumentalRegistry.MICROPHONE.get().getDefaultInstance());
 		this.shootingEntity = throwerIn;
 		this.sound = theSound;
 	}
 
 	public MicrophoneWave(Level level, double x, double y, double z) {
-		super(InstrumentalEntities.MICROPHONE_WAVE.get(), x, y, z, level);
+		super(InstrumentalEntities.MICROPHONE_WAVE.get(), x, y, z, level, InstrumentalRegistry.MICROPHONE.get().getDefaultInstance());;
 	}
 
 	/**
@@ -61,11 +61,11 @@ public class MicrophoneWave extends ThrowableItemProjectile {
 		if (entity instanceof Player collidingPlayer && shootingEntity instanceof Player playerIn) {
 			if (playerIn.canHarmPlayer(collidingPlayer)) {
 				if (this.level().random.nextInt(10) <= 2) {
-					collidingPlayer.hurt(source, 1F);
+					collidingPlayer.hurtOrSimulate(source, 1F);
 				}
 			}
 		} else {
-			boolean wasHurt = entity.hurt(Constants.causeSoundDamage(this), 6.0F);
+			boolean wasHurt = entity.hurtOrSimulate(Constants.causeSoundDamage(this), 6.0F);
 			if (wasHurt && this.level() instanceof ServerLevel serverlevel1) {
 				EnchantmentHelper.doPostAttackEffectsWithItemSource(serverlevel1, entity, source, this.getWeaponItem());
 			}

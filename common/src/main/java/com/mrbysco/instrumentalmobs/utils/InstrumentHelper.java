@@ -29,10 +29,9 @@ public class InstrumentHelper {
 				collidingEntity.push(0.5 * xDist / distance, 5.0D / (10.0D + distance), 0.5 * zDist / distance);
 
 				if (level.random.nextDouble() <= Services.PLATFORM.soundDamageChance()) {
-					if (livingEntity instanceof Player) {
+					if (livingEntity instanceof Player playerIn) {
 						final double chance = Services.PLATFORM.instrumentHurtChance();
 						if (collidingEntity instanceof Player collidingPlayer) {
-							Player playerIn = (Player) livingEntity;
 							if (playerIn.canHarmPlayer(collidingPlayer)) {
 								if (level.random.nextDouble() <= chance) {
 									collidingEntity.hurt(Constants.causeSoundDamage(livingEntity), 1.0F);

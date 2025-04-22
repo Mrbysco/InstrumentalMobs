@@ -12,8 +12,13 @@ import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.KilledTrigger;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.advancements.AdvancementProvider;
+import net.minecraft.data.advancements.AdvancementSubProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -21,8 +26,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
-import net.neoforged.neoforge.common.data.AdvancementProvider;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,35 +34,36 @@ import java.util.function.Consumer;
 
 public class InstrumentalAdvancementProvider extends AdvancementProvider {
 
-	public InstrumentalAdvancementProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper fileHelper) {
-		super(packOutput, lookupProvider, fileHelper, List.of(new InstrumentalAdvancements()));
+	public InstrumentalAdvancementProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+		super(packOutput, lookupProvider, List.of(new InstrumentalAdvancements()));
 	}
 
-	public static class InstrumentalAdvancements implements AdvancementGenerator {
+	public static class InstrumentalAdvancements implements AdvancementSubProvider {
 		public InstrumentalAdvancements() {
 		}
 
 		@Override
-		public void generate(HolderLookup.Provider provider, Consumer<AdvancementHolder> consumer, ExistingFileHelper fileHelper) {
+		public void generate(Provider provider, Consumer<AdvancementHolder> consumer) {
+			HolderGetter<EntityType<?>> holdergetter = provider.lookupOrThrow(Registries.ENTITY_TYPE);
 			//Root advancement
 			AdvancementHolder root = Advancement.Builder.advancement()
 					.display(rootDisplay(Items.NOTE_BLOCK, advancementPrefix("root" + ".title"),
 							advancementPrefix("root" + ".desc"),
 							ResourceLocation.withDefaultNamespace("textures/block/yellow_wool.png")))
 					.addCriterion("french_horn_creeper", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity()
-							.of(InstrumentalEntities.FRENCH_HORN_CREEPER.get())))
+							.of(holdergetter, InstrumentalEntities.FRENCH_HORN_CREEPER.get())))
 					.addCriterion("tuba_enderman", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity()
-							.of(InstrumentalEntities.TUBA_ENDERMAN.get())))
+							.of(holdergetter, InstrumentalEntities.TUBA_ENDERMAN.get())))
 					.addCriterion("drum_zombie", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity()
-							.of(InstrumentalEntities.DRUM_ZOMBIE.get())))
+							.of(holdergetter, InstrumentalEntities.DRUM_ZOMBIE.get())))
 					.addCriterion("cymbal_husk", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity()
-							.of(InstrumentalEntities.CYMBAL_HUSK.get())))
+							.of(holdergetter, InstrumentalEntities.CYMBAL_HUSK.get())))
 					.addCriterion("xylophone_skeleton", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity()
-							.of(InstrumentalEntities.XYLOPHONE_SKELETON.get())))
+							.of(holdergetter, InstrumentalEntities.XYLOPHONE_SKELETON.get())))
 					.addCriterion("maraca_spider", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity()
-							.of(InstrumentalEntities.MARACA_SPIDER.get())))
+							.of(holdergetter, InstrumentalEntities.MARACA_SPIDER.get())))
 					.addCriterion("microphone_ghast", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity()
-							.of(InstrumentalEntities.MICROPHONE_GHAST.get())))
+							.of(holdergetter, InstrumentalEntities.MICROPHONE_GHAST.get())))
 					.requirements(AdvancementRequirements.Strategy.OR).save(consumer, rootID("root"));
 
 			//Generate an advancement for every instrument
@@ -110,16 +114,6 @@ public class InstrumentalAdvancementProvider extends AdvancementProvider {
 		 */
 		protected static DisplayInfo simpleDisplay(ItemLike icon, String name) {
 			return new DisplayInfo(new ItemStack(icon.asItem()), Component.translatable(advancementPrefix(name + ".title")), Component.translatable(advancementPrefix(name + ".desc")), Optional.empty(), AdvancementType.TASK, true, false, false);
-		}
-
-		/**
-		 * Get a trigger instance for killing an entity.
-		 *
-		 * @param entityType The entity type.
-		 * @return The trigger instance.
-		 */
-		protected static KilledTrigger.TriggerInstance onKill(EntityType<?> entityType) {
-			return KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entityType)).triggerInstance();
 		}
 
 		/**

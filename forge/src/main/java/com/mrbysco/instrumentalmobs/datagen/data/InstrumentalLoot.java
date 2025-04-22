@@ -4,8 +4,10 @@ import com.mrbysco.instrumentalmobs.registration.InstrumentalEntities;
 import com.mrbysco.instrumentalmobs.registration.InstrumentalRegistry;
 import com.mrbysco.instrumentalmobs.registration.RegistryObject;
 import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.WritableRegistry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.data.loot.EntityLootSubProvider;
@@ -42,6 +44,8 @@ import static com.mrbysco.instrumentalmobs.registration.InstrumentalEntities.DRU
 import static com.mrbysco.instrumentalmobs.registration.InstrumentalEntities.FRENCH_HORN_CREEPER;
 import static com.mrbysco.instrumentalmobs.registration.InstrumentalEntities.MARACA_SPIDER;
 import static com.mrbysco.instrumentalmobs.registration.InstrumentalEntities.MICROPHONE_GHAST;
+import static com.mrbysco.instrumentalmobs.registration.InstrumentalEntities.MICROPHONE_WAVE;
+import static com.mrbysco.instrumentalmobs.registration.InstrumentalEntities.SOUND_WAVE;
 import static com.mrbysco.instrumentalmobs.registration.InstrumentalEntities.TRUMPET_SKELETON;
 import static com.mrbysco.instrumentalmobs.registration.InstrumentalEntities.TUBA_ENDERMAN;
 import static com.mrbysco.instrumentalmobs.registration.InstrumentalEntities.XYLOPHONE_SKELETON;
@@ -79,6 +83,8 @@ public class InstrumentalLoot extends LootTableProvider {
 
 		@Override
 		public void generate() {
+			HolderGetter<EntityType<?>> holdergetter = this.registries.lookupOrThrow(Registries.ENTITY_TYPE);
+
 			this.add(CYMBAL_HUSK.get(), LootTable.lootTable()
 					.withPool(LootPool.lootPool()
 							.setRolls(ConstantValue.exactly(1))
@@ -111,7 +117,7 @@ public class InstrumentalLoot extends LootTableProvider {
 									.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F)))))
 					.withPool(LootPool.lootPool().add(TagEntry.expandTag(ItemTags.CREEPER_DROP_MUSIC_DISCS))
 							.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.ATTACKER, EntityPredicate.Builder.entity()
-									.of(EntityTypeTags.SKELETONS)))));
+									.of(holdergetter, EntityTypeTags.SKELETONS)))));
 			this.add(MARACA_SPIDER.get(), LootTable.lootTable()
 					.withPool(LootPool.lootPool()
 							.setRolls(ConstantValue.exactly(1))
@@ -161,14 +167,9 @@ public class InstrumentalLoot extends LootTableProvider {
 							.add(LootItem.lootTableItem(Items.BONE)
 									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
 									.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))));
-		}
 
-		@Override
-		protected boolean canHaveLootTable(EntityType<?> entitytype) {
-			List<EntityType<?>> blacklisted = List.of(
-					InstrumentalEntities.SOUND_WAVE.get(),
-					InstrumentalEntities.MICROPHONE_WAVE.get());
-			return !blacklisted.contains(entitytype);
+			this.add(SOUND_WAVE.get(), LootTable.lootTable());
+			this.add(MICROPHONE_WAVE.get(), LootTable.lootTable());
 		}
 
 		@Override

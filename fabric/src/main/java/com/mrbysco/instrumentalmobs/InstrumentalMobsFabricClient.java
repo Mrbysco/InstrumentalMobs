@@ -8,10 +8,8 @@ import com.mrbysco.instrumentalmobs.client.render.MicrophoneGhastRenderer;
 import com.mrbysco.instrumentalmobs.client.render.TrumpetSkeletonRenderer;
 import com.mrbysco.instrumentalmobs.client.render.TubaEndermanRenderer;
 import com.mrbysco.instrumentalmobs.client.render.XylophoneSkeletonRenderer;
-import com.mrbysco.instrumentalmobs.init.SupplierSpawnEggItem;
 import com.mrbysco.instrumentalmobs.registration.InstrumentalEntities;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 
@@ -29,11 +27,5 @@ public class InstrumentalMobsFabricClient implements ClientModInitializer {
 		EntityRendererRegistry.register(InstrumentalEntities.MICROPHONE_GHAST.get(), MicrophoneGhastRenderer::new);
 		EntityRendererRegistry.register(InstrumentalEntities.SOUND_WAVE.get(), ThrownItemRenderer::new);
 		EntityRendererRegistry.register(InstrumentalEntities.MICROPHONE_WAVE.get(), ThrownItemRenderer::new);
-
-		for (SupplierSpawnEggItem<?> registryObject : SupplierSpawnEggItem.getModEggs()) {
-			ColorProviderRegistry.ITEM.register((stack, tintIndex) -> {
-				return tintIndex == 0 ? registryObject.getColor(0) : -1;
-			}, registryObject);
-		}
 	}
 }

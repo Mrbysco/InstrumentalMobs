@@ -18,6 +18,7 @@ public class SkeletonInstrumentAttackGoal<T extends Skeleton & IInstrumentalSkel
 	/**
 	 * Execute a one shot task or start executing a continuous task
 	 */
+	@Override
 	public void start() {
 		super.start();
 		this.raiseArmTicks = 0;
@@ -26,6 +27,7 @@ public class SkeletonInstrumentAttackGoal<T extends Skeleton & IInstrumentalSkel
 	/**
 	 * Reset the task's internal state. Called when this task is interrupted by another one
 	 */
+	@Override
 	public void stop() {
 		super.stop();
 		this.skeleton.setPlayingInstrument(false);
@@ -34,6 +36,7 @@ public class SkeletonInstrumentAttackGoal<T extends Skeleton & IInstrumentalSkel
 	/**
 	 * Keep ticking a continuous task that has already been started
 	 */
+	@Override
 	public void tick() {
 		super.tick();
 		++this.raiseArmTicks;

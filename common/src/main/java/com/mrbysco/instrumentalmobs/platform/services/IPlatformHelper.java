@@ -1,15 +1,10 @@
 package com.mrbysco.instrumentalmobs.platform.services;
 
-import com.mrbysco.instrumentalmobs.registration.RegistryObject;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.Level;
 
 public interface IPlatformHelper {
@@ -20,17 +15,6 @@ public interface IPlatformHelper {
 	 * @return The creative tab
 	 */
 	CreativeModeTab buildCreativeTab();
-
-	/**
-	 * Build a spawn egg for the given entity type
-	 *
-	 * @param type            The entity type
-	 * @param backgroundColor The background color
-	 * @param highlightColor  The highlight color
-	 * @param props           The item properties
-	 * @return The spawn egg
-	 */
-	<T extends Mob> SpawnEggItem buildSpawnEgg(RegistryObject<EntityType<T>> type, int backgroundColor, int highlightColor, Item.Properties props);
 
 	/**
 	 * Gets the explosion interaction mode for the given entity

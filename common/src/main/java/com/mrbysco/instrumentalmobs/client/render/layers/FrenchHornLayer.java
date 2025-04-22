@@ -2,30 +2,24 @@ package com.mrbysco.instrumentalmobs.client.render.layers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import com.mrbysco.instrumentalmobs.entities.FrenchHornCreeper;
+import com.mrbysco.instrumentalmobs.client.render.state.FrenchRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HeadedModel;
-import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 
-public class FrenchHornLayer<T extends FrenchHornCreeper, M extends EntityModel<T> & HeadedModel> extends RenderLayer<T, M> {
-	private final ItemInHandRenderer itemInHandRenderer;
-
-	public FrenchHornLayer(RenderLayerParent<T, M> layerParent, ItemInHandRenderer itemInHandRenderer) {
+public class FrenchHornLayer<S extends FrenchRenderState, M extends EntityModel<S> & HeadedModel> extends RenderLayer<S, M> {
+	public FrenchHornLayer(RenderLayerParent<S, M> layerParent) {
 		super(layerParent);
-		this.itemInHandRenderer = itemInHandRenderer;
 	}
 
 	@Override
-	public void render(PoseStack poseStack, MultiBufferSource bufferSource, int packedLightIn, T frenchHornCreeper,
-					   float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		ItemStack itemstack = frenchHornCreeper.getItemBySlot(EquipmentSlot.MAINHAND);
-		if (!itemstack.isEmpty()) {
+	public void render(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, S state, float yRot, float xRot) {
+		ItemStackRenderState stack = state.heldItem;
+		if (!stack.isEmpty()) {
 			poseStack.pushPose();
 			this.getParentModel().getHead().translateAndRotate(poseStack);
 
@@ -34,7 +28,7 @@ public class FrenchHornLayer<T extends FrenchHornCreeper, M extends EntityModel<
 			poseStack.translate(0.85F, 0.15F, 0.0F);
 			poseStack.mulPose(Axis.ZP.rotationDegrees(-20F));
 
-			itemInHandRenderer.renderItem(frenchHornCreeper, itemstack, ItemDisplayContext.NONE, false, poseStack, bufferSource, packedLightIn);
+			stack.render(poseStack, bufferSource, packedLight, OverlayTexture.NO_OVERLAY);
 
 			poseStack.popPose();
 		}

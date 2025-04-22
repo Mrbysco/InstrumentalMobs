@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "instrumentalmobs:maraca"
-    },
-    {
-      "item": "instrumentalmobs:maraca"
-    }
+    "instrumentalmobs:maraca",
+    "instrumentalmobs:maraca"
   ],
   "result": {
     "count": 1,

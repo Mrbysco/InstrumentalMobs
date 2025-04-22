@@ -4,27 +4,22 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HeadedModel;
-import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.monster.EnderMan;
-import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.client.renderer.entity.state.EndermanRenderState;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 
-public class TubaEndermanHeldItemLayer<T extends EnderMan, M extends EntityModel<T> & HeadedModel> extends RenderLayer<T, M> {
-	private final ItemInHandRenderer itemInHandRenderer;
+public class TubaEndermanHeldItemLayer<S extends EndermanRenderState, M extends EntityModel<S> & HeadedModel> extends RenderLayer<S, M> {
 
-	public TubaEndermanHeldItemLayer(RenderLayerParent<T, M> layerParent, ItemInHandRenderer itemInHandRenderer) {
+	public TubaEndermanHeldItemLayer(RenderLayerParent<S, M> layerParent) {
 		super(layerParent);
-		this.itemInHandRenderer = itemInHandRenderer;
 	}
 
 	@Override
-	public void render(PoseStack poseStack, MultiBufferSource bufferSource, int packedLightIn, T enderman,
-					   float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		ItemStack stack = enderman.getItemBySlot(EquipmentSlot.MAINHAND);
+	public void render(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, S state, float yRot, float xRot) {
+		ItemStackRenderState stack = state.getMainHandItem();
 		if (!stack.isEmpty()) {
 			poseStack.pushPose();
 			this.getParentModel().getHead().translateAndRotate(poseStack);
@@ -36,7 +31,7 @@ public class TubaEndermanHeldItemLayer<T extends EnderMan, M extends EntityModel
 
 			poseStack.translate(-0.8F, 0.0F, 0.0F);
 
-			itemInHandRenderer.renderItem(enderman, stack, ItemDisplayContext.NONE, false, poseStack, bufferSource, packedLightIn);
+			stack.render(poseStack, bufferSource, packedLight, OverlayTexture.NO_OVERLAY);
 			poseStack.popPose();
 		}
 	}

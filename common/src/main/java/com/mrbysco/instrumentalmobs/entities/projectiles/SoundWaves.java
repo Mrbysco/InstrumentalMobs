@@ -65,11 +65,11 @@ public class SoundWaves extends AbstractHurtingProjectile implements ItemSupplie
 		if (entity instanceof Player collidingPlayer && getOwner() instanceof Player playerIn) {
 			if (playerIn.canHarmPlayer(collidingPlayer)) {
 				if (this.level().random.nextInt(10) <= 2) {
-					collidingPlayer.hurt(source, 1F);
+					collidingPlayer.hurtOrSimulate(source, 1F);
 				}
 			}
 		} else {
-			boolean wasHurt = entity.hurt(Constants.causeSoundDamage(this), 6.0F);
+			boolean wasHurt = entity.hurtOrSimulate(Constants.causeSoundDamage(this), 6.0F);
 			if (wasHurt && this.level() instanceof ServerLevel serverlevel1) {
 				EnchantmentHelper.doPostAttackEffectsWithItemSource(serverlevel1, entity, source, this.getWeaponItem());
 			}

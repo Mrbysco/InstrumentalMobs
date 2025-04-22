@@ -2,24 +2,28 @@ package com.mrbysco.instrumentalmobs.client.render.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import com.mrbysco.instrumentalmobs.entities.MaracaSpider;
+import com.mrbysco.instrumentalmobs.client.render.state.MaracaRenderState;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.SpiderModel;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.world.entity.HumanoidArm;
 import org.joml.Vector3f;
 
-public class MaracaSpiderModel<T extends MaracaSpider> extends SpiderModel<T> implements ArmedModel {
+import java.util.Random;
+
+public class MaracaSpiderModel extends SpiderModel implements ArmedModel {
+	private Random random = new Random();
 
 	public MaracaSpiderModel(ModelPart part) {
 		super(part);
 	}
 
 	@Override
-	public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		super.setupAnim(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-		if (entityIn.isAttacking() && entityIn.getRandom().nextFloat() > 0.5F) {
-			float randAngle = (float) entityIn.getRandom().nextInt(45);
+	public void setupAnim(LivingEntityRenderState state) {
+		super.setupAnim(state);
+		if (state instanceof MaracaRenderState maracaState && maracaState.isAttacking && random.nextFloat() > 0.5F) {
+			float randAngle = (float) random.nextInt(45);
 			this.rightFrontLeg.yRot += randAngle;
 			this.leftFrontLeg.yRot += randAngle;
 		}

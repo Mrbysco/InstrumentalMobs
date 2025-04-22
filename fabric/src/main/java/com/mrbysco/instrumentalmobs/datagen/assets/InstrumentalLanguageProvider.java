@@ -86,7 +86,7 @@ public class InstrumentalLanguageProvider extends FabricLanguageProvider {
 	}
 
 	public void addSubtitle(TranslationBuilder builder, SoundEvent sound, String name) {
-		String path = Constants.MOD_ID + ".subtitle." + sound.getLocation().getPath();
+		String path = Constants.MOD_ID + ".subtitle." + sound.location().getPath();
 		builder.add(path, name);
 	}
 

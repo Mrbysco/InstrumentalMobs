@@ -11,9 +11,9 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.MoveThroughVillageGoal;
@@ -51,7 +51,7 @@ public class CymbalHusk extends Husk implements IInstrumentalMobs {
 
 	@Override
 	protected void addBehaviourGoals() {
-		this.goalSelector.addGoal(2, new HuskInstrumentAttackGoal(this, 1.0D, false, InstrumentalSounds.CYMBALS_SOUND::get));
+		this.goalSelector.addGoal(2, new HuskInstrumentAttackGoal(this, 1.0D, false, InstrumentalSounds.CYMBALS_SOUND));
 		this.goalSelector.addGoal(6, new MoveThroughVillageGoal(this, 1.0D, true, 4, this::canBreakDoors));
 		this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D));
 		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(ZombifiedPiglin.class));
@@ -101,7 +101,7 @@ public class CymbalHusk extends Husk implements IInstrumentalMobs {
 		}
 	}
 
-	public static boolean canSpawnHere(EntityType<CymbalHusk> p_223334_0_, ServerLevelAccessor p_223334_1_, MobSpawnType reason, BlockPos p_223334_3_, RandomSource p_223334_4_) {
-		return checkMonsterSpawnRules(p_223334_0_, p_223334_1_, reason, p_223334_3_, p_223334_4_) && (reason == MobSpawnType.SPAWNER || p_223334_1_.canSeeSky(p_223334_3_));
+	public static boolean canSpawnHere(EntityType<CymbalHusk> p_223334_0_, ServerLevelAccessor p_223334_1_, EntitySpawnReason reason, BlockPos p_223334_3_, RandomSource p_223334_4_) {
+		return checkMonsterSpawnRules(p_223334_0_, p_223334_1_, reason, p_223334_3_, p_223334_4_) && (reason == EntitySpawnReason.SPAWNER || p_223334_1_.canSeeSky(p_223334_3_));
 	}
 }

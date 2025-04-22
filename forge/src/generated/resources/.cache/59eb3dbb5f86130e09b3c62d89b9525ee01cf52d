@@ -1,10 +1,12 @@
-// 1.21.1	2025-04-22T20:49:30.3137148	Loot Tables
+// 1.21.4	2025-04-22T23:52:27.8139987	Loot Tables
 e20acaa07db8672decb15abd316218098d485dec data/instrumentalmobs/loot_table/blocks/drum_block.json
 a05d9aeab5ba64425008246a24108d81db930431 data/instrumentalmobs/loot_table/entities/cymbal_husk.json
 389b1470e2ae2b10708ccbadd574603a8a1457ca data/instrumentalmobs/loot_table/entities/drum_zombie.json
 5dac1a08f39a3881e361d9a4bcb62804eb6b996f data/instrumentalmobs/loot_table/entities/french_horn_creeper.json
 c37d14c351e03c5f716484372d3fd54b463e7884 data/instrumentalmobs/loot_table/entities/maraca_spider.json
 824a08022cbbd49b926d029bec3dcee53445fa34 data/instrumentalmobs/loot_table/entities/microphone_ghast.json
+18992b449526e8ddd0ddd188b0a98f81345754d5 data/instrumentalmobs/loot_table/entities/microphone_sound.json
+14b7b190f6107828506d30ebae16e65d87377cad data/instrumentalmobs/loot_table/entities/sound_waves.json
 22cf6c8dcabeceaaf7af299129fdf1bc7922eb09 data/instrumentalmobs/loot_table/entities/trumpet_skeleton.json
 fcecb4d5191832a005384f05de48efad72d725e4 data/instrumentalmobs/loot_table/entities/tuba_enderman.json
 e472afbbe901a18474ce55f370cc3d4b95bb01bc data/instrumentalmobs/loot_table/entities/xylophone_skeleton.json

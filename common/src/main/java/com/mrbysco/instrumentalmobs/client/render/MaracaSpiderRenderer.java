@@ -3,27 +3,50 @@ package com.mrbysco.instrumentalmobs.client.render;
 import com.mrbysco.instrumentalmobs.client.render.layers.MaracaSpiderEyesLayer;
 import com.mrbysco.instrumentalmobs.client.render.layers.MaracasLayer;
 import com.mrbysco.instrumentalmobs.client.render.model.MaracaSpiderModel;
+import com.mrbysco.instrumentalmobs.client.render.state.MaracaRenderState;
 import com.mrbysco.instrumentalmobs.entities.MaracaSpider;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemDisplayContext;
 
-public class MaracaSpiderRenderer extends MobRenderer<MaracaSpider, MaracaSpiderModel<MaracaSpider>> {
+public class MaracaSpiderRenderer extends MobRenderer<MaracaSpider, LivingEntityRenderState, MaracaSpiderModel> {
 	private static final ResourceLocation SPIDER_TEXTURES = ResourceLocation.withDefaultNamespace("textures/entity/spider/spider.png");
 
 	public MaracaSpiderRenderer(EntityRendererProvider.Context context) {
-		super(context, new MaracaSpiderModel<>(context.bakeLayer(ModelLayers.SPIDER)), 1.0F);
-		this.addLayer(new MaracaSpiderEyesLayer<>(this));
-		this.addLayer(new MaracasLayer<>(this, context.getItemInHandRenderer()));
+		super(context, new MaracaSpiderModel(context.bakeLayer(ModelLayers.SPIDER)), 1.0F);
+		this.addLayer(new MaracaSpiderEyesLayer(this));
+		this.addLayer(new MaracasLayer(this));
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(MaracaSpider maracaSpider) {
+	public LivingEntityRenderState createRenderState() {
+		return new MaracaRenderState();
+	}
+
+	@Override
+	public void extractRenderState(MaracaSpider spider, LivingEntityRenderState state, float partialTick) {
+		super.extractRenderState(spider, state, partialTick);
+		if (state instanceof MaracaRenderState maracaState) {
+			maracaState.isAttacking = spider.isAttacking();
+			itemModelResolver.updateForLiving(
+					maracaState.mainItem, spider.getMainHandItem(), ItemDisplayContext.THIRD_PERSON_LEFT_HAND, false, spider
+			);
+			itemModelResolver.updateForLiving(
+					maracaState.offItem, spider.getOffhandItem(), ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, false, spider
+			);
+		}
+	}
+
+	@Override
+	public ResourceLocation getTextureLocation(LivingEntityRenderState state) {
 		return SPIDER_TEXTURES;
 	}
 
-	protected float getFlipDegrees(MaracaSpider maracaSpider) {
+	@Override
+	protected float getFlipDegrees() {
 		return 180.0F;
 	}
 }

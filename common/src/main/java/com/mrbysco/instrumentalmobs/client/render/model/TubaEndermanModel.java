@@ -1,18 +1,18 @@
 package com.mrbysco.instrumentalmobs.client.render.model;
 
-import com.mrbysco.instrumentalmobs.entities.TubaEnderman;
 import net.minecraft.client.model.EndermanModel;
 import net.minecraft.client.model.HeadedModel;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.renderer.entity.state.EndermanRenderState;
 
-public class TubaEndermanModel<T extends TubaEnderman> extends EndermanModel<T> implements HeadedModel {
+public class TubaEndermanModel<S extends EndermanRenderState> extends EndermanModel<S> implements HeadedModel {
 
 	public TubaEndermanModel(ModelPart part) {
 		super(part);
 	}
 
-	public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		super.setupAnim(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+	public void setupAnim(S state) {
+		super.setupAnim(state);
 	}
 
 	@Override

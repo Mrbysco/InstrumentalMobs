@@ -2,25 +2,23 @@ package com.mrbysco.instrumentalmobs.client.render.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import com.mrbysco.instrumentalmobs.entities.CymbalHusk;
+import com.mrbysco.instrumentalmobs.client.render.state.CymbalRenderState;
 import net.minecraft.client.model.ZombieModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 
-public class CymbalHuskModel<T extends CymbalHusk> extends ZombieModel<T> {
+public class CymbalHuskModel<S extends CymbalRenderState> extends ZombieModel<S> {
 	public CymbalHuskModel(ModelPart part) {
 		super(part);
 	}
 
 	@Override
-	public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		super.setupAnim(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+	public void setupAnim(S state) {
+		super.setupAnim(state);
 
-		boolean flag2 = entityIn.isClapping();
-
-		//clap?
-		float f3 = (flag2 ? ((Mth.cos(ageInTicks * 0.75F)) * 0.75F) : 0.0F) * 0.8F;
+		boolean clapping = state.isClapping;
+		float f3 = (clapping ? ((Mth.cos(state.ageInTicks * 0.75F)) * 0.75F) : 0.0F) * 0.8F;
 		this.rightArm.yRot = f3;
 		this.leftArm.yRot -= f3;
 	}

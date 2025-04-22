@@ -14,7 +14,9 @@ import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.KilledTrigger;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -34,31 +36,32 @@ public class InstrumentalAdvancementProvider extends FabricAdvancementProvider {
 	}
 
 	@Override
-	public void generateAdvancement(HolderLookup.Provider registryLookup, Consumer<AdvancementHolder> consumer) {
+	public void generateAdvancement(HolderLookup.Provider provider, Consumer<AdvancementHolder> consumer) {
+		HolderGetter<EntityType<?>> holdergetter = provider.lookupOrThrow(Registries.ENTITY_TYPE);
 		//Root advancement
 		AdvancementHolder root = Advancement.Builder.advancement()
 				.display(rootDisplay(Items.NOTE_BLOCK, advancementPrefix("root" + ".title"),
 						advancementPrefix("root" + ".desc"), ResourceLocation.withDefaultNamespace("textures/block/yellow_wool.png")))
 				.addCriterion("french_horn_creeper", KilledTrigger.TriggerInstance.playerKilledEntity(
-						EntityPredicate.Builder.entity().of(InstrumentalEntities.FRENCH_HORN_CREEPER.get())
+						EntityPredicate.Builder.entity().of(holdergetter, InstrumentalEntities.FRENCH_HORN_CREEPER.get())
 				))
 				.addCriterion("tuba_enderman", KilledTrigger.TriggerInstance.playerKilledEntity(
-						EntityPredicate.Builder.entity().of(InstrumentalEntities.TUBA_ENDERMAN.get())
+						EntityPredicate.Builder.entity().of(holdergetter, InstrumentalEntities.TUBA_ENDERMAN.get())
 				))
 				.addCriterion("drum_zombie", KilledTrigger.TriggerInstance.playerKilledEntity(
-						EntityPredicate.Builder.entity().of(InstrumentalEntities.DRUM_ZOMBIE.get())
+						EntityPredicate.Builder.entity().of(holdergetter, InstrumentalEntities.DRUM_ZOMBIE.get())
 				))
 				.addCriterion("cymbal_husk", KilledTrigger.TriggerInstance.playerKilledEntity(
-						EntityPredicate.Builder.entity().of(InstrumentalEntities.CYMBAL_HUSK.get())
+						EntityPredicate.Builder.entity().of(holdergetter, InstrumentalEntities.CYMBAL_HUSK.get())
 				))
 				.addCriterion("xylophone_skeleton", KilledTrigger.TriggerInstance.playerKilledEntity(
-						EntityPredicate.Builder.entity().of(InstrumentalEntities.XYLOPHONE_SKELETON.get())
+						EntityPredicate.Builder.entity().of(holdergetter, InstrumentalEntities.XYLOPHONE_SKELETON.get())
 				))
 				.addCriterion("maraca_spider", KilledTrigger.TriggerInstance.playerKilledEntity(
-						EntityPredicate.Builder.entity().of(InstrumentalEntities.MARACA_SPIDER.get())
+						EntityPredicate.Builder.entity().of(holdergetter, InstrumentalEntities.MARACA_SPIDER.get())
 				))
 				.addCriterion("microphone_ghast", KilledTrigger.TriggerInstance.playerKilledEntity(
-						EntityPredicate.Builder.entity().of(InstrumentalEntities.MICROPHONE_GHAST.get())
+						EntityPredicate.Builder.entity().of(holdergetter, InstrumentalEntities.MICROPHONE_GHAST.get())
 				))
 				.requirements(AdvancementRequirements.Strategy.OR)
 				.save(consumer, rootID("root"));
@@ -122,16 +125,6 @@ public class InstrumentalAdvancementProvider extends FabricAdvancementProvider {
 				Component.translatable(advancementPrefix(name + ".title")),
 				Component.translatable(advancementPrefix(name + ".desc")),
 				Optional.empty(), AdvancementType.TASK, true, false, false);
-	}
-
-	/**
-	 * Get a trigger instance for killing an entity.
-	 *
-	 * @param entityType The entity type.
-	 * @return The trigger instance.
-	 */
-	protected static KilledTrigger.TriggerInstance onKill(EntityType<?> entityType) {
-		return KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entityType)).triggerInstance();
 	}
 
 	/**

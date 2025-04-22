@@ -1,32 +1,35 @@
 package com.mrbysco.instrumentalmobs.client.render.layers;
 
 import com.mrbysco.instrumentalmobs.client.render.model.FrenchHornCreeperModel;
-import com.mrbysco.instrumentalmobs.entities.FrenchHornCreeper;
-import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.EnergySwirlLayer;
+import net.minecraft.client.renderer.entity.state.CreeperRenderState;
 import net.minecraft.resources.ResourceLocation;
 
-public class FrenchHornCreeperCharge extends EnergySwirlLayer<FrenchHornCreeper, FrenchHornCreeperModel<FrenchHornCreeper>> {
+public class FrenchHornCreeperCharge extends EnergySwirlLayer<CreeperRenderState, FrenchHornCreeperModel> {
 	private static final ResourceLocation LIGHTNING_TEXTURE = ResourceLocation.withDefaultNamespace("textures/entity/creeper/creeper_armor.png");
-	private final FrenchHornCreeperModel<FrenchHornCreeper> creeperModel;
+	private final FrenchHornCreeperModel creeperModel;
 
-	public FrenchHornCreeperCharge(RenderLayerParent<FrenchHornCreeper, FrenchHornCreeperModel<FrenchHornCreeper>> layerParent, EntityModelSet modelSet) {
+	public FrenchHornCreeperCharge(RenderLayerParent<CreeperRenderState, FrenchHornCreeperModel> layerParent, EntityModelSet modelSet) {
 		super(layerParent);
-		this.creeperModel = new FrenchHornCreeperModel<>(modelSet.bakeLayer(ModelLayers.CREEPER_ARMOR));
+		this.creeperModel = new FrenchHornCreeperModel(modelSet.bakeLayer(ModelLayers.CREEPER_ARMOR));
 	}
 
-	protected float xOffset(float p_225634_1_) {
-		return p_225634_1_ * 0.01F;
+	protected boolean isPowered(CreeperRenderState $$0) {
+		return $$0.isPowered;
+	}
+
+	protected float xOffset(float $$0) {
+		return $$0 * 0.01F;
 	}
 
 	protected ResourceLocation getTextureLocation() {
 		return LIGHTNING_TEXTURE;
 	}
 
-	protected EntityModel<FrenchHornCreeper> model() {
+	protected FrenchHornCreeperModel model() {
 		return this.creeperModel;
 	}
 }

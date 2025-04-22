@@ -4,13 +4,12 @@ import com.mrbysco.instrumentalmobs.Constants;
 import com.mrbysco.instrumentalmobs.registration.InstrumentalSounds;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.common.data.SoundDefinitionsProvider;
 
 public class InstrumentalSoundProvider extends SoundDefinitionsProvider {
 
-	public InstrumentalSoundProvider(PackOutput packOutput, ExistingFileHelper existingFileHelper) {
-		super(packOutput, Constants.MOD_ID, existingFileHelper);
+	public InstrumentalSoundProvider(PackOutput packOutput) {
+		super(packOutput, Constants.MOD_ID);
 	}
 
 	@Override

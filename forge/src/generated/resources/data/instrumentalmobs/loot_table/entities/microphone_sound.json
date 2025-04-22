@@ -1,0 +1,4 @@
+{
+  "type": "minecraft:entity",
+  "random_sequence": "instrumentalmobs:entities/microphone_sound"
+}
