@@ -7,6 +7,7 @@ import com.mrbysco.instrumentalmobs.registration.InstrumentalSounds;
 import net.minecraft.data.PackOutput;
 import net.minecraft.sounds.SoundEvent;
 import net.neoforged.neoforge.common.data.LanguageProvider;
+import org.jetbrains.annotations.Nullable;
 
 public class InstrumentalLanguageProvider extends LanguageProvider {
 
@@ -72,6 +73,13 @@ public class InstrumentalLanguageProvider extends LanguageProvider {
 		addAdvancement("tuba", "Tuba", "Teleporting musicians... not fair *tuba noise*");
 		addAdvancement("xylophone", "Xylophone", "Did you enjoy the skeletons?");
 		addAdvancement("trumpet", "Trumpet", "Doot doot!");
+
+		addConfig("general", "General", "General Settings");
+		addConfig("mobsReact", "Mobs React", "Mobs react upon usage of the instruments [default: true]");
+		addConfig("instrumentRange", "Instrument Range", "The area in which the instruments react with mobs. [default: 10.0]");
+		addConfig("soundDamageChance", "Sound Damage Chance", "The chance of instrument sounds damaging mobs after pushing. [default: 0.35]");
+		addConfig("instrumentDropChance", "Instrument Drop Chance", "The chance of instrument dropping from a mob holding one [default: 0.5]");
+		addConfig("instrumentHurtChance", "Instrument Hurt Chance", "The chance of instrument hurting nearby entities upon sounding [default: 0.3]");
 	}
 
 	public void addSubtitle(SoundEvent sound, String name) {
@@ -90,5 +98,18 @@ public class InstrumentalLanguageProvider extends LanguageProvider {
 		String prefix = "advancement.instrumentalmobs.";
 		add(prefix + id + ".title", name);
 		add(prefix + id + ".desc", description);
+	}
+
+	/**
+	 * Add the translation for a config entry
+	 *
+	 * @param path        The path of the config entry
+	 * @param name        The name of the config entry
+	 * @param description The description of the config entry (optional in case of targeting "title" or similar entries that have no tooltip)
+	 */
+	private void addConfig(String path, String name, @Nullable String description) {
+		this.add("instrumentalmobs.configuration." + path, name);
+		if (description != null && !description.isEmpty())
+			this.add("instrumentalmobs.configuration." + path + ".tooltip", description);
 	}
 }

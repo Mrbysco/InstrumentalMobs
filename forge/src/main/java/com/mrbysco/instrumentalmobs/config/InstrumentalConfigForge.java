@@ -16,8 +16,8 @@ public class InstrumentalConfigForge {
 		public final ModConfigSpec.DoubleValue instrumentHurtChance;
 
 		Common(ModConfigSpec.Builder builder) {
-			builder.comment("Server settings")
-					.push("Server");
+			builder.comment("General settings")
+					.push("general");
 
 			mobsReact = builder
 					.comment("Mobs react upon usage of the instruments [default: true]")
