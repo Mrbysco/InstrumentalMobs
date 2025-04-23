@@ -2,6 +2,7 @@ package com.mrbysco.instrumentalmobs.datagen;
 
 import com.mrbysco.instrumentalmobs.Constants;
 import com.mrbysco.instrumentalmobs.datagen.assets.InstrumentalLanguageProvider;
+import com.mrbysco.instrumentalmobs.datagen.assets.InstrumentalModelProvider;
 import com.mrbysco.instrumentalmobs.datagen.assets.InstrumentalSoundProvider;
 import com.mrbysco.instrumentalmobs.datagen.data.InstrumentalAdvancementProvider;
 import com.mrbysco.instrumentalmobs.datagen.data.InstrumentalLoot;
@@ -47,6 +48,7 @@ public class InstrumentalDataGen {
 
 		generator.addProvider(true, new InstrumentalLanguageProvider(packOutput));
 		generator.addProvider(true, new InstrumentalSoundProvider(packOutput));
+		generator.addProvider(true, new InstrumentalModelProvider(packOutput));
 	}
 
 	private static RegistrySetBuilder.PatchedRegistries getProvider() {

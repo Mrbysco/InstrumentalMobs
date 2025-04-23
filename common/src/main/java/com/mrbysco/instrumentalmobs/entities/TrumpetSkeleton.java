@@ -1,5 +1,6 @@
 package com.mrbysco.instrumentalmobs.entities;
 
+import com.mrbysco.instrumentalmobs.Constants;
 import com.mrbysco.instrumentalmobs.entities.goals.SkeletonInstrumentAttackGoal;
 import com.mrbysco.instrumentalmobs.registration.InstrumentalRegistry;
 import com.mrbysco.instrumentalmobs.registration.InstrumentalSounds;
@@ -9,6 +10,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -78,10 +80,10 @@ public class TrumpetSkeleton extends Skeleton implements IInstrumentalMobs, IIns
 		return (Boolean) this.getEntityData().get(DOOTING);
 	}
 
-
 	@Override
 	protected void populateDefaultEquipmentSlots(RandomSource randomSource, DifficultyInstance difficultyInstance) {
 		this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(InstrumentalRegistry.TRUMPET.get()));
 		this.setDropChance(EquipmentSlot.MAINHAND, getDropChance());
+		Constants.LOGGER.info("{}", getItemBySlot(EquipmentSlot.MAINHAND));
 	}
 }

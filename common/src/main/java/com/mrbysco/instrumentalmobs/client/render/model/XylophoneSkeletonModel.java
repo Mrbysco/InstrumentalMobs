@@ -6,6 +6,7 @@ import net.minecraft.client.model.SkeletonModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
+import org.jetbrains.annotations.NotNull;
 
 public class XylophoneSkeletonModel extends SkeletonModel<XylophoneRenderState> {
 
@@ -14,7 +15,7 @@ public class XylophoneSkeletonModel extends SkeletonModel<XylophoneRenderState> 
 	}
 
 	@Override
-	public void setupAnim(XylophoneRenderState state) {
+	public void setupAnim(@NotNull XylophoneRenderState state) {
 		super.setupAnim(state);
 		if (state.isPlaying) {
 			float f = Mth.sin(state.attackTime * (float) Math.PI);
@@ -42,7 +43,7 @@ public class XylophoneSkeletonModel extends SkeletonModel<XylophoneRenderState> 
 		}
 	}
 
-	public void translateToHand(HumanoidArm arm, PoseStack poseStack) {
+	public void translateToHand(@NotNull HumanoidArm arm, @NotNull PoseStack poseStack) {
 		float f = arm == HumanoidArm.RIGHT ? 1.0F : -1.0F;
 		ModelPart modelPart = this.getArm(arm);
 		modelPart.x += f;

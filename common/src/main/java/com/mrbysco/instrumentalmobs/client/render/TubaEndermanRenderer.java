@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.state.EndermanRenderState;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
@@ -21,9 +22,10 @@ public class TubaEndermanRenderer extends MobRenderer<TubaEnderman, EndermanRend
 	public TubaEndermanRenderer(EntityRendererProvider.Context context) {
 		super(context, new TubaEndermanModel<>(context.bakeLayer(ModelLayers.ENDERMAN)), 0.5F);
 		this.addLayer(new TubaEndermanEyesLayer<>(this));
-		this.addLayer(new TubaEndermanHeldItemLayer(this));
+		this.addLayer(new TubaEndermanHeldItemLayer<>(this));
 	}
 
+	@NotNull
 	@Override
 	public Vec3 getRenderOffset(EndermanRenderState state) {
 		if (state.isCreepy) {
@@ -33,13 +35,14 @@ public class TubaEndermanRenderer extends MobRenderer<TubaEnderman, EndermanRend
 		}
 	}
 
+	@NotNull
 	@Override
 	public EndermanRenderState createRenderState() {
 		return new EndermanRenderState();
 	}
 
 	@Override
-	public void extractRenderState(TubaEnderman enderman, EndermanRenderState state, float partialTicks) {
+	public void extractRenderState(@NotNull TubaEnderman enderman, @NotNull EndermanRenderState state, float partialTicks) {
 		super.extractRenderState(enderman, state, partialTicks);
 		HumanoidMobRenderer.extractHumanoidRenderState(enderman, state, partialTicks, this.itemModelResolver);
 		state.isCreepy = enderman.isCreepy();
@@ -49,8 +52,9 @@ public class TubaEndermanRenderer extends MobRenderer<TubaEnderman, EndermanRend
 	/**
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
+	@NotNull
 	@Override
-	public ResourceLocation getTextureLocation(EndermanRenderState state) {
+	public ResourceLocation getTextureLocation(@NotNull EndermanRenderState state) {
 		return ENDERMAN_TEXTURES;
 	}
 }

@@ -7,6 +7,7 @@ import net.minecraft.client.model.ZombieModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
+import org.jetbrains.annotations.NotNull;
 
 public class CymbalHuskModel<S extends CymbalRenderState> extends ZombieModel<S> {
 	public CymbalHuskModel(ModelPart part) {
@@ -14,7 +15,7 @@ public class CymbalHuskModel<S extends CymbalRenderState> extends ZombieModel<S>
 	}
 
 	@Override
-	public void setupAnim(S state) {
+	public void setupAnim(@NotNull S state) {
 		super.setupAnim(state);
 
 		boolean clapping = state.isClapping;
@@ -24,7 +25,7 @@ public class CymbalHuskModel<S extends CymbalRenderState> extends ZombieModel<S>
 	}
 
 	@Override
-	public void translateToHand(HumanoidArm arm, PoseStack poseStack) {
+	public void translateToHand(@NotNull HumanoidArm arm, PoseStack poseStack) {
 		boolean flag = arm == HumanoidArm.LEFT;
 		poseStack.translate(flag ? 0.15D : -0.15D, 0.25D, 0.075D);
 		poseStack.mulPose(Axis.YP.rotationDegrees(flag ? 25F : -25F));

@@ -25,6 +25,7 @@ public class MicrophoneLayer<S extends MicrophoneRenderState, M extends GhastMod
 			poseStack.scale(0.25F, 0.25F, 0.25F);
 			poseStack.mulPose(Axis.XP.rotationDegrees(-180F));
 			poseStack.translate(-0.5F, -6F, 2F);
+
 			stack.render(poseStack, bufferSource, packedLight, OverlayTexture.NO_OVERLAY);
 			poseStack.popPose();
 		}

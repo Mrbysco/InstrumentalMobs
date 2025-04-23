@@ -4,6 +4,6 @@ import net.minecraft.client.renderer.entity.state.GhastRenderState;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 
 public class MicrophoneRenderState extends GhastRenderState {
-	public ItemStackRenderState headItem;
+	public ItemStackRenderState headItem = new ItemStackRenderState();
 	public boolean isSinging;
 }

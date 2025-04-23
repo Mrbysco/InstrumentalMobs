@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;
 import net.minecraft.client.renderer.entity.state.EndermanRenderState;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
 public class TubaEndermanEyesLayer<S extends EndermanRenderState> extends EyesLayer<S, TubaEndermanModel<S>> {
 	private static final RenderType RENDER_TYPE = RenderType.eyes(ResourceLocation.withDefaultNamespace("textures/entity/enderman/enderman_eyes.png"));
@@ -14,6 +15,8 @@ public class TubaEndermanEyesLayer<S extends EndermanRenderState> extends EyesLa
 		super(layerParent);
 	}
 
+	@NotNull
+	@Override
 	public RenderType renderType() {
 		return RENDER_TYPE;
 	}

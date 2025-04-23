@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "instrumentalmobs:block/drum_block"
+  }
+}

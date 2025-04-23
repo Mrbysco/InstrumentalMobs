@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.entity.state.GhastRenderState;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.monster.Ghast;
 import net.minecraft.world.item.ItemDisplayContext;
+import org.jetbrains.annotations.NotNull;
 
 public class MicrophoneGhastRenderer extends GhastRenderer {
 
@@ -17,19 +18,20 @@ public class MicrophoneGhastRenderer extends GhastRenderer {
 		this.addLayer(new MicrophoneLayer(this));
 	}
 
+	@NotNull
 	@Override
 	public GhastRenderState createRenderState() {
 		return new MicrophoneRenderState();
 	}
 
 	@Override
-	public void extractRenderState(Ghast ghast, GhastRenderState state, float partialTick) {
+	public void extractRenderState(@NotNull Ghast ghast, @NotNull GhastRenderState state, float partialTick) {
 		super.extractRenderState(ghast, state, partialTick);
 		if (ghast instanceof MicrophoneGhast microphoneGhast && state instanceof MicrophoneRenderState microphoneState) {
 			microphoneState.isSinging = microphoneGhast.isSinging();
 			itemModelResolver.updateForLiving(
 					microphoneState.headItem, microphoneGhast.getItemBySlot(EquipmentSlot.HEAD),
-					ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, false, microphoneGhast
+					ItemDisplayContext.NONE, false, microphoneGhast
 			);
 		}
 	}

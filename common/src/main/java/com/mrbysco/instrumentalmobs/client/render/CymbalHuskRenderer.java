@@ -8,6 +8,7 @@ import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.AbstractZombieRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
 public class CymbalHuskRenderer extends AbstractZombieRenderer<CymbalHusk, CymbalRenderState, CymbalHuskModel<CymbalRenderState>> {
 	private static final ResourceLocation HUSK_LOCATION = ResourceLocation.withDefaultNamespace("textures/entity/zombie/husk.png");
@@ -23,25 +24,28 @@ public class CymbalHuskRenderer extends AbstractZombieRenderer<CymbalHusk, Cymba
 		);
 	}
 
+	@NotNull
+	@Override
 	public CymbalRenderState createRenderState() {
 		return new CymbalRenderState();
 	}
 
 	@Override
-	public void extractRenderState(CymbalHusk husk, CymbalRenderState state, float partialTick) {
+	public void extractRenderState(@NotNull CymbalHusk husk, @NotNull CymbalRenderState state, float partialTick) {
 		super.extractRenderState(husk, state, partialTick);
 		state.isClapping = husk.isClapping();
 	}
 
 	@Override
-	protected void scale(CymbalRenderState state, PoseStack poseStack) {
+	protected void scale(@NotNull CymbalRenderState state, PoseStack poseStack) {
 		float size = 1.0625F;
 		poseStack.scale(size, size, size);
 		super.scale(state, poseStack);
 	}
 
+	@NotNull
 	@Override
-	public ResourceLocation getTextureLocation(CymbalRenderState state) {
+	public ResourceLocation getTextureLocation(@NotNull CymbalRenderState state) {
 		return HUSK_LOCATION;
 	}
 }

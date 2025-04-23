@@ -26,7 +26,7 @@ public class InstrumentalRegistry {
 	public static final RegistrationProvider<CreativeModeTab> CREATIVE_MODE_TABS = RegistrationProvider.get(Registries.CREATIVE_MODE_TAB, Constants.MOD_ID);
 
 	public static final RegistryObject<Block> DRUM_BLOCK = BLOCKS.register("drum_block", () -> new DrumBlock(Block.Properties.of().setId(getBlockKey("drum_block")).mapColor(MapColor.SNOW).ignitedByLava().strength(0.8F).sound(SoundType.WOOL).noOcclusion()));
-	public static final RegistryObject<Item> DRUM_BLOCK_ITEM = ITEMS.register("drum_block", () -> new BlockItem(DRUM_BLOCK.get(), (new Item.Properties().setId(getKey("drum_block")))));
+	public static final RegistryObject<Item> DRUM_BLOCK_ITEM = ITEMS.register("drum_block", () -> new BlockItem(DRUM_BLOCK.get(), (new Item.Properties().setId(getKey("drum_block")).useBlockDescriptionPrefix())));
 	public static final RegistryObject<Item> DRUM_ITEM = ITEMS.register("drum", () -> new DrumInstrument((new Item.Properties()).setId(getKey("drum")).stacksTo(1).durability(140), InstrumentalSounds.DRUM_SOUND, 30, 40));
 
 	public static final RegistryObject<Item> CYMBAL = ITEMS.register("cymbal", () -> (new Item((new Item.Properties()).setId(getKey("cymbal")).stacksTo(1))));
@@ -39,14 +39,14 @@ public class InstrumentalRegistry {
 	public static final RegistryObject<Item> XYLOPHONE = ITEMS.register("xylophone", () -> (new InstrumentItem((new Item.Properties()).setId(getKey("xylophone")).stacksTo(1).durability(160), InstrumentalSounds.XYLOPHONE_SOUND, 30, 30)));
 	public static final RegistryObject<Item> TRUMPET = ITEMS.register("trumpet", () -> (new InstrumentItem((new Item.Properties()).setId(getKey("trumpet")).stacksTo(1).durability(160), InstrumentalSounds.TRUMPET_SOUND, 30, 30)));
 
-	public static final RegistryObject<Item> CYMBAL_HUSK_SPAWN_EGG = ITEMS.register("cymbal_husk_spawn_egg", () -> new SpawnEggItem(InstrumentalEntities.CYMBAL_HUSK.get(), /*7958625, 15125652,*/ (new Item.Properties().setId(getKey("cymbal_husk_spawn_egg")))));
-	public static final RegistryObject<Item> DRUM_ZOMBIE_SPAWN_EGG = ITEMS.register("drum_zombie_spawn_egg", () -> new SpawnEggItem(InstrumentalEntities.DRUM_ZOMBIE.get(), /*44975, 7969893,*/ (new Item.Properties().setId(getKey("drum_zombie_spawn_egg")))));
-	public static final RegistryObject<Item> FRENCH_HORN_CREEPER_SPAWN_EGG = ITEMS.register("french_horn_creeper_spawn_egg", () -> new SpawnEggItem(InstrumentalEntities.FRENCH_HORN_CREEPER.get(), /*894731, 0,*/ (new Item.Properties().setId(getKey("french_horn_creeper_spawn_egg")))));
-	public static final RegistryObject<Item> MARACA_SPIDER_SPAWN_EGG = ITEMS.register("maraca_spider_spawn_egg", () -> new SpawnEggItem(InstrumentalEntities.MARACA_SPIDER.get(), /*803406, 11013646,*/ (new Item.Properties().setId(getKey("maraca_spider_spawn_egg")))));
-	public static final RegistryObject<Item> MICROPHONE_GHAST_SPAWN_EGG = ITEMS.register("microphone_ghast_spawn_egg", () -> new SpawnEggItem(InstrumentalEntities.MICROPHONE_GHAST.get(), /*16382457, 12369084,*/ (new Item.Properties().setId(getKey("microphone_ghast_spawn_egg")))));
-	public static final RegistryObject<Item> TUBA_ENDERMAN_SPAWN_EGG = ITEMS.register("tuba_enderman_spawn_egg", () -> new SpawnEggItem(InstrumentalEntities.TUBA_ENDERMAN.get(), /*1447446, 0,*/ (new Item.Properties().setId(getKey("tuba_enderman_spawn_egg")))));
-	public static final RegistryObject<Item> XYLOPHONE_SKELETON_SPAWN_EGG = ITEMS.register("xylophone_skeleton_spawn_egg", () -> new SpawnEggItem(InstrumentalEntities.XYLOPHONE_SKELETON.get(), /*12698049, 4802889,*/ (new Item.Properties().setId(getKey("xylophone_skeleton_spawn_egg")))));
-	public static final RegistryObject<Item> TRUMPET_SKELETON_SPAWN_EGG = ITEMS.register("trumpet_skeleton_spawn_egg", () -> new SpawnEggItem(InstrumentalEntities.TRUMPET_SKELETON.get(), /*12698049, 4802889,*/ (new Item.Properties().setId(getKey("trumpet_skeleton_spawn_egg")))));
+	public static final RegistryObject<Item> CYMBAL_HUSK_SPAWN_EGG = ITEMS.register("cymbal_husk_spawn_egg", () -> new SpawnEggItem(InstrumentalEntities.CYMBAL_HUSK.get(), (new Item.Properties().setId(getKey("cymbal_husk_spawn_egg")))));
+	public static final RegistryObject<Item> DRUM_ZOMBIE_SPAWN_EGG = ITEMS.register("drum_zombie_spawn_egg", () -> new SpawnEggItem(InstrumentalEntities.DRUM_ZOMBIE.get(), (new Item.Properties().setId(getKey("drum_zombie_spawn_egg")))));
+	public static final RegistryObject<Item> FRENCH_HORN_CREEPER_SPAWN_EGG = ITEMS.register("french_horn_creeper_spawn_egg", () -> new SpawnEggItem(InstrumentalEntities.FRENCH_HORN_CREEPER.get(), (new Item.Properties().setId(getKey("french_horn_creeper_spawn_egg")))));
+	public static final RegistryObject<Item> MARACA_SPIDER_SPAWN_EGG = ITEMS.register("maraca_spider_spawn_egg", () -> new SpawnEggItem(InstrumentalEntities.MARACA_SPIDER.get(), (new Item.Properties().setId(getKey("maraca_spider_spawn_egg")))));
+	public static final RegistryObject<Item> MICROPHONE_GHAST_SPAWN_EGG = ITEMS.register("microphone_ghast_spawn_egg", () -> new SpawnEggItem(InstrumentalEntities.MICROPHONE_GHAST.get(), (new Item.Properties().setId(getKey("microphone_ghast_spawn_egg")))));
+	public static final RegistryObject<Item> TUBA_ENDERMAN_SPAWN_EGG = ITEMS.register("tuba_enderman_spawn_egg", () -> new SpawnEggItem(InstrumentalEntities.TUBA_ENDERMAN.get(), (new Item.Properties().setId(getKey("tuba_enderman_spawn_egg")))));
+	public static final RegistryObject<Item> XYLOPHONE_SKELETON_SPAWN_EGG = ITEMS.register("xylophone_skeleton_spawn_egg", () -> new SpawnEggItem(InstrumentalEntities.XYLOPHONE_SKELETON.get(), (new Item.Properties().setId(getKey("xylophone_skeleton_spawn_egg")))));
+	public static final RegistryObject<Item> TRUMPET_SKELETON_SPAWN_EGG = ITEMS.register("trumpet_skeleton_spawn_egg", () -> new SpawnEggItem(InstrumentalEntities.TRUMPET_SKELETON.get(), (new Item.Properties().setId(getKey("trumpet_skeleton_spawn_egg")))));
 
 	private static ResourceKey<Item> getKey(String name) {
 		return ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, name));

@@ -6,8 +6,10 @@ import com.mrbysco.instrumentalmobs.client.render.state.XylophoneRenderState;
 import com.mrbysco.instrumentalmobs.entities.XylophoneSkeleton;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.state.SkeletonRenderState;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
+import org.jetbrains.annotations.NotNull;
 
 public class XylophoneSkeletonRenderer extends CustomBipedRenderer<XylophoneSkeleton, XylophoneRenderState, XylophoneSkeletonModel> {
 	private static final ResourceLocation SKELETON_TEXTURES = ResourceLocation.withDefaultNamespace("textures/entity/skeleton/skeleton.png");
@@ -17,19 +19,29 @@ public class XylophoneSkeletonRenderer extends CustomBipedRenderer<XylophoneSkel
 		this.addLayer(new HeldBoneLayer<>(this));
 	}
 
+	@NotNull
 	@Override
 	public XylophoneRenderState createRenderState() {
 		return new XylophoneRenderState();
 	}
 
 	@Override
-	public void extractRenderState(XylophoneSkeleton skeleton, XylophoneRenderState state, float partialTick) {
+	public void extractRenderState(@NotNull XylophoneSkeleton skeleton, @NotNull XylophoneRenderState state, float partialTick) {
 		super.extractRenderState(skeleton, state, partialTick);
 		state.isPlaying = skeleton.isPlayingInstrument() && skeleton.getMainHandItem().is(Items.BONE);
+		state.isAggressive = skeleton.isAggressive();
+		state.isShaking = skeleton.isShaking();
+		state.isHoldingBow = skeleton.getMainHandItem().is(Items.BOW);
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(XylophoneRenderState state) {
+	protected boolean isShaking(XylophoneRenderState state) {
+		return state.isShaking;
+	}
+
+	@NotNull
+	@Override
+	public ResourceLocation getTextureLocation(@NotNull XylophoneRenderState state) {
 		return SKELETON_TEXTURES;
 	}
 }

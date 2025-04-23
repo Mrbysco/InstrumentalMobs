@@ -8,6 +8,7 @@ import net.minecraft.client.model.SpiderModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.world.entity.HumanoidArm;
+import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 
 import java.util.Random;
@@ -20,7 +21,7 @@ public class MaracaSpiderModel extends SpiderModel implements ArmedModel {
 	}
 
 	@Override
-	public void setupAnim(LivingEntityRenderState state) {
+	public void setupAnim(@NotNull LivingEntityRenderState state) {
 		super.setupAnim(state);
 		if (state instanceof MaracaRenderState maracaState && maracaState.isAttacking && random.nextFloat() > 0.5F) {
 			float randAngle = (float) random.nextInt(45);
@@ -34,7 +35,7 @@ public class MaracaSpiderModel extends SpiderModel implements ArmedModel {
 	}
 
 	@Override
-	public void translateToHand(HumanoidArm arm, PoseStack poseStack) {
+	public void translateToHand(@NotNull HumanoidArm arm, @NotNull PoseStack poseStack) {
 		this.getLegForSide(arm).translateAndRotate(poseStack);
 		poseStack.mulPose(Axis.XP.rotation(-90.0F));
 		poseStack.mulPose(Axis.YP.rotation(180.0F));
