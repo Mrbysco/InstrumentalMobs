@@ -1,6 +1,7 @@
 package com.mrbysco.instrumentalmobs.datagen;
 
 import com.mrbysco.instrumentalmobs.datagen.assets.InstrumentalLanguageProvider;
+import com.mrbysco.instrumentalmobs.datagen.assets.InstrumentalModelProvider;
 import com.mrbysco.instrumentalmobs.datagen.assets.InstrumentalSoundProvider;
 import com.mrbysco.instrumentalmobs.datagen.data.InstrumentalAdvancementProvider;
 import com.mrbysco.instrumentalmobs.datagen.data.InstrumentalBlockLootProvider;
@@ -23,6 +24,7 @@ public class InstrumentalDataGen implements DataGeneratorEntrypoint {
 		pack.addProvider(InstrumentalEntityLootProvider::new);
 		pack.addProvider(InstrumentalRecipeProvider.Runner::new);
 
+		pack.addProvider(InstrumentalModelProvider::new);
 		pack.addProvider(InstrumentalLanguageProvider::new);
 		pack.addProvider(InstrumentalSoundProvider::new);
 	}
