@@ -55,7 +55,7 @@ public class FrenchHornCreeperRenderer extends MobRenderer<FrenchHornCreeper, Fr
 		state.swelling = hornCreeper.getSwelling(partialTick);
 		state.isPowered = hornCreeper.isPowered();
 		itemModelResolver.updateForLiving(
-				state.heldItem, hornCreeper.getItemHeldByArm(HumanoidArm.RIGHT), ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, false, hornCreeper
+				state.heldItem, hornCreeper.getItemHeldByArm(HumanoidArm.RIGHT), ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, hornCreeper
 		);
 	}
 

@@ -1,7 +1,7 @@
 package com.mrbysco.instrumentalmobs;
 
 import com.mrbysco.instrumentalmobs.client.ClientHandler;
-import com.mrbysco.instrumentalmobs.config.InstrumentalConfigForge;
+import com.mrbysco.instrumentalmobs.config.InstrumentalConfigNeoForge;
 import com.mrbysco.instrumentalmobs.entities.CymbalHusk;
 import com.mrbysco.instrumentalmobs.entities.MicrophoneGhast;
 import com.mrbysco.instrumentalmobs.init.InstrumentalModifiers;
@@ -29,8 +29,8 @@ import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 public class InstrumentalMobsNeoForge {
 
 	public InstrumentalMobsNeoForge(IEventBus eventBus, Dist dist, ModContainer container) {
-		container.registerConfig(ModConfig.Type.COMMON, InstrumentalConfigForge.commonSpec);
-		eventBus.register(InstrumentalConfigForge.class);
+		container.registerConfig(ModConfig.Type.COMMON, InstrumentalConfigNeoForge.commonSpec);
+		eventBus.register(InstrumentalConfigNeoForge.class);
 
 		InstrumentalModifiers.BIOME_MODIFIER_SERIALIZERS.register(eventBus);
 

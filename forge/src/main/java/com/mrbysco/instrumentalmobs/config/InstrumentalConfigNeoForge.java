@@ -6,7 +6,7 @@ import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
-public class InstrumentalConfigForge {
+public class InstrumentalConfigNeoForge {
 
 	public static class Common {
 		public final ModConfigSpec.BooleanValue mobsReact;

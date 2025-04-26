@@ -25,6 +25,7 @@ public class NeoForgeRegistrationFactory implements RegistrationProvider.Factory
 		final var cont = containerOpt.get();
 		if (cont instanceof FMLModContainer fmlModContainer) {
 			final var register = DeferredRegister.create(resourceKey, modId);
+			assert fmlModContainer.getEventBus() != null;
 			register.register(fmlModContainer.getEventBus());
 			return new Provider<>(modId, register);
 		} else {

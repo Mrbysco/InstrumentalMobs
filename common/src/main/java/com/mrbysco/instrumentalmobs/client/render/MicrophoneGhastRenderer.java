@@ -34,7 +34,7 @@ public class MicrophoneGhastRenderer extends MobRenderer<MicrophoneGhast, Microp
 		state.isSinging = ghast.isSinging();
 		itemModelResolver.updateForLiving(
 				state.headItem, ghast.getItemBySlot(EquipmentSlot.HEAD),
-				ItemDisplayContext.NONE, false, ghast
+				ItemDisplayContext.NONE, ghast
 		);
 	}
 

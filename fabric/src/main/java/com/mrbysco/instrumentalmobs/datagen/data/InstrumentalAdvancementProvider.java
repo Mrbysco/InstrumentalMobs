@@ -14,6 +14,7 @@ import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.KilledTrigger;
+import net.minecraft.core.ClientAsset;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -107,10 +108,9 @@ public class InstrumentalAdvancementProvider extends FabricAdvancementProvider {
 	 * @return The DisplayInfo object.
 	 */
 	protected static DisplayInfo rootDisplay(ItemLike icon, String titleKey, String descKey, ResourceLocation background) {
-		return new DisplayInfo(new ItemStack(icon.asItem()),
-				Component.translatable(titleKey),
-				Component.translatable(descKey),
-				Optional.of(background), AdvancementType.TASK, true, true, false);
+		return new DisplayInfo(new ItemStack(icon.asItem()), Component.translatable(titleKey),
+				Component.translatable(descKey), Optional.of(new ClientAsset(background)),
+				AdvancementType.TASK, true, true, false);
 	}
 
 	/**

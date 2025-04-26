@@ -34,18 +34,18 @@ public class InstrumentHelper {
 						if (collidingEntity instanceof Player collidingPlayer) {
 							if (playerIn.canHarmPlayer(collidingPlayer)) {
 								if (level.random.nextDouble() <= chance) {
-									collidingEntity.hurt(Constants.causeSoundDamage(livingEntity), 1.0F);
+									collidingEntity.hurtOrSimulate(Constants.causeSoundDamage(livingEntity), 1.0F);
 								}
 							}
 						} else {
 							if (!(collidingEntity.getType().getCategory() == MobCategory.MONSTER)) {
 								if (level.random.nextDouble() <= chance) {
-									collidingEntity.hurt(Constants.causeSoundDamage(livingEntity), 1.0F);
+									collidingEntity.hurtOrSimulate(Constants.causeSoundDamage(livingEntity), 1.0F);
 								}
 							}
 						}
 					} else if ((collidingEntity.getType().getCategory() == MobCategory.MONSTER && !(collidingEntity instanceof IInstrumentalMobs)) || collidingEntity instanceof Player) {
-						collidingEntity.hurt(Constants.causeSoundDamage(livingEntity), 1.0F);
+						collidingEntity.hurtOrSimulate(Constants.causeSoundDamage(livingEntity), 1.0F);
 					}
 				}
 			}

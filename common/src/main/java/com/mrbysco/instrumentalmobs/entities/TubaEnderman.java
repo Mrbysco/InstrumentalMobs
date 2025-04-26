@@ -80,7 +80,7 @@ public class TubaEnderman extends EnderMan implements IInstrumentalMobs {
 	}
 
 	private boolean isLookingAtMe(Player player) {
-		ItemStack itemstack = player.getInventory().armor.get(3);
+		ItemStack itemstack = player.getItemBySlot(EquipmentSlot.HEAD);
 		if (Services.PLATFORM.isEnderMask(itemstack, player, this)) {
 			return false;
 		} else {

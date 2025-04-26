@@ -34,10 +34,10 @@ public class MaracaSpiderRenderer extends MobRenderer<MaracaSpider, MaracaRender
 		if (state instanceof MaracaRenderState maracaState) {
 			maracaState.isAttacking = spider.isAttacking();
 			itemModelResolver.updateForLiving(
-					maracaState.mainItem, spider.getMainHandItem(), ItemDisplayContext.THIRD_PERSON_LEFT_HAND, false, spider
+					maracaState.mainItem, spider.getMainHandItem(), ItemDisplayContext.THIRD_PERSON_LEFT_HAND, spider
 			);
 			itemModelResolver.updateForLiving(
-					maracaState.offItem, spider.getOffhandItem(), ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, false, spider
+					maracaState.offItem, spider.getOffhandItem(), ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, spider
 			);
 		}
 	}

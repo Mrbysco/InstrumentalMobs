@@ -43,7 +43,7 @@ public class DrumZombieRenderer extends AbstractZombieRenderer<DrumZombie, DrumR
 	public void extractRenderState(@NotNull DrumZombie zombie, @NotNull DrumRenderState state, float partialTick) {
 		super.extractRenderState(zombie, state, partialTick);
 		itemModelResolver.updateForLiving(
-				state.chestEquipment, zombie.getItemBySlot(EquipmentSlot.CHEST), ItemDisplayContext.NONE, false, zombie
+				state.chestEquipment, zombie.getItemBySlot(EquipmentSlot.CHEST), ItemDisplayContext.NONE, zombie
 		);
 	}
 }
