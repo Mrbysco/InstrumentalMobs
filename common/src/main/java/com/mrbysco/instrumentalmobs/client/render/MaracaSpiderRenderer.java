@@ -13,23 +13,23 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import org.jetbrains.annotations.NotNull;
 
-public class MaracaSpiderRenderer extends MobRenderer<MaracaSpider, LivingEntityRenderState, MaracaSpiderModel> {
+public class MaracaSpiderRenderer extends MobRenderer<MaracaSpider, MaracaRenderState, MaracaSpiderModel> {
 	private static final ResourceLocation SPIDER_TEXTURES = ResourceLocation.withDefaultNamespace("textures/entity/spider/spider.png");
 
 	public MaracaSpiderRenderer(EntityRendererProvider.Context context) {
 		super(context, new MaracaSpiderModel(context.bakeLayer(ModelLayers.SPIDER)), 1.0F);
-		this.addLayer(new MaracaSpiderEyesLayer<>(this));
+		this.addLayer(new MaracaSpiderEyesLayer(this));
 		this.addLayer(new MaracasLayer(this));
 	}
 
 	@NotNull
 	@Override
-	public LivingEntityRenderState createRenderState() {
+	public MaracaRenderState createRenderState() {
 		return new MaracaRenderState();
 	}
 
 	@Override
-	public void extractRenderState(@NotNull MaracaSpider spider, @NotNull LivingEntityRenderState state, float partialTick) {
+	public void extractRenderState(@NotNull MaracaSpider spider, @NotNull MaracaRenderState state, float partialTick) {
 		super.extractRenderState(spider, state, partialTick);
 		if (state instanceof MaracaRenderState maracaState) {
 			maracaState.isAttacking = spider.isAttacking();
@@ -44,7 +44,7 @@ public class MaracaSpiderRenderer extends MobRenderer<MaracaSpider, LivingEntity
 
 	@NotNull
 	@Override
-	public ResourceLocation getTextureLocation(@NotNull LivingEntityRenderState state) {
+	public ResourceLocation getTextureLocation(@NotNull MaracaRenderState state) {
 		return SPIDER_TEXTURES;
 	}
 

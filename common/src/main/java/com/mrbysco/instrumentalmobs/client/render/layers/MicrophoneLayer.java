@@ -10,21 +10,20 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 
-public class MicrophoneLayer<S extends MicrophoneRenderState, M extends GhastModel> extends RenderLayer<S, M> {
+public class MicrophoneLayer extends RenderLayer<MicrophoneRenderState, GhastModel> {
 
-	public MicrophoneLayer(RenderLayerParent<S, M> layerParent) {
+	public MicrophoneLayer(RenderLayerParent<MicrophoneRenderState, GhastModel> layerParent) {
 		super(layerParent);
 	}
 
 	@Override
-	public void render(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, S state, float yRot, float xRot) {
+	public void render(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, MicrophoneRenderState state, float yRot, float xRot) {
 		ItemStackRenderState stack = state.headItem;
 		if (!stack.isEmpty() && !state.isSinging) {
 			poseStack.pushPose();
 
-			poseStack.scale(0.25F, 0.25F, 0.25F);
 			poseStack.mulPose(Axis.XP.rotationDegrees(-180F));
-			poseStack.translate(-0.5F, -6F, 2F);
+			poseStack.translate(0F, -1F, 2.25F);
 
 			stack.render(poseStack, bufferSource, packedLight, OverlayTexture.NO_OVERLAY);
 			poseStack.popPose();

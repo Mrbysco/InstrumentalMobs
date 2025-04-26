@@ -2,6 +2,7 @@ package com.mrbysco.instrumentalmobs.client.render.layers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import com.mrbysco.instrumentalmobs.client.render.model.MaracaSpiderModel;
 import com.mrbysco.instrumentalmobs.client.render.state.MaracaRenderState;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
@@ -12,14 +13,14 @@ import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.entity.HumanoidArm;
 
-public class MaracasLayer<S extends MaracaRenderState, M extends EntityModel<S> & ArmedModel> extends RenderLayer<S, M> {
+public class MaracasLayer extends RenderLayer<MaracaRenderState, MaracaSpiderModel> {
 
-	public MaracasLayer(RenderLayerParent<S, M> layerParent) {
+	public MaracasLayer(RenderLayerParent<MaracaRenderState, MaracaSpiderModel> layerParent) {
 		super(layerParent);
 	}
 
 	@Override
-	public void render(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, S state, float yRot, float xRot) {
+	public void render(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, MaracaRenderState state, float yRot, float xRot) {
 		ItemStackRenderState stack = state.mainItem;
 		ItemStackRenderState otherStack = state.offItem;
 
@@ -33,7 +34,7 @@ public class MaracasLayer<S extends MaracaRenderState, M extends EntityModel<S> 
 		}
 	}
 
-	private void renderHeldItem(S state, ItemStackRenderState stack, HumanoidArm handSide,
+	private void renderHeldItem(MaracaRenderState state, ItemStackRenderState stack, HumanoidArm handSide,
 	                            PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
 		if (!stack.isEmpty()) {
 			poseStack.pushPose();

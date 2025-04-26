@@ -1,17 +1,19 @@
 package com.mrbysco.instrumentalmobs.client.render.layers;
 
 import com.mrbysco.instrumentalmobs.client.render.model.MaracaSpiderModel;
+import com.mrbysco.instrumentalmobs.client.render.state.MaracaRenderState;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
-public class MaracaSpiderEyesLayer<M extends MaracaSpiderModel> extends EyesLayer<LivingEntityRenderState, M> {
+public class MaracaSpiderEyesLayer extends EyesLayer<MaracaRenderState, MaracaSpiderModel> {
 	private static final RenderType RENDER_TYPE = RenderType.eyes(ResourceLocation.withDefaultNamespace("textures/entity/spider_eyes.png"));
 
-	public MaracaSpiderEyesLayer(RenderLayerParent<LivingEntityRenderState, M> layerParent) {
+	public MaracaSpiderEyesLayer(RenderLayerParent<MaracaRenderState, MaracaSpiderModel> layerParent) {
 		super(layerParent);
 	}
 
