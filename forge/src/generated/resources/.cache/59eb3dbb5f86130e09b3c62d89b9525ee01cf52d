@@ -1,4 +1,4 @@
-// 1.21.5	2025-04-26T21:26:46.0377473	Loot Tables
+// 1.21.8	2025-07-28T22:42:41.1403471	Loot Tables
 e20acaa07db8672decb15abd316218098d485dec data/instrumentalmobs/loot_table/blocks/drum_block.json
 a05d9aeab5ba64425008246a24108d81db930431 data/instrumentalmobs/loot_table/entities/cymbal_husk.json
 389b1470e2ae2b10708ccbadd574603a8a1457ca data/instrumentalmobs/loot_table/entities/drum_zombie.json

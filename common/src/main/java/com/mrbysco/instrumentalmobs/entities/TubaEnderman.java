@@ -4,7 +4,6 @@ import com.mrbysco.instrumentalmobs.entities.goals.InstrumentAttackGoal;
 import com.mrbysco.instrumentalmobs.platform.Services;
 import com.mrbysco.instrumentalmobs.registration.InstrumentalRegistry;
 import com.mrbysco.instrumentalmobs.registration.InstrumentalSounds;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
@@ -28,6 +27,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
@@ -112,8 +112,8 @@ public class TubaEnderman extends EnderMan implements IInstrumentalMobs {
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag compoundTag) {
-		super.readAdditionalSaveData(compoundTag);
+	public void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
 		this.reassessWeaponGoal();
 	}
 

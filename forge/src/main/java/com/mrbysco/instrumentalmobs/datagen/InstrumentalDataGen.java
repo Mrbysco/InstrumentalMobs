@@ -31,7 +31,7 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber
 public class InstrumentalDataGen {
 	@SubscribeEvent
 	public static void gatherData(GatherDataEvent.Client event) {
