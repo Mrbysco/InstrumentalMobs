@@ -22,7 +22,7 @@ public class TubaEndermanRenderer extends MobRenderer<TubaEnderman, EndermanRend
 	public TubaEndermanRenderer(EntityRendererProvider.Context context) {
 		super(context, new TubaEndermanModel<>(context.bakeLayer(ModelLayers.ENDERMAN)), 0.5F);
 		this.addLayer(new TubaEndermanEyesLayer<>(this));
-		this.addLayer(new TubaEndermanHeldItemLayer<>(this));
+		this.addLayer(new TubaEndermanHeldItemLayer(this));
 	}
 
 	@NotNull

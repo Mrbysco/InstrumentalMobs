@@ -46,7 +46,7 @@ public class MicrophoneWave extends ThrowableItemProjectile {
 
 	protected void onHit(HitResult result) {
 		super.onHit(result);
-		if (!this.level().isClientSide) {
+		if (!this.level().isClientSide()) {
 			this.soundExplosion();
 
 			this.level().broadcastEntityEvent(this, (byte) 3);

@@ -43,7 +43,7 @@ public class TubaEnderman extends EnderMan implements IInstrumentalMobs {
 	private final InstrumentAttackGoal playOnCollideGoal = new InstrumentAttackGoal(this, 1.0D, false, InstrumentalSounds.TUBA_SOUND);
 
 	private void reassessWeaponGoal() {
-		if (this.level() != null && !this.level().isClientSide) {
+		if (this.level() != null && !this.level().isClientSide()) {
 			this.goalSelector.removeGoal(this.playOnCollideGoal);
 			ItemStack itemstack = this.getMainHandItem();
 
@@ -120,7 +120,7 @@ public class TubaEnderman extends EnderMan implements IInstrumentalMobs {
 	@Override
 	public void setItemSlot(EquipmentSlot equipmentSlot, ItemStack itemStack) {
 		super.setItemSlot(equipmentSlot, itemStack);
-		if (!this.level().isClientSide) {
+		if (!this.level().isClientSide()) {
 			this.reassessWeaponGoal();
 		}
 	}

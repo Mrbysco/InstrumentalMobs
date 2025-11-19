@@ -2,22 +2,21 @@ package com.mrbysco.instrumentalmobs.client.render.layers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import com.mrbysco.instrumentalmobs.client.render.model.FrenchHornCreeperModel;
 import com.mrbysco.instrumentalmobs.client.render.state.FrenchRenderState;
-import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.model.HeadedModel;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 
-public class FrenchHornLayer<S extends FrenchRenderState, M extends EntityModel<S> & HeadedModel> extends RenderLayer<S, M> {
-	public FrenchHornLayer(RenderLayerParent<S, M> layerParent) {
+public class FrenchHornLayer extends RenderLayer<FrenchRenderState, FrenchHornCreeperModel> {
+	public FrenchHornLayer(RenderLayerParent<FrenchRenderState, FrenchHornCreeperModel> layerParent) {
 		super(layerParent);
 	}
 
 	@Override
-	public void render(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, S state, float yRot, float xRot) {
+	public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int packedLight, FrenchRenderState state, float xRot, float yRot) {
 		ItemStackRenderState stack = state.heldItem;
 		if (!stack.isEmpty()) {
 			poseStack.pushPose();
@@ -28,7 +27,7 @@ public class FrenchHornLayer<S extends FrenchRenderState, M extends EntityModel<
 			poseStack.translate(0.85F, 0.15F, 0.0F);
 			poseStack.mulPose(Axis.ZP.rotationDegrees(-20F));
 
-			stack.render(poseStack, bufferSource, packedLight, OverlayTexture.NO_OVERLAY);
+			stack.submit(poseStack, submitNodeCollector, packedLight, OverlayTexture.NO_OVERLAY, state.outlineColor);
 
 			poseStack.popPose();
 		}

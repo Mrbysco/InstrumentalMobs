@@ -2,23 +2,22 @@ package com.mrbysco.instrumentalmobs.client.render.layers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.model.HeadedModel;
-import net.minecraft.client.renderer.MultiBufferSource;
+import com.mrbysco.instrumentalmobs.client.render.model.TubaEndermanModel;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.entity.state.EndermanRenderState;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 
-public class TubaEndermanHeldItemLayer<S extends EndermanRenderState, M extends EntityModel<S> & HeadedModel> extends RenderLayer<S, M> {
+public class TubaEndermanHeldItemLayer extends RenderLayer<EndermanRenderState, TubaEndermanModel<EndermanRenderState>> {
 
-	public TubaEndermanHeldItemLayer(RenderLayerParent<S, M> layerParent) {
+	public TubaEndermanHeldItemLayer(RenderLayerParent<EndermanRenderState, TubaEndermanModel<EndermanRenderState>> layerParent) {
 		super(layerParent);
 	}
 
 	@Override
-	public void render(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, S state, float yRot, float xRot) {
+	public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int packedLight, EndermanRenderState state, float xRot, float yRot) {
 		ItemStackRenderState stack = state.getMainHandItem();
 		if (!stack.isEmpty()) {
 			poseStack.pushPose();
@@ -31,7 +30,7 @@ public class TubaEndermanHeldItemLayer<S extends EndermanRenderState, M extends 
 
 			poseStack.translate(-0.8F, 0.0F, 0.0F);
 
-			stack.render(poseStack, bufferSource, packedLight, OverlayTexture.NO_OVERLAY);
+			stack.submit(poseStack, submitNodeCollector, packedLight, OverlayTexture.NO_OVERLAY, state.outlineColor);
 			poseStack.popPose();
 		}
 	}

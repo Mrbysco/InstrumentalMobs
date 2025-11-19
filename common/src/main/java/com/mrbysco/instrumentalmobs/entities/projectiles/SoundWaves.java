@@ -51,7 +51,7 @@ public class SoundWaves extends AbstractHurtingProjectile implements ItemSupplie
 
 	protected void onHit(HitResult result) {
 		super.onHit(result);
-		if (!this.level().isClientSide) {
+		if (!this.level().isClientSide()) {
 			this.soundExplosion();
 
 			this.removeAfterChangingDimensions();

@@ -3,22 +3,21 @@ package com.mrbysco.instrumentalmobs.client.render.layers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.mrbysco.instrumentalmobs.client.render.state.DrumRenderState;
-import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.ZombieModel;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 
-public class DrumLayer<S extends DrumRenderState, M extends ZombieModel<S> & ArmedModel> extends RenderLayer<S, M> {
+public class DrumLayer extends RenderLayer<DrumRenderState, ZombieModel<DrumRenderState>> {
 
-	public DrumLayer(RenderLayerParent<S, M> layerParent) {
+	public DrumLayer(RenderLayerParent<DrumRenderState, ZombieModel<DrumRenderState>> layerParent) {
 		super(layerParent);
 	}
 
 	@Override
-	public void render(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, S state, float yRot, float xRot) {
+	public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int packedLight, DrumRenderState state, float xRot, float yRot) {
 		ItemStackRenderState stack = state.chestEquipment;
 		if (!stack.isEmpty()) {
 			poseStack.pushPose();
@@ -32,7 +31,7 @@ public class DrumLayer<S extends DrumRenderState, M extends ZombieModel<S> & Arm
 			}
 			poseStack.mulPose(Axis.XP.rotationDegrees(-10F));
 
-			stack.render(poseStack, bufferSource, packedLight, OverlayTexture.NO_OVERLAY);
+			stack.submit(poseStack, submitNodeCollector, packedLight, OverlayTexture.NO_OVERLAY, state.outlineColor);
 
 			poseStack.popPose();
 		}

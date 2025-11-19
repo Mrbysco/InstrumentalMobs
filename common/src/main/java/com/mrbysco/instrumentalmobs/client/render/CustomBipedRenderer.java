@@ -24,7 +24,7 @@ public abstract class CustomBipedRenderer<T extends Mob, S extends HumanoidRende
 
 	public CustomBipedRenderer(EntityRendererProvider.Context context, M humanoidModel, float shadowSize) {
 		super(context, humanoidModel, shadowSize);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getPlayerSkinRenderCache()));
 	}
 
 	public void extractRenderState(T mob, S state, float partialTick) {

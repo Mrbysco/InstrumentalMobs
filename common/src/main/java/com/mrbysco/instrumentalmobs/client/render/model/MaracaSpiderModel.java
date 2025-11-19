@@ -7,6 +7,7 @@ import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.SpiderModel;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
@@ -83,7 +84,7 @@ public class MaracaSpiderModel extends EntityModel<MaracaRenderState> implements
 	}
 
 	@Override
-	public void translateToHand(@NotNull HumanoidArm arm, @NotNull PoseStack poseStack) {
+	public void translateToHand(EntityRenderState renderState, HumanoidArm arm, PoseStack poseStack) {
 		this.getLegForSide(arm).translateAndRotate(poseStack);
 		poseStack.mulPose(Axis.XP.rotation(-90.0F));
 		poseStack.mulPose(Axis.YP.rotation(180.0F));

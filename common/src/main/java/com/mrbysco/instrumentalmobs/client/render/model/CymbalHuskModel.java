@@ -25,10 +25,10 @@ public class CymbalHuskModel<S extends CymbalRenderState> extends ZombieModel<S>
 	}
 
 	@Override
-	public void translateToHand(@NotNull HumanoidArm arm, PoseStack poseStack) {
+	public void translateToHand(CymbalRenderState renderState, HumanoidArm arm, PoseStack poseStack) {
 		boolean flag = arm == HumanoidArm.LEFT;
 		poseStack.translate(flag ? 0.15D : -0.15D, 0.25D, 0.075D);
 		poseStack.mulPose(Axis.YP.rotationDegrees(flag ? 25F : -25F));
-		super.translateToHand(arm, poseStack);
+		super.translateToHand(renderState, arm, poseStack);
 	}
 }

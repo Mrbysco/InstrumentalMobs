@@ -4,9 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.mrbysco.instrumentalmobs.client.render.model.MaracaSpiderModel;
 import com.mrbysco.instrumentalmobs.client.render.state.MaracaRenderState;
-import net.minecraft.client.model.ArmedModel;
-import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
@@ -20,7 +18,7 @@ public class MaracasLayer extends RenderLayer<MaracaRenderState, MaracaSpiderMod
 	}
 
 	@Override
-	public void render(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, MaracaRenderState state, float yRot, float xRot) {
+	public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int packedLight, MaracaRenderState state, float xRot, float yRot) {
 		ItemStackRenderState stack = state.mainItem;
 		ItemStackRenderState otherStack = state.offItem;
 
@@ -28,23 +26,23 @@ public class MaracasLayer extends RenderLayer<MaracaRenderState, MaracaSpiderMod
 		if (!stack.isEmpty() || !otherStack.isEmpty()) {
 			poseStack.pushPose();
 
-			this.renderHeldItem(state, stack, HumanoidArm.LEFT, poseStack, bufferSource, packedLight);
-			this.renderHeldItem(state, otherStack, HumanoidArm.RIGHT, poseStack, bufferSource, packedLight);
+			this.renderHeldItem(state, stack, HumanoidArm.LEFT, poseStack, submitNodeCollector, packedLight);
+			this.renderHeldItem(state, otherStack, HumanoidArm.RIGHT, poseStack, submitNodeCollector, packedLight);
 			poseStack.popPose();
 		}
 	}
 
 	private void renderHeldItem(MaracaRenderState state, ItemStackRenderState stack, HumanoidArm handSide,
-	                            PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
+	                            PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int packedLight) {
 		if (!stack.isEmpty()) {
 			poseStack.pushPose();
-			this.getParentModel().translateToHand(handSide, poseStack);
+			this.getParentModel().translateToHand(state, handSide, poseStack);
 			poseStack.mulPose(Axis.XP.rotationDegrees(-90.0F));
 			poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
 			boolean flag = handSide == HumanoidArm.LEFT;
 			poseStack.translate((double) ((float) (flag ? -1 : 1) / 16.0F), 0.125D, -0.625D);
 
-			stack.render(poseStack, bufferSource, packedLight, OverlayTexture.NO_OVERLAY);
+			stack.submit(poseStack, submitNodeCollector, packedLight, OverlayTexture.NO_OVERLAY, state.outlineColor);
 
 			poseStack.popPose();
 		}

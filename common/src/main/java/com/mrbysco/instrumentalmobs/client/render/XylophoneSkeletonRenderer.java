@@ -6,7 +6,6 @@ import com.mrbysco.instrumentalmobs.client.render.state.XylophoneRenderState;
 import com.mrbysco.instrumentalmobs.entities.XylophoneSkeleton;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.state.SkeletonRenderState;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
@@ -16,7 +15,7 @@ public class XylophoneSkeletonRenderer extends CustomBipedRenderer<XylophoneSkel
 
 	public XylophoneSkeletonRenderer(EntityRendererProvider.Context context) {
 		super(context, new XylophoneSkeletonModel(context.bakeLayer(ModelLayers.SKELETON)), 0.5F);
-		this.addLayer(new HeldBoneLayer<>(this));
+		this.addLayer(new HeldBoneLayer(this));
 	}
 
 	@NotNull

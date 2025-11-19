@@ -42,7 +42,7 @@ public class DrumBlock extends Block {
 
 	@Override
 	public void attack(BlockState state, Level level, BlockPos pos, Player player) {
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			level.blockEvent(pos, Blocks.NOTE_BLOCK, 1, 0);
 		}
 	}

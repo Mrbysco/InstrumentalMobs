@@ -22,7 +22,7 @@ public class FrenchHornCreeperRenderer extends MobRenderer<FrenchHornCreeper, Fr
 	public FrenchHornCreeperRenderer(EntityRendererProvider.Context context) {
 		super(context, new FrenchHornCreeperModel(context.bakeLayer(ModelLayers.CREEPER)), 0.5F);
 		this.addLayer(new FrenchHornCreeperCharge(this, context.getModelSet()));
-		this.addLayer(new FrenchHornLayer<>(this));
+		this.addLayer(new FrenchHornLayer(this));
 	}
 
 	@Override

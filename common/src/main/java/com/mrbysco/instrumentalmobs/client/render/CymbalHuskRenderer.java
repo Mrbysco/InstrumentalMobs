@@ -4,8 +4,10 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mrbysco.instrumentalmobs.client.render.model.CymbalHuskModel;
 import com.mrbysco.instrumentalmobs.client.render.state.CymbalRenderState;
 import com.mrbysco.instrumentalmobs.entities.CymbalHusk;
+import net.minecraft.client.model.ZombieModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.AbstractZombieRenderer;
+import net.minecraft.client.renderer.entity.ArmorModelSet;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
@@ -17,10 +19,8 @@ public class CymbalHuskRenderer extends AbstractZombieRenderer<CymbalHusk, Cymba
 		super(context,
 				new CymbalHuskModel<>(context.bakeLayer(ModelLayers.HUSK)),
 				new CymbalHuskModel<>(context.bakeLayer(ModelLayers.HUSK_BABY)),
-				new CymbalHuskModel<>(context.bakeLayer(ModelLayers.HUSK_INNER_ARMOR)),
-				new CymbalHuskModel<>(context.bakeLayer(ModelLayers.HUSK_OUTER_ARMOR)),
-				new CymbalHuskModel<>(context.bakeLayer(ModelLayers.HUSK_BABY_INNER_ARMOR)),
-				new CymbalHuskModel<>(context.bakeLayer(ModelLayers.HUSK_BABY_OUTER_ARMOR))
+				ArmorModelSet.bake(ModelLayers.HUSK_ARMOR, context.getModelSet(), CymbalHuskModel::new),
+				ArmorModelSet.bake(ModelLayers.HUSK_BABY_ARMOR, context.getModelSet(), CymbalHuskModel::new)
 		);
 	}
 

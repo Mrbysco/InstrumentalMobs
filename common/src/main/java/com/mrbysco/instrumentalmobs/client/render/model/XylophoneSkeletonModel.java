@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mrbysco.instrumentalmobs.client.render.state.XylophoneRenderState;
 import net.minecraft.client.model.SkeletonModel;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 import org.jetbrains.annotations.NotNull;
@@ -43,7 +44,8 @@ public class XylophoneSkeletonModel extends SkeletonModel<XylophoneRenderState> 
 		}
 	}
 
-	public void translateToHand(@NotNull HumanoidArm arm, @NotNull PoseStack poseStack) {
+	@Override
+	public void translateToHand(XylophoneRenderState renderState, HumanoidArm arm, PoseStack poseStack) {
 		float f = arm == HumanoidArm.RIGHT ? 1.0F : -1.0F;
 		ModelPart modelPart = this.getArm(arm);
 		modelPart.x += f;

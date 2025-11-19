@@ -104,7 +104,7 @@ public class InstrumentalAdvancementProvider extends AdvancementProvider {
 		 */
 		protected static DisplayInfo rootDisplay(ItemLike icon, String titleKey, String descKey, ResourceLocation background) {
 			return new DisplayInfo(new ItemStack(icon.asItem()), Component.translatable(titleKey),
-					Component.translatable(descKey), Optional.of(new ClientAsset(background)),
+					Component.translatable(descKey), Optional.of(new ClientAsset.ResourceTexture(background)),
 					AdvancementType.TASK, true, true, false);
 		}
 

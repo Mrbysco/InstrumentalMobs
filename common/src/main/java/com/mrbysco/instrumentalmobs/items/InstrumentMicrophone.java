@@ -34,7 +34,7 @@ public class InstrumentMicrophone extends Item {
 			player.getCooldowns().addCooldown(stack, this.cooldown);
 		}
 
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			MicrophoneWave soundWave = new MicrophoneWave(level, player, sound.get());
 			soundWave.shoot(player.getXRot(), player.getYRot(), 0.0F, 2.0F, 0.0F);
 			soundWave.setOwner(player);

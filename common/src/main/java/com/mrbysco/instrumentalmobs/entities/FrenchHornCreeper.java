@@ -24,7 +24,7 @@ public class FrenchHornCreeper extends Creeper implements IInstrumentalMobs {
 
 	@Override
 	public void explodeCreeper() {
-		if (!this.level().isClientSide) {
+		if (!this.level().isClientSide()) {
 			Level.ExplosionInteraction explosion$mode = Services.PLATFORM.getExplosionInteraction(this);
 			float f = this.isPowered() ? 2.0F : 1.0F;
 			this.dead = true;

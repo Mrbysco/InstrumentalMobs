@@ -17,7 +17,7 @@ public class InstrumentHelper {
 	}
 
 	public static void instrumentDamage(Level level, LivingEntity livingEntity, AABB box) {
-		if (!level.isClientSide && livingEntity != null) {
+		if (!level.isClientSide() && livingEntity != null) {
 			List<LivingEntity> livingEntities = level.getEntities(livingEntity, box).stream()
 					.filter(entity -> entity instanceof LivingEntity).map(entity -> (LivingEntity) entity).toList();
 			for (LivingEntity collidingEntity : livingEntities) {
