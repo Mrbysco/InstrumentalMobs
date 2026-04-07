@@ -1,7 +1,7 @@
 accessWidener   v1      named
-accessible field net/minecraft/client/model/CreeperModel head Lnet/minecraft/client/model/geom/ModelPart;
-accessible field net/minecraft/client/model/SpiderModel rightFrontLeg Lnet/minecraft/client/model/geom/ModelPart;
-accessible field net/minecraft/client/model/SpiderModel leftFrontLeg Lnet/minecraft/client/model/geom/ModelPart;
+accessible field net/minecraft/client/model/monster/creeper/CreeperModel head Lnet/minecraft/client/model/geom/ModelPart;
+accessible field net/minecraft/client/model/monster/spider/SpiderModel rightFrontLeg Lnet/minecraft/client/model/geom/ModelPart;
+accessible field net/minecraft/client/model/monster/spider/SpiderModel leftFrontLeg Lnet/minecraft/client/model/geom/ModelPart;
 accessible field net/minecraft/world/entity/ai/goal/MeleeAttackGoal ticksUntilNextAttack I
 accessible method net/minecraft/world/entity/monster/EnderMan teleportTowards (Lnet/minecraft/world/entity/Entity;)Z
 accessible field net/minecraft/world/entity/monster/EnderMan lastStareSound I
