@@ -1,12 +1,9 @@
 package com.mrbysco.instrumentalmobs.config;
 
-import com.mrbysco.instrumentalmobs.Constants;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
-public class InstrumentalConfigNeoForge {
+public class InstrumentalConfig {
 
 	public static class Common {
 		public final ModConfigSpec.BooleanValue mobsReact;
@@ -50,15 +47,5 @@ public class InstrumentalConfigNeoForge {
 		final Pair<Common, ModConfigSpec> specPair = new ModConfigSpec.Builder().configure(Common::new);
 		commonSpec = specPair.getRight();
 		COMMON = specPair.getLeft();
-	}
-
-	@SubscribeEvent
-	public static void onLoad(final ModConfigEvent.Loading configEvent) {
-		Constants.LOGGER.debug("Loaded Instrumental Mobs' config file {}", configEvent.getConfig().getFileName());
-	}
-
-	@SubscribeEvent
-	public static void onFileChange(final ModConfigEvent.Reloading configEvent) {
-		Constants.LOGGER.debug("Instrumental Mobs' config just got changed on the file system!");
 	}
 }

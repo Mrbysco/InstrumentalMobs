@@ -2,7 +2,7 @@ package com.mrbysco.instrumentalmobs.datagen.assets;
 
 import com.mrbysco.instrumentalmobs.registration.InstrumentalRegistry;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.model.ItemModelUtils;
@@ -13,7 +13,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
 public class InstrumentalModelProvider extends FabricModelProvider {
-	public InstrumentalModelProvider(FabricDataOutput output) {
+	public InstrumentalModelProvider(FabricPackOutput output) {
 		super(output);
 	}
 

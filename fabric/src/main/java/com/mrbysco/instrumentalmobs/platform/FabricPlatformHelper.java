@@ -1,9 +1,8 @@
 package com.mrbysco.instrumentalmobs.platform;
 
-import com.mrbysco.instrumentalmobs.InstrumentalMobsFabric;
 import com.mrbysco.instrumentalmobs.platform.services.IPlatformHelper;
 import com.mrbysco.instrumentalmobs.registration.InstrumentalRegistry;
-import net.fabricmc.fabric.impl.itemgroup.FabricItemGroupBuilderImpl;
+import net.fabricmc.fabric.impl.creativetab.FabricCreativeModeTabBuilderImpl;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.EnderMan;
@@ -19,7 +18,7 @@ public class FabricPlatformHelper implements IPlatformHelper {
 
 	@Override
 	public CreativeModeTab buildCreativeTab() {
-		return new FabricItemGroupBuilderImpl()
+		return new FabricCreativeModeTabBuilderImpl()
 				.icon(() -> new ItemStack(Blocks.NOTE_BLOCK))
 				.title(Component.translatable("itemGroup.instrumentalmobs"))
 				.displayItems((displayParameters, output) -> {
@@ -36,30 +35,5 @@ public class FabricPlatformHelper implements IPlatformHelper {
 	@Override
 	public boolean isEnderMask(ItemStack stack, Player player, EnderMan enderMan) {
 		return stack.getItem() == Blocks.CARVED_PUMPKIN.asItem();
-	}
-
-	@Override
-	public boolean mobsReact() {
-		return InstrumentalMobsFabric.config.get().general.mobsReact;
-	}
-
-	@Override
-	public double instrumentRange() {
-		return InstrumentalMobsFabric.config.get().general.instrumentRange;
-	}
-
-	@Override
-	public double soundDamageChance() {
-		return InstrumentalMobsFabric.config.get().general.soundDamageChance;
-	}
-
-	@Override
-	public double instrumentDropChance() {
-		return InstrumentalMobsFabric.config.get().general.instrumentDropChance;
-	}
-
-	@Override
-	public double instrumentHurtChance() {
-		return InstrumentalMobsFabric.config.get().general.instrumentHurtChance;
 	}
 }

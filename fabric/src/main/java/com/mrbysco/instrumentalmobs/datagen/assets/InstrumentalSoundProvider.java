@@ -8,7 +8,7 @@ package com.mrbysco.instrumentalmobs.datagen.assets;
 import com.google.gson.JsonObject;
 import com.mrbysco.instrumentalmobs.Constants;
 import com.mrbysco.instrumentalmobs.registration.InstrumentalSounds;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
@@ -28,9 +28,9 @@ public class InstrumentalSoundProvider implements DataProvider {
 
 	private final Map<String, SoundDefinition> sounds = new LinkedHashMap<>();
 
-	protected final FabricDataOutput dataOutput;
+	protected final FabricPackOutput dataOutput;
 
-	public InstrumentalSoundProvider(FabricDataOutput dataOutput) {
+	public InstrumentalSoundProvider(FabricPackOutput dataOutput) {
 		this.dataOutput = dataOutput;
 	}
 

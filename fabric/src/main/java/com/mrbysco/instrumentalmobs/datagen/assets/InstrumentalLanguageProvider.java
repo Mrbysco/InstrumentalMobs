@@ -4,7 +4,7 @@ import com.mrbysco.instrumentalmobs.Constants;
 import com.mrbysco.instrumentalmobs.registration.InstrumentalEntities;
 import com.mrbysco.instrumentalmobs.registration.InstrumentalRegistry;
 import com.mrbysco.instrumentalmobs.registration.InstrumentalSounds;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.sounds.SoundEvent;
@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class InstrumentalLanguageProvider extends FabricLanguageProvider {
 
-	public InstrumentalLanguageProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+	public InstrumentalLanguageProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
 		super(dataOutput, registryLookup);
 	}
 

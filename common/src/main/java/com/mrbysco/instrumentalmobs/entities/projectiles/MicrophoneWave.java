@@ -1,7 +1,7 @@
 package com.mrbysco.instrumentalmobs.entities.projectiles;
 
 import com.mrbysco.instrumentalmobs.Constants;
-import com.mrbysco.instrumentalmobs.platform.Services;
+import com.mrbysco.instrumentalmobs.config.InstrumentalConfig;
 import com.mrbysco.instrumentalmobs.registration.InstrumentalEntities;
 import com.mrbysco.instrumentalmobs.registration.InstrumentalRegistry;
 import com.mrbysco.instrumentalmobs.utils.InstrumentHelper;
@@ -60,7 +60,7 @@ public class MicrophoneWave extends ThrowableItemProjectile {
 		DamageSource source = Constants.causeSoundDamage(this);
 		if (entity instanceof Player collidingPlayer && shootingEntity instanceof Player playerIn) {
 			if (playerIn.canHarmPlayer(collidingPlayer)) {
-				if (this.level().random.nextInt(10) <= 2) {
+				if (this.level().getRandom().nextInt(10) <= 2) {
 					collidingPlayer.hurtOrSimulate(source, 1F);
 				}
 			}
@@ -73,10 +73,12 @@ public class MicrophoneWave extends ThrowableItemProjectile {
 	}
 
 	public void soundExplosion() {
-		this.level().playSound(null, this.blockPosition(), sound, this.getSoundSource(), 1.0F, this.level().random.nextFloat() * 0.1F + 0.9F);
+		this.level().playSound(null, this.blockPosition(), sound, this.getSoundSource(), 1.0F,
+				this.level().getRandom().nextFloat() * 0.1F + 0.9F);
 		this.level().addParticle(ParticleTypes.NOTE, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
-		if (Services.PLATFORM.mobsReact()) {
-			InstrumentHelper.instrumentDamage(this.level(), (LivingEntity) this.getOwner(), this.getBoundingBox().inflate(Services.PLATFORM.instrumentRange()));
+		if (InstrumentalConfig.COMMON.mobsReact.get()) {
+			InstrumentHelper.instrumentDamage(this.level(), (LivingEntity) this.getOwner(),
+					this.getBoundingBox().inflate(InstrumentalConfig.COMMON.instrumentRange.get()));
 		}
 	}
 

@@ -32,39 +32,4 @@ public interface IPlatformHelper {
 	 * @return If it stops endermen from targeting the player
 	 */
 	boolean isEnderMask(ItemStack stack, Player player, EnderMan enderMan);
-
-	/**
-	 * Get the configured `mobsReact` value
-	 *
-	 * @return The configured `mobsReact` value
-	 */
-	boolean mobsReact();
-
-	/**
-	 * Get the configured `instrumentRange` value
-	 *
-	 * @return The configured `instrumentRange` value
-	 */
-	double instrumentRange();
-
-	/**
-	 * Get the configured `soundDamageChance` value
-	 *
-	 * @return The configured `soundDamageChance` value
-	 */
-	double soundDamageChance();
-
-	/**
-	 * Get the configured `instrumentDropChance` value
-	 *
-	 * @return The configured `instrumentDropChance` value
-	 */
-	double instrumentDropChance();
-
-	/**
-	 * Get the configured `instrumentHurtChance` value
-	 *
-	 * @return The configured `instrumentHurtChance` value
-	 */
-	double instrumentHurtChance();
 }

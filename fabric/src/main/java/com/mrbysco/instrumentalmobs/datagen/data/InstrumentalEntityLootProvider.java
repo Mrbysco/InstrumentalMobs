@@ -1,7 +1,7 @@
 package com.mrbysco.instrumentalmobs.datagen.data;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableSubProvider;
 import net.minecraft.advancements.criterion.EntityPredicate;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
@@ -37,10 +37,10 @@ import static com.mrbysco.instrumentalmobs.registration.InstrumentalEntities.TRU
 import static com.mrbysco.instrumentalmobs.registration.InstrumentalEntities.TUBA_ENDERMAN;
 import static com.mrbysco.instrumentalmobs.registration.InstrumentalEntities.XYLOPHONE_SKELETON;
 
-public class InstrumentalEntityLootProvider extends SimpleFabricLootTableProvider {
+public class InstrumentalEntityLootProvider extends SimpleFabricLootTableSubProvider {
 	private final CompletableFuture<HolderLookup.Provider> registries;
 
-	public InstrumentalEntityLootProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+	public InstrumentalEntityLootProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
 		super(dataOutput, registryLookup, LootContextParamSets.ENTITY);
 		this.registries = registryLookup;
 	}

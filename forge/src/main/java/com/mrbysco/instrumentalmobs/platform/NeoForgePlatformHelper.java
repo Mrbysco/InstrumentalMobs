@@ -1,6 +1,5 @@
 package com.mrbysco.instrumentalmobs.platform;
 
-import com.mrbysco.instrumentalmobs.config.InstrumentalConfigNeoForge;
 import com.mrbysco.instrumentalmobs.platform.services.IPlatformHelper;
 import com.mrbysco.instrumentalmobs.registration.InstrumentalRegistry;
 import net.minecraft.network.chat.Component;
@@ -42,30 +41,5 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
 	@Override
 	public boolean isEnderMask(ItemStack stack, Player player, EnderMan enderMan) {
 		return stack.getItem() == Blocks.CARVED_PUMPKIN.asItem();
-	}
-
-	@Override
-	public boolean mobsReact() {
-		return InstrumentalConfigNeoForge.COMMON.mobsReact.get();
-	}
-
-	@Override
-	public double instrumentRange() {
-		return InstrumentalConfigNeoForge.COMMON.instrumentRange.get();
-	}
-
-	@Override
-	public double soundDamageChance() {
-		return InstrumentalConfigNeoForge.COMMON.soundDamageChance.get();
-	}
-
-	@Override
-	public double instrumentDropChance() {
-		return InstrumentalConfigNeoForge.COMMON.instrumentDropChance.get();
-	}
-
-	@Override
-	public double instrumentHurtChance() {
-		return InstrumentalConfigNeoForge.COMMON.instrumentHurtChance.get();
 	}
 }

@@ -1,6 +1,6 @@
 package com.mrbysco.instrumentalmobs.items;
 
-import com.mrbysco.instrumentalmobs.platform.Services;
+import com.mrbysco.instrumentalmobs.config.InstrumentalConfig;
 import com.mrbysco.instrumentalmobs.utils.InstrumentHelper;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
@@ -37,7 +37,7 @@ public class DrumInstrument extends Item {
 		}
 
 		player.playSound(sound.get(), 1F, 1F);
-		if (Services.PLATFORM.mobsReact()) {
+		if (InstrumentalConfig.COMMON.mobsReact.get()) {
 			InstrumentHelper.instrumentDamage(player);
 		}
 		stack.hurtAndBreak(1, player, hand == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);

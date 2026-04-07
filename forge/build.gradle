@@ -18,15 +18,10 @@ configurations {
 neoForge {
     version = "${neo_version}"
 
-    parchment {
-        minecraftVersion = "${parchment_minecraft_version}"
-        mappingsVersion = "${parchment_mapping_version}"
-    }
-
     // Automatically enable neoforge AccessTransformers if the file exists
-    def at = project(':common').file('src/main/resources/META-INF/accesstransformer.cfg')
+    def at = file('src/main/resources/META-INF/accesstransformer.cfg')
     if (at.exists()) {
-        accessTransformers.add(at.absolutePath)
+        accessTransformers.from(at.absolutePath)
     }
     def commonResources = project(':common').file("src/main/resources")
 
@@ -79,7 +74,6 @@ configurations {
 }
 
 dependencies {
-    implementation "net.neoforged:neoforge:${neo_version}"
     compileOnly project(":common")
 }
 
@@ -125,7 +119,7 @@ if (System.getenv().CURSEFORGE_KEY) {
         mainFile.releaseType = 'beta'
         mainFile.addGameVersion "NeoForge"
         mainFile.addGameVersion "${minecraft_version}"
-        mainFile.addGameVersion "Java 21"
+        mainFile.addGameVersion "Java 25"
         mainFile.addGameVersion('Server', 'Client')
 
         mainFile.changelog = file("$project.rootDir/changelog.md")

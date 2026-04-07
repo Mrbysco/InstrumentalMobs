@@ -93,7 +93,7 @@ public class CymbalHusk extends Husk implements IInstrumentalMobs {
 		}
 
 		public void playBreakSound(Level level, BlockPos pos) {
-			level.playSound((Player) null, pos, SoundEvents.TURTLE_EGG_BREAK, SoundSource.BLOCKS, 0.7F, 0.9F + level.random.nextFloat() * 0.2F);
+			level.playSound((Player) null, pos, SoundEvents.TURTLE_EGG_BREAK, SoundSource.BLOCKS, 0.7F, 0.9F + level.getRandom().nextFloat() * 0.2F);
 		}
 
 		public double acceptedDistance() {

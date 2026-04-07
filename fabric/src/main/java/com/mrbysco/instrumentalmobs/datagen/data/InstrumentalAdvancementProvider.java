@@ -4,7 +4,7 @@ import com.mrbysco.instrumentalmobs.Constants;
 import com.mrbysco.instrumentalmobs.registration.InstrumentalEntities;
 import com.mrbysco.instrumentalmobs.registration.InstrumentalRegistry;
 import com.mrbysco.instrumentalmobs.registration.RegistryObject;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
@@ -22,7 +22,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 
@@ -32,7 +32,7 @@ import java.util.function.Consumer;
 
 public class InstrumentalAdvancementProvider extends FabricAdvancementProvider {
 
-	public InstrumentalAdvancementProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+	public InstrumentalAdvancementProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
 		super(dataOutput, registryLookup);
 	}
 
@@ -108,7 +108,7 @@ public class InstrumentalAdvancementProvider extends FabricAdvancementProvider {
 	 * @return The DisplayInfo object.
 	 */
 	protected static DisplayInfo rootDisplay(ItemLike icon, String titleKey, String descKey, Identifier background) {
-		return new DisplayInfo(new ItemStack(icon.asItem()), Component.translatable(titleKey),
+		return new DisplayInfo(new ItemStackTemplate(icon.asItem()), Component.translatable(titleKey),
 				Component.translatable(descKey), Optional.of(new ClientAsset.ResourceTexture(background)),
 				AdvancementType.TASK, true, true, false);
 	}
@@ -121,7 +121,7 @@ public class InstrumentalAdvancementProvider extends FabricAdvancementProvider {
 	 * @return The DisplayInfo object.
 	 */
 	protected static DisplayInfo simpleDisplay(ItemLike icon, String name) {
-		return new DisplayInfo(new ItemStack(icon.asItem()),
+		return new DisplayInfo(new ItemStackTemplate(icon.asItem()),
 				Component.translatable(advancementPrefix(name + ".title")),
 				Component.translatable(advancementPrefix(name + ".desc")),
 				Optional.empty(), AdvancementType.TASK, true, false, false);

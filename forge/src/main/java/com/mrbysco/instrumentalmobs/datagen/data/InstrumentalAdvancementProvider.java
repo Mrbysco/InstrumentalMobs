@@ -24,7 +24,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 
@@ -103,7 +103,7 @@ public class InstrumentalAdvancementProvider extends AdvancementProvider {
 		 * @return The DisplayInfo object.
 		 */
 		protected static DisplayInfo rootDisplay(ItemLike icon, String titleKey, String descKey, Identifier background) {
-			return new DisplayInfo(new ItemStack(icon.asItem()), Component.translatable(titleKey),
+			return new DisplayInfo(new ItemStackTemplate(icon.asItem()), Component.translatable(titleKey),
 					Component.translatable(descKey), Optional.of(new ClientAsset.ResourceTexture(background)),
 					AdvancementType.TASK, true, true, false);
 		}
@@ -116,7 +116,7 @@ public class InstrumentalAdvancementProvider extends AdvancementProvider {
 		 * @return The DisplayInfo object.
 		 */
 		protected static DisplayInfo simpleDisplay(ItemLike icon, String name) {
-			return new DisplayInfo(new ItemStack(icon.asItem()), Component.translatable(advancementPrefix(name + ".title")), Component.translatable(advancementPrefix(name + ".desc")), Optional.empty(), AdvancementType.TASK, true, false, false);
+			return new DisplayInfo(new ItemStackTemplate(icon.asItem()), Component.translatable(advancementPrefix(name + ".title")), Component.translatable(advancementPrefix(name + ".desc")), Optional.empty(), AdvancementType.TASK, true, false, false);
 		}
 
 		/**

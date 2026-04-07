@@ -1,9 +1,0 @@
-// 1.21.11	-999999999-01-01T00:00:00	Instrumental Mobs/minecraft:entity Loot Table
-777f54ccc3d31c2a869f8360f3ac9ce04aa6241f data/instrumentalmobs/loot_table/entities/cymbal_husk.json
-777f54ccc3d31c2a869f8360f3ac9ce04aa6241f data/instrumentalmobs/loot_table/entities/drum_zombie.json
-3a69bfe1faaf7046bf49f93a52c7fda8eebf792d data/instrumentalmobs/loot_table/entities/french_horn_creeper.json
-5bc9cdad7b493f4c6389bc9bab27195e803049e1 data/instrumentalmobs/loot_table/entities/maraca_spider.json
-a0ff79e134f78307dc1794b6a80ef09c2556d528 data/instrumentalmobs/loot_table/entities/microphone_ghast.json
-a9339daca648ecde4650438b1be8c1b9f49c91c2 data/instrumentalmobs/loot_table/entities/trumpet_skeleton.json
-e2eb578bf77beb47b94b518544f252182a446b47 data/instrumentalmobs/loot_table/entities/tuba_enderman.json
-a9339daca648ecde4650438b1be8c1b9f49c91c2 data/instrumentalmobs/loot_table/entities/xylophone_skeleton.json

@@ -1,12 +1,10 @@
 package com.mrbysco.instrumentalmobs;
 
-import com.mrbysco.instrumentalmobs.config.InstrumentalConfigFabric;
+import com.mrbysco.instrumentalmobs.config.InstrumentalConfig;
 import com.mrbysco.instrumentalmobs.entities.CymbalHusk;
 import com.mrbysco.instrumentalmobs.entities.MicrophoneGhast;
 import com.mrbysco.instrumentalmobs.registration.InstrumentalEntities;
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.ConfigHolder;
-import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
+import fuzs.forgeconfigapiport.fabric.api.v5.ConfigRegistry;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
@@ -24,15 +22,14 @@ import net.minecraft.world.entity.monster.skeleton.AbstractSkeleton;
 import net.minecraft.world.entity.monster.spider.Spider;
 import net.minecraft.world.entity.monster.zombie.Zombie;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.neoforged.fml.config.ModConfig;
 
 import java.util.function.Predicate;
 
 public class InstrumentalMobsFabric implements ModInitializer {
-	public static ConfigHolder<InstrumentalConfigFabric> config;
-
 	@Override
 	public void onInitialize() {
-		config = AutoConfig.register(InstrumentalConfigFabric.class, JanksonConfigSerializer::new);
+		ConfigRegistry.INSTANCE.register(Constants.MOD_ID, ModConfig.Type.COMMON, InstrumentalConfig.commonSpec);
 
 		CommonClass.init();
 
