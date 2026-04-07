@@ -18,7 +18,7 @@ public class TubaEndermanHeldItemLayer extends RenderLayer<EndermanRenderState, 
 
 	@Override
 	public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int packedLight, EndermanRenderState state, float xRot, float yRot) {
-		ItemStackRenderState stack = state.getMainHandItem();
+		ItemStackRenderState stack = state.getMainHandItemState();
 		if (!stack.isEmpty()) {
 			poseStack.pushPose();
 			this.getParentModel().getHead().translateAndRotate(poseStack);

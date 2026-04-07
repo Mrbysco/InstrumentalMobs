@@ -6,12 +6,12 @@ import com.mrbysco.instrumentalmobs.client.render.state.XylophoneRenderState;
 import com.mrbysco.instrumentalmobs.entities.XylophoneSkeleton;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
 
 public class XylophoneSkeletonRenderer extends CustomBipedRenderer<XylophoneSkeleton, XylophoneRenderState, XylophoneSkeletonModel> {
-	private static final ResourceLocation SKELETON_TEXTURES = ResourceLocation.withDefaultNamespace("textures/entity/skeleton/skeleton.png");
+	private static final Identifier SKELETON_TEXTURES = Identifier.withDefaultNamespace("textures/entity/skeleton/skeleton.png");
 
 	public XylophoneSkeletonRenderer(EntityRendererProvider.Context context) {
 		super(context, new XylophoneSkeletonModel(context.bakeLayer(ModelLayers.SKELETON)), 0.5F);
@@ -40,7 +40,7 @@ public class XylophoneSkeletonRenderer extends CustomBipedRenderer<XylophoneSkel
 
 	@NotNull
 	@Override
-	public ResourceLocation getTextureLocation(@NotNull XylophoneRenderState state) {
+	public Identifier getTextureLocation(@NotNull XylophoneRenderState state) {
 		return SKELETON_TEXTURES;
 	}
 }

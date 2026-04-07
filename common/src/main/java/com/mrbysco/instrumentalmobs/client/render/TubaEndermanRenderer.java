@@ -9,14 +9,14 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.state.EndermanRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
 public class TubaEndermanRenderer extends MobRenderer<TubaEnderman, EndermanRenderState, TubaEndermanModel<EndermanRenderState>> {
-	private static final ResourceLocation ENDERMAN_TEXTURES = ResourceLocation.withDefaultNamespace("textures/entity/enderman/enderman.png");
+	private static final Identifier ENDERMAN_TEXTURES = Identifier.withDefaultNamespace("textures/entity/enderman/enderman.png");
 	private final Random rnd = new Random();
 
 	public TubaEndermanRenderer(EntityRendererProvider.Context context) {
@@ -54,7 +54,7 @@ public class TubaEndermanRenderer extends MobRenderer<TubaEnderman, EndermanRend
 	 */
 	@NotNull
 	@Override
-	public ResourceLocation getTextureLocation(@NotNull EndermanRenderState state) {
+	public Identifier getTextureLocation(@NotNull EndermanRenderState state) {
 		return ENDERMAN_TEXTURES;
 	}
 }

@@ -2,9 +2,8 @@ package com.mrbysco.instrumentalmobs.client.render.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mrbysco.instrumentalmobs.client.render.state.XylophoneRenderState;
-import net.minecraft.client.model.SkeletonModel;
 import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import net.minecraft.client.model.monster.skeleton.SkeletonModel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 import org.jetbrains.annotations.NotNull;

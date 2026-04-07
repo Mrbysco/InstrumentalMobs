@@ -1,7 +1,7 @@
 package com.mrbysco.instrumentalmobs;
 
 import com.mrbysco.instrumentalmobs.registration.InstrumentalDamageTypes;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import org.slf4j.Logger;
@@ -12,8 +12,8 @@ public class Constants {
 	public static final String MOD_NAME = "Instrumental Mobs";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
 
-	public static ResourceLocation modLoc(String name) {
-		return ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, name);
+	public static Identifier modLoc(String name) {
+		return Identifier.fromNamespaceAndPath(Constants.MOD_ID, name);
 	}
 
 	public static DamageSource causeSoundDamage(Entity entity) {

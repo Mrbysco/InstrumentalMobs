@@ -8,7 +8,7 @@ import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelLocationUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
@@ -19,7 +19,7 @@ public class InstrumentalModelProvider extends FabricModelProvider {
 
 	@Override
 	public void generateBlockStateModels(BlockModelGenerators blockModels) {
-		ResourceLocation resourcelocation = ModelLocationUtils.getModelLocation(InstrumentalRegistry.DRUM_BLOCK.get());
+		Identifier resourcelocation = ModelLocationUtils.getModelLocation(InstrumentalRegistry.DRUM_BLOCK.get());
 		blockModels.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(InstrumentalRegistry.DRUM_BLOCK.get(),
 				BlockModelGenerators.plainVariant(resourcelocation)));
 	}

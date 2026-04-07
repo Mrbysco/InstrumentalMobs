@@ -6,12 +6,11 @@ import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.EnergySwirlLayer;
-import net.minecraft.client.renderer.entity.state.CreeperRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 public class FrenchHornCreeperCharge extends EnergySwirlLayer<FrenchRenderState, FrenchHornCreeperModel> {
-	private static final ResourceLocation LIGHTNING_TEXTURE = ResourceLocation.withDefaultNamespace("textures/entity/creeper/creeper_armor.png");
+	private static final Identifier LIGHTNING_TEXTURE = Identifier.withDefaultNamespace("textures/entity/creeper/creeper_armor.png");
 	private final FrenchHornCreeperModel creeperModel;
 
 	public FrenchHornCreeperCharge(RenderLayerParent<FrenchRenderState, FrenchHornCreeperModel> layerParent, EntityModelSet modelSet) {
@@ -31,7 +30,7 @@ public class FrenchHornCreeperCharge extends EnergySwirlLayer<FrenchRenderState,
 
 	@NotNull
 	@Override
-	protected ResourceLocation getTextureLocation() {
+	protected Identifier getTextureLocation() {
 		return LIGHTNING_TEXTURE;
 	}
 

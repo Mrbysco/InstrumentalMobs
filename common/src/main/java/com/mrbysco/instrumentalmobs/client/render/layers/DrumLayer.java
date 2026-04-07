@@ -3,7 +3,7 @@ package com.mrbysco.instrumentalmobs.client.render.layers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.mrbysco.instrumentalmobs.client.render.state.DrumRenderState;
-import net.minecraft.client.model.ZombieModel;
+import net.minecraft.client.model.monster.zombie.ZombieModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;

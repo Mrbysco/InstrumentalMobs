@@ -2,7 +2,7 @@ package com.mrbysco.instrumentalmobs.entities.goals;
 
 import com.mrbysco.instrumentalmobs.entities.IInstrumentalSkeleton;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.entity.monster.Skeleton;
+import net.minecraft.world.entity.monster.skeleton.Skeleton;
 
 import java.util.function.Supplier;
 

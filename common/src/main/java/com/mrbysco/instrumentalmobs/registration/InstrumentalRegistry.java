@@ -8,8 +8,8 @@ import com.mrbysco.instrumentalmobs.items.InstrumentMicrophone;
 import com.mrbysco.instrumentalmobs.platform.Services;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -49,11 +49,11 @@ public class InstrumentalRegistry {
 	public static final RegistryObject<Item> TRUMPET_SKELETON_SPAWN_EGG = ITEMS.register("trumpet_skeleton_spawn_egg", () -> new SpawnEggItem((new Item.Properties().spawnEgg(InstrumentalEntities.TRUMPET_SKELETON.get()).setId(getKey("trumpet_skeleton_spawn_egg")))));
 
 	private static ResourceKey<Item> getKey(String name) {
-		return ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, name));
+		return ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(Constants.MOD_ID, name));
 	}
 
 	private static ResourceKey<Block> getBlockKey(String name) {
-		return ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, name));
+		return ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(Constants.MOD_ID, name));
 	}
 
 	public static final RegistryObject<CreativeModeTab> INSTRUMENTAL_TAB = CREATIVE_MODE_TABS.register("tab", () -> Services.PLATFORM.buildCreativeTab());

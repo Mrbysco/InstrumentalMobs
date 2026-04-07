@@ -3,7 +3,7 @@ package com.mrbysco.instrumentalmobs.datagen.assets;
 import com.mrbysco.instrumentalmobs.Constants;
 import com.mrbysco.instrumentalmobs.registration.InstrumentalSounds;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.common.data.SoundDefinitionsProvider;
 
 public class InstrumentalSoundProvider extends SoundDefinitionsProvider {
@@ -41,7 +41,7 @@ public class InstrumentalSoundProvider extends SoundDefinitionsProvider {
 	}
 
 
-	public String modSubtitle(ResourceLocation id) {
+	public String modSubtitle(Identifier id) {
 		return Constants.MOD_ID + ".subtitle." + id.getPath();
 	}
 }

@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.client.renderer.item.ItemModelResolver;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.HumanoidArm;
@@ -20,7 +20,7 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class CustomBipedRenderer<T extends Mob, S extends HumanoidRenderState, M extends HumanoidModel<S>> extends MobRenderer<T, S, M> {
-	private static final ResourceLocation DEFAULT_RES_LOC = ResourceLocation.withDefaultNamespace("textures/entity/steve.png");
+	private static final Identifier DEFAULT_RES_LOC = Identifier.withDefaultNamespace("textures/entity/steve.png");
 
 	public CustomBipedRenderer(EntityRendererProvider.Context context, M humanoidModel, float shadowSize) {
 		super(context, humanoidModel, shadowSize);
@@ -39,7 +39,7 @@ public abstract class CustomBipedRenderer<T extends Mob, S extends HumanoidRende
 	}
 
 	public static void extractHumanoidRenderState(LivingEntity entity, HumanoidRenderState reusedState, float partialTick, ItemModelResolver itemModelResolver) {
-		ArmedEntityRenderState.extractArmedEntityRenderState(entity, reusedState, itemModelResolver);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, reusedState, itemModelResolver, partialTick);
 		reusedState.isCrouching = entity.isCrouching();
 		reusedState.isFallFlying = entity.isFallFlying();
 		reusedState.isVisuallySwimming = entity.isVisuallySwimming();
@@ -86,7 +86,7 @@ public abstract class CustomBipedRenderer<T extends Mob, S extends HumanoidRende
 	 */
 	@NotNull
 	@Override
-	public ResourceLocation getTextureLocation(@NotNull S state) {
+	public Identifier getTextureLocation(@NotNull S state) {
 		return DEFAULT_RES_LOC;
 	}
 }

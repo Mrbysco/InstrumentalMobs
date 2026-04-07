@@ -4,7 +4,6 @@ import com.mrbysco.instrumentalmobs.client.render.state.FrenchRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HeadedModel;
 import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.renderer.entity.state.CreeperRenderState;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 

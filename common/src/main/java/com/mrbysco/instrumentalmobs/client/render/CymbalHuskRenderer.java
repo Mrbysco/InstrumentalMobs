@@ -4,16 +4,15 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mrbysco.instrumentalmobs.client.render.model.CymbalHuskModel;
 import com.mrbysco.instrumentalmobs.client.render.state.CymbalRenderState;
 import com.mrbysco.instrumentalmobs.entities.CymbalHusk;
-import net.minecraft.client.model.ZombieModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.AbstractZombieRenderer;
 import net.minecraft.client.renderer.entity.ArmorModelSet;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 public class CymbalHuskRenderer extends AbstractZombieRenderer<CymbalHusk, CymbalRenderState, CymbalHuskModel<CymbalRenderState>> {
-	private static final ResourceLocation HUSK_LOCATION = ResourceLocation.withDefaultNamespace("textures/entity/zombie/husk.png");
+	private static final Identifier HUSK_LOCATION = Identifier.withDefaultNamespace("textures/entity/zombie/husk.png");
 
 	public CymbalHuskRenderer(EntityRendererProvider.Context context) {
 		super(context,
@@ -45,7 +44,7 @@ public class CymbalHuskRenderer extends AbstractZombieRenderer<CymbalHusk, Cymba
 
 	@NotNull
 	@Override
-	public ResourceLocation getTextureLocation(@NotNull CymbalRenderState state) {
+	public Identifier getTextureLocation(@NotNull CymbalRenderState state) {
 		return HUSK_LOCATION;
 	}
 }

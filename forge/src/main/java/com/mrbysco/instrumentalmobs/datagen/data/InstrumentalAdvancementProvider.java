@@ -9,9 +9,9 @@ import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.DisplayInfo;
-import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.advancements.critereon.KilledTrigger;
+import net.minecraft.advancements.criterion.EntityPredicate;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.advancements.criterion.KilledTrigger;
 import net.minecraft.core.ClientAsset;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
@@ -21,7 +21,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.advancements.AdvancementProvider;
 import net.minecraft.data.advancements.AdvancementSubProvider;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -50,7 +50,7 @@ public class InstrumentalAdvancementProvider extends AdvancementProvider {
 			AdvancementHolder root = Advancement.Builder.advancement()
 					.display(rootDisplay(Items.NOTE_BLOCK, advancementPrefix("root" + ".title"),
 							advancementPrefix("root" + ".desc"),
-							ResourceLocation.withDefaultNamespace("textures/block/yellow_wool.png")))
+							Identifier.withDefaultNamespace("textures/block/yellow_wool.png")))
 					.addCriterion("french_horn_creeper", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity()
 							.of(holdergetter, InstrumentalEntities.FRENCH_HORN_CREEPER.get())))
 					.addCriterion("tuba_enderman", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity()
@@ -86,7 +86,7 @@ public class InstrumentalAdvancementProvider extends AdvancementProvider {
 		 * @param root           The root advancement
 		 */
 		public static void addInstrumentAdvancement(Consumer<AdvancementHolder> consumer, RegistryObject<Item> registryObject, AdvancementHolder root) {
-			ResourceLocation registryLocation = registryObject.getId();
+			Identifier registryLocation = registryObject.getId();
 			Item item = registryObject.get();
 			if (registryLocation != null) {
 				Advancement.Builder.advancement().display(simpleDisplay(item, registryLocation.getPath())).parent(root).addCriterion("instrument", InventoryChangeTrigger.TriggerInstance.hasItems(item)).save(consumer, rootID(registryLocation.getPath()));
@@ -102,7 +102,7 @@ public class InstrumentalAdvancementProvider extends AdvancementProvider {
 		 * @param background The background texture.
 		 * @return The DisplayInfo object.
 		 */
-		protected static DisplayInfo rootDisplay(ItemLike icon, String titleKey, String descKey, ResourceLocation background) {
+		protected static DisplayInfo rootDisplay(ItemLike icon, String titleKey, String descKey, Identifier background) {
 			return new DisplayInfo(new ItemStack(icon.asItem()), Component.translatable(titleKey),
 					Component.translatable(descKey), Optional.of(new ClientAsset.ResourceTexture(background)),
 					AdvancementType.TASK, true, true, false);

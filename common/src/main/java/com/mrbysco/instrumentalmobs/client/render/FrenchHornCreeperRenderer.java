@@ -9,15 +9,14 @@ import com.mrbysco.instrumentalmobs.entities.FrenchHornCreeper;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.state.CreeperRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.ItemDisplayContext;
 import org.jetbrains.annotations.NotNull;
 
 public class FrenchHornCreeperRenderer extends MobRenderer<FrenchHornCreeper, FrenchRenderState, FrenchHornCreeperModel> {
-	private static final ResourceLocation CREEPER_TEXTURES = ResourceLocation.withDefaultNamespace("textures/entity/creeper/creeper.png");
+	private static final Identifier CREEPER_TEXTURES = Identifier.withDefaultNamespace("textures/entity/creeper/creeper.png");
 
 	public FrenchHornCreeperRenderer(EntityRendererProvider.Context context) {
 		super(context, new FrenchHornCreeperModel(context.bakeLayer(ModelLayers.CREEPER)), 0.5F);
@@ -64,7 +63,7 @@ public class FrenchHornCreeperRenderer extends MobRenderer<FrenchHornCreeper, Fr
 	 */
 	@NotNull
 	@Override
-	public ResourceLocation getTextureLocation(@NotNull FrenchRenderState state) {
+	public Identifier getTextureLocation(@NotNull FrenchRenderState state) {
 		return CREEPER_TEXTURES;
 	}
 }

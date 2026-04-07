@@ -3,7 +3,7 @@ package com.mrbysco.instrumentalmobs.client.render;
 import com.mrbysco.instrumentalmobs.client.render.layers.DrumLayer;
 import com.mrbysco.instrumentalmobs.client.render.state.DrumRenderState;
 import com.mrbysco.instrumentalmobs.entities.DrumZombie;
-import net.minecraft.client.model.ZombieModel;
+import net.minecraft.client.model.monster.zombie.ZombieModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.AbstractZombieRenderer;

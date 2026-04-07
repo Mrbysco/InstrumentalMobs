@@ -3,7 +3,7 @@ package com.mrbysco.instrumentalmobs.client.render.layers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.mrbysco.instrumentalmobs.client.render.state.MicrophoneRenderState;
-import net.minecraft.client.model.GhastModel;
+import net.minecraft.client.model.monster.ghast.GhastModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;

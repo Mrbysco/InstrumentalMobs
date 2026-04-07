@@ -21,8 +21,8 @@ public class HeldBoneLayer extends RenderLayer<XylophoneRenderState, XylophoneSk
 	@Override
 	public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int packedLight, XylophoneRenderState state, float xRot, float yRot) {
 		boolean flag = state.mainArm == HumanoidArm.RIGHT;
-		ItemStackRenderState itemstack = flag ? state.leftHandItem : state.rightHandItem;
-		ItemStackRenderState itemstack1 = flag ? state.rightHandItem : state.leftHandItem;
+		ItemStackRenderState itemstack = flag ? state.leftHandItemState : state.rightHandItemState;
+		ItemStackRenderState itemstack1 = flag ? state.rightHandItemState : state.leftHandItemState;
 
 		if (!itemstack.isEmpty() || !itemstack1.isEmpty()) {
 			poseStack.pushPose();
